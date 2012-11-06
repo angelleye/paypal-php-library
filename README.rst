@@ -21,6 +21,12 @@ Place all of the library files on your web server in a directory of your choice.
 open /includes/config-sample.php, fill in your own config details, and then save this file
 as config.php in the same directory.
 
+You may refer to this `overview video <http://www.angelleye.com/overview-of-php-class-library-for-paypal/>`_ of how to use the library, 
+and there are also samples provided in the /samples directory.
+
+You may also `contact me directly <http://www.angelleye.com/contact-us/>`_ if you need additional help getting started.  I offer 30 min of free training for using this library, 
+which is generally plenty to get you up-and-running.
+
 *********
 Resources
 *********
