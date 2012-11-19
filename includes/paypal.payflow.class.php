@@ -134,6 +134,24 @@ class PayPal_PayFlow extends PayPal
 		return $Response;
 	}
 	
+	
+	/**
+	 * Convert an NVP string to an array with URL decoded values
+	 *
+	 * @access	public
+	 * @param	string	NVP string
+	 * @return	array
+	 */
+	function NVPToArray($NVPString)
+	{
+		$proArray = array();
+		
+		parse_str($NVPString,$proArray);
+	
+		return $proArray;
+	
+	}
+	
 	/*
 	 * ProcessTransaction
 	 * 
