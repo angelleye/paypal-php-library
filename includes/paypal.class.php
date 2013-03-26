@@ -3,7 +3,7 @@
  * 	Angell EYE PayPal NVP Class
  *	An open source PHP library written to easily work with PayPal's API's
  *	
- *  Copyright © 2012  Andrew K. Angell
+ *  Copyright ï¿½ 2012  Andrew K. Angell
  *	Email:  andrew@angelleye.com
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -21,7 +21,7 @@
  *
  * @package			Angell_EYE_PayPal_Class_Library
  * @author			Andrew K. Angell
- * @copyright       Copyright © 2012 Angell EYE, LLC
+ * @copyright       Copyright ï¿½ 2012 Angell EYE, LLC
  * @link			http://www.angelleye.com
  * @since			Version 1.5
  * @updated			10.31.2012
@@ -2615,7 +2615,7 @@ class PayPal
 								'L_ACCESSPERMISSIONSTATUS' => $LStatus
 								);
 																	
-			array_push($ActivePermissions, $CurrentItem);
+			array_push($Permissions, $CurrentItem);
 			$n++;	
 		}
 		
