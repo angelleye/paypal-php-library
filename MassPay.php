@@ -49,7 +49,7 @@ $Item3 = array(
 									
 $MPItems = array($Item1, $Item2, $Item3);  // etc
 
-$PayPalRequestData = array('MPFields'=>$MPFields, 'MPItems' => $MPFields);
+$PayPalRequestData = array('MPFields'=>$MPFields, 'MPItems' => $MPItems);
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
 $PayPalResult = $PayPal->MassPay($PayPalRequestData);
