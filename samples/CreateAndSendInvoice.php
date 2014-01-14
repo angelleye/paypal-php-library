@@ -2,6 +2,7 @@
 // Include required library files.
 require_once('../includes/config.php');
 require_once('../includes/paypal.class.php');
+require_once('../includes/paypal.adaptive.class.php');
 
 // Create PayPal object.
 $PayPalConfig = array(
@@ -21,8 +22,8 @@ $PayPal = new PayPal_Adaptive($PayPalConfig);
 // Prepare request arrays
 $CreateInvoiceFields = array(
 							'MerchantEmail' => 'sandbo_1215254764_biz@angelleye.com', 				// Required.  Merchant email address.
-							'PayerEmail' => 'sandbo_1204199080_biz@angelleye.com', 				// Required.  Payer email address.
-							'Number' => '123-ABCDEF', 					// Unique ID for the invoice.
+							'PayerEmail' => 'drew@angelleye.com', 				// Required.  Payer email address.
+							'Number' => 'ABCZ-12234567', 					// Unique ID for the invoice.
 							'CurrencyCode' => 'USD', 				// Required.  Currency used for all invoice item amounts and totals.
 							'InvoiceDate' => '', 				// Date on which the invoice is enabled.
 							'DueDate' => '', 					// Date on which the invoice payment is due.

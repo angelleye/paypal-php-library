@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>PayPal PHP Class Library | Angell EYE</title>
+<style type="text/css">
+body,td,th {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+<h1>Setup</h1>
+<ul>
+  <li><a href="http://www.angelleye.com/download-angell-eye-php-class-library-for-paypal/" target="_blank">Download the PHP class library for PayPal</a> and upload to a directory on your web server.</li>
+  <li>Open /includes/config-sample.php and adjust the values with your own Sandbox and Production API credentials.  then Save-As config.php
+    <ul>
+      <li>There are detailed comments inside the config file to help you fill it out correctly.</li>
+    </ul>
+  </li>
+</ul>
+<h1>How to Make PayPal API Calls</h1>
+<ul>
+  <li>Open the template file that corresponds to the API call you'd like to make.
+    <ul>
+      <li>Example: If we want to make a call to the RefundTransaction API we open RefundTransaction.php</li>
+    </ul>
+  </li>
+  <li>You may leave the file here, or save this file to the location on your web server where you'd like this call to be made.
+    <ul>
+      <li>I like to save the files to a separate location and keep the ones included with the library as empty templates.</li>
+    </ul>
+  </li>
+  <li>Each template file includes PHP arrays for every parameter available to that particular API. Simply fill in the array parameters with your own dynamic (or static) data.  This data may come from...
+    <ul>
+      <li>Session Variables</li>
+      <li>PHP Variables</li>
+      <li>Database Recordsets</li>
+      <li>Static Values</li>
+      <li>Etc.</li>
+    </ul>
+  </li>
+  <li>When you run the file you will get a $PayPalResult array that consists of all the response parameters from PayPal, original request parameters sent to PayPal, and raw request/response info for troubleshooting.
+    <ul>
+      <li>You may refer to the <a href="https://developer.paypal.com/webapps/developer/docs/classic/api/">PayPal API Reference Guide</a> for details about what response parameters you can expect to get back from any successful API request.
+        <ul>
+          <li>Example: When working with RefundTransaction, I can see that PayPal will return a REFUNDTRANSACTIONID, FEEREFUNDAMT, etc. As such, I know that those values will be included in $PayPalResult['REFUNDTRANSACTIONID'] and $PayPalResult['FEEREFUNDAMT'] respectively. </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>If errors occur they will be available in $PayPalResult['ERRORS'].</li>
+</ul>
+<h1>General Tips</h1>
+<ul>
+  <li>The result of the API call will come back in $PayPalResult['ACK'].
+    <ul>
+      <li>Remember when checking the value that it could be Success, Failure, SuccessWithWarning, or FailureWithWarning. Simply checking for Success isn't enough.</li>
+      <li>You may use $PayPal-&gt;APICallSuccessful($Ack) to do this for you.</li>
+    </ul>
+  </li>
+</ul>
+<h1>Tips for Testing in the Sandbox</h1>
+<ul>
+  <li>Create an account at <a href="http://developer.paypal.com" target="_blank">http://developer.paypal.com</a></li>
+  <li>Create at least one sandbox Seller account and one sandbox Buyer account from within your developer account.
+    <ul>
+      <li>These accounts can be used to go through the entire process of buying items within your application, and reviewing what each party involved will see in their PayPal account when the transaction is completed.</li>
+    </ul>
+  </li>
+</ul>
+<h1>Tips for Going Live</h1>
+<ul>
+  <li>Review <a href="https://developer.paypal.com/webapps/developer/docs/classic/lifecycle/goingLive/" target="_blank">PayPal's Going Live Information</a></li>
+  <li>Move /includes/config.php to a directory outside your web root.
+    <ul>
+      <li>When you do this you'll need to make sure any scripts where the config is included are updated to use the system path instead of the site path.  </li>
+    </ul>
+  </li>
+</ul>
+</body>
+</html>

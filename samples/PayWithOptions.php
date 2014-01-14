@@ -2,6 +2,7 @@
 // Include required library files.
 require_once('../includes/config.php');
 require_once('../includes/paypal.class.php');
+require_once('../includes/paypal.adaptive.class.php');
 
 // Create PayPal object.
 $PayPalConfig = array(
@@ -88,13 +89,13 @@ $DisplayOptions = array(
 );
 
 $InstitutionCustomer = array(
-		'CountryCode' => '', 				// Required.  2 char code of the home country of the end user.
-		'DisplayName' => '', 				// Required.  The full name of the consumer as known by the institution.  200 char max.
-		'InstitutionCustomerEmail' => '', 	// The email address of the consumer.  127 char max.
-		'FirstName' => '', 					// Required.  The first name of the consumer.  64 char max.
-		'LastName' => '', 					// Required.  The last name of the consumer.  64 char max.
-		'InstitutionCustomerID' => '', 		// Required.  The unique ID assigned to the consumer by the institution.  64 char max.
-		'InstitutionID' => ''				// Required.  The unique ID assiend to the institution.  64 char max.
+		'CountryCode' => 'US', 				// Required.  2 char code of the home country of the end user.
+		'DisplayName' => 'Tester Testerson', 				// Required.  The full name of the consumer as known by the institution.  200 char max.
+		'InstitutionCustomerEmail' => 'sandbox@angelleye.com', 	// The email address of the consumer.  127 char max.
+		'FirstName' => 'Tester', 					// Required.  The first name of the consumer.  64 char max.
+		'LastName' => 'Testerson', 					// Required.  The last name of the consumer.  64 char max.
+		'InstitutionCustomerID' => 'ABC-123', 		// Required.  The unique ID assigned to the consumer by the institution.  64 char max.
+		'InstitutionID' => '123'				// Required.  The unique ID assigned to the institution.  64 char max.
 );
 
 $SenderOptions = array(
@@ -177,7 +178,7 @@ $PayPalRequestData = array(
 		//'AccountIdentifierFields' => $AccountIdentifierFields,
 		'SPOFields' => $SPOFields, 
 		'DisplayOptions' => $DisplayOptions, 
-		//'InstitutionCustomer' => $InstitutionCustomer, 
+		'InstitutionCustomer' => $InstitutionCustomer, 
 		'SenderOptions' => $SenderOptions, 
 		'ReceiverOptions' => $ReceiverOptions 
 		);

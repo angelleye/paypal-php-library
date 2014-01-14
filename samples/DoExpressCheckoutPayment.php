@@ -1,6 +1,4 @@
 <?php
-if(!session_id()) session_start();
-
 require_once('../includes/config.php');
 require_once('../includes/paypal.class.php');
 
@@ -13,13 +11,16 @@ $PayPalConfig = array(
 
 $PayPal = new PayPal($PayPalConfig);
 
-$GECDResult = $PayPal -> GetExpressCheckoutDetails($_SESSION['PayPalResult']['TOKEN']);
+/*
+ * Here we call GetExpressCheckoutDetails to obtain payer information from PayPal
+ */
+$GECDResult = $PayPal -> GetExpressCheckoutDetails($_SESSION['SetExpressCheckoutResult']['TOKEN']);
 echo '<b>GetExpressCheckoutDetails</b><br /><pre>';
 print_r($GECDResult);
 echo '<br /><br /></pre>';
 
 $DECPFields = array(
-					'token' => $_SESSION['PayPalResult']['TOKEN'], 								// Required.  A timestamped token, the value of which was returned by a previous SetExpressCheckout call.
+					'token' => $_SESSION['SetExpressCheckoutResult']['TOKEN'], 								// Required.  A timestamped token, the value of which was returned by a previous SetExpressCheckout call.
 					'payerid' => $GECDResult['PAYERID'], 							// Required.  Unique PayPal customer id of the payer.  Returned by GetExpressCheckoutDetails, or if you used SKIPDETAILS it's returned in the URL back to your RETURNURL.
 					'returnfmfdetails' => '1', 					// Flag to indiciate whether you want the results returned by Fraud Management Filters or not.  1 or 0.
 					'giftmessage' => '', 						// The gift message entered by the buyer on the PayPal Review page.  150 char max.

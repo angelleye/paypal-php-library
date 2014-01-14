@@ -3,8 +3,10 @@
  * 	Angell EYE PayPal NVP Class
  *	An open source PHP library written to easily work with PayPal's API's
  *	
- *  Copyright © 2012  Andrew K. Angell
+ *  Copyright © 2013  Andrew K. Angell
  *	Email:  andrew@angelleye.com
+ *  Facebook: angelleyeconsulting
+ *  Twitter: angelleye
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,10 +23,10 @@
  *
  * @package			Angell_EYE_PayPal_Class_Library
  * @author			Andrew K. Angell
- * @copyright       Copyright © 2012 Angell EYE, LLC
+ * @copyright       Copyright © 2013 Angell EYE, LLC
  * @link			http://www.angelleye.com
- * @since			Version 1.5
- * @updated			10.31.2012
+ * @since			Version 1.51
+ * @updated			04.27.2013
  * @filesource
 */
 
@@ -69,7 +71,7 @@ class PayPal
 			
 		$this->Sandbox = isset($DataArray['Sandbox']) || isset($DataArray['BetaSandbox']) ? $DataArray['Sandbox'] : true;
 		$this->BetaSandbox = isset($DataArray['BetaSandbox']) ? $DataArray['BetaSandbox'] : false;
-		$this->APIVersion = isset($DataArray['APIVersion']) ? $DataArray['APIVersion'] : '95.0';
+		$this->APIVersion = isset($DataArray['APIVersion']) ? $DataArray['APIVersion'] : '98.0';
 		$this->APIMode = isset($DataArray['APIMode']) ? $DataArray['APIMode'] : 'Signature';
 		$this->APIButtonSource = 'AngellEYE_PHPClass';
 		$this->PathToCertKeyPEM = '/path/to/cert/pem.txt';
@@ -106,7 +108,7 @@ class PayPal
 			$this->APISignature = isset($DataArray['APISignature']) && $DataArray['APISignature'] != '' ? $DataArray['APISignature'] : '';
 			$this->EndPointURL = isset($DataArray['EndPointURL']) && $DataArray['EndPointURL'] != ''  ? $DataArray['EndPointURL'] : 'https://api-3t.paypal.com/nvp';
 		}
-		
+				
 		// Create the NVP credentials string which is required in all calls.
 		$this->NVPCredentials = 'USER=' . $this->APIUsername . '&PWD=' . $this->APIPassword . '&VERSION=' . $this->APIVersion . '&BUTTONSOURCE=' . $this->APIButtonSource;
 		$this->NVPCredentials .= $this->APISubject != '' ? '&SUBJECT=' . $this->APISubject : '';
@@ -608,7 +610,7 @@ class PayPal
 	 * @param	string	NVP string
 	 * @return	string
 	 */
-	function CURLRequest($Request)
+	function CURLRequest($Request = "", $APIName = "", $APIOperation = "")
 	{
 		$curl = curl_init();
 				// curl_setopt($curl, CURLOPT_HEADER,TRUE);
@@ -1385,7 +1387,7 @@ class PayPal
 		{
 			if(strtoupper($SECFieldsVar) != 'SKIPDETAILS')
 			{
-				$SECFieldsNVP .= '&' . strtoupper($SECFieldsVar) . '=' . urlencode($SECFieldsVal);
+				$SECFieldsNVP .= $SECFieldsVal != '' ? '&' . strtoupper($SECFieldsVar) . '=' . urlencode($SECFieldsVal) : '';
 			}
 			else
 			{
@@ -1405,11 +1407,14 @@ class PayPal
 		
 		// Survey Choices
 		$SurveyChoices = isset($DataArray['SurveyChoices']) ? $DataArray['SurveyChoices'] : array();
-		$n = 0;
-		foreach($SurveyChoices as $SurveyChoice)
+		if($SECFields['surveyquestion'] != '')
 		{
-			$SurveyChoicesNVP .= '&' . 'L_SURVEYCHOICE' . $n . '=' . urlencode($SurveyChoice);
-			$n++;	
+			$n = 0;
+			foreach($SurveyChoices as $SurveyChoice)
+			{
+				$SurveyChoicesNVP .= $SurveyChoice != '' ? '&' . 'L_SURVEYCHOICE' . $n . '=' . urlencode($SurveyChoice) : '';
+				$n++;	
+			}
 		}
 		
 		// Payment Details Type Fields
@@ -1422,7 +1427,7 @@ class PayPal
 			{
 				if(strtoupper($CurrentPaymentVar) != 'ORDER_ITEMS')
 				{
-					$PaymentsNVP .= '&PAYMENTREQUEST_' . $n . '_' . strtoupper($CurrentPaymentVar) . '=' . urlencode($CurrentPaymentVal);
+					$PaymentsNVP .= $CurrentPaymentVal != '' ? '&PAYMENTREQUEST_' . $n . '_' . strtoupper($CurrentPaymentVar) . '=' . urlencode($CurrentPaymentVal) : '';
 				}
 				else
 				{
@@ -1432,7 +1437,7 @@ class PayPal
 					{
 						$CurrentItem = $PaymentOrderItems[$OrderItemsVar];
 						foreach($CurrentItem as $CurrentItemVar => $CurrentItemVal)
-						{
+						{	
 							$PaymentsNVP .= $CurrentItemVal != '' ? '&L_PAYMENTREQUEST_' . $n . '_' . strtoupper($CurrentItemVar) . $n_item . '=' . urlencode($CurrentItemVal) : '';
 						}
 						$n_item++;
@@ -1440,7 +1445,7 @@ class PayPal
 				}
 			}
 			$n++;
-		}		
+		}
 		
 		// Billing Agreements
 		$BillingAgreements = isset($DataArray['BillingAgreements']) ? $DataArray['BillingAgreements'] : array();
@@ -1479,10 +1484,12 @@ class PayPal
 		{
 			if($this->Sandbox)
 			{
-				$NVPResponseArray['REDIRECTURL'] = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&' . $SkipDetailsOption . '&token=' . $NVPResponseArray['TOKEN'];
+				$NVPResponseArray['REDIRECTURLDIGITALGOODS'] = 'https://www.sandbox.paypal.com/incontext?'.$SkipDetailsOption.'&token='.$NVPResponseArray['TOKEN'];
+				$NVPResponseArray['REDIRECTURL'] = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&' . $SkipDetailsOption . '&token=' . $NVPResponseArray['TOKEN'];	
 			}
 			else
 			{
+				$NVPResponseArray['REDIRECTURLDIGITALGOODS'] = 'https://www.paypal.com/incontext?'.$SkipDetailsOption.'&token='.$NVPResponseArray['TOKEN'];
 				$NVPResponseArray['REDIRECTURL'] = 'https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&' . $SkipDetailsOption . '&token=' . $NVPResponseArray['TOKEN'];
 			}
 		}
@@ -1597,7 +1604,7 @@ class PayPal
 			{
 				if(strtoupper($CurrentPaymentVar) != 'ORDER_ITEMS')
 				{
-					$PaymentsNVP .= '&PAYMENTREQUEST_' . $n . '_' . strtoupper($CurrentPaymentVar) . '=' . urlencode($CurrentPaymentVal);
+					$PaymentsNVP .= $CurrentPaymentVal != '' ? '&PAYMENTREQUEST_' . $n . '_' . strtoupper($CurrentPaymentVar) . '=' . urlencode($CurrentPaymentVal) : '';
 				}
 				else
 				{
@@ -1620,8 +1627,10 @@ class PayPal
 		// User Selected Options
 		$UserSelectedOptions = isset($DataArray['UserSelectedOptions']) ? $DataArray['UserSelectedOptions'] : array();
 		foreach($UserSelectedOptions as $UserSelectedOptionVar => $UserSelectedOptionVal)
+		{
 			$UserSelectedOptionsNVP .= $UserSelectedOptionVal != '' ? '&' . strtoupper($UserSelectedOptionVar) . '=' . urlencode($UserSelectedOptionVal) : '';
-			
+		}
+		
 		$NVPRequest = $this->NVPCredentials . $DECPFieldsNVP . $PaymentsNVP . $UserSelectedOptionsNVP;
 		$NVPResponse = $this->CURLRequest($NVPRequest);
 		$NVPRequestArray = $this->NVPToArray($NVPRequest);
@@ -1782,6 +1791,7 @@ class PayPal
 	{
 		$DNRCFieldsNVP = '&METHOD=DoNonReferencedCredit';
 		$CCDetailsNVP = '';
+		$PayerName = '';
 		$PayerInfoNVP = '';
 		$BillingAddressNVP = '';
 		
@@ -1799,6 +1809,13 @@ class PayPal
 			$CCDetailsNVP .= $CCDetailsVal != '' ? '&' . strtoupper($CCDetailsVar) . '=' . urlencode($CCDetailsVal) : '';
 		}
 		
+		// Payer Name Fields
+		$PayerName = isset($DataArray['PayerName']) ? $DataArray['PayerName'] : array();
+		foreach($PayerName as $PayerNameVar => $PayerNameVal)
+		{
+			$PayerNameNVP .= $PayerNameVal != '' ? '&' . strtoupper($PayerNameVar) . '=' . urlencode($PayerNameVal) : '';
+		}
+		
 		// Payer Info Fields
 		$PayerInfo = isset($DataArray['PayerInfo']) ? $DataArray['PayerInfo'] : array();
 		foreach($PayerInfo as $PayerInfoVar => $PayerInfoVal)
@@ -1813,7 +1830,7 @@ class PayPal
 			$BillingAddressNVP .= $BillingAddressVal != '' ? '&' . strtoupper($BillingAddressVar) . '=' . urlencode($BillingAddressVal) : '';
 		}
 		
-		$NVPRequest = $this->NVPCredentials . $DNRCFieldsNVP . $CCDetailsNVP . $PayerInfoNVP . $BillingAddressNVP;
+		$NVPRequest = $this->NVPCredentials . $DNRCFieldsNVP . $CCDetailsNVP . $PayerNameNVP . $PayerInfoNVP . $BillingAddressNVP;
 		$NVPResponse = $this->CURLRequest($NVPRequest);
 		$NVPRequestArray = $this->NVPToArray($NVPRequest);
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
@@ -1845,7 +1862,6 @@ class PayPal
 		$ShippingAddressNVP = '';
 		$PaymentDetailsNVP = '';
 		$OrderItemsNVP = '';
-		$PaymentDetailsNVP = '';
 		
 		// DoReferenceTransaction Fields
 		$DRTFields = isset($DataArray['DRTFields']) ? $DataArray['DRTFields'] : array();
@@ -2344,6 +2360,33 @@ class PayPal
 	/**
 	 * Initiates the creation of a billing agreement.
 	 *
+	 * @access public
+	 * @param Token
+	 * @return array
+	 *
+	 */
+	function CreateBillingAgreement($Token)
+	{
+		$CBAFieldsNVP = '&METHOD=CreateBillingAgreement&TOKEN='.urlencode($Token);
+		
+		$NVPRequest = $this->NVPCredentials . $CBAFieldsNVP;
+		$NVPResponse = $this->CURLRequest($NVPRequest);
+		$NVPRequestArray = $this->NVPToArray($NVPRequest);
+		$NVPResponseArray = $this->NVPToArray($NVPResponse);
+		
+		$Errors = $this->GetErrors($NVPResponseArray);
+		
+		$NVPResponseArray['ERRORS'] = $Errors;
+		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
+		$NVPResponseArray['RAWREQUEST'] = $NVPRequest;
+		$NVPResponseArray['RAWRESPONSE'] = $NVPResponse;
+								
+		return $NVPResponseArray;	
+	}
+	
+	/**
+	 * Initiates the creation of a billing agreement.
+	 *
 	 * @access	public
 	 * @param	array	call config data
 	 * @return	array
@@ -2773,8 +2816,3 @@ class PayPal
 		return $NVPResponseArray;	
 	}
 }
-
-require_once('paypal.access.class.php');
-require_once('paypal.adaptive.class.php');
-require_once('paypal.here.class.php');
-require_once('paypal.payflow.class.php');

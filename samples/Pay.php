@@ -2,6 +2,7 @@
 // Include required library files.
 require_once('../includes/config.php');
 require_once('../includes/paypal.class.php');
+require_once('../includes/paypal.adaptive.class.php');
 
 // Create PayPal object.
 $PayPalConfig = array(
@@ -20,10 +21,10 @@ $PayPal = new PayPal_Adaptive($PayPalConfig);
 
 // Prepare request arrays
 $PayRequestFields = array(
-						'ActionType' => 'CREATE', 								// Required.  Whether the request pays the receiver or whether the request is set up to create a payment request, but not fulfill the payment until the ExecutePayment is called.  Values are:  PAY, CREATE, PAY_PRIMARY
+						'ActionType' => 'PAY', 								// Required.  Whether the request pays the receiver or whether the request is set up to create a payment request, but not fulfill the payment until the ExecutePayment is called.  Values are:  PAY, CREATE, PAY_PRIMARY
 						'CancelURL' => $domain.'paypal/class/1.2/Pay_Cancel.php', 									// Required.  The URL to which the sender's browser is redirected if the sender cancels the approval for the payment after logging in to paypal.com.  1024 char max.
 						'CurrencyCode' => 'USD', 								// Required.  3 character currency code.
-						'FeesPayer' => 'SENDER', 									// The payer of the fees.  Values are:  SENDER, PRIMARYRECEIVER, EACHRECEIVER, SECONDARYONLY
+						'FeesPayer' => '', 									// The payer of the fees.  Values are:  SENDER, PRIMARYRECEIVER, EACHRECEIVER, SECONDARYONLY
 						'IPNNotificationURL' => '', 						// The URL to which you want all IPN messages for this payment to be sent.  1024 char max.
 						'Memo' => '', 										// A note associated with the payment (text, not HTML).  1000 char max
 						'Pin' => '', 										// The sener's personal id number, which was specified when the sender signed up for the preapproval
@@ -49,18 +50,7 @@ $Receiver = array(
 				'Amount' => '10.00', 											// Required.  Amount to be paid to the receiver.
 				'Email' => 'sandbo_1204199080_biz@angelleye.com', 												// Receiver's email address. 127 char max.
 				'InvoiceID' => '', 											// The invoice number for the payment.  127 char max.
-				'PaymentType' => 'PERSONAL', 										// Transaction type.  Values are:  GOODS, SERVICE, PERSONAL, CASHADVANCE, DIGITALGOODS
-				'PaymentSubType' => '', 									// The transaction subtype for the payment.
-				'Phone' => array('CountryCode' => '', 'PhoneNumber' => '', 'Extension' => ''), // Receiver's phone number.   Numbers only.
-				'Primary' => ''												// Whether this receiver is the primary receiver.  Values are boolean:  TRUE, FALSE
-				);
-array_push($Receivers,$Receiver);
-
-/*$Receiver = array(
-				'Amount' => '1.00', 											// Required.  Amount to be paid to the receiver.
-				'Email' => 'agbc_1296755893_biz@angelleye.com', 												// Receiver's email address. 127 char max.
-				'InvoiceID' => '123-ABCDEF', 											// The invoice number for the payment.  127 char max.
-				'PaymentType' => 'SERVICE', 										// Transaction type.  Values are:  GOODS, SERVICE, PERSONAL, CASHADVANCE, DIGITALGOODS
+				'PaymentType' => '', 										// Transaction type.  Values are:  GOODS, SERVICE, PERSONAL, CASHADVANCE, DIGITALGOODS
 				'PaymentSubType' => '', 									// The transaction subtype for the payment.
 				'Phone' => array('CountryCode' => '', 'PhoneNumber' => '', 'Extension' => ''), // Receiver's phone number.   Numbers only.
 				'Primary' => ''												// Whether this receiver is the primary receiver.  Values are boolean:  TRUE, FALSE
@@ -68,15 +58,15 @@ array_push($Receivers,$Receiver);
 array_push($Receivers,$Receiver);
 
 $Receiver = array(
-				'Amount' => '1.00', 											// Required.  Amount to be paid to the receiver.
-				'Email' => 'agb_1296755685_biz@angelleye.com', 												// Receiver's email address. 127 char max.
+				'Amount' => '5.00', 											// Required.  Amount to be paid to the receiver.
+				'Email' => 'usb_1329725429_biz@angelleye.com', 												// Receiver's email address. 127 char max.
 				'InvoiceID' => '123-ABCDEF', 											// The invoice number for the payment.  127 char max.
-				'PaymentType' => 'SERVICE', 										// Transaction type.  Values are:  GOODS, SERVICE, PERSONAL, CASHADVANCE, DIGITALGOODS
+				'PaymentType' => '', 										// Transaction type.  Values are:  GOODS, SERVICE, PERSONAL, CASHADVANCE, DIGITALGOODS
 				'PaymentSubType' => '', 									// The transaction subtype for the payment.
 				'Phone' => array('CountryCode' => '', 'PhoneNumber' => '', 'Extension' => ''), // Receiver's phone number.   Numbers only.
 				'Primary' => ''												// Whether this receiver is the primary receiver.  Values are boolean:  TRUE, FALSE
 				);
-array_push($Receivers,$Receiver);*/
+array_push($Receivers,$Receiver);
 
 $SenderIdentifierFields = array(
 								'UseCredentials' => ''						// If TRUE, use credentials to identify the sender.  Default is false.
@@ -90,12 +80,11 @@ $AccountIdentifierFields = array(
 $PayPalRequestData = array(
 					'PayRequestFields' => $PayRequestFields, 
 					'ClientDetailsFields' => $ClientDetailsFields, 
-					'FundingTypes' => $FundingTypes, 
+					//'FundingTypes' => $FundingTypes, 
 					'Receivers' => $Receivers, 
 					'SenderIdentifierFields' => $SenderIdentifierFields, 
 					'AccountIdentifierFields' => $AccountIdentifierFields
 					);
-
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
 $PayPalResult = $PayPal->Pay($PayPalRequestData);

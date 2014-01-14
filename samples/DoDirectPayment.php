@@ -12,7 +12,7 @@ $PayPalConfig = array(
 $PayPal = new PayPal($PayPalConfig);
 
 $DPFields = array(
-					'paymentaction' => 'Authorization', 						// How you want to obtain payment.  Authorization indidicates the payment is a basic auth subject to settlement with Auth & Capture.  Sale indicates that this is a final sale for which you are requesting payment.  Default is Sale.
+					'paymentaction' => 'Sale', 						// How you want to obtain payment.  Authorization indidicates the payment is a basic auth subject to settlement with Auth & Capture.  Sale indicates that this is a final sale for which you are requesting payment.  Default is Sale.
 					'ipaddress' => $_SERVER['REMOTE_ADDR'], 							// Required.  IP address of the payer's browser.
 					'returnfmfdetails' => '1' 					// Flag to determine whether you want the results returned by FMF.  1 or 0.  Default is 0.
 				);
@@ -20,7 +20,7 @@ $DPFields = array(
 $CCDetails = array(
 					'creditcardtype' => 'MasterCard', 					// Required. Type of credit card.  Visa, MasterCard, Discover, Amex, Maestro, Solo.  If Maestro or Solo, the currency code must be GBP.  In addition, either start date or issue number must be specified.
 					'acct' => '5522340006063638', 								// Required.  Credit card number.  No spaces or punctuation.  
-					'expdate' => '022013', 							// Required.  Credit card expiration date.  Format is MMYYYY
+					'expdate' => '022016', 							// Required.  Credit card expiration date.  Format is MMYYYY
 					'cvv2' => '456', 								// Requirements determined by your PayPal account settings.  Security digits for credit card.
 					'startdate' => '', 							// Month and year that Maestro or Solo card was issued.  MMYYYY
 					'issuenumber' => ''							// Issue number of Maestro or Solo card.  Two numeric digits max.
@@ -63,7 +63,7 @@ $ShippingAddress = array(
 						);
 					
 $PaymentDetails = array(
-						'amt' => '1.00', 							// Required.  Total amount of order, including shipping, handling, and tax.  
+						'amt' => '3.00', 							// Required.  Total amount of order, including shipping, handling, and tax.  
 						'currencycode' => 'USD', 					// Required.  Three-letter currency code.  Default is USD.
 						'itemamt' => '', 						// Required if you include itemized cart details. (L_AMTn, etc.)  Subtotal of items not including S&H, or tax.
 						'shippingamt' => '', 					// Total shipping costs for the order.  If you specify shippingamt, you must also specify itemamt.
@@ -90,6 +90,19 @@ $Item	 = array(
 				);
 array_push($OrderItems, $Item);
 
+$Item	 = array(
+						'l_name' => 'Test Widget 2', 						// Item Name.  127 char max.
+						'l_desc' => 'This is a test widget description.', 						// Item description.  127 char max.
+						'l_amt' => '2.00', 							// Cost of individual item.
+						'l_number' => 'ABC-XYZ', 						// Item Number.  127 char max.
+						'l_qty' => '1', 							// Item quantity.  Must be any positive integer.  
+						'l_taxamt' => '', 						// Item's sales tax amount.
+						'l_ebayitemnumber' => '', 				// eBay auction number of item.
+						'l_ebayitemauctiontxnid' => '', 		// eBay transaction ID of purchased item.
+						'l_ebayitemorderid' => '' 				// eBay order ID for the item.
+				);
+array_push($OrderItems, $Item);
+
 $PayPalRequestData = array(
 						   'DPFields' => $DPFields, 
 						   'CCDetails' => $CCDetails, 
@@ -101,6 +114,8 @@ $PayPalRequestData = array(
 						   );
 
 $PayPalResult = $PayPal -> DoDirectPayment($PayPalRequestData);
+
+$_SESSION['transaction_id'] = isset($PayPalResult['TRANSACTIONID']) ? $PayPalResult['TRANSACTIONID'] : '';
 
 echo '<pre />';
 print_r($PayPalResult);

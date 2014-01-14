@@ -2,6 +2,7 @@
 // Include required library files.
 require_once('../includes/config.php');
 require_once('../includes/paypal.class.php');
+require_once('../includes/paypal.adaptive.class.php');
 
 // Create PayPal object.
 $PayPalConfig = array(
@@ -20,7 +21,7 @@ $PayPal = new PayPal_Adaptive($PayPalConfig);
 
 // Prepare request arrays
 $SPOFields = array(
-				'PayKey' => 'AP-6K251159421974004', 							// Required.  The pay key that identifies the payment for which you want to set payment options.  
+				'PayKey' => 'AP-69Y76588A7139944D', 							// Required.  The pay key that identifies the payment for which you want to set payment options.  
 				'ShippingAddressID' => '' 					// Sender's shipping address ID.
 				);
 				
@@ -48,7 +49,7 @@ $SenderOptions = array(
 // Begin loop to populate receiver options.
 $ReceiverOptions = array();
 $ReceiverOption = array(
-		'Description' => 'Test Order: sandbo_1215254764_biz@angelleye.com', 					// A description you want to associate with the payment.  1000 char max.
+		'Description' => 'Test Order: sandbo_1204199080_biz@angelleye.com', 					// A description you want to associate with the payment.  1000 char max.
 		'CustomID' => '' 						// An external reference number you want to associate with the payment.  1000 char max.
 );
 	
@@ -61,14 +62,14 @@ $InvoiceItems = array();
 $InvoiceItem = array(
 		'Name' => 'Widget ABC', 								// Name of item.
 		'Identifier' => '', 						// External reference to item or item ID.
-		'Price' => '25.00', 								// Total of line item.
-		'ItemPrice' => '25.00',							// Price of an individual item.
+		'Price' => '10.00', 								// Total of line item.
+		'ItemPrice' => '10.00',							// Price of an individual item.
 		'ItemCount' => '1'							// Item QTY
 );
 array_push($InvoiceItems,$InvoiceItem);
 
 $ReceiverIdentifier = array(
-		'Email' => 'sandbo_1215254764_biz@angelleye.com', 	// Receiver's email address.  127 char max.
+		'Email' => 'sandbo_1204199080_biz@angelleye.com', 	// Receiver's email address.  127 char max.
 		'PhoneCountryCode' => '', 			// Receiver's telephone number country code.
 		'PhoneNumber' => '', 				// Receiver's telephone number.
 		'PhoneExtension' => ''				// Receiver's telephone extension.

@@ -55,7 +55,7 @@ $ActivationDetails = array(
 $CCDetails = array(
 					'creditcardtype' => 'Visa', 					// Required. Type of credit card.  Visa, MasterCard, Discover, Amex, Maestro, Solo.  If Maestro or Solo, the currency code must be GBP.  In addition, either start date or issue number must be specified.
 					'acct' => '4635800000971893', 								// Required.  Credit card number.  No spaces or punctuation.  
-					'expdate' => '022012', 							// Required.  Credit card expiration date.  Format is MMYYYY
+					'expdate' => '022013', 							// Required.  Credit card expiration date.  Format is MMYYYY
 					'cvv2' => '123', 								// Requirements determined by your PayPal account settings.  Security digits for credit card.
 					'startdate' => '', 							// Month and year that Maestro or Solo card was issued.  MMYYYY
 					'issuenumber' => ''							// Issue number of Maestro or Solo card.  Two numeric digits max.
@@ -78,12 +78,12 @@ $PayerName = array(
 				);
 				
 $BillingAddress = array(
-						'street' => '', 						// Required.  First street address.
+						'street' => '123 Test Ave.', 						// Required.  First street address.
 						'street2' => '', 						// Second street address.
-						'city' => '', 							// Required.  Name of City.
-						'state' => '', 							// Required. Name of State or Province.
-						'countrycode' => '', 					// Required.  Country code.
-						'zip' => '', 							// Required.  Postal code of payer.
+						'city' => 'Grandview', 							// Required.  Name of City.
+						'state' => 'MO', 							// Required. Name of State or Province.
+						'countrycode' => 'US', 					// Required.  Country code.
+						'zip' => '64030', 							// Required.  Postal code of payer.
 						'phonenum' => '' 						// Phone Number of payer.  20 char max.
 					);
 					
@@ -104,7 +104,8 @@ $PayPalRequestData = array(
 'BillingPeriod' => $BillingPeriod, 
 'CCDetails' => $CCDetails, 
 'PayerInfo' => $PayerInfo, 
-'PayerName' => $PayerName
+'PayerName' => $PayerName, 
+'BillingAddress' => $BillingAddress
 );
 
 $PayPalResult = $PayPal->CreateRecurringPaymentsProfile($PayPalRequestData);

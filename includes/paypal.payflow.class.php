@@ -85,7 +85,7 @@ class PayPal_PayFlow extends PayPal
 	 * @param string Request
 	 * @return string
 	 */
-	function CURLRequest($Request)
+	function CURLRequest($Request = "", $APIName = "", $APIOperation = "")
 	{
 	
 		$unique_id = date('ymd-H').rand(1000,9999);

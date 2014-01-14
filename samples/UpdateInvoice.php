@@ -2,6 +2,7 @@
 // Include required library files.
 require_once('../includes/config.php');
 require_once('../includes/paypal.class.php');
+require_once('../includes/paypal.adaptive.class.php');
 
 // Create PayPal object.
 $PayPalConfig = array(

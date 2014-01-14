@@ -2,6 +2,7 @@
 //require the auth class
 require_once('../includes/config.php');
 require_once('../includes/paypal.class.php');
+require_once('../includes/paypal.access.class.php');
 
 //initialize a new PayPal Access instance
 $ppaccess_config = array(

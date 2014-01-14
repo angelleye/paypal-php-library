@@ -8,7 +8,8 @@ $PayPalConfig = array(
 					'Sandbox' => $sandbox,
 					'APIUsername' => $api_username,
 					'APIPassword' => $api_password,
-					'APISignature' => $api_signature
+					'APISignature' => $api_signature, 
+					'APIVersion' => '55.0'
 					);
 
 $PayPal = new PayPal($PayPalConfig);
@@ -16,7 +17,7 @@ $PayPal = new PayPal($PayPalConfig);
 // Prepare request arrays
 $SMCFields = array(
 					'phonecountrycode' => '', 				// Three-digit country code for buyer's phone number.  
-					'phonenum' => '816-977-5402', 						// Localized phone number used by the buyer to submit the payment request.  if the phone number is activated for mobile checkout, PayPal uses this value to pre-fill the PayPal login page.
+					//'phonenum' => '18169775402', 						// Localized phone number used by the buyer to submit the payment request.  if the phone number is activated for mobile checkout, PayPal uses this value to pre-fill the PayPal login page.
 					'amt' => '10.00', 							// Required. Cost of item before tax and shipping.
 					'currencycode' => 'USD', 					// Required.  Three-character currency code.  Default is USD.
 					'taxamt' => '', 						// Tax on item purchased.

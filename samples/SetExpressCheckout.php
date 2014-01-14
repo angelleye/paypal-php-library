@@ -9,8 +9,8 @@ $PayPalConfig = array(
 					'APIUsername' => $api_username,
 					'APIPassword' => $api_password,
 					'APISignature' => $api_signature, 
-					'APIVersion' => '87.0', 
-					'APISubject' => 'usb_1329725429_biz@angelleye.com'
+					'APIVersion' => '97.0', 
+					'APISubject' => ''
 					);
 
 $PayPal = new PayPal($PayPalConfig);
@@ -18,22 +18,22 @@ $PayPal = new PayPal($PayPalConfig);
 $SECFields = array(
 					'token' => '', 								// A timestamped token, the value of which was returned by a previous SetExpressCheckout call.
 					'maxamt' => '200.00', 						// The expected maximum total amount the order will be, including S&H and sales tax.
-					'returnurl' => $domain . 'paypal/class/DoExpressCheckoutPayment.php', 							// Required.  URL to which the customer will be returned after returning from PayPal.  2048 char max.
+					'returnurl' => $domain . 'standard/samples/DoExpressCheckoutPayment.php', 							// Required.  URL to which the customer will be returned after returning from PayPal.  2048 char max.
 					'cancelurl' => $domain . 'paypal/class/cancel.php', 							// Required.  URL to which the customer will be returned if they cancel payment on PayPal's site.
 					'callback' => '', 							// URL to which the callback request from PayPal is sent.  Must start with https:// for production.
 					'callbacktimeout' => '', 					// An override for you to request more or less time to be able to process the callback request and response.  Acceptable range for override is 1-6 seconds.  If you specify greater than 6 PayPal will use default value of 3 seconds.
 					'callbackversion' => '', 					// The version of the Instant Update API you're using.  The default is the current version.							
-					'reqconfirmshipping' => '', 				// The value 1 indicates that you require that the customer's shipping address is Confirmed with PayPal.  This overrides anything in the account profile.  Possible values are 1 or 0.
-					'noshipping' => '', 						// The value 1 indiciates that on the PayPal pages, no shipping address fields should be displayed.  Maybe 1 or 0.
+					'reqconfirmshipping' => '0', 				// The value 1 indicates that you require that the customer's shipping address is Confirmed with PayPal.  This overrides anything in the account profile.  Possible values are 1 or 0.
+					'noshipping' => '1', 						// The value 1 indiciates that on the PayPal pages, no shipping address fields should be displayed.  Maybe 1 or 0.
 					'allownote' => '1', 							// The value 1 indiciates that the customer may enter a note to the merchant on the PayPal page during checkout.  The note is returned in the GetExpresscheckoutDetails response and the DoExpressCheckoutPayment response.  Must be 1 or 0.
 					'addroverride' => '', 						// The value 1 indiciates that the PayPal pages should display the shipping address set by you in the SetExpressCheckout request, not the shipping address on file with PayPal.  This does not allow the customer to edit the address here.  Must be 1 or 0.
 					'localecode' => '', 						// Locale of pages displayed by PayPal during checkout.  Should be a 2 character country code.  You can retrive the country code by passing the country name into the class' GetCountryCode() function.
 					'pagestyle' => '', 							// Sets the Custom Payment Page Style for payment pages associated with this button/link.  
-					'hdrimg' => $domain . 'images/hdrimg.jpg', 							// URL for the image displayed as the header during checkout.  Max size of 750x90.  Should be stored on an https:// server or you'll get a warning message in the browser.
+					'hdrimg' => '', 							// URL for the image displayed as the header during checkout.  Max size of 750x90.  Should be stored on an https:// server or you'll get a warning message in the browser.
 					'hdrbordercolor' => '', 					// Sets the border color around the header of the payment page.  The border is a 2-pixel permiter around the header space.  Default is black.  
 					'hdrbackcolor' => '', 						// Sets the background color for the header of the payment page.  Default is white.  
 					'payflowcolor' => '', 						// Sets the background color for the payment page.  Default is white.
-					'skipdetails' => '1', 						// This is a custom field not included in the PayPal documentation.  It's used to specify whether you want to skip the GetExpressCheckoutDetails part of checkout or not.  See PayPal docs for more info.
+					'skipdetails' => '', 						// This is a custom field not included in the PayPal documentation.  It's used to specify whether you want to skip the GetExpressCheckoutDetails part of checkout or not.  See PayPal docs for more info.
 					'email' => '', 								// Email address of the buyer as entered during checkout.  PayPal uses this value to pre-fill the PayPal sign-in page.  127 char max.
 					'solutiontype' => 'Sole', 						// Type of checkout flow.  Must be Sole (express checkout for auctions) or Mark (normal express checkout)
 					'landingpage' => 'Billing', 						// Type of PayPal page to display.  Can be Billing or Login.  If billing it shows a full credit card form.  If Login it just shows the login screen.
@@ -49,7 +49,7 @@ $SECFields = array(
 					'giftwrapname' => 'Box with Ribbon', 						// Label for the gift wrap option such as "Box with ribbon".  25 char max.
 					'giftwrapamount' => '2.50', 					// Amount charged for gift-wrap service.
 					'buyeremailoptionenable' => '1', 			// Enable buyer email opt-in on the PayPal Review page. Allowable values are 0 and 1
-					'surveyquestion' => 'Did you like this checkout?', 					// Text for the survey question on the PayPal Review page. If the survey question is present, at least 2 survey answer options need to be present.  50 char max.
+					'surveyquestion' => '', 					// Text for the survey question on the PayPal Review page. If the survey question is present, at least 2 survey answer options need to be present.  50 char max.
 					'surveyenable' => '1', 						// Enable survey functionality. Allowable values are 0 and 1
 					'buyerid' => '', 							// The unique identifier provided by eBay for this buyer. The value may or may not be the same as the username. In the case of eBay, it is different. 255 char max.
 					'buyerusername' => '', 						// The user name of the user at the marketplaces site.
@@ -97,6 +97,7 @@ $Item = array(
 			'qty' => '1', 								// Item qty on order.  Any positive integer.
 			'taxamt' => '', 							// Item sales tax
 			'itemurl' => 'http://www.angelleye.com/products/123.php', 							// URL for the item.
+			'itemcategory' => '', 				// One of the following values:  Digital, Physical
 			'itemweightvalue' => '', 					// The weight value of the item.
 			'itemweightunit' => '', 					// The weight unit of the item.
 			'itemheightvalue' => '', 					// The height value of the item.
@@ -120,6 +121,7 @@ $Item = array(
 			'qty' => '1', 								// Item qty on order.  Any positive integer.
 			'taxamt' => '', 							// Item sales tax
 			'itemurl' => 'http://www.angelleye.com/products/456.php', 							// URL for the item.
+			'itemcategory' => 'Digital', 						// One of the following values:  Digital, Physical
 			'itemweightvalue' => '', 					// The weight value of the item.
 			'itemweightunit' => '', 					// The weight unit of the item.
 			'itemheightvalue' => '', 					// The height value of the item.
@@ -156,9 +158,9 @@ array_push($ShippingOptions, $Option);
 		
 $BillingAgreements = array();
 $Item = array(
-			  'l_billingtype' => '', 							// Required.  Type of billing agreement.  For recurring payments it must be RecurringPayments.  You can specify up to ten billing agreements.  For reference transactions, this field must be either:  MerchantInitiatedBilling, or MerchantInitiatedBillingSingleSource
-			  'l_billingagreementdescription' => '', 			// Required for recurring payments.  Description of goods or services associated with the billing agreement.  
-			  'l_paymenttype' => '', 							// Specifies the type of PayPal payment you require for the billing agreement.  Any or IntantOnly
+			  'l_billingtype' => 'MerchantInitiatedBilling', 							// Required.  Type of billing agreement.  For recurring payments it must be RecurringPayments.  You can specify up to ten billing agreements.  For reference transactions, this field must be either:  MerchantInitiatedBilling, or MerchantInitiatedBillingSingleSource
+			  'l_billingagreementdescription' => 'Billing Agreement', 			// Required for recurring payments.  Description of goods or services associated with the billing agreement.  
+			  'l_paymenttype' => 'Any', 							// Specifies the type of PayPal payment you require for the billing agreement.  Any or IntantOnly
 			  'l_billingagreementcustom' => ''					// Custom annotation field for your own use.  256 char max.
 			  );
 array_push($BillingAgreements, $Item);
@@ -166,12 +168,13 @@ array_push($BillingAgreements, $Item);
 $PayPalRequest = array(
 					   'SECFields' => $SECFields, 
 					   'SurveyChoices' => $SurveyChoices, 
+					   'BillingAgreements' => $BillingAgreements, 
 					   'Payments' => $Payments
 					   );
 
-$_SESSION['PayPalResult'] = $PayPal -> SetExpressCheckout($PayPalRequest);
+$_SESSION['SetExpressCheckoutResult'] = $PayPal -> SetExpressCheckout($PayPalRequest);
 
-echo '<a href="' . $_SESSION['PayPalResult']['REDIRECTURL'] . '">Click here to continue.</a><br /><br />';
+echo '<a href="' . $_SESSION['SetExpressCheckoutResult']['REDIRECTURL'] . '">Click here to continue.</a><br /><br />';
 echo '<pre />';
-print_r($_SESSION['PayPalResult']);
+print_r($_SESSION['SetExpressCheckoutResult']);
 ?>

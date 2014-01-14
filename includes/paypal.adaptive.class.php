@@ -3,7 +3,7 @@
  * 	Angell EYE PayPal Adaptive Payments Class
  *	An open source PHP library written to easily work with PayPal's API's
  *
- *  Copyright © 2012  Andrew K. Angell
+ *  Copyright Â© 2012  Andrew K. Angell
  *	Email:  andrew@angelleye.com
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -21,7 +21,7 @@
  *
  * @package			Angell_EYE_PayPal_Adaptive_Class_Library
  * @author			Andrew K. Angell
- * @copyright       Copyright © 2012 Angell EYE, LLC
+ * @copyright       Copyright Â© 2012 Angell EYE, LLC
  * @link			http://www.angelleye.com
  * @since			Version 1.5
  * @updated			10.31.2012
@@ -131,7 +131,7 @@ class PayPal_Adaptive extends PayPal
 	 * @param   string $APIOperation
 	 * @return	string
 	 */
-	function CURLRequest($Request, $APIName, $APIOperation)
+	function CURLRequest($Request = "", $APIName = "", $APIOperation = "")
 	{
 		$curl = curl_init();
 				curl_setopt($curl, CURLOPT_VERBOSE, 1);
@@ -665,6 +665,18 @@ class PayPal_Adaptive extends PayPal
 		
 		if(!$this->APICallSuccessful($Ack))
 		{
+				$ResponseDataArray = array(
+					'Errors' => $Errors,
+					'Ack' => $Ack,
+					'Build' => $Build,
+					'CorrelationID' => $CorrelationID,
+					'Timestamp' => $Timestamp,
+					'PayKey' => $PayKey,
+					'PaymentExecStatus' => $PaymentExecStatus,
+					'PayXMLRequest' => $PayXMLRequest,
+					'PayXMLResponse' => $PayXMLResponse
+			);
+		
 			return $ResponseDataArray;
 			exit();
 		}
@@ -1374,12 +1386,12 @@ class PayPal_Adaptive extends PayPal
 		$XMLRequest .= $MaxNumberOfPaymentsPerPeriod != '' ? '<maxNumberOfPaymentsPerPeriod xmlns="">' . $MaxNumberOfPaymentsPerPeriod . '</maxNumberOfPaymentsPerPeriod>' : '';
 		$XMLRequest .= $MaxTotalAmountOfAllPayments != '' ? '<maxTotalAmountOfAllPayments xmlns="">' . $MaxTotalAmountOfAllPayments . '</maxTotalAmountOfAllPayments>' : '';
 		$XMLRequest .= $Memo != '' ? '<memo xmlns="">' . $Memo . '</memo>' : '';
-		$XMLRequest .= $PaymentPeriod != '' ? '<paymentPeriod xmlns="">' . $Memo . '</paymentPeriod>' : '';
+		$XMLRequest .= $PaymentPeriod != '' ? '<paymentPeriod xmlns="">' . $PaymentPeriod . '</paymentPeriod>' : '';
 		$XMLRequest .= $PinType != '' ? '<pinType xmlns="">' . $PinType . '</pinType>' : '';
 		$XMLRequest .= $FeesPayer != '' ? '<feesPayer xmlns="">' . $FeesPayer . '</feesPayer>' : '';
 		$XMLRequest .= $DisplayMaxTotalAmount != '' ? '<displayMaxTotalAmount xmlns="">' . $DisplayMaxTotalAmount . '</displayMaxTotalAmount>' : '';
 		$XMLRequest .= $ReturnURL != '' ? '<returnUrl xmlns="">' . $ReturnURL . '</returnUrl>' : '';
-		$XMLRequest .= $SenderEmail != '' ? '<senderEmail xmlns="">' . $PinType . '</SenderEmail>' : '';
+		$XMLRequest .= $SenderEmail != '' ? '<senderEmail xmlns="">' . $SenderEmail . '</senderEmail>' : '';
 		$XMLRequest .= $StartingDate != '' ? '<startingDate xmlns="">' . $StartingDate . '</startingDate>' : '';
 		$XMLRequest .= '</PreapprovalRequest>';
 		
@@ -1533,7 +1545,7 @@ class PayPal_Adaptive extends PayPal
 		$XMLRequest = '<?xml version="1.0" encoding="utf-8"?>';
 		$XMLRequest .= '<CancelPreapprovalRequest xmlns="' . $this -> XMLNamespace . '">';
 		$XMLRequest .= $this -> GetXMLRequestEnvelope();
-		$XMLRequest .= $PreapprovalKey != '' ? '<preapprovalKey>' . $PreapprovalKey . '</preapprovalKey>' : '';
+		$XMLRequest .= $PreapprovalKey != '' ? '<preapprovalKey xmlns="">' . $PreapprovalKey . '</preapprovalKey>' : '';
 		$XMLRequest .= '</CancelPreapprovalRequest>';
 		
 		// Call the API and load XML response into DOM
@@ -2588,26 +2600,24 @@ class PayPal_Adaptive extends PayPal
 	 
 	 
 	 /**
-	 * Submit GetShippingAddress API request to PayPal.
+	 * Submit GetShippingAddresses API request to PayPal.
 	 *
 	 * @access	public
 	 * @param	array	call config data
 	 * @return	array
 	 */
-	 function GetShippingAddress($DataArray)
+	 function GetShippingAddresses($PayKey)
 	 {
-		$GetShippingAddressFields = isset($DataArray['GetShippingAddressFields']) ? $DataArray['GetShippingAddressFields'] : array();
-		$Key = isset($GetShippingAddressFields['key']) ? $GetShippingAddressFields['key'] : '';
-		
 		// Generate XML Request
 		$XMLRequest = '<?xml version="1.0" encoding="utf-8"?>';
-		$XMLRequest .= '<GetShippingAddressRequest xmlns="' . $this -> XMLNamespace . '">';
+		$XMLRequest .= '<GetShippingAddressesRequest xmlns="' . $this -> XMLNamespace . '">';
 		$XMLRequest .= $this -> GetXMLRequestEnvelope();
-		$XMLRequest .= $Key != '' ? '<key xmlns="">' . $Key . '</key>' : '';
-		$XMLRequest .= '</GetShippingAddressRequest>';
+		$XMLRequest .= $PayKey != '' ? '<key xmlns="">' . $PayKey . '</key>' : '';
+		$XMLRequest .= '</GetShippingAddressesRequest>';
 		
 		// Call the API and load XML response into DOM
-		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptiveAccounts', 'GetShippingAddress');
+		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptivePayments', 'GetShippingAddresses');
+		
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
 		
@@ -3525,18 +3535,18 @@ class PayPal_Adaptive extends PayPal
 			$MerchantFax = $MerchantInfo -> getElementsByTagName('fax') -> length > 0 ? $MerchantInfo -> getElementsByTagName('fax') -> item(0) -> nodeValue : '';
 			$MerchantWebsite = $MerchantInfo -> getElementsByTagName('website') -> length > 0 ? $MerchantInfo -> getElementsByTagName('website') -> item(0) -> nodeValue : '';
 			$MerchantCustom = $MerchantInfo -> getElementsByTagName('customValue') -> length > 0 ? $MerchantInfo -> getElementsByTagName('customValue') -> item(0) -> nodeValue : '';
-		}
 		
-		$MerchantInfoAddressType = $MerchantInfo -> getElementsByTagName('address') -> length > 0 ? $MerchantInfo -> getElementsByTagName('address') : array();
-		foreach($MerchantInfoAddressType as $MerchantInfoAddress)
-		{
-			$MerchantAddressLine1 = $MerchantInfoAddress -> getElementsByTagName('line1') -> length > 0 ? $MerchantInfoAddress -> getElementsByTagName('line1') -> item(0) -> nodeValue : '';
-			$MerchantAddressLine2 = $MerchantInfoAddress -> getElementsByTagName('line2') -> length > 0 ? $MerchantInfoAddress -> getElementsByTagName('line2') -> item(0) -> nodeValue : '';
-			$MerchantAddressCity = $MerchantInfoAddress -> getElementsByTagName('city') -> length > 0 ? $MerchantInfoAddress -> getElementsByTagName('city') -> item(0) -> nodeValue : '';
-			$MerchantAddressState = $MerchantInfoAddress -> getElementsByTagName('state') -> length > 0 ? $MerchantInfoAddress -> getElementsByTagName('state') -> item(0) -> nodeValue : '';
-			$MerchantAddressPostalCode = $MerchantInfoAddress -> getElementsByTagName('postalCode') -> length > 0 ? $MerchantInfoAddress -> getElementsByTagName('postalCode') -> item(0) -> nodeValue : '';
-			$MerchantAddressCountryCode = $MerchantInfoAddress -> getElementsByTagName('countryCode') -> length > 0 ? $MerchantInfoAddress -> getElementsByTagName('countryCode') -> item(0) -> nodeValue : '';
-			$MerchantAddressType = $MerchantInfoAddress -> getElementsByTagName('type') -> length > 0 ? $MerchantInfoAddress -> getElementsByTagName('type') -> item(0) -> nodeValue : '';
+			$MerchantInfoAddressType = $MerchantInfo -> getElementsByTagName('address') -> length > 0 ? $MerchantInfo -> getElementsByTagName('address') : array();
+			foreach($MerchantInfoAddressType as $MerchantInfoAddress)
+			{
+				$MerchantAddressLine1 = $MerchantInfoAddress -> getElementsByTagName('line1') -> length > 0 ? $MerchantInfoAddress -> getElementsByTagName('line1') -> item(0) -> nodeValue : '';
+				$MerchantAddressLine2 = $MerchantInfoAddress -> getElementsByTagName('line2') -> length > 0 ? $MerchantInfoAddress -> getElementsByTagName('line2') -> item(0) -> nodeValue : '';
+				$MerchantAddressCity = $MerchantInfoAddress -> getElementsByTagName('city') -> length > 0 ? $MerchantInfoAddress -> getElementsByTagName('city') -> item(0) -> nodeValue : '';
+				$MerchantAddressState = $MerchantInfoAddress -> getElementsByTagName('state') -> length > 0 ? $MerchantInfoAddress -> getElementsByTagName('state') -> item(0) -> nodeValue : '';
+				$MerchantAddressPostalCode = $MerchantInfoAddress -> getElementsByTagName('postalCode') -> length > 0 ? $MerchantInfoAddress -> getElementsByTagName('postalCode') -> item(0) -> nodeValue : '';
+				$MerchantAddressCountryCode = $MerchantInfoAddress -> getElementsByTagName('countryCode') -> length > 0 ? $MerchantInfoAddress -> getElementsByTagName('countryCode') -> item(0) -> nodeValue : '';
+				$MerchantAddressType = $MerchantInfoAddress -> getElementsByTagName('type') -> length > 0 ? $MerchantInfoAddress -> getElementsByTagName('type') -> item(0) -> nodeValue : '';
+			}
 		}
 		
 		$BillingInfoType = $DOM -> getElementsByTagName('billingInfo') -> length > 0 ? $DOM -> getElementsByTagName('billingInfo') : array();
@@ -3549,18 +3559,18 @@ class PayPal_Adaptive extends PayPal
 			$BillingFax = $BillingInfo -> getElementsByTagName('fax') -> length > 0 ? $BillingInfo -> getElementsByTagName('fax') -> item(0) -> nodeValue : '';
 			$BillingWebsite = $BillingInfo -> getElementsByTagName('website') -> length > 0 ? $BillingInfo -> getElementsByTagName('website') -> item(0) -> nodeValue : '';
 			$BillingCustom = $BillingInfo -> getElementsByTagName('customValue') -> length > 0 ? $BillingInfo -> getElementsByTagName('customValue') -> item(0) -> nodeValue : '';
-		}
 		
-		$BillingInfoAddressType = $BillingInfo -> getElementsByTagName('address') -> length > 0 ? $BillingInfo -> getElementsByTagName('address') : array();
-		foreach($BillingInfoAddressType as $BillingInfoAddress)
-		{
-			$BillingAddressLine1 = $BillingInfoAddress -> getElementsByTagName('line1') -> length > 0 ? $BillingInfoAddress -> getElementsByTagName('line1') -> item(0) -> nodeValue : '';
-			$BillingAddressLine2 = $BillingInfoAddress -> getElementsByTagName('line2') -> length > 0 ? $BillingInfoAddress -> getElementsByTagName('line2') -> item(0) -> nodeValue : '';
-			$BillingAddressCity = $BillingInfoAddress -> getElementsByTagName('city') -> length > 0 ? $BillingInfoAddress -> getElementsByTagName('city') -> item(0) -> nodeValue : '';
-			$BillingAddressState = $BillingInfoAddress -> getElementsByTagName('state') -> length > 0 ? $BillingInfoAddress -> getElementsByTagName('state') -> item(0) -> nodeValue : '';
-			$BillingAddressPostalCode = $BillingInfoAddress -> getElementsByTagName('postalCode') -> length > 0 ? $BillingInfoAddress -> getElementsByTagName('postalCode') -> item(0) -> nodeValue : '';
-			$BillingAddressCountryCode = $BillingInfoAddress -> getElementsByTagName('countryCode') -> length > 0 ? $BillingInfoAddress -> getElementsByTagName('countryCode') -> item(0) -> nodeValue : '';
-			$BillingAddressType = $BillingInfoAddress -> getElementsByTagName('type') -> length > 0 ? $BillingInfoAddress -> getElementsByTagName('type') -> item(0) -> nodeValue : '';
+			$BillingInfoAddressType = $BillingInfo -> getElementsByTagName('address') -> length > 0 ? $BillingInfo -> getElementsByTagName('address') : array();
+			foreach($BillingInfoAddressType as $BillingInfoAddress)
+			{
+				$BillingAddressLine1 = $BillingInfoAddress -> getElementsByTagName('line1') -> length > 0 ? $BillingInfoAddress -> getElementsByTagName('line1') -> item(0) -> nodeValue : '';
+				$BillingAddressLine2 = $BillingInfoAddress -> getElementsByTagName('line2') -> length > 0 ? $BillingInfoAddress -> getElementsByTagName('line2') -> item(0) -> nodeValue : '';
+				$BillingAddressCity = $BillingInfoAddress -> getElementsByTagName('city') -> length > 0 ? $BillingInfoAddress -> getElementsByTagName('city') -> item(0) -> nodeValue : '';
+				$BillingAddressState = $BillingInfoAddress -> getElementsByTagName('state') -> length > 0 ? $BillingInfoAddress -> getElementsByTagName('state') -> item(0) -> nodeValue : '';
+				$BillingAddressPostalCode = $BillingInfoAddress -> getElementsByTagName('postalCode') -> length > 0 ? $BillingInfoAddress -> getElementsByTagName('postalCode') -> item(0) -> nodeValue : '';
+				$BillingAddressCountryCode = $BillingInfoAddress -> getElementsByTagName('countryCode') -> length > 0 ? $BillingInfoAddress -> getElementsByTagName('countryCode') -> item(0) -> nodeValue : '';
+				$BillingAddressType = $BillingInfoAddress -> getElementsByTagName('type') -> length > 0 ? $BillingInfoAddress -> getElementsByTagName('type') -> item(0) -> nodeValue : '';
+			}
 		}
 		
 		$ShippingInfoType = $DOM -> getElementsByTagName('shippingInfo') -> length > 0 ? $DOM -> getElementsByTagName('shippingInfo') : array();
@@ -3573,26 +3583,26 @@ class PayPal_Adaptive extends PayPal
 			$ShippingFax = $ShippingInfo -> getElementsByTagName('fax') -> length > 0 ? $ShippingInfo -> getElementsByTagName('fax') -> item(0) -> nodeValue : '';
 			$ShippingWebsite = $ShippingInfo -> getElementsByTagName('website') -> length > 0 ? $ShippingInfo -> getElementsByTagName('website') -> item(0) -> nodeValue : '';
 			$ShippingCustom = $ShippingInfo -> getElementsByTagName('customValue') -> length > 0 ? $ShippingInfo -> getElementsByTagName('customValue') -> item(0) -> nodeValue : '';
-		}
 		
-		$ShippingInfoAddressType = $ShippingInfo -> getElementsByTagName('address') -> length > 0 ? $ShippingInfo -> getElementsByTagName('address') : array();
-		foreach($ShippingInfoAddressType as $ShippingInfoAddress)
-		{
-			$ShippingAddressLine1 = $ShippingInfoAddress -> getElementsByTagName('line1') -> length > 0 ? $ShippingInfoAddress -> getElementsByTagName('line1') -> item(0) -> nodeValue : '';
-			$ShippingAddressLine2 = $ShippingInfoAddress -> getElementsByTagName('line2') -> length > 0 ? $ShippingInfoAddress -> getElementsByTagName('line2') -> item(0) -> nodeValue : '';
-			$ShippingAddressCity = $ShippingInfoAddress -> getElementsByTagName('city') -> length > 0 ? $ShippingInfoAddress -> getElementsByTagName('city') -> item(0) -> nodeValue : '';
-			$ShippingAddressState = $ShippingInfoAddress -> getElementsByTagName('state') -> length > 0 ? $ShippingInfoAddress -> getElementsByTagName('state') -> item(0) -> nodeValue : '';
-			$ShippingAddressPostalCode = $ShippingInfoAddress -> getElementsByTagName('postalCode') -> length > 0 ? $ShippingInfoAddress -> getElementsByTagName('postalCode') -> item(0) -> nodeValue : '';
-			$ShippingAddressCountryCode = $ShippingInfoAddress -> getElementsByTagName('countryCode') -> length > 0 ? $ShippingInfoAddress -> getElementsByTagName('countryCode') -> item(0) -> nodeValue : '';
-			$ShippingAddressType = $ShippingInfoAddress -> getElementsByTagName('type') -> length > 0 ? $ShippingInfoAddress -> getElementsByTagName('type') -> item(0) -> nodeValue : '';
+			$ShippingInfoAddressType = $ShippingInfo -> getElementsByTagName('address') -> length > 0 ? $ShippingInfo -> getElementsByTagName('address') : array();
+			foreach($ShippingInfoAddressType as $ShippingInfoAddress)
+			{
+				$ShippingAddressLine1 = $ShippingInfoAddress -> getElementsByTagName('line1') -> length > 0 ? $ShippingInfoAddress -> getElementsByTagName('line1') -> item(0) -> nodeValue : '';
+				$ShippingAddressLine2 = $ShippingInfoAddress -> getElementsByTagName('line2') -> length > 0 ? $ShippingInfoAddress -> getElementsByTagName('line2') -> item(0) -> nodeValue : '';
+				$ShippingAddressCity = $ShippingInfoAddress -> getElementsByTagName('city') -> length > 0 ? $ShippingInfoAddress -> getElementsByTagName('city') -> item(0) -> nodeValue : '';
+				$ShippingAddressState = $ShippingInfoAddress -> getElementsByTagName('state') -> length > 0 ? $ShippingInfoAddress -> getElementsByTagName('state') -> item(0) -> nodeValue : '';
+				$ShippingAddressPostalCode = $ShippingInfoAddress -> getElementsByTagName('postalCode') -> length > 0 ? $ShippingInfoAddress -> getElementsByTagName('postalCode') -> item(0) -> nodeValue : '';
+				$ShippingAddressCountryCode = $ShippingInfoAddress -> getElementsByTagName('countryCode') -> length > 0 ? $ShippingInfoAddress -> getElementsByTagName('countryCode') -> item(0) -> nodeValue : '';
+				$ShippingAddressType = $ShippingInfoAddress -> getElementsByTagName('type') -> length > 0 ? $ShippingInfoAddress -> getElementsByTagName('type') -> item(0) -> nodeValue : '';
+			}
 		}
 		
 		$ViaPayPal = $DOM -> getElementsByTagName('viaPayPal') -> length > 0 ? $DOM -> getElementsByTagName('viaPayPal') -> item(0) -> nodeValue : '';
 		$PayPalPaymentDetailsType = $DOM -> getElementsByTagName('paypalPayment') -> length > 0 ? $DOM -> getElementsByTagName('paypalPayment') : array();
 		foreach($PayPalPaymentDetailsType as $PayPalPaymentDetails)
 		{
-			$PayPalTransactionID = $PayPalPaymentDetails -> getElementsByTagName('transactionID') -> length > 0 ? $PayPalPaymentDetails -> getElementsByTagName('invoiceURL') -> item(0) -> nodeValue : '';
-			$PayPalTransactionDate = $PayPalPaymentDetails -> getElementsByTagName('date') -> length > 0 ? $PayPalPaymentDetails -> getElementsByTagName('invoiceURL') -> item(0) -> nodeValue : '';
+			$PayPalTransactionID = $PayPalPaymentDetails -> getElementsByTagName('transactionID') -> length > 0 ? $PayPalPaymentDetails -> getElementsByTagName('transactionID') -> item(0) -> nodeValue : '';
+			$PayPalTransactionDate = $PayPalPaymentDetails -> getElementsByTagName('date') -> length > 0 ? $PayPalPaymentDetails -> getElementsByTagName('date') -> item(0) -> nodeValue : '';
 		}
 		
 		$OtherPaymentDetailsType = $DOM -> getElementsByTagName('otherPayment') -> length > 0 ? $DOM -> getElementsByTagName('otherPayment') : array();

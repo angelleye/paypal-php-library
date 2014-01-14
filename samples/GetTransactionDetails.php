@@ -15,7 +15,7 @@ $PayPal = new PayPal($PayPalConfig);
 
 // Prepare request arrays
 $GTDFields = array(
-					'transactionid' => '3LD64166HM953363L'							// PayPal transaction ID of the order you want to get details for.
+					'transactionid' => '3WN902700D272342K'							// PayPal transaction ID of the order you want to get details for.
 				);
 				
 $PayPalRequestData = array('GTDFields'=>$GTDFields);
