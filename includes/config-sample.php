@@ -48,10 +48,10 @@ if($sandbox)
 /* 
  * PayPal API Version
  * ------------------
- * The library is currently using PayPal API version 98.0.  
+ * The library is currently using PayPal API version 109.0.  
  * You may adjust this value here and then pass it into the PayPal object when you create it within your scripts to override if necessary.
  */
-$api_version = '98.0';
+$api_version = '109.0';
 
 /*
  * PayPal Application ID
