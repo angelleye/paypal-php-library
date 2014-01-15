@@ -26,4 +26,6 @@
 <file name="PaymentDetails.php" server="W:/angelleye-paypal-library/" local="130309743049208272" remote="130309743040000000" Dst="1" />
 <file name="ConvertCurrency.php" server="W:/angelleye-paypal-library/" local="130319977323084928" remote="130319977320000000" Dst="1" />
 <file name="PayWithOptions.php" server="W:/angelleye-paypal-library/" local="130339732757881967" remote="130339732750000000" Dst="1" />
+<file name="GetBalance.php" server="W:/angelleye-paypal-library/" local="130082794291306899" remote="130082794290000000" Dst="1" />
+<file name="DoDirectPayment.php" server="W:/angelleye-paypal-library/" local="130082789782801495" remote="130082789780000000" Dst="1" />
 </dwsync>
