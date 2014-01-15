@@ -1,4 +1,36 @@
 <?php
+/**
+ * 	Angell EYE PayPal Financing (Bill Me Later) Class Library
+ *	An open source PHP library written to easily work with PayPal's API's
+ *	
+ *  Copyright © 2014  Andrew K. Angell
+ *	Email:  andrew@angelleye.com
+ *  Facebook: angelleyeconsulting
+ *  Twitter: angelleye
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *
+ * @package			Angell_EYE_PayPal_Class_Library
+ * @author			Andrew K. Angell
+ * @copyright       Copyright © 2014 Angell EYE, LLC
+ * @link			https://github.com/angelleye/PayPal-PHP-Library
+ * @website			http://www.angelleye.com
+ * @since			Version 1.52
+ * @updated			01.14.2014
+ * @filesource
+*/
+
 class PayPal_Financing extends PayPal
 {
 	var $AccessKey = '';

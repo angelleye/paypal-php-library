@@ -3,7 +3,7 @@
  * 	Angell EYE PayPal NVP Class
  *	An open source PHP library written to easily work with PayPal's API's
  *	
- *  Copyright © 2013  Andrew K. Angell
+ *  Copyright © 2014  Andrew K. Angell
  *	Email:  andrew@angelleye.com
  *  Facebook: angelleyeconsulting
  *  Twitter: angelleye
@@ -23,10 +23,11 @@
  *
  * @package			Angell_EYE_PayPal_Class_Library
  * @author			Andrew K. Angell
- * @copyright       Copyright © 2013 Angell EYE, LLC
- * @link			http://www.angelleye.com
- * @since			Version 1.51
- * @updated			04.27.2013
+ * @copyright       Copyright © 2014 Angell EYE, LLC
+ * @link			https://github.com/angelleye/PayPal-PHP-Library
+ * @website			http://www.angelleye.com
+ * @since			Version 1.52
+ * @updated			01.14.2014
  * @filesource
 */
 
