@@ -43,7 +43,6 @@ class PayPal
 	var $APIMode = '';
 	var $EndPointURL = '';
 	var $Sandbox = '';
-	var $BetaSandbox = '';
 	var $PathToCertKeyPEM = '';
 	var $SSL = '';
 	
@@ -61,17 +60,11 @@ class PayPal
 			$this->Sandbox = $DataArray['Sandbox'];
 		
 		}
-		elseif(isset($DataArray['BetaSandbox']))
-		{
-			$this->Sandbox = $DataArray['BetaSandbox'];
-		}
 		else
 		{
 			$this->Sandbox = true;
 		}
 			
-		$this->Sandbox = isset($DataArray['Sandbox']) || isset($DataArray['BetaSandbox']) ? $DataArray['Sandbox'] : true;
-		$this->BetaSandbox = isset($DataArray['BetaSandbox']) ? $DataArray['BetaSandbox'] : false;
 		$this->APIVersion = isset($DataArray['APIVersion']) ? $DataArray['APIVersion'] : '109.0';
 		$this->APIMode = isset($DataArray['APIMode']) ? $DataArray['APIMode'] : 'Signature';
 		$this->APIButtonSource = 'AngellEYE_PHPClass';
@@ -79,21 +72,13 @@ class PayPal
 		$this->SSL = $_SERVER['SERVER_PORT'] == '443' ? true : false;
 		$this->APISubject = isset($DataArray['APISubject']) ? $DataArray['APISubject'] : '';
 		
-		if($this->Sandbox || $this->BetaSandbox)
+		if($this->Sandbox)
 		{
 			// Show Errors
 			error_reporting(E_ALL);
 			ini_set('display_errors', '1');
 		
-			if($this->BetaSandbox)
-			{
-				# Beta Sandbox
-				$this->APIUsername = isset($DataArray['APIUsername']) && $DataArray['APIUsername'] != '' ? $DataArray['APIUsername'] : '';
-				$this->APIPassword = isset($DataArray['APIPassword']) && $DataArray['APIPassword'] != '' ? $DataArray['APIPassword'] : '';
-				$this->APISignature = isset($DataArray['APISignature']) && $DataArray['APISignature'] != '' ? $DataArray['APISignature'] : '';
-				$this->EndPointURL = isset($DataArray['EndPointURL']) && $DataArray['EndPointURL'] != '' ? $DataArray['EndPointURL'] : 'https://api-3t.beta-sandbox.paypal.com/nvp';	
-			}
-			else
+			if($this->Sandbox)
 			{
 				# Sandbox
 				$this->APIUsername = isset($DataArray['APIUsername']) && $DataArray['APIUsername'] != '' ? $DataArray['APIUsername'] : '';
