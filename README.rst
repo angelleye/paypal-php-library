@@ -27,6 +27,15 @@ and there are also samples provided in the /samples directory.
 You may also `contact me directly <http://www.angelleye.com/contact-us/>`_ if you need additional help getting started.  I offer 30 min of free training for using this library, 
 which is generally plenty to get you up-and-running.
 
+----------------
+Composer Install
+----------------
+
+``"require": {
+	"angelleye/paypal-php-library" : "dev-master"
+},``
+
+
 *********
 Resources
 *********
