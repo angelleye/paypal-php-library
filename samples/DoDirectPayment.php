@@ -1,6 +1,6 @@
 <?php
 require_once('../includes/config.php');
-require_once('../includes/paypal.class.php');
+require_once('../includes/PayPal/PayPal.php');
 
 $PayPalConfig = array(
 					'Sandbox' => $sandbox,

@@ -29,6 +29,8 @@
  * @filesource
  */
 
+use DOMDocument;
+
 class PayPal_Adaptive extends PayPal
 {
 	var $DeveloperAccountEmail = '';
