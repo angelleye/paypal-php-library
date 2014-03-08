@@ -1,0 +1,21 @@
+{
+    "name": "angelleye/paypal-php-library",
+    "description": "Wrapper to the PayPal API",
+    "license": "GPL-3.0+",
+	"keywords": ["api", "paypal", "adaptive", "angelleye", "payflow"],
+    "authors": [
+        {
+            "name": "Andrew Angell",
+            "homepage": "http://www.angelleye.com"
+        }
+    ],
+	"require": {
+		"php": ">=5.3.0",
+		"ext-curl": "*"
+	},
+    "autoload": {
+        "psr-0": {
+            "Paypal\\": "includes\/"
+        }
+    }
+}
