@@ -32,10 +32,10 @@ Composer Install
 ----------------
 
 ::
+
     "require": {
 	    "angelleye/paypal-php-library" : "dev-master"
     },
-
 
 *********
 Resources
