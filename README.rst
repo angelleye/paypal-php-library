@@ -31,9 +31,10 @@ which is generally plenty to get you up-and-running.
 Composer Install
 ----------------
 
-``"require": {
-	"angelleye/paypal-php-library" : "dev-master"
-},``
+::
+    "require": {
+	    "angelleye/paypal-php-library" : "dev-master"
+    },
 
 
 *********
