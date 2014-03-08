@@ -1,6 +1,6 @@
 <?php namespace PayPal;
 /**
- * 	Angell EYE PayPal NVP Class
+ * 	Angell EYE PayPal Class
  *	An open source PHP library written to easily work with PayPal's API's
  *	
  *  Copyright © 2014  Andrew K. Angell
