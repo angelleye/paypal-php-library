@@ -1,8 +1,8 @@
 {
     "name": "angelleye/paypal-php-library",
-    "description": "Wrapper to the PayPal API",
+    "description": "Wrapper to the PayPal Classic API",
     "license": "GPL-3.0+",
-	"keywords": ["api", "paypal", "adaptive", "angelleye", "payflow"],
+	"keywords": ["api", "paypal", "adaptive", "angelleye", "payflow", "payments pro", "express checkout"],
     "authors": [
         {
             "name": "Andrew Angell",
