@@ -49,7 +49,7 @@ require_once('paypal.class.php');
 
 // Configure PayPal object
 $paypal_config = array('Sandbox' => $sandbox);
-$paypal = new PayPal($paypal_config);
+$paypal = new PayPal\PayPal($paypal_config);
 
 // Receive data from PayPal and load varaibles accordingly.
 $method = isset($_POST['METHOD']) ? $_POST['METHOD'] : '';

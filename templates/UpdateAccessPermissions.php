@@ -11,7 +11,7 @@ $PayPalConfig = array(
 					'APISignature' => $api_signature
 					);
 
-$PayPal = new PayPal($PayPalConfig);
+$PayPal = new PayPal\PayPal($PayPalConfig);
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
 $PayerID = '';

@@ -14,7 +14,7 @@ $PayPalConfig = array(
 						'Verbosity' => 'HIGH'		// Detail level for API response.  Values are:  LOW, MEDIUM, HIGH
 					  );
 
-$PayPal = new PayPal_PayFlow($PayPalConfig);
+$PayPal = new PayPal\PayPal_PayFlow($PayPalConfig);
 
 // Prepare request arrays
 $PayPalRequestData = array(

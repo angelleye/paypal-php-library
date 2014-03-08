@@ -17,7 +17,7 @@ $PayPalConfig = array(
 					  'APISubject' => $api_subject
 					);
 
-$PayPal = new PayPal_Adaptive($PayPalConfig);
+$PayPal = new PayPal\PayPal_Adaptive($PayPalConfig);
 
 // Prepare request arrays
 $PayKey = 'AP-69Y76588A7139944D';

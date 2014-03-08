@@ -13,7 +13,7 @@ $PayPalConfig = array(
 					'APISubject' => ''
 					);
 
-$PayPal = new PayPal($PayPalConfig);
+$PayPal = new PayPal\PayPal($PayPalConfig);
 
 $SECFields = array(
 					'token' => '', 								// A timestamped token, the value of which was returned by a previous SetExpressCheckout call.

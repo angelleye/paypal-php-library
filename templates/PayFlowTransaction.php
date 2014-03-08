@@ -13,7 +13,7 @@ $PayPalConfig = array(
 						'APIPartner' => $payflow_partner
 					  );
 
-$PayPal = new PayPal_PayFlow($PayPalConfig);
+$PayPal = new PayPal\PayPal_PayFlow($PayPalConfig);
 
 // Prepare request arrays
 $PayPalRequestData = array(

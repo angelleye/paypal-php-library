@@ -1,4 +1,4 @@
-<?php
+<?php namespace PayPal;
 /**
  * 	Angell EYE PayPal Adaptive Payments Class
  *	An open source PHP library written to easily work with PayPal's API's

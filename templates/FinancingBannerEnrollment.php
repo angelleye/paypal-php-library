@@ -11,7 +11,7 @@ $PayPalConfig = array(
 					  'ClientSecret' => $finance_client_secret
 					);
 
-$PayPal = new PayPal_Financing($PayPalConfig);
+$PayPal = new PayPal\PayPal_Financing($PayPalConfig);
 
 // Prepare request arrays
 $BannerEnrollmentParams = array(
