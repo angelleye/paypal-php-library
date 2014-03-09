@@ -2,7 +2,7 @@
 if(!session_id()) session_start();
 
 require_once('../includes/config.php');
-require_once('../includes/PayPal/PayPal.php');
+require_once('../src/PayPal/PayPal.php');
 
 $PayPalConfig = array(
 					'Sandbox' => $sandbox,
