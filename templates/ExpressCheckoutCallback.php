@@ -45,7 +45,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 require_once('../includes/config.php');
-require_once('PayPal/PayPal.php');
+require_once('../includes/PayPal/PayPal.php');
 
 // Configure PayPal object
 $paypal_config = array('Sandbox' => $sandbox);
