@@ -1,12 +1,16 @@
 {
     "name": "angelleye/paypal-php-library",
-    "description": "Wrapper to the PayPal Classic API",
+    "type": "library", 
+    "description": "PayPal Classic API wrapper", 
+    "keywords": ["api", "paypal", "adaptive payments", "angelleye", "payflow", "payments pro", "express checkout"],
+    "homepage": "https://github.com/angelleye/paypal-php-library", 
     "license": "GPL-3.0+",
-	"keywords": ["api", "paypal", "adaptive payments", "angelleye", "payflow", "payments pro", "express checkout"],
     "authors": [
         {
-            "name": "Andrew Angell",
-            "homepage": "https://github.com/angelleye/paypal-php-library"
+            "name": "Andrew Angell", 
+            "email": "andrew@angelleye.com", 
+            "homepage": "http://www.angelleye.com", 
+            "role": "Developer"
         }
     ],
 	"require": {
@@ -15,7 +19,7 @@
 	},
     "autoload": {
         "psr-0": {
-            "PayPal\\": "src\/"
+            "PayPal": "src"
         }
     }
 }
