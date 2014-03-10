@@ -6,7 +6,7 @@
     "authors": [
         {
             "name": "Andrew Angell",
-            "homepage": "http://www.angelleye.com"
+            "homepage": "https://github.com/angelleye/paypal-php-library"
         }
     ],
 	"require": {
