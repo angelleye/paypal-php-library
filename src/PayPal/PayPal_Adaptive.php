@@ -1,10 +1,12 @@
-<?php
+<?php namespace PayPal;
 /**
  * 	Angell EYE PayPal Adaptive Payments Class
  *	An open source PHP library written to easily work with PayPal's API's
  *
- *  Copyright Â© 2014  Andrew K. Angell
+ *  Copyright © 2014  Andrew K. Angell
  *	Email:  andrew@angelleye.com
+ *  Facebook: angelleyeconsulting
+ *  Twitter: angelleye
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,13 +23,15 @@
  *
  * @package			Angell_EYE_PayPal_Adaptive_Class_Library
  * @author			Andrew K. Angell
- * @copyright       Copyright Â© 2014 Angell EYE, LLC
+ * @copyright       Copyright © 2014 Angell EYE, LLC
  * @link			https://github.com/angelleye/PayPal-PHP-Library
  * @website			http://www.angelleye.com			
  * @since			Version 1.52
  * @updated			01.14.2014
  * @filesource
  */
+
+use DOMDocument;
 
 class PayPal_Adaptive extends PayPal
 {

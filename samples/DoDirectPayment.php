@@ -1,6 +1,6 @@
 <?php
-require_once('../includes/config.php');
-require_once('../includes/paypal.class.php');
+require_once('config-sample.php');
+require_once('../autoload.php');
 
 $PayPalConfig = array(
 					'Sandbox' => $sandbox,
@@ -9,7 +9,7 @@ $PayPalConfig = array(
 					'APISignature' => $api_signature
 					);
 
-$PayPal = new PayPal($PayPalConfig);
+$PayPal = new PayPal\PayPal($PayPalConfig);
 
 $DPFields = array(
 					'paymentaction' => 'Sale', 						// How you want to obtain payment.  Authorization indidicates the payment is a basic auth subject to settlement with Auth & Capture.  Sale indicates that this is a final sale for which you are requesting payment.  Default is Sale.

@@ -1,8 +1,8 @@
 <?php
 if(!session_id()) session_start();
 
-require_once('../includes/config.php');
-require_once('../includes/paypal.class.php');
+require_once('config-sample.php');
+require_once('../autoload.php');
 
 $PayPalConfig = array(
 					'Sandbox' => $sandbox,
@@ -13,7 +13,7 @@ $PayPalConfig = array(
 					'APISubject' => ''
 					);
 
-$PayPal = new PayPal($PayPalConfig);
+$PayPal = new PayPal\PayPal($PayPalConfig);
 
 $SECFields = array(
 					'token' => '', 								// A timestamped token, the value of which was returned by a previous SetExpressCheckout call.

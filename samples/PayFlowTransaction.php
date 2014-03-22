@@ -1,8 +1,8 @@
 <?php
 // Include required library files.
-require_once('../includes/config.php');
-require_once('../includes/paypal.class.php');
-require_once('../includes/paypal.payflow.class.php');
+require_once('config-sample.php');
+require_once('../autoload.php');
+require_once('../src/PayPal/PayPal_PayFlow.php');
 
 // Create PayPal object.
 $PayPalConfig = array(
@@ -14,7 +14,7 @@ $PayPalConfig = array(
 						'Verbosity' => 'HIGH'		// Detail level for API response.  Values are:  LOW, MEDIUM, HIGH
 					  );
 
-$PayPal = new PayPal_PayFlow($PayPalConfig);
+$PayPal = new PayPal\PayPal_PayFlow($PayPalConfig);
 
 // Prepare request arrays
 $PayPalRequestData = array(

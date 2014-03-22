@@ -1,10 +1,12 @@
-<?php
+<?php namespace PayPal;
 /**
  * 	Angell EYE PayPal PayFlow Class
  *	An open source PHP library written to easily work with PayPal's API's
  *
  *  Copyright © 2014  Andrew K. Angell
  *	Email:  andrew@angelleye.com
+ *	Facebook: angelleyeconsulting
+ *  Twitter: angelleye
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

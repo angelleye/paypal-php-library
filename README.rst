@@ -11,11 +11,15 @@ Adaptive Payments, Permissions, Invoicing, PayFlow, and more.
 Server Requirements
 *******************
 
--  PHP version 5.2.4 or newer.
+-  PHP version 5.3.0 or newer.
 
 ************
 Installation
 ************
+
+--------------
+Manual Install
+--------------
 
 Place all of the library files on your web server in a directory of your choice.  Then, 
 open /includes/config-sample.php, fill in your own config details, and then save this file
@@ -26,6 +30,22 @@ and there are also samples provided in the /samples directory.
 
 You may also `contact me directly <http://www.angelleye.com/contact-us/>`_ if you need additional help getting started.  I offer 30 min of free training for using this library, 
 which is generally plenty to get you up-and-running.
+
+----------------
+Composer Install
+----------------
+
+::
+
+    composer require angelleye/paypal-php-library dev-master
+
+----------------
+Without Composer
+----------------
+
+::
+
+    include_once('paypal-php-library/autoload.php');
 
 *********
 Resources

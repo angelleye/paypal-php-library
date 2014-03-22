@@ -3,3 +3,10 @@
 /temp
 /test
 /includes/config.php
+/.project
+/.settings
+!empty
+/.idea
+/.buildpath
+/composer.lock
+/vendor/*

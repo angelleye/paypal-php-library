@@ -1,6 +1,6 @@
 <?php
-require_once('../includes/config.php');
-require_once('../includes/paypal.class.php');
+require_once('config-sample.php');
+require_once('../autoload.php');
 
 $PayPalConfig = array(
 					'Sandbox' => $sandbox,
@@ -9,7 +9,7 @@ $PayPalConfig = array(
 					'APISignature' => $api_signature
 					);
 
-$PayPal = new PayPal($PayPalConfig);
+$PayPal = new PayPal\PayPal($PayPalConfig);
 
 $DRTFields = array(
 				   'referenceid' => '', 

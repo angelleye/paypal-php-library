@@ -1,7 +1,7 @@
 <?php
 // Include required library files.
-require_once('../includes/config.php');
-require_once('../includes/paypal.class.php');
+require_once('config-sample.php');
+require_once('../autoload.php');
 
 // Create PayPal object.
 $PayPalConfig = array(
@@ -11,7 +11,7 @@ $PayPalConfig = array(
 					'APISignature' => $api_signature
 					);
 
-$PayPal = new PayPal($PayPalConfig);
+$PayPal = new PayPal\PayPal($PayPalConfig);
 
 // Prepare request arrays
 $SetAccessPermissionsFields = array(

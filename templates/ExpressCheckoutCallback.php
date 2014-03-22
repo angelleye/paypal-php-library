@@ -3,7 +3,7 @@
  * 	Angell EYE PayPal Express Checkout Callback Service
  *	An open source PHP library written to easily work with PayPal's API's
  *	
- *  Copyright Â© 2014  Andrew K. Angell
+ *  Copyright © 2014  Andrew K. Angell
  *	Email:  andrew@angelleye.com
  *  Facebook: angelleyeconsulting
  *  Twitter: angelleye
@@ -23,7 +23,7 @@
  *
  * @package			Angell_EYE_PayPal_Class_Library
  * @author			Andrew K. Angell
- * @copyright       Copyright Â© 2014 Angell EYE, LLC
+ * @copyright       Copyright © 2014 Angell EYE, LLC
  * @link			https://github.com/angelleye/PayPal-PHP-Library
  * @website			http://www.angelleye.com
  * @since			Version 1.52
@@ -44,12 +44,12 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-require_once('../includes/config.php');
-require_once('paypal.class.php');
+require_once('config-sample.php');
+require_once('../autoload.php');
 
 // Configure PayPal object
 $paypal_config = array('Sandbox' => $sandbox);
-$paypal = new PayPal($paypal_config);
+$paypal = new PayPal\PayPal($paypal_config);
 
 // Receive data from PayPal and load varaibles accordingly.
 $method = isset($_POST['METHOD']) ? $_POST['METHOD'] : '';

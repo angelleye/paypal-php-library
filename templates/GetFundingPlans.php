@@ -1,8 +1,8 @@
 <?php
 // Include required library files.
-require_once('../includes/config.php');
-require_once('../includes/paypal.class.php');
-require_once('../includes/paypal.adaptive.class.php');
+require_once('config-sample.php');
+require_once('../autoload.php');
+
 
 // Create PayPal object.
 $PayPalConfig = array(
@@ -17,7 +17,7 @@ $PayPalConfig = array(
 					  'APISubject' => $api_subject
 					);
 
-$PayPal = new PayPal_Adaptive($PayPalConfig);
+$PayPal = new PayPal\PayPal_Adaptive($PayPalConfig);
 
 // Prepare request arrays
 $GetFundingPlansFields = array(
