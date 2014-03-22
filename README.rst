@@ -45,7 +45,7 @@ Without Composer
 
 ::
 
-    include_once('paypal-php-library'.DIRECTORY_SEPARATOR.'autoload.php');
+    include_once('paypal-php-library/autoload.php');
 
 *********
 Resources
