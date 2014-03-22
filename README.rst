@@ -39,6 +39,14 @@ Composer Install
 
     composer require angelleye/paypal-php-library dev-master
 
+----------------
+Without Composer
+----------------
+
+::
+
+    include_once('paypal-php-library'.DIRECTORY_SEPARATOR.'autoload.php');
+
 *********
 Resources
 *********
