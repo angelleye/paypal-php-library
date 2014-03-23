@@ -12,7 +12,7 @@ $PayPalConfig = array(
 					'APIVersion' => '55.0'
 					);
 
-$PayPal = new PayPal\PayPal($PayPalConfig);
+$PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 // Prepare request arrays
 $SMCFields = array(

@@ -17,7 +17,7 @@ $PayPalConfig = array(
 					  'APISubject' => $api_subject
 					);
 
-$PayPal = new PayPal\Adaptive($PayPalConfig);
+$PayPal = new angelleye\PayPal\Adaptive($PayPalConfig);
 
 // Pay
 $PayRequestFields = array(

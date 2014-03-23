@@ -10,7 +10,7 @@ $PayPalConfig = array(
 					'APISignature' => $api_signature
 					);
 
-$PayPal = new PayPal\PayPal($PayPalConfig);
+$PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 $StartDate = gmdate("Y-m-d\\TH:i:sZ",strtotime('now - 1 day'));
 

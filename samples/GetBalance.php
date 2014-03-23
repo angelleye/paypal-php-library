@@ -11,7 +11,7 @@ $PayPalConfig = array(
 					'APISignature' => $api_signature
 					);
 
-$PayPal = new PayPal\PayPal($PayPalConfig);
+$PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 // Prepare request arrays
 $GBFields = array('returnallcurrencies' => '');

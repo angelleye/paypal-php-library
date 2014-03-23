@@ -9,7 +9,7 @@ $PayPalConfig = array(
 					'APISignature' => $api_signature
 					);
 
-$PayPal = new PayPal\PayPal($PayPalConfig);
+$PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 /*
  * Here we call GetExpressCheckoutDetails to obtain payer information from PayPal

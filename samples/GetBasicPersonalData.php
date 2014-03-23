@@ -17,7 +17,7 @@ $PayPalConfig = array(
 					  'APISubject' => 'sandbo_1204199080_biz@angelleye.com'
 					);
 
-$PayPal = new PayPal\Adaptive($PayPalConfig);
+$PayPal = new angelleye\PayPal\Adaptive($PayPalConfig);
 
 // Prepare request arrays
 $AttributeList = array(

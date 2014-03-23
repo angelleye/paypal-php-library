@@ -1,4 +1,4 @@
-<?php namespace PayPal;
+<?php namespace angelleye\PayPal;
 /**
  * 	Angell EYE PayPal Financing (Bill Me Later) Class Library
  *	An open source PHP library written to easily work with PayPal's API's
