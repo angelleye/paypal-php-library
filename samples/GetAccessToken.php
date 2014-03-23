@@ -1,6 +1,6 @@
 <?php
 // Include required library files.
-require_once('config-sample.php');
+require_once('../includes/config.php');
 require_once('../autoload.php');
 
 
