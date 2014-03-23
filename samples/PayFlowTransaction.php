@@ -2,7 +2,7 @@
 // Include required library files.
 require_once('../includes/config.php');
 require_once('../autoload.php');
-require_once('../src/PayPal/PayPal_PayFlow.php');
+require_once('../src/PayPal/PayFlow.php');
 
 // Create PayPal object.
 $PayPalConfig = array(

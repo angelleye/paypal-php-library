@@ -31,7 +31,7 @@
  * @filesource
  */
 
-class PayPal_PayFlow extends PayPal 
+class PayFlow extends PayPal 
 {	
 	/**
 	 * Constructor
