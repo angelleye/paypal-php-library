@@ -17,7 +17,7 @@ $PayPalConfig = array(
 					  'APISubject' => $api_subject
 					);
 
-$PayPal = new PayPal\PayPal_Adaptive($PayPalConfig);
+$PayPal = new PayPal\Adaptive($PayPalConfig);
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
 $InvoiceID = 'INV2-3283-QFCE-5L2E-4FCH';

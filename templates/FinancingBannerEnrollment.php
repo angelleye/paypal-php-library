@@ -2,7 +2,7 @@
 // Include required library files.
 require_once('../includes/config.php');
 require_once('../autoload.php');
-require_once('../src/PayPal/PayPal_Financing.php');
+require_once('../src/PayPal/Financing.php');
 
 // Create PayPal object.
 $PayPalConfig = array(
@@ -11,7 +11,7 @@ $PayPalConfig = array(
 					  'ClientSecret' => $finance_client_secret
 					);
 
-$PayPal = new PayPal\PayPal_Financing($PayPalConfig);
+$PayPal = new PayPal\Financing($PayPalConfig);
 
 // Prepare request arrays
 $BannerEnrollmentParams = array(

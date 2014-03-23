@@ -17,7 +17,7 @@ $PayPalConfig = array(
 					  'APISubject' => $api_subject
 					);
 
-$PayPal = new PayPal\PayPal_Adaptive($PayPalConfig);
+$PayPal = new PayPal\Adaptive($PayPalConfig);
 
 // Prepare request arrays
 $AddBankAccountFields = array(
