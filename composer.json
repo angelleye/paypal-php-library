@@ -23,7 +23,7 @@
 	},
     "autoload": {
         "psr-0": {
-            "PayPal": "src"
+            "angelleye\PayPal": "src"
         }
     }
 }
