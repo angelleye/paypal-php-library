@@ -57,7 +57,7 @@ Usage
 - You may leave the file here, or save this file to the location on your web server where you'd like this call to be made.
     - I like to save the files to a separate location and keep the ones included with the library as empty templates.
 	- Note that you can also copy/paste the template code into your own file(s).
-- Each template file includes PHP arrays for every parameter available to that particular API. Simply fill in the array parameters with your own dynamic (or static) data. This data may come from...
+- Each template file includes PHP arrays for every parameter available to that particular API. Simply fill in the array parameters with your own dynamic (or static) data. This data may come from:
     - Session Variables
 	- General Variables
 	- Database Recordsets
