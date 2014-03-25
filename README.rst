@@ -16,35 +16,60 @@ Server Requirements
 Installation
 ************
 
---------------
-Manual Install
---------------
-
-Place all of the library files on your web server in a directory of your choice.  Then, 
-open /includes/config-sample.php, fill in your own config details, and then save this file
-as config.php in the same directory.
-
-You may refer to this `overview video <http://www.angelleye.com/overview-of-php-class-library-for-paypal/>`_ of how to use the library, 
-and there are also samples provided in the /samples directory.
-
-You may also `contact me directly <http://www.angelleye.com/contact-us/>`_ if you need additional help getting started.  I offer 30 min of free training for using this library, 
-which is generally plenty to get you up-and-running.
-
 ----------------
 Composer Install
 ----------------
 
-::
-
-    composer require angelleye/paypal-php-library dev-master
-
-----------------
-Without Composer
-----------------
+Create a composer.json file with the following section and run composer update.
 
 ::
 
-    include_once('paypal-php-library/autoload.php');
+    "require": {
+		"php": ">=5.3.0",
+		"ext-curl": "*",
+		"ext-json": "*",
+		"angelleye/paypal-php-library": "2.0.*"
+	}
+
+---------------------------------
+Manual Install (without Composer)
+---------------------------------
+
+- `Download <https://github.com/angelleye/paypal-php-library/archive/master.zip>`_ the class library and extract the contents do a directory in your project structure. 
+- Upload the files to your web server.
+
+***************
+Setup and Usage
+***************
+
+Open /includes/config-sample.php, fill out your details accordingly, and save-as config.php.
+
+To use the library in your project, include the following into your file(s).
+
+- /includes/config.php (It is recommended that you move this to a directory outside your site root on the web server and use an absolute path to include it.)
+- autoload.php
+
+Then you can setup the PayPal object using the following:
+
+::
+
+	$PayPalConfig = array(
+						'Sandbox' => $sandbox,
+						'APIUsername' => $api_username,
+						'APIPassword' => $api_password,
+						'APISignature' => $api_signature
+						);
+	
+	$PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
+	// $PayPal = new angelleye\PayPal\Adaptive($PayPalConfig);
+	// $PayPal = new angelleye\PayPal\PayFlow($PayPalConfig);
+	// $PayPal = new angelleye\PayPal\Financing($PayPalConfig);  
+
+You may refer to this `overview video <http://www.angelleye.com/overview-of-php-class-library-for-paypal/>`_ of how to use the library, 
+and there are also samples provided in the /samples directory as well as blank templates ready to use under /templates.
+
+You may `contact me directly <http://www.angelleye.com/contact-us/>`_ if you need additional help getting started.  I offer 30 min of free training for using this library, 
+which is generally plenty to get you up-and-running.
 
 ***************
 Supported APIs
