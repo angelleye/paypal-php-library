@@ -2,10 +2,9 @@
 Introduction
 ###################
 
-This PHP class library for PayPal makes it easy to integrate nearly every PayPal API they provide.
-
-All of the web services included in PayPal's NVP documentation are included, as well as Adaptive Accounts, 
-Adaptive Payments, Permissions, Invoicing, PayFlow, and more.
+This PHP class library for PayPal makes it easy to integrate PayPal APIs, including `Adaptive Accounts <https://developer.paypal.com/webapps/developer/docs/classic/api/#aa>`_, 
+`Adaptive Payments <https://developer.paypal.com/webapps/developer/docs/classic/api/#ap>`_, `Invoicing <https://developer.paypal.com/webapps/developer/docs/classic/api/#invoicing>`_, 
+`General Merchant APIs <https://developer.paypal.com/webapps/developer/docs/classic/api/#merchant>`_, and `Permissions <https://developer.paypal.com/webapps/developer/docs/classic/api/#permissions>`_.
 
 *******************
 Server Requirements
