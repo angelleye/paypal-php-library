@@ -27,7 +27,6 @@ Create a composer.json file with the following section and run composer update.
     "require": {
 		"php": ">=5.3.0",
 		"ext-curl": "*",
-		"ext-json": "*",
 		"angelleye/paypal-php-library": "2.0.*"
 	}
 
