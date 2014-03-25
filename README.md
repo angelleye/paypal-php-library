@@ -141,12 +141,12 @@ which is generally plenty to get you up-and-running.
 
 ### Permissions
 
--  CancelPermissions](https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/CancelPermissions_API_Operation/)
--  GetAccessToken](https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/GetAccessToken_API_Operation/)
--  GetAdvancedPersonalData](https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/GetAdvancedPersonalData_API_Operation/)
--  GetBasicPersonalData](https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/GetBasicPersonalData_API_Operation/)
--  GetPermissions](https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/GetPermissions_API_Operation/)
--  RequestPermissions](https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/RequestPermissions_API_Operation/)
+-  [CancelPermissions](https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/CancelPermissions_API_Operation/)
+-  [GetAccessToken](https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/GetAccessToken_API_Operation/)
+-  [GetAdvancedPersonalData](https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/GetAdvancedPersonalData_API_Operation/)
+-  [GetBasicPersonalData](https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/GetBasicPersonalData_API_Operation/)
+-  [GetPermissions](https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/GetPermissions_API_Operation/)
+-  [RequestPermissions](https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/RequestPermissions_API_Operation/)
 
 ### PayPal Manager (PayFlow Gateway)
 
