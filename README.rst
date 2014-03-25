@@ -47,6 +47,82 @@ Without Composer
 
     include_once('paypal-php-library/autoload.php');
 
+***************
+Supported API's
+***************
+
+-  `AddBankAccount.php`_
+-  `AddPaymentCard.php`_
+-  `AddressVerify.php`_
+-  `BMButtonSearch.php`_
+-  `BillAgreementUpdate.php`_
+-  `BillOutstandingAmount.php`_
+-  `CancelInvoice.php`_
+-  `CancelPermissions.php`_
+-  `CancelPreapproval.php`_
+-  `ConvertCurrency.php`_
+-  `CreateAccount.php`_
+-  `CreateAndSendInvoice.php`_
+-  `CreateBillingAgreement.php`_
+-  `CreateInvoice.php`_
+-  `CreateRecurringPaymentsProfile.php`_
+-  `DoAuthorization.php`_
+-  `DoCapture.php`_
+-  `DoDirectPayment.php`_
+-  `DoExpressCheckoutPayment.php`_
+-  `DoMobileCheckoutPayment.php`_
+-  `DoNonReferencedCredit.php`_
+-  `DoReauthorization.php`_
+-  `DoReferenceTransaction.php`_
+-  `DoVoid.php`_
+-  `ExecutePayment.php`_
+-  `ExpressCheckoutCallback.php`_
+-  `FinancingBannerEnrollment.php`_
+-  `GetAccessPermissionsDetails.php`_
+-  `GetAccessToken.php`_
+-  `GetAdvancedPersonalData.php`_
+-  `GetAuthDetails.php`_
+-  `GetBalance.php`_
+-  `GetBasicPersonalData.php`_
+-  `GetBillingAgreementCustomerDetails.php`_
+-  `GetExpressCheckoutDetails.php`_
+-  `GetFundingPlans.php`_
+-  `GetInvoiceDetails.php`_
+-  `GetPalDetails.php`_
+-  `GetPaymentOptions.php`_
+-  `GetPermissions.php`_
+-  `GetRecurringPaymentsProfileDetails.php`_
+-  `GetRecurringPaymentsProfileStatus.php`_
+-  `GetShippingAddresses.php`_
+-  `GetTransactionDetails.php`_
+-  `GetVerifiedStatus.php`_
+-  `ManagePendingTransactionStatus.php`_
+-  `ManageRecurringPaymentsProfileStatus.php`_
+-  `MarkInvoiceAsPaid.php`_
+-  `MassPay.php`_
+-  `Pay.php`_
+-  `PayFlowTransaction.php`_
+-  `PayWithOptions.php`_
+-  `PaymentDetails.php`_
+-  `Preapproval.php`_
+-  `PreapprovalDetails.php`_
+-  `Refund.php`_
+-  `RefundTransaction.php`_
+-  `RequestPermissions.php`_
+-  `SearchInvoices.php`_
+-  `SendInvoice.php`_
+-  `SetAccessPermissions.php`_
+-  `SetAuthFlowParam.php`_
+-  `SetCustomerBillingAgreement.php`_
+-  `SetExpressCheckout.php`_
+-  `SetFundingSourceConfirmed.php`_
+-  `SetMobileCheckout.php`_
+-  `SetPaymentOptions.php`_
+-  `TransactionSearch.php`_
+-  `UpdateAccessPermissions.php`_
+-  `UpdateInvoice.php`_
+-  `UpdateRecurringPaymentsProfile.php`_
+
 *********
 Resources
 *********
