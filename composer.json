@@ -7,10 +7,9 @@
     "license": "GPL-3.0+",
     "authors": [
         {
-            "name": "Andrew Angell", 
+            "name": "The Angell EYE Team", 
             "email": "service@angelleye.com", 
-            "homepage": "http://www.angelleye.com", 
-            "role": "Developer"
+            "homepage": "https://github.com/angelleye/paypal-php-library/graphs/contributors" 
         }
     ],
 	"require": {
