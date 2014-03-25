@@ -112,7 +112,7 @@ which is generally plenty to get you up-and-running.
 -  [AddressVerify](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/AddressVerify_API_Operation_NVP/)
 -  [BAUpdate](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/BAUpdate_API_Operation_NVP/)
 -  [BillOutstandingAmount](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/BillOutstandingAmount_API_Operation_NVP/)
--  [Callback](Express Checkout)](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/Callback_API_Operation_NVP/)
+-  [Callback (Express Checkout)](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/Callback_API_Operation_NVP/)
 -  [CreateBillingAgreement](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/CreateBillingAgreement_API_Operation_NVP/)
 -  [CreateRecurringPaymentsProfile](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/CreateRecurringPaymentsProfile_API_Operation_NVP/)
 -  [DoAuthorization](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoAuthorization_API_Operation_NVP/)
