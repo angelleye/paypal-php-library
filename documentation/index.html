@@ -12,17 +12,36 @@ body,td,th {
 </head>
 
 <body>
+<h1>Installation</h1>
+<h2>Composer Install</h2>
+<ul>
+  <li>Create a composer.json file with the following section and run composer update.<br />
+    <br />
+    <pre>
+    &quot;require&quot;: {<br />        &quot;php&quot;: &quot;&gt;=5.3.0&quot;,<br />        &quot;ext-curl&quot;: &quot;*&quot;,
+        &quot;angelleye/paypal-php-library&quot;: &quot;2.0.*&quot;<br />    }</pre></li>
+</ul>
+<h2>Manual Install (without Composer)</h2>
+<ul>
+  <li><a href="https://github.com/angelleye/paypal-php-library/archive/master.zip">Download</a> the class library and extract the contents do a directory in your project structure.</li>
+  <li>Upload the files to your web server.</li>
+</ul>
 <h1>Setup</h1>
 <ul>
-  <li><a href="http://www.angelleye.com/download-angell-eye-php-class-library-for-paypal/" target="_blank">Download the PHP class library for PayPal</a> and upload to a directory on your web server.</li>
   <li>Open /includes/config-sample.php and adjust the values with your own Sandbox and Production API credentials.  then Save-As config.php
     <ul>
       <li>There are detailed comments inside the config file to help you fill it out correctly.</li>
       <li>For security purposes, it is recommended that you move this config file to a location outside of the web root for your application, and then include it in your project using an absolute path.</li>
     </ul>
   </li>
+  <li>To use the library in your project, include the following into your file(s).
+    <ul>
+      <li>/includes/config.php</li>
+      <li>autoload.php</li>
+    </ul>
+  </li>
 </ul>
-<h1>How to Make PayPal API Calls</h1>
+<h1>Usage</h1>
 <ul>
   <li>Open the template file that corresponds to the API call you'd like to make.
     <ul>

@@ -37,9 +37,9 @@ Manual Install (without Composer)
 - `Download <https://github.com/angelleye/paypal-php-library/archive/master.zip>`_ the class library and extract the contents do a directory in your project structure. 
 - Upload the files to your web server.
 
-***************
-Setup and Usage
-***************
+*****
+Setup
+*****
 
 Open /includes/config-sample.php, fill out your details accordingly, and save-as config.php.
 
@@ -48,21 +48,25 @@ To use the library in your project, include the following into your file(s).
 - /includes/config.php (It is recommended that you move this to a directory outside your site root on the web server and use an absolute path to include it.)
 - autoload.php
 
-Then you can setup the PayPal object using the following:
+*****
+Usage
+*****
 
-::
-
-	$PayPalConfig = array(
-						'Sandbox' => $sandbox,
-						'APIUsername' => $api_username,
-						'APIPassword' => $api_password,
-						'APISignature' => $api_signature
-						);
-	
-	$PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
-	// $PayPal = new angelleye\PayPal\Adaptive($PayPalConfig);
-	// $PayPal = new angelleye\PayPal\PayFlow($PayPalConfig);
-	// $PayPal = new angelleye\PayPal\Financing($PayPalConfig);  
+- Open the template file that corresponds to the API call you'd like to make.
+    - Example: If we want to make a call to the RefundTransaction API we open up /templates/RefundTransaction.php
+- You may leave the file here, or save this file to the location on your web server where you'd like this call to be made.
+    - I like to save the files to a separate location and keep the ones included with the library as empty templates.
+	- Note that you can also copy/paste the template code into your own file(s).
+- Each template file includes PHP arrays for every parameter available to that particular API. Simply fill in the array parameters with your own dynamic (or static) data. This data may come from...
+    - Session Variables
+	- General Variables
+	- Database Recordsets
+	- Static Values
+	- Etc.
+- When you run the file you will get a $PayPalResult array that consists of all the response parameters from PayPal, original request parameters sent to PayPal, and raw request/response info for troubleshooting.
+    - You may refer to the `PayPal API Reference Guide <https://developer.paypal.com/webapps/developer/docs/classic/api/>`_ for details about what response parameters you can expect to get back from any successful API request.
+        - Example: When working with RefundTransaction, I can see that PayPal will return a REFUNDTRANSACTIONID, FEEREFUNDAMT, etc. As such, I know that those values will be included in $PayPalResult['REFUNDTRANSACTIONID'] and $PayPalResult['FEEREFUNDAMT'] respectively.
+- If errors occur they will be available in $PayPalResult['ERRORS']
 
 You may refer to this `overview video <http://www.angelleye.com/overview-of-php-class-library-for-paypal/>`_ of how to use the library, 
 and there are also samples provided in the /samples directory as well as blank templates ready to use under /templates.
