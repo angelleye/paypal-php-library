@@ -1,24 +1,16 @@
-###################
-Introduction
-###################
+## Introduction
 
 This PHP class library for PayPal makes it easy to integrate PayPal APIs, including `Adaptive Accounts <https://developer.paypal.com/webapps/developer/docs/classic/api/#aa>`_, 
 `Adaptive Payments <https://developer.paypal.com/webapps/developer/docs/classic/api/#ap>`_, `Invoicing <https://developer.paypal.com/webapps/developer/docs/classic/api/#invoicing>`_, 
 `General Merchant APIs <https://developer.paypal.com/webapps/developer/docs/classic/api/#merchant>`_, and `Permissions <https://developer.paypal.com/webapps/developer/docs/classic/api/#permissions>`_.
 
-*******************
-Server Requirements
-*******************
+## Server Requirements
 
 -  PHP version 5.3.0 or newer.
 
-************
-Installation
-************
+## Installation
 
-----------------
-Composer Install
-----------------
+### Composer Install
 
 Create a composer.json file with the following section and run composer update.
 
@@ -30,16 +22,12 @@ Create a composer.json file with the following section and run composer update.
 		"angelleye/paypal-php-library": "2.0.*"
 	}
 
----------------------------------
-Manual Install (without Composer)
----------------------------------
+### Manual Install (without Composer)
 
 - `Download <https://github.com/angelleye/paypal-php-library/archive/master.zip>`_ the class library and extract the contents do a directory in your project structure. 
 - Upload the files to your web server.
 
-*****
-Setup
-*****
+## Setup
 
 Open /includes/config-sample.php, fill out your details accordingly, and save-as config.php.
 
@@ -48,9 +36,7 @@ To use the library in your project, include the following into your file(s).
 - /includes/config.php (It is recommended that you move this to a directory outside your site root on the web server and use an absolute path to include it.)
 - autoload.php
 
-*****
-Usage
-*****
+## Usage
 
 - Open the template file that corresponds to the API call you'd like to make.
     * Example: If we want to make a call to the RefundTransaction API we open up /templates/RefundTransaction.php
@@ -78,13 +64,9 @@ and there are also samples provided in the /samples directory as well as blank t
 You may `contact me directly <http://www.angelleye.com/contact-us/>`_ if you need additional help getting started.  I offer 30 min of free training for using this library, 
 which is generally plenty to get you up-and-running.
 
-***************
-Supported APIs
-***************
+## Supported APIs
 
------------------
-Adaptive Accounts
------------------
+### Adaptive Accounts
 
 -  `AddBankAccount <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/AddBankAccount_API_Operation/>`_
 -  `AddPaymentCard <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/AddPaymentCard_API_Operation/>`_
@@ -92,9 +74,7 @@ Adaptive Accounts
 -  `GetVerifiedStatus <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/GetVerifiedStatus_API_Operation/>`_
 -  `SetFundingSourceConfirmed <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/SetFundingSourceConfirmed_API_Operation/>`_
 
------------------
-Adaptive Payments
------------------
+### Adaptive Payments
 
 -  `CancelPreapproval <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/CancelPreapproval_API_Operation/>`_
 -  `ConvertCurrency <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/ConvertCurrency_API_Operation/>`_
@@ -110,15 +90,11 @@ Adaptive Payments
 -  `Refund <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/Refund_API_Operation/>`_
 -  `SetPaymentOptions <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/SetPaymentOptions_API_Operation/>`_
 
---------------
-Button Manager
---------------
+### Button Manager
 
 -  `BMButtonSearch <https://developer.paypal.com/webapps/developer/docs/classic/api/button-manager/BMButtonSearch_API_Operation_NVP/>`_
 
----------
-Invoicing
----------
+### Invoicing
 
 -  `CancelInvoice <https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/CancelInvoice_API_Operation/>`_
 -  `CreateAndSendInvoice <https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/CreateAndSendInvoice_API_Operation/>`_
@@ -129,9 +105,7 @@ Invoicing
 -  `SendInvoice <https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/SendInvoice_API_Operation/>`_
 -  `UpdateInvoice <https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/UpdateInvoice_API_Operation/>`_
 
---------
-Merchant
---------
+### Merchant
 
 -  `AddressVerify <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/AddressVerify_API_Operation_NVP/>`_
 -  `BAUpdate <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/BAUpdate_API_Operation_NVP/>`_
@@ -163,9 +137,7 @@ Merchant
 -  `TransactionSearch <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/TransactionSearch_API_Operation_NVP/>`_
 -  `UpdateRecurringPaymentsProfile <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/UpdateRecurringPaymentsProfile_API_Operation_NVP/>`_
 
------------
-Permissions
------------
+### Permissions
 
 -  `CancelPermissions <https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/CancelPermissions_API_Operation/>`_
 -  `GetAccessToken <https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/GetAccessToken_API_Operation/>`_
@@ -174,23 +146,17 @@ Permissions
 -  `GetPermissions <https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/GetPermissions_API_Operation/>`_
 -  `RequestPermissions <https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/RequestPermissions_API_Operation/>`_
 
-------------------------
-PayPal Manager (PayFlow)
-------------------------
+### PayPal Manager (PayFlow Gateway)
 
 -  `PayFlowTransaction <https://www.paypalobjects.com/webstatic/en_US/developer/docs/pdf/payflowgateway_guide.pdf>`_
 
 
------------------
-Financing Banners
------------------
+### Financing Banners
 
 -  FinancingBannerEnrollment
 
 
-----------
-Deprecated
-----------
+### Deprecated
 
 -  DoMobileCheckoutPayment
 -  GetAccessPermissionsDetails
@@ -200,9 +166,7 @@ Deprecated
 -  SetMobileCheckout
 -  UpdateAccessPermissions
 
-*********
-Resources
-*********
+## Resources
 
 -  `Adaptive Accounts Developer Guide <https://developer.paypal.com/webapps/developer/docs/classic/adaptive-accounts/integration-guide/ACIntroduction/>`_
 -  `Adaptive Payments Developer Guide <https://developer.paypal.com/webapps/developer/docs/classic/adaptive-payments/integration-guide/APIntro/>`_
