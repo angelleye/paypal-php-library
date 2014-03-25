@@ -3,7 +3,6 @@
  * 	Angell EYE PayPal Class
  *	An open source PHP library written to easily work with PayPal's API's
  *	
- *  Copyright © 2014  Andrew K. Angell
  *	Email:  service@angelleye.com
  *  Facebook: angelleyeconsulting
  *  Twitter: angelleye
@@ -22,7 +21,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>
  *
  * @author			Andrew K. Angell
- * @copyright       Copyright © 2014 Angell EYE, LLC
  * @link			https://github.com/angelleye/PayPal-PHP-Library
  * @website			http://www.angelleye.com
  * @since			Version 2.0
