@@ -4,7 +4,7 @@
  *	An open source PHP library written to easily work with PayPal's API's
  *
  *  Copyright © 2014  Andrew K. Angell
- *	Email:  andrew@angelleye.com
+ *	Email:  service@angelleye.com
  *	Facebook: angelleyeconsulting
  *  Twitter: angelleye
  *
@@ -21,13 +21,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>
  *
- * @package			Angell_EYE_PayPal_PayFlow_Class_Library
  * @author			Andrew K. Angell
  * @copyright       Copyright © 2014 Angell EYE, LLC
  * @link			https://github.com/angelleye/PayPal-PHP-Library
  * @website			http://www.angelleye.com
- * @since			Version 1.52
- * @updated			01.14.2014
+ * @since			Version 2.0
+ * @updated			03.25.2014
  * @filesource
  */
 
