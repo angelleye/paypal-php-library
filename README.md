@@ -1,8 +1,8 @@
 # Angell EYE PayPal PHP Library
 
-This PHP class library for PayPal makes it easy to integrate PayPal APIs, including [Adaptive Accounts]](https://developer.paypal.com/webapps/developer/docs/classic/api/#aa), 
-[Adaptive Payments]](https://developer.paypal.com/webapps/developer/docs/classic/api/#ap), [Invoicing]](https://developer.paypal.com/webapps/developer/docs/classic/api/#invoicing), 
-[General Merchant APIs]](https://developer.paypal.com/webapps/developer/docs/classic/api/#merchant), and [Permissions]](https://developer.paypal.com/webapps/developer/docs/classic/api/#permissions).
+This PHP class library for PayPal makes it easy to integrate PayPal APIs, including [Adaptive Accounts](https://developer.paypal.com/webapps/developer/docs/classic/api/#aa), 
+[Adaptive Payments](https://developer.paypal.com/webapps/developer/docs/classic/api/#ap), [Invoicing](https://developer.paypal.com/webapps/developer/docs/classic/api/#invoicing), 
+[General Merchant APIs](https://developer.paypal.com/webapps/developer/docs/classic/api/#merchant), and [Permissions](https://developer.paypal.com/webapps/developer/docs/classic/api/#permissions).
 
 -----------------------
 
@@ -26,7 +26,7 @@ Create a composer.json file with the following section and run composer update.
 
 ### Manual Install (without Composer)
 
-- [Download]](https://github.com/angelleye/paypal-php-library/archive/master.zip) the class library and extract the contents do a directory in your project structure. 
+- [Download](https://github.com/angelleye/paypal-php-library/archive/master.zip) the class library and extract the contents do a directory in your project structure. 
 - Upload the files to your web server.
 
 ## Setup
@@ -55,7 +55,7 @@ To use the library in your project, include the following into your file(s).
 	* Etc.
 	
 - When you run the file you will get a $PayPalResult array that consists of all the response parameters from PayPal, original request parameters sent to PayPal, and raw request/response info for troubleshooting.
-    * You may refer to the [PayPal API Reference Guide]](https://developer.paypal.com/webapps/developer/docs/classic/api/) for details about what response parameters you can expect to get back from any successful API request.
+    * You may refer to the [PayPal API Reference Guide](https://developer.paypal.com/webapps/developer/docs/classic/api/) for details about what response parameters you can expect to get back from any successful API request.
         + Example: When working with RefundTransaction, I can see that PayPal will return a REFUNDTRANSACTIONID, FEEREFUNDAMT, etc. As such, I know that those values will be included in $PayPalResult['REFUNDTRANSACTIONID'] and $PayPalResult['FEEREFUNDAMT'] respectively.
 
 - If errors occur they will be available in $PayPalResult['ERRORS']
@@ -70,56 +70,56 @@ which is generally plenty to get you up-and-running.
 
 ### Adaptive Accounts
 
--  [AddBankAccount]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/AddBankAccount_API_Operation/)
--  [AddPaymentCard]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/AddPaymentCard_API_Operation/)
--  [CreateAccount]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/CreateAccount_API_Operation/)
--  [GetVerifiedStatus]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/GetVerifiedStatus_API_Operation/)
--  [SetFundingSourceConfirmed]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/SetFundingSourceConfirmed_API_Operation/)
+-  [AddBankAccount](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/AddBankAccount_API_Operation/)
+-  [AddPaymentCard](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/AddPaymentCard_API_Operation/)
+-  [CreateAccount](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/CreateAccount_API_Operation/)
+-  [GetVerifiedStatus](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/GetVerifiedStatus_API_Operation/)
+-  [SetFundingSourceConfirmed](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/SetFundingSourceConfirmed_API_Operation/)
 
 ### Adaptive Payments
 
--  [CancelPreapproval]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/CancelPreapproval_API_Operation/)
--  [ConvertCurrency]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/ConvertCurrency_API_Operation/)
--  [ExecutePayment]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/ExecutePayment_API_Operation/)
--  [GetFundingPlans]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/GetFundingPlans_API_Operation/)
--  [GetPaymentOptions]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/GetPaymentOptions_API_Operation/)
--  [GetShippingAddresses]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/GetShippingAddresses_API_Operation/)
--  [Pay]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/Pay_API_Operation/)
+-  [CancelPreapproval](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/CancelPreapproval_API_Operation/)
+-  [ConvertCurrency](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/ConvertCurrency_API_Operation/)
+-  [ExecutePayment](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/ExecutePayment_API_Operation/)
+-  [GetFundingPlans](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/GetFundingPlans_API_Operation/)
+-  [GetPaymentOptions](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/GetPaymentOptions_API_Operation/)
+-  [GetShippingAddresses](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/GetShippingAddresses_API_Operation/)
+-  [Pay](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/Pay_API_Operation/)
 -  PayWithOptions
--  [PaymentDetails]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/PaymentDetails_API_Operation/)
--  [Preapproval]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/Preapproval_API_Operation/)
--  [PreapprovalDetails]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/PreapprovalDetails_API_Operation/)
--  [Refund]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/Refund_API_Operation/)
--  [SetPaymentOptions]](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/SetPaymentOptions_API_Operation/)
+-  [PaymentDetails](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/PaymentDetails_API_Operation/)
+-  [Preapproval](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/Preapproval_API_Operation/)
+-  [PreapprovalDetails](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/PreapprovalDetails_API_Operation/)
+-  [Refund](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/Refund_API_Operation/)
+-  [SetPaymentOptions](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/SetPaymentOptions_API_Operation/)
 
 ### Button Manager
 
--  [BMButtonSearch]](https://developer.paypal.com/webapps/developer/docs/classic/api/button-manager/BMButtonSearch_API_Operation_NVP/)
+-  [BMButtonSearch](https://developer.paypal.com/webapps/developer/docs/classic/api/button-manager/BMButtonSearch_API_Operation_NVP/)
 
 ### Invoicing
 
--  [CancelInvoice]](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/CancelInvoice_API_Operation/)
--  [CreateAndSendInvoice]](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/CreateAndSendInvoice_API_Operation/)
--  [CreateInvoice]](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/CreateInvoice_API_Operation/)
--  [GetInvoiceDetails]](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/GetInvoiceDetails_API_Operation/)
--  [MarkInvoiceAsPaid]](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/MarkInvoiceAsPaid_API_Operation/)
--  [SearchInvoices]](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/SearchInvoices_API_Operation/)
--  [SendInvoice]](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/SendInvoice_API_Operation/)
--  [UpdateInvoice]](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/UpdateInvoice_API_Operation/)
+-  [CancelInvoice](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/CancelInvoice_API_Operation/)
+-  [CreateAndSendInvoice](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/CreateAndSendInvoice_API_Operation/)
+-  [CreateInvoice](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/CreateInvoice_API_Operation/)
+-  [GetInvoiceDetails](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/GetInvoiceDetails_API_Operation/)
+-  [MarkInvoiceAsPaid](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/MarkInvoiceAsPaid_API_Operation/)
+-  [SearchInvoices](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/SearchInvoices_API_Operation/)
+-  [SendInvoice](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/SendInvoice_API_Operation/)
+-  [UpdateInvoice](https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/UpdateInvoice_API_Operation/)
 
 ### Merchant
 
--  [AddressVerify]](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/AddressVerify_API_Operation_NVP/)
--  [BAUpdate]](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/BAUpdate_API_Operation_NVP/)
--  [BillOutstandingAmount]](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/BillOutstandingAmount_API_Operation_NVP/)
+-  [AddressVerify](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/AddressVerify_API_Operation_NVP/)
+-  [BAUpdate](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/BAUpdate_API_Operation_NVP/)
+-  [BillOutstandingAmount](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/BillOutstandingAmount_API_Operation_NVP/)
 -  [Callback](Express Checkout)](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/Callback_API_Operation_NVP/)
--  [CreateBillingAgreement]](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/CreateBillingAgreement_API_Operation_NVP/)
--  [CreateRecurringPaymentsProfile]](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/CreateRecurringPaymentsProfile_API_Operation_NVP/)
--  [DoAuthorization]](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoAuthorization_API_Operation_NVP/)
--  [DoCapture]](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoCapture_API_Operation_NVP/)
+-  [CreateBillingAgreement](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/CreateBillingAgreement_API_Operation_NVP/)
+-  [CreateRecurringPaymentsProfile](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/CreateRecurringPaymentsProfile_API_Operation_NVP/)
+-  [DoAuthorization](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoAuthorization_API_Operation_NVP/)
+-  [DoCapture](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoCapture_API_Operation_NVP/)
 -  [DoDirectPayment](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoDirectPayment_API_Operation_NVP/)
--  [DoExpressCheckoutPayment]](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoExpressCheckoutPayment_API_Operation_NVP/)
--  [DoNonReferencedCredit]](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoNonReferencedCredit_API_Operation_NVP/)
+-  [DoExpressCheckoutPayment](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoExpressCheckoutPayment_API_Operation_NVP/)
+-  [DoNonReferencedCredit](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoNonReferencedCredit_API_Operation_NVP/)
 -  [DoReauthorization](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoReauthorization_API_Operation_NVP/)
 -  [DoReferenceTransaction](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoReferenceTransaction_API_Operation_NVP/)
 -  [DoVoid](https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoVoid_API_Operation_NVP/)
