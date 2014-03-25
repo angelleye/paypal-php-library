@@ -8,7 +8,8 @@ This PHP class library for PayPal makes it easy to integrate PayPal APIs, includ
 
 ## Server Requirements
 
--  PHP version 5.3.0 or newer.
+- PHP version 5.3.0 or newer.
+- cURL
 
 ## Installation
 
