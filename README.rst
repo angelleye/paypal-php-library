@@ -55,7 +55,7 @@ Supported API's
 -  `AddPaymentCard <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/AddPaymentCard_API_Operation/>`_
 -  `AddressVerify <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/AddressVerify_API_Operation_NVP/>`_
 -  `BMButtonSearch <https://developer.paypal.com/webapps/developer/docs/classic/api/button-manager/BMButtonSearch_API_Operation_NVP/>`_
--  BillAgreementUpdate_
+-  BillAgreementUpdate
 -  `BillOutstandingAmount <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/BillOutstandingAmount_API_Operation_NVP/>`_
 -  `CancelInvoice <https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/CancelInvoice_API_Operation/>`_
 -  `CancelPermissions <https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/CancelPermissions_API_Operation/>`_
@@ -70,18 +70,18 @@ Supported API's
 -  `DoCapture <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoCapture_API_Operation_NVP/>`_
 -  `DoDirectPayment <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoDirectPayment_API_Operation_NVP/>`_
 -  `DoExpressCheckoutPayment <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoExpressCheckoutPayment_API_Operation_NVP/>`_
--  DoMobileCheckoutPayment_
+-  DoMobileCheckoutPayment
 -  `DoNonReferencedCredit <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoNonReferencedCredit_API_Operation_NVP/>`_
 -  `DoReauthorization <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoReauthorization_API_Operation_NVP/>`_
 -  `DoReferenceTransaction <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoReferenceTransaction_API_Operation_NVP/>`_
 -  `DoVoid <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/DoVoid_API_Operation_NVP/>`_
 -  `ExecutePayment <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/ExecutePayment_API_Operation/>`_
 -  `ExpressCheckoutCallback <https://developer.paypal.com/docs/classic/express-checkout/integration-guide/ECInstantUpdateAPI/>`_
--  FinancingBannerEnrollment_
--  GetAccessPermissionsDetails_
+-  FinancingBannerEnrollment
+-  GetAccessPermissionsDetails
 -  `GetAccessToken <https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/GetAccessToken_API_Operation/>`_
 -  `GetAdvancedPersonalData <https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/GetAdvancedPersonalData_API_Operation/>`_
--  GetAuthDetails_
+-  GetAuthDetails
 -  `GetBalance <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/GetBalance_API_Operation_NVP/>`_
 -  `GetBasicPersonalData <https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/GetBasicPersonalData_API_Operation/>`_
 -  `GetBillingAgreementCustomerDetails <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/GetBillingAgreementCustomerDetails_API_Operation_NVP/>`_
@@ -92,7 +92,7 @@ Supported API's
 -  `GetPaymentOptions <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/GetPaymentOptions_API_Operation/>`_
 -  `GetPermissions <https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/GetPermissions_API_Operation/>`_
 -  `GetRecurringPaymentsProfileDetails <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/GetRecurringPaymentsProfileDetails_API_Operation_NVP/>`_
--  GetRecurringPaymentsProfileStatus_
+-  GetRecurringPaymentsProfileStatus
 -  `GetShippingAddresses <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/GetShippingAddresses_API_Operation/>`_
 -  `GetTransactionDetails <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/GetTransactionDetails_API_Operation_NVP/>`_
 -  `GetVerifiedStatus <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/GetVerifiedStatus_API_Operation/>`_
@@ -102,7 +102,7 @@ Supported API's
 -  `MassPay <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/MassPay_API_Operation_NVP/>`_
 -  `Pay <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/Pay_API_Operation/>`_
 -  `PayFlowTransaction <https://www.paypalobjects.com/webstatic/en_US/developer/docs/pdf/payflowgateway_guide.pdf>`_
--  PayWithOptions_
+-  PayWithOptions
 -  `PaymentDetails <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/PaymentDetails_API_Operation/>`_
 -  `Preapproval <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/Preapproval_API_Operation/>`_
 -  `PreapprovalDetails <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/PreapprovalDetails_API_Operation/>`_
@@ -111,15 +111,15 @@ Supported API's
 -  `RequestPermissions <https://developer.paypal.com/webapps/developer/docs/classic/api/permissions/RequestPermissions_API_Operation/>`_
 -  `SearchInvoices <https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/SearchInvoices_API_Operation/>`_
 -  `SendInvoice <https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/SendInvoice_API_Operation/>`_
--  SetAccessPermissions.php_
--  SetAuthFlowParam.php_
+-  SetAccessPermissions
+-  SetAuthFlowParam
 -  `SetCustomerBillingAgreement <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/SetCustomerBillingAgreement_API_Operation_NVP/>`_
 -  `SetExpressCheckout <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/SetExpressCheckout_API_Operation_NVP/>`_
 -  `SetFundingSourceConfirmed <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/SetFundingSourceConfirmed_API_Operation/>`_
--  SetMobileCheckout`_
+-  SetMobileCheckout
 -  `SetPaymentOptions <https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/SetPaymentOptions_API_Operation/>`_
 -  `TransactionSearch <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/TransactionSearch_API_Operation_NVP/>`_
--  UpdateAccessPermissions.php_
+-  UpdateAccessPermissions
 -  `UpdateInvoice <https://developer.paypal.com/webapps/developer/docs/classic/api/invoicing/UpdateInvoice_API_Operation/>`_
 -  `UpdateRecurringPaymentsProfile <https://developer.paypal.com/webapps/developer/docs/classic/api/merchant/UpdateRecurringPaymentsProfile_API_Operation_NVP/>`_
 
