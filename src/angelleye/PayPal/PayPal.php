@@ -1387,7 +1387,7 @@ class PayPal
 		
 		// Survey Choices
 		$SurveyChoices = isset($DataArray['SurveyChoices']) ? $DataArray['SurveyChoices'] : array();
-		if($SECFields['surveyquestion'] != '')
+		if(isset($SECFields['surveyquestion']) && $SECFields['surveyquestion'] != '')
 		{
 			$n = 0;
 			foreach($SurveyChoices as $SurveyChoice)
