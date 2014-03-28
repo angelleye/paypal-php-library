@@ -32,6 +32,8 @@ $SECFields = array(
 					'hdrbordercolor' => '', 					// Sets the border color around the header of the payment page.  The border is a 2-pixel permiter around the header space.  Default is black.  
 					'hdrbackcolor' => '', 						// Sets the background color for the header of the payment page.  Default is white.  
 					'payflowcolor' => '', 						// Sets the background color for the payment page.  Default is white.
+					'cartbordercolor' => '', 					// The HTML hex code for your principal identifying color.  PayPal blends your color to white in a gradient fill that borders the cart review area of the PayPal checkout user interface.  6 single-byte hexadecimal chars. that represent an HTML hex code for a color.
+					'logoimg' => '', 							// A URL to your logo image.  Formats:  .gif, .jpg, .png.  190x60.  PayPal places your logo image at the top of the cart review area.  This logo needs to be stored on a https:// server.
 					'skipdetails' => '', 						// This is a custom field not included in the PayPal documentation.  It's used to specify whether you want to skip the GetExpressCheckoutDetails part of checkout or not.  See PayPal docs for more info.
 					'email' => '', 								// Email address of the buyer as entered during checkout.  PayPal uses this value to pre-fill the PayPal sign-in page.  127 char max.
 					'solutiontype' => '', 						// Type of checkout flow.  Must be Sole (express checkout for auctions) or Mark (normal express checkout)
@@ -56,6 +58,7 @@ $SECFields = array(
 					'buyerusername' => '', 						// The user name of the user at the marketplaces site.
 					'buyerregistrationdate' => '',  			// Date when the user registered with the marketplace.
 					'allowpushfunding' => '', 					// Whether the merchant can accept push funding.  0 = Merchant can accept push funding : 1 = Merchant cannot accept push funding.			
+					'userselectedfundingsource' => '', 			// This element could be used to specify the preferred funding option for a guest user.  However, the LANDINGPAGE element must also be set to Billing.  Otherwise, it is ignored.  Values:  BML, ChinaUnionPay, CreditCard, ELV
 					'taxidtype' => '', 							// The buyer's tax ID type.  This field is required for Brazil and used for Brazil only.  Values:  BR_CPF for individuals and BR_CNPJ for businesses.
 					'taxid' => ''								// The buyer's tax ID.  This field is required for Brazil and used for Brazil only.  The tax ID is 11 single-byte characters for individutals and 14 single-byte characters for businesses.
 				);
@@ -66,10 +69,11 @@ $SurveyChoices = array('Choice 1', 'Choice2', 'Choice3', 'etc');
 $Payments = array();
 $Payment = array(
 				'amt' => '', 							// Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
+				'bucketcategorytype' => '', 			// The category of a payment.  Values:  1 = International shipping.  2 = Local delivery.
 				'currencycode' => '', 					// A three-character currency code.  Default is USD.
 				'itemamt' => '', 						// Required if you specify itemized L_AMT fields. Sum of cost of all items in this order.  
 				'shippingamt' => '', 					// Total shipping costs for this order.  If you specify SHIPPINGAMT you mut also specify a value for ITEMAMT.
-				'shippingdiscamt' => '', 				// Shipping discount for this order, specified as a negative number.
+				'shipdiscamt' => '', 					// Shipping discount for this order, specified as a negative number.
 				'insuranceamt' => '', 					// Total shipping insurance costs for this order.  
 				'insuranceoptionoffered' => '', 		// If true, the insurance drop-down on the PayPal review page displays the string 'Yes' and the insurance amount.  If true, the total shipping insurance for this order must be a positive number.
 				'handlingamt' => '', 					// Total handling costs for this order.  If you specify HANDLINGAMT you mut also specify a value for ITEMAMT.
@@ -78,6 +82,7 @@ $Payment = array(
 				'custom' => '', 						// Free-form field for your own use.  256 char max.
 				'invnum' => '', 						// Your own invoice or tracking number.  127 char max.
 				'notifyurl' => '', 						// URL for receiving Instant Payment Notifications
+				'multishipping' => '', 					// The value 1 indicates that this payment is associated with multiple shipping addresses.  
 				'shiptoname' => '', 					// Required if shipping is included.  Person's name associated with this address.  32 char max.
 				'shiptostreet' => '', 					// Required if shipping is included.  First street address.  100 char max.
 				'shiptostreet2' => '', 					// Second street address.  100 char max.
@@ -90,7 +95,8 @@ $Payment = array(
 				'allowedpaymentmethod' => '', 			// The payment method type.  Specify the value InstantPaymentOnly.
 				'paymentaction' => '', 					// How you want to obtain the payment.  When implementing parallel payments, this field is required and must be set to Order. 
 				'paymentrequestid' => '',  				// A unique identifier of the specific payment request, which is required for parallel payments. 
-				'sellerpaypalaccountid' => ''			// A unique identifier for the merchant.  For parallel payments, this field is required and must contain the Payer ID or the email address of the merchant.
+				'sellerpaypalaccountid' => '',			// A unique identifier for the merchant.  For parallel payments, this field is required and must contain the Payer ID or the email address of the merchant.
+				'transactionid' => ''					// Transaction ID number of the transaction that was created.  You can specify up to 10 payments.  
 				);
 				
 $PaymentOrderItems = array();
