@@ -2473,6 +2473,61 @@ class Adaptive extends PayPal
 	 
 	 
 	 /**
+	 * GetUserAgreement.
+	 *
+	 * Retrieves the user agreement for the customer to approve the new PayPal account.
+	 *
+	 * @access	public
+	 * @param	array	call config data
+	 * @return	array
+	 */
+	 function GetUserAgreement($DataArray)
+	 {
+		$GetUserAgreementFields = isset($DataArray['GetUserAgreementFields']) ? $DataArray['GetUserAgreementFields'] : array();
+		$CountryCode = isset($GetUserAgreementFields['CountryCode']) ? $GetUserAgreementFields['CountryCode'] : '';
+		$CreateAccountKey = isset($GetUserAgreementFields['CreateAccountKey']) ? $GetUserAgreementFields['CreateAccountKey'] : '';
+		$LanguageCode = isset($GetUserAgreementFields['LanguageCode']) ? $GetUserAgreementFields['LanguageCode'] : '';
+		
+		// Generate XML Request
+		$XMLRequest = '<?xml version="1.0" encoding="utf-8"?>';
+		$XMLRequest .= '<GetUserAgreementRequest xmlns="' . $this -> XMLNamespace . '">';
+		$XMLRequest .= $this -> GetXMLRequestEnvelope();
+		$XMLRequest .= $CountryCode != '' ? '<countryCode xmlns="">' . $CountryCode . '</countryCode>' : '';
+		$XMLRequest .= $CreateAccountKey != '' ? '<createAccountKey xmlns="">' . $CreateAccountKey . '</createAccountKey>' : '';
+		$XMLRequest .= $LanguageCode != '' ? '<languageCode xmlns="">' . $LanguageCode . '</languageCode>' : '';
+		$XMLRequest .= '</GetUserAgreementRequest>';
+
+		// Call the API and load XML response into DOM
+		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptiveAccounts', 'GetUserAgreement');
+		$DOM = new DOMDocument();
+		$DOM -> loadXML($XMLResponse);
+		
+		// Parse XML values
+		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
+		$Errors = $this -> GetErrors($XMLResponse);
+		$Ack = $DOM -> getElementsByTagName('ack') -> length > 0 ? $DOM -> getElementsByTagName('ack') -> item(0) -> nodeValue : '';
+		$Build = $DOM -> getElementsByTagName('build') -> length > 0 ? $DOM -> getElementsByTagName('build') -> item(0) -> nodeValue : '';
+		$CorrelationID = $DOM -> getElementsByTagName('correlationId') -> length > 0 ? $DOM -> getElementsByTagName('correlationId') -> item(0) -> nodeValue : '';
+		$Timestamp = $DOM -> getElementsByTagName('timestamp') -> length > 0 ? $DOM -> getElementsByTagName('timestamp') -> item(0) -> nodeValue : '';
+
+		$Agreement = $DOM -> getElementsByTagName('agreement') -> length > 0 ? $DOM -> getElementsByTagName('agreement') -> item(0) -> nodeValue : '';
+				
+		$ResponseDataArray = array(
+								   'Errors' => $Errors, 
+								   'Ack' => $Ack, 
+								   'Build' => $Build, 
+								   'CorrelationID' => $CorrelationID, 
+								   'Timestamp' => $Timestamp, 
+								   'Agreement' => $Agreement, 
+								   'XMLRequest' => $XMLRequest, 
+								   'XMLResponse' => $XMLResponse
+								   );
+		
+		return $ResponseDataArray;
+	 }
+	 
+	 
+	 /**
 	 * Submit GetFundingPlans API request to PayPal.
 	 *
 	 * @access	public
