@@ -22,7 +22,7 @@ $PayPal = new angelleye\PayPal\Adaptive($PayPalConfig);
 $InvoiceID = '';
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
-$PayPalResult = $PayPal->MarkInvoiceAsUnpaid($InvoiceID);
+$PayPalResult = $PayPal->DeleteInvoice($InvoiceID);
 
 // Write the contents of the response array to the screen for demo purposes.
 echo '<pre />';

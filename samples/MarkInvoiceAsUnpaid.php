@@ -19,10 +19,10 @@ $PayPalConfig = array(
 
 $PayPal = new angelleye\PayPal\Adaptive($PayPalConfig);
 
-$InvoiceNumber = 'INV2-NV29-RP49-7ERJ-8L6C';
+$InvoiceID = 'INV2-NV29-RP49-7ERJ-8L6C';
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
-$PayPalResult = $PayPal->MarkInvoiceAsUnpaid($InvoiceNumber);
+$PayPalResult = $PayPal->MarkInvoiceAsUnpaid($InvoiceID);
 
 // Write the contents of the response array to the screen for demo purposes.
 echo '<pre />';

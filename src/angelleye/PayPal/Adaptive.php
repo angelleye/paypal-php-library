@@ -3758,6 +3758,48 @@ class Adaptive extends PayPal
 		return $ResponseDataArray;
 	 }
 	 
+	 /**
+	 * Submit DeleteInvoice API request to PayPal.
+	 *
+	 * @access	public
+	 * @param	string $InvoiceID
+	 * @return	array
+	 */
+	 function DeleteInvoice($InvoiceID)
+	 {
+		// Generate XML Request
+		$XMLRequest = '<?xml version="1.0" encoding="utf-8"?>';
+		$XMLRequest .= '<DeleteInvoiceRequest xmlns="' . $this -> XMLNamespace . '">';
+		$XMLRequest .= $this -> GetXMLRequestEnvelope();
+		$XMLRequest .= $InvoiceID != '' ? '<invoiceID xmlns="">' . $InvoiceID . '</invoiceID>' : '';
+		$XMLRequest .= '</DeleteInvoiceRequest>';
+		
+		// Call the API and load XML response into DOM
+		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'DeleteInvoice');
+		$DOM = new DOMDocument();
+		$DOM -> loadXML($XMLResponse);
+		
+		// Parse XML values
+		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
+		$Errors = $this -> GetErrors($XMLResponse);
+		$Ack = $DOM -> getElementsByTagName('ack') -> length > 0 ? $DOM -> getElementsByTagName('ack') -> item(0) -> nodeValue : '';
+		$Build = $DOM -> getElementsByTagName('build') -> length > 0 ? $DOM -> getElementsByTagName('build') -> item(0) -> nodeValue : '';
+		$CorrelationID = $DOM -> getElementsByTagName('correlationId') -> length > 0 ? $DOM -> getElementsByTagName('correlationId') -> item(0) -> nodeValue : '';
+		$Timestamp = $DOM -> getElementsByTagName('timestamp') -> length > 0 ? $DOM -> getElementsByTagName('timestamp') -> item(0) -> nodeValue : '';
+				
+		$ResponseDataArray = array(
+								   'Errors' => $Errors, 
+								   'Ack' => $Ack, 
+								   'Build' => $Build, 
+								   'CorrelationID' => $CorrelationID, 
+								   'Timestamp' => $Timestamp,
+								   'XMLRequest' => $XMLRequest, 
+								   'XMLResponse' => $XMLResponse
+								   );
+		
+		return $ResponseDataArray;
+	 }
+	 
 	 
 	 /**
 	 * Submit GenerateInvoiceNumber API request to PayPal.
@@ -4042,13 +4084,13 @@ class Adaptive extends PayPal
 	 * @param	string	$InvoiceNumber
 	 * @return	array
 	 */
-	 function MarkInvoiceAsUnpaid($InvoiceNumber = '')
+	 function MarkInvoiceAsUnpaid($InvoiceID = '')
 	 {
 		// Generate XML Request
 		$XMLRequest = '<?xml version="1.0" encoding="utf-8"?>';
 		$XMLRequest .= '<MarkInvoiceAsUnpaidRequest xmlns="' . $this -> XMLNamespace . '">';
 		$XMLRequest .= $this -> GetXMLRequestEnvelope();
-		$XMLRequest .= $InvoiceNumber != '' ? '<invoiceID xmlns="">' . $InvoiceNumber . '</invoiceID>' : '';
+		$XMLRequest .= $InvoiceID != '' ? '<invoiceID xmlns="">' . $InvoiceID . '</invoiceID>' : '';
 		$XMLRequest .= '</MarkInvoiceAsUnpaidRequest>';
 		
 		// Call the API and load XML response into DOM
