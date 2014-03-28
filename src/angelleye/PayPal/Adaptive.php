@@ -3760,6 +3760,50 @@ class Adaptive extends PayPal
 	 
 	 
 	 /**
+	 * Submit GenerateInvoiceNumber API request to PayPal.
+	 *
+	 * @access	public
+	 * @return	array
+	 */
+	 function GenerateInvoiceNumber()
+	 {		
+		// Generate XML Request
+		$XMLRequest = '<?xml version="1.0" encoding="utf-8"?>';
+		$XMLRequest .= '<GenerateInvoiceNumberRequest xmlns="' . $this -> XMLNamespace . '">';
+		$XMLRequest .= $this -> GetXMLRequestEnvelope();
+		$XMLRequest .= '</GenerateInvoiceNumberRequest>';
+		
+		// Call the API and load XML response into DOM
+		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'GenerateInvoiceNumber');
+		$DOM = new DOMDocument();
+		$DOM -> loadXML($XMLResponse);
+		
+		// Parse XML values
+		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
+		$Errors = $this -> GetErrors($XMLResponse);
+		$Ack = $DOM -> getElementsByTagName('ack') -> length > 0 ? $DOM -> getElementsByTagName('ack') -> item(0) -> nodeValue : '';
+		$Build = $DOM -> getElementsByTagName('build') -> length > 0 ? $DOM -> getElementsByTagName('build') -> item(0) -> nodeValue : '';
+		$CorrelationID = $DOM -> getElementsByTagName('correlationId') -> length > 0 ? $DOM -> getElementsByTagName('correlationId') -> item(0) -> nodeValue : '';
+		$Timestamp = $DOM -> getElementsByTagName('timestamp') -> length > 0 ? $DOM -> getElementsByTagName('timestamp') -> item(0) -> nodeValue : '';
+		
+		$InvoiceNumber = $DOM -> getElementsByTagName('invoiceNumber') -> length > 0 ? $DOM -> getElementsByTagName('invoiceNumber') -> item(0) -> nodeValue : '';
+				
+		$ResponseDataArray = array(
+								   'Errors' => $Errors, 
+								   'Ack' => $Ack, 
+								   'Build' => $Build, 
+								   'CorrelationID' => $CorrelationID, 
+								   'Timestamp' => $Timestamp,
+								   'InvoiceNumber' => $InvoiceNumber, 
+								   'XMLRequest' => $XMLRequest, 
+								   'XMLResponse' => $XMLResponse
+								   );
+		
+		return $ResponseDataArray;
+	 }
+	 
+	 
+	 /**
 	 * Submit SearchInvoices API request to PayPal.
 	 *
 	 * @access	public
@@ -3991,6 +4035,174 @@ class Adaptive extends PayPal
  
 	 }
 	 
+	 /**
+	 * Submit MarkInvoiceAsUnpaid API request to PayPal.
+	 *
+	 * @access	public
+	 * @param	string	$InvoiceNumber
+	 * @return	array
+	 */
+	 function MarkInvoiceAsUnpaid($InvoiceNumber = '')
+	 {
+		// Generate XML Request
+		$XMLRequest = '<?xml version="1.0" encoding="utf-8"?>';
+		$XMLRequest .= '<MarkInvoiceAsUnpaidRequest xmlns="' . $this -> XMLNamespace . '">';
+		$XMLRequest .= $this -> GetXMLRequestEnvelope();
+		$XMLRequest .= $InvoiceNumber != '' ? '<invoiceID xmlns="">' . $InvoiceNumber . '</invoiceID>' : '';
+		$XMLRequest .= '</MarkInvoiceAsUnpaidRequest>';
+		
+		// Call the API and load XML response into DOM
+		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'MarkInvoiceAsUnpaid');
+		$DOM = new DOMDocument();
+		$DOM -> loadXML($XMLResponse);
+		
+		// Parse XML values
+		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
+		$Errors = $this -> GetErrors($XMLResponse);
+		$Ack = $DOM -> getElementsByTagName('ack') -> length > 0 ? $DOM -> getElementsByTagName('ack') -> item(0) -> nodeValue : '';
+		$Build = $DOM -> getElementsByTagName('build') -> length > 0 ? $DOM -> getElementsByTagName('build') -> item(0) -> nodeValue : '';
+		$CorrelationID = $DOM -> getElementsByTagName('correlationId') -> length > 0 ? $DOM -> getElementsByTagName('correlationId') -> item(0) -> nodeValue : '';
+		$Timestamp = $DOM -> getElementsByTagName('timestamp') -> length > 0 ? $DOM -> getElementsByTagName('timestamp') -> item(0) -> nodeValue : '';
+
+		$InvoiceID = $DOM -> getElementsByTagName('invoiceID') -> length > 0 ? $DOM -> getElementsByTagName('invoiceID') -> item(0) -> nodeValue : '';
+		$InvoiceNumber = $DOM -> getElementsByTagName('invoiceNumber') -> length > 0 ? $DOM -> getElementsByTagName('invoiceNumber') -> item(0) -> nodeValue : '';
+		$InvoiceURL = $DOM -> getElementsByTagName('invoiceURL') -> length > 0 ? $DOM -> getElementsByTagName('invoiceURL') -> item(0) -> nodeValue : '';
+				
+		$ResponseDataArray = array(
+								   'Errors' => $Errors, 
+								   'Ack' => $Ack, 
+								   'Build' => $Build, 
+								   'CorrelationID' => $CorrelationID, 
+								   'Timestamp' => $Timestamp,
+								   'InvoiceID' => $InvoiceID, 
+								   'InvoiceNumber' => $InvoiceNumber, 
+								   'InvoiceURL' => $InvoiceURL,  
+								   'XMLRequest' => $XMLRequest, 
+								   'XMLResponse' => $XMLResponse
+								   );
+		
+		return $ResponseDataArray;
+ 
+	 }
+	 
+	 
+	 /**
+	 * Submit MarkInvoiceAsRefunded API request to PayPal.
+	 *
+	 * @access	public
+	 * @param	array	call config data
+	 * @return	array
+	 */
+	 function MarkInvoiceAsRefunded($DataArray)
+	 {
+		$MarkInvoiceAsRefundedFields = isset($DataArray['MarkInvoiceAsRefundedFields']) ? $DataArray['MarkInvoiceAsRefundedFields'] : array();
+		$InvoiceID = isset($MarkInvoiceAsRefundedFields['InvoiceID']) ? $MarkInvoiceAsRefundedFields['InvoiceID'] : '';
+		$Note = isset($MarkInvoiceAsRefundedFields['Note']) ? $MarkInvoiceAsRefundedFields['Note'] : '';
+		$Date = isset($MarkInvoiceAsRefundedFields['Date']) ? $MarkInvoiceAsRefundedFields['Date'] : '';
+		
+		// Generate XML Request
+		$XMLRequest = '<?xml version="1.0" encoding="utf-8"?>';
+		$XMLRequest .= '<MarkInvoiceAsRefundedRequest xmlns="' . $this -> XMLNamespace . '">';
+		$XMLRequest .= $this -> GetXMLRequestEnvelope();
+		$XMLRequest .= $InvoiceID != '' ? '<invoiceID xmlns="">' . $InvoiceID . '</invoiceID>' : '';
+		
+		$XMLRequest .= '<refundDetail xmlns="">';
+		$XMLRequest .= $Note != '' ? '<note xmlns="">' . $Note . '</note>' : '';
+		$XMLRequest .= $Date != '' ? '<date xmlns="">' . $Date . '</date>' : '';		
+		$XMLRequest .= '</refundDetail>';
+		
+		$XMLRequest .= '</MarkInvoiceAsRefundedRequest>';
+		
+		// Call the API and load XML response into DOM
+		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'MarkInvoiceAsRefunded');
+		$DOM = new DOMDocument();
+		$DOM -> loadXML($XMLResponse);
+		
+		// Parse XML values
+		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
+		$Errors = $this -> GetErrors($XMLResponse);
+		$Ack = $DOM -> getElementsByTagName('ack') -> length > 0 ? $DOM -> getElementsByTagName('ack') -> item(0) -> nodeValue : '';
+		$Build = $DOM -> getElementsByTagName('build') -> length > 0 ? $DOM -> getElementsByTagName('build') -> item(0) -> nodeValue : '';
+		$CorrelationID = $DOM -> getElementsByTagName('correlationId') -> length > 0 ? $DOM -> getElementsByTagName('correlationId') -> item(0) -> nodeValue : '';
+		$Timestamp = $DOM -> getElementsByTagName('timestamp') -> length > 0 ? $DOM -> getElementsByTagName('timestamp') -> item(0) -> nodeValue : '';
+
+		$InvoiceID = $DOM -> getElementsByTagName('invoiceID') -> length > 0 ? $DOM -> getElementsByTagName('invoiceID') -> item(0) -> nodeValue : '';
+		$InvoiceNumber = $DOM -> getElementsByTagName('invoiceNumber') -> length > 0 ? $DOM -> getElementsByTagName('invoiceNumber') -> item(0) -> nodeValue : '';
+		$InvoiceURL = $DOM -> getElementsByTagName('invoiceURL') -> length > 0 ? $DOM -> getElementsByTagName('invoiceURL') -> item(0) -> nodeValue : '';
+				
+		$ResponseDataArray = array(
+								   'Errors' => $Errors, 
+								   'Ack' => $Ack, 
+								   'Build' => $Build, 
+								   'CorrelationID' => $CorrelationID, 
+								   'Timestamp' => $Timestamp,
+								   'InvoiceID' => $InvoiceID, 
+								   'InvoiceNumber' => $InvoiceNumber, 
+								   'InvoiceURL' => $InvoiceURL,  
+								   'XMLRequest' => $XMLRequest, 
+								   'XMLResponse' => $XMLResponse
+								   );
+		
+		return $ResponseDataArray;
+ 
+	 }
+	 
+	 
+	 /**
+	 * Submit RemindInvoice API request to PayPal.
+	 *
+	 * @access	public
+	 * @param	array	call config data
+	 * @return	array
+	 */
+	 function RemindInvoice($DataArray)
+	 {
+		$RemindInvoiceFields = isset($DataArray['RemindInvoiceFields']) ? $DataArray['RemindInvoiceFields'] : array();
+		$InvoiceID = isset($RemindInvoiceFields['InvoiceID']) ? $RemindInvoiceFields['InvoiceID'] : '';
+		$Subject = isset($RemindInvoiceFields['Subject']) ? $RemindInvoiceFields['Subject'] : '';
+		$NoteForPayer = isset($RemindInvoiceFields['NoteForPayer']) ? $RemindInvoiceFields['NoteForPayer'] : '';
+
+		// Generate XML Request
+		$XMLRequest = '<?xml version="1.0" encoding="utf-8"?>';
+		$XMLRequest .= '<RemindInvoiceRequest xmlns="' . $this -> XMLNamespace . '">';
+		$XMLRequest .= $this -> GetXMLRequestEnvelope();
+		$XMLRequest .= $InvoiceID != '' ? '<invoiceID xmlns="">' . $InvoiceID . '</invoiceID>' : '';
+		$XMLRequest .= $Subject != '' ? '<subject xmlns="">' . $Subject . '</subject>' : '';
+		$XMLRequest .= $NoteForPayer != '' ? '<noteForPayer xmlns="">' . $NoteForPayer . '</noteForPayer>' : '';
+		$XMLRequest .= '</RemindInvoiceRequest>';
+		
+		// Call the API and load XML response into DOM
+		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'RemindInvoice');
+		$DOM = new DOMDocument();
+		$DOM -> loadXML($XMLResponse);
+		
+		// Parse XML values
+		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
+		$Errors = $this -> GetErrors($XMLResponse);
+		$Ack = $DOM -> getElementsByTagName('ack') -> length > 0 ? $DOM -> getElementsByTagName('ack') -> item(0) -> nodeValue : '';
+		$Build = $DOM -> getElementsByTagName('build') -> length > 0 ? $DOM -> getElementsByTagName('build') -> item(0) -> nodeValue : '';
+		$CorrelationID = $DOM -> getElementsByTagName('correlationId') -> length > 0 ? $DOM -> getElementsByTagName('correlationId') -> item(0) -> nodeValue : '';
+		$Timestamp = $DOM -> getElementsByTagName('timestamp') -> length > 0 ? $DOM -> getElementsByTagName('timestamp') -> item(0) -> nodeValue : '';
+
+		$InvoiceID = $DOM -> getElementsByTagName('invoiceID') -> length > 0 ? $DOM -> getElementsByTagName('invoiceID') -> item(0) -> nodeValue : '';
+		$InvoiceNumber = $DOM -> getElementsByTagName('invoiceNumber') -> length > 0 ? $DOM -> getElementsByTagName('invoiceNumber') -> item(0) -> nodeValue : '';
+		$InvoiceURL = $DOM -> getElementsByTagName('invoiceURL') -> length > 0 ? $DOM -> getElementsByTagName('invoiceURL') -> item(0) -> nodeValue : '';
+				
+		$ResponseDataArray = array(
+								   'Errors' => $Errors, 
+								   'Ack' => $Ack, 
+								   'Build' => $Build, 
+								   'CorrelationID' => $CorrelationID, 
+								   'Timestamp' => $Timestamp,
+								   'InvoiceID' => $InvoiceID, 
+								   'InvoiceURL' => $InvoiceURL,  
+								   'XMLRequest' => $XMLRequest, 
+								   'XMLResponse' => $XMLResponse
+								   );
+		
+		return $ResponseDataArray;
+ 
+	 }
 	 
 	 /**
 	 * Submit RequestPermissions API request to PayPal.
