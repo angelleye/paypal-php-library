@@ -23,8 +23,8 @@
  * @author			Andrew K. Angell
  * @link			https://github.com/angelleye/paypal-php-library
  * @website			http://www.angelleye.com			
- * @since			Version 2.0
- * @updated			03.25.2014
+ * @since			Version 2.0.1
+ * @updated			03.27.2014
  * @filesource
  */
 
