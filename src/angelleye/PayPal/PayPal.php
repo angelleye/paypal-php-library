@@ -1088,6 +1088,44 @@ class PayPal
 	}
 	
 	/**
+	 * Used to change the shipping address of an existing authorization transaction. 
+	 * In order to use this API operation, the original authorization should 
+	 * still be open, not completed, not reversed, not voided, and not on hold 
+	 * for any reason.
+	 * 
+	 * Advanced permission from PayPal is required to use this API operation.
+	 *
+	 * @access	public
+	 * @param	array	call config data
+	 * @return	array
+	 */
+	function UpdateAuthorization($DataArray)
+	{
+		$UAFieldsNVP = '&METHOD=UpdateAuthorization';
+		
+		$UAFields = isset($DataArray['UAFields']) ? $DataArray['UAFields'] : array();
+		
+		foreach($UAFields as $UAFieldsVar => $UAFieldsVal)
+		{
+			$UAFieldsNVP .= $UAFieldsVal != '' ? '&' . strtoupper($UAFieldsVar) . '=' . urlencode($UAFieldsVal) : '';
+		}
+		
+		$NVPRequest = $this->NVPCredentials . $UAFieldsNVP;
+		$NVPResponse = $this->CURLRequest($NVPRequest);
+		$NVPRequestArray = $this->NVPToArray($NVPRequest);
+		$NVPResponseArray = $this->NVPToArray($NVPResponse);
+		
+		$Errors = $this->GetErrors($NVPResponseArray);
+		
+		$NVPResponseArray['ERRORS'] = $Errors;
+		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
+		$NVPResponseArray['RAWREQUEST'] = $NVPRequest;
+		$NVPResponseArray['RAWRESPONSE'] = $NVPResponse;
+									
+		return $NVPResponseArray;	
+	}
+	
+	/**
 	 * Void a previously authorized transaction.
 	 *
 	 * @access	public
