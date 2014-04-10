@@ -422,17 +422,6 @@ class Adaptive extends PayPal
 				$RedirectURL = 'https://www.sandbox.paypal.com/webscr?cmd=_ap-payment&paykey=' . $PayKey;
 			}
 		}
-		elseif($this -> BetaSandbox)
-		{
-			if($IsDigitalGoods)
-			{
-				$RedirectURL = 'https://www.beta-sandbox.paypal.com/webapps/adaptivepayment/flow/pay?paykey='.$PayKey;	
-			}
-			else
-			{
-				$RedirectURL = 'https://www.beta-sandbox.paypal.com/webscr?cmd=_ap-payment&paykey=' . $PayKey;
-			}
-		}
 		else
 		{
 			if($IsDigitalGoods)
@@ -647,17 +636,6 @@ class Adaptive extends PayPal
 			else
 			{
 				$RedirectURL = 'https://www.sandbox.paypal.com/webscr?cmd=_ap-payment&paykey=' . $PayKey;
-			}
-		}
-		elseif($this -> BetaSandbox)
-		{
-			if($IsDigitalGoods)
-			{
-				$RedirectURL = 'https://www.beta-sandbox.paypal.com/webapps/adaptivepayment/flow/pay?paykey='.$PayKey;
-			}
-			else
-			{
-				$RedirectURL = 'https://www.beta-sandbox.paypal.com/webscr?cmd=_ap-payment&paykey=' . $PayKey;
 			}
 		}
 		else
@@ -1421,10 +1399,6 @@ class Adaptive extends PayPal
 		if($this -> Sandbox)
 		{
 			$RedirectURL = 'https://www.sandbox.paypal.com/webscr?cmd=_ap-preapproval&preapprovalkey=' . $PreapprovalKey;
-		}
-		elseif($this -> BetaSandbox)
-		{
-			$RedirectURL = 'https://www.beta-sandbox.paypal.com/webscr?cmd=_ap-preapproval&preapprovalkey=' . $PreapprovalKey;
 		}
 		else
 		{
