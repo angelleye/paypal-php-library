@@ -1,8 +1,7 @@
 <?php namespace angelleye\PayPal;
 /**
- * 	Angell EYE PayPal Adaptive Payments Class
- *	An open source PHP library written to easily work with PayPal's API's
- *
+ *	An open source PHP library written to easily work with PayPal's Adaptive Payments API
+ *	
  *	Email:  service@angelleye.com
  *  Facebook: angelleyeconsulting
  *  Twitter: angelleye
@@ -20,12 +19,21 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>
  *
- * @author			Andrew K. Angell
- * @link			https://github.com/angelleye/paypal-php-library
- * @website			http://www.angelleye.com			
- * @since			Version 2.0.1
- * @updated			03.27.2014
+ * @package			paypal-php-library
+ * @author			Andrew Angell <service@angelleye.com>
+ * @link			https://github.com/angelleye/paypal-php-library/
+ * @website			http://www.angelleye.com
+ * @version			v2.0.1
  * @filesource
+*/
+
+/**
+ * PayPal Adaptive Payments Class
+ *
+ * This class houses all of the Adaptive Payments specific API's.  
+ *
+ * @package 		paypal-php-library
+ * @author			Andrew Angell <service@angelleye.com>
  */
 
 use DOMDocument;
@@ -44,7 +52,7 @@ class Adaptive extends PayPal
 	 * Constructor
 	 *
 	 * @access	public
-	 * @param	array	config preferences
+	 * @param	mixed[]	$DataArray	Array structure providing config data
 	 * @return	void
 	 */
 	function __construct($DataArray)
@@ -86,6 +94,14 @@ class Adaptive extends PayPal
 	 * @param	boolean	$PrintHeaders - Whether to print headers on screen or not (true/false)
 	 * @return	array $headers
 	 */
+	
+	/**
+	 * Builds HTTP headers for an API request.
+	 *
+	 * @access	public
+	 * @param	boolean	$PrintHeaders	Option to output headers to the screen (true/false).
+	 * @return	string	$headers		String of HTTP headers.	
+	 */
 	function BuildHeaders($PrintHeaders)
 	{
 		$headers = array(
@@ -116,13 +132,13 @@ class Adaptive extends PayPal
 	}
 	
 	/**
-	 * Send the API request to PayPal using CURL
+	 * Send the API request to PayPal using CURL.
 	 *
 	 * @access	public
-	 * @param	string $Request
-	 * @param   string $APIName
-	 * @param   string $APIOperation
-	 * @return	string
+	 * @param	string	$Request		Raw API request string.
+	 * @param	string	$APIName		The name of the API which you are calling.
+	 * $param	string	$APIOperation	The method in the API you're calling.		
+	 * @return	string	$Response		Returns the raw HTTP response from PayPal.
 	 */
 	function CURLRequest($Request = "", $APIName = "", $APIOperation = "")
 	{
@@ -149,8 +165,8 @@ class Adaptive extends PayPal
 	 * Get all errors returned from PayPal
 	 *
 	 * @access	public
-	 * @param	string	XML response from PayPal
-	 * @return	array
+	 * @param	string	$XML			XML response from PayPal
+	 * @return	mixed[]	$ErrorsArray	Returns a parsed array of PayPal errors/warnings.
 	 */
 	function GetErrors($XML)
 	{
@@ -191,7 +207,7 @@ class Adaptive extends PayPal
 	 * Get the request envelope from the XML string
 	 *
 	 * @access	public
-	 * @return	string XML request envelope
+	 * @return	string	$XML	Returns raw XML request envelope
 	 */
 	function GetXMLRequestEnvelope()
 	{
@@ -207,9 +223,9 @@ class Adaptive extends PayPal
 	 * Log result to a location on the disk.
 	 *
 	 * @access	public
-	 * @param	string	$filename 
-	 * @param   string  $string_data
-	 * @return	array
+	 * @param	string	$filename		File name for the log file. 
+	 * @param   string  $string_data	String to be saved in the log file.
+	 * @return	void
 	 */
 	function Logger($filename, $string_data)
 	{	
@@ -223,11 +239,11 @@ class Adaptive extends PayPal
 	
 	
 	/**
-	 * Submit Pay() API request to PayPal
+	 * Submits Pay API request to PayPal
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	function Pay($DataArray)
 	{	
@@ -446,11 +462,11 @@ class Adaptive extends PayPal
 	}
 	
 	/**
-	 * Submit PayWithOptions() API request to PayPal
+	 * Submits PayWithOptions API request to PayPal
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	function PayWithOptions($DataArray)
 	{
@@ -844,11 +860,11 @@ class Adaptive extends PayPal
 	}
 	
 	/**
-	 * Submit PaymentDetails API request to PayPal.
+	 * Submits PaymentDetails API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	function PaymentDetails($DataArray)
 	{
@@ -963,11 +979,11 @@ class Adaptive extends PayPal
 	
 	
 	/**
-	 * Submit ExecutePayment API request to PayPal.
+	 * Submits ExecutePayment API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	function ExecutePayment($DataArray)
 	{
@@ -1012,11 +1028,11 @@ class Adaptive extends PayPal
 	
 	
 	/**
-	 * Submit GetPaymentOptions API request to PayPal.
+	 * Submits GetPaymentOptions API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	string	$Paykey				PayKey returned from a previous Pay request.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	function GetPaymentOptions($PayKey)
 	{
@@ -1143,11 +1159,11 @@ class Adaptive extends PayPal
 	
 	
 	/**
-	 * Submit SetPaymentOptions API request to PayPal.
+	 * Submits SetPaymentOptions API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	function SetPaymentOptions($DataArray)
 	{
@@ -1317,11 +1333,11 @@ class Adaptive extends PayPal
 	}
 	
 	/**
-	 * Submit Preapproval API request to PayPal.
+	 * Submits Preapproval API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	function Preapproval($DataArray)
 	{	
@@ -1434,8 +1450,8 @@ class Adaptive extends PayPal
 	 * Submit PreapprovalDetails API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	function PreapprovalDetails($DataArray)
 	{
@@ -1526,8 +1542,8 @@ class Adaptive extends PayPal
 	 * Submit CancelPreapproval API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	function CancelPreapproval($DataArray)
 	{
@@ -1571,8 +1587,8 @@ class Adaptive extends PayPal
 	 * Submit Refund API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	function Refund($DataArray)
 	{
@@ -1676,8 +1692,8 @@ class Adaptive extends PayPal
 	 * Submit ConvertCurrency API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	function ConvertCurrency($DataArray)
 	{
@@ -1775,8 +1791,8 @@ class Adaptive extends PayPal
 	 * Submit CreateAccount API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	function CreateAccount($DataArray)
 	{
@@ -2097,8 +2113,8 @@ class Adaptive extends PayPal
 	 * Submit AddBankAccount API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function AddBankAccount($DataArray)
 	 {
@@ -2212,8 +2228,8 @@ class Adaptive extends PayPal
 	 * Submit AddPaymentCard API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function AddPaymentCard($DataArray)
 	 {
@@ -2352,8 +2368,8 @@ class Adaptive extends PayPal
 	 * Submit SetFundingSourceConfirmed API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function SetFundingSourceConfirmed($DataArray)
 	 {
@@ -2402,8 +2418,8 @@ class Adaptive extends PayPal
 	 * Submit GetVerifiedStatus API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function GetVerifiedStatus($DataArray)
 	 {
@@ -2478,8 +2494,8 @@ class Adaptive extends PayPal
 	 * Retrieves the user agreement for the customer to approve the new PayPal account.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function GetUserAgreement($DataArray)
 	 {
@@ -2531,8 +2547,8 @@ class Adaptive extends PayPal
 	 * Submit GetFundingPlans API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function GetFundingPlans($DataArray)
 	 {
@@ -2651,8 +2667,8 @@ class Adaptive extends PayPal
 	 * Submit GetShippingAddresses API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	string	$Paykey				PayKey returned from a previous Pay request.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function GetShippingAddresses($PayKey)
 	 {
@@ -2714,8 +2730,8 @@ class Adaptive extends PayPal
 	 * Submit CreateInvoice API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function CreateInvoice($DataArray)
 	 {
@@ -2954,8 +2970,8 @@ class Adaptive extends PayPal
 	 * Submit SendInvoice API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	string	InvoiceID
-	 * @return	array
+	 * @param	string	$InvoiceID	Invoice ID of the invoice to be sent.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function SendInvoice($InvoiceID)
 	 {
@@ -3002,8 +3018,8 @@ class Adaptive extends PayPal
 	 * Submit CreateAndSendInvoice API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function CreateAndSendInvoice($DataArray)
 	 {
@@ -3242,8 +3258,8 @@ class Adaptive extends PayPal
 	 * Submit UpdateInvoice API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function UpdateInvoice($DataArray)
 	 {
@@ -3483,8 +3499,8 @@ class Adaptive extends PayPal
 	 * Submit UpdateInvoice API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	string
-	 * @return	array
+	 * @param	string	$InvoiceID			Invoice ID of which you would like to obtain details.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function GetInvoiceDetails($InvoiceID)
 	 {
@@ -3759,8 +3775,8 @@ class Adaptive extends PayPal
 	 * Submit CancelInvoice API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function CancelInvoice($DataArray)
 	 {
@@ -3817,8 +3833,8 @@ class Adaptive extends PayPal
 	 * Submit DeleteInvoice API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	string $InvoiceID
-	 * @return	array
+	 * @param	string	$InvoiceID			Invoice ID of the invoice to be deleted.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function DeleteInvoice($InvoiceID)
 	 {
@@ -3860,7 +3876,7 @@ class Adaptive extends PayPal
 	 * Submit GenerateInvoiceNumber API request to PayPal.
 	 *
 	 * @access	public
-	 * @return	array
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function GenerateInvoiceNumber()
 	 {		
@@ -3904,8 +3920,8 @@ class Adaptive extends PayPal
 	 * Submit SearchInvoices API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function SearchInvoices($DataArray)
 	 {
@@ -4073,8 +4089,8 @@ class Adaptive extends PayPal
 	 * Submit MarkInvoiceAsPaid API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function MarkInvoiceAsPaid($DataArray)
 	 {
@@ -4136,8 +4152,8 @@ class Adaptive extends PayPal
 	 * Submit MarkInvoiceAsUnpaid API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	string	$InvoiceNumber
-	 * @return	array
+	 * @param	string	$InvoiceID			Invoice ID of the invoice to be marked as unpaid.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function MarkInvoiceAsUnpaid($InvoiceID = '')
 	 {
@@ -4187,8 +4203,8 @@ class Adaptive extends PayPal
 	 * Submit MarkInvoiceAsRefunded API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function MarkInvoiceAsRefunded($DataArray)
 	 {
@@ -4249,8 +4265,8 @@ class Adaptive extends PayPal
 	 * Submit RemindInvoice API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function RemindInvoice($DataArray)
 	 {
@@ -4305,8 +4321,8 @@ class Adaptive extends PayPal
 	 * Submit RequestPermissions API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function RequestPermissions($DataArray)
 	 {
@@ -4363,8 +4379,8 @@ class Adaptive extends PayPal
 	 * Submit GetAccessToken API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray			Array structure of PayPal request data.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function GetAccessToken($DataArray)
 	 {
@@ -4426,8 +4442,8 @@ class Adaptive extends PayPal
 	 * Submit GetPermissions API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	string	$Token				Token returned from a GetAccessToken request.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function GetPermissions($Token)
 	 {
@@ -4478,8 +4494,8 @@ class Adaptive extends PayPal
 	 * Submit CancelPermissions API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	string	$Token				Token returned from a GetAccessToken request.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function CancelPermissions($Token)
 	 {
@@ -4521,8 +4537,8 @@ class Adaptive extends PayPal
 	 * Submit GetBasicPersonalData API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$AttributeList		Array structure of the list of attributes to obtain for a user.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function GetBasicPersonalData($AttributeList)
 	 {
@@ -4585,8 +4601,8 @@ class Adaptive extends PayPal
 	 * Submit GetAdvancedPersonalData API request to PayPal.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$AttributeList		Array structure of the list of attributes to obtain for a user.
+	 * @return	mixed[] $ResponseDataArray	Returns XML result parsed as an array.
 	 */
 	 function GetAdvancedPersonalData($AttributeList)
 	 {

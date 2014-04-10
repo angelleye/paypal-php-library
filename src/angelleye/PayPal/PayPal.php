@@ -1,6 +1,5 @@
 <?php namespace angelleye\PayPal;
 /**
- * 	Angell EYE PayPal Class
  *	An open source PHP library written to easily work with PayPal's API's
  *	
  *	Email:  service@angelleye.com
@@ -20,14 +19,22 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>
  *
- * @author			Andrew K. Angell
- * @link			https://github.com/angelleye/PayPal-PHP-Library
+ * @package			paypal-php-library
+ * @author			Andrew Angell <service@angelleye.com>
+ * @link			https://github.com/angelleye/paypal-php-library/
  * @website			http://www.angelleye.com
- * @since			Version 2.0.1
- * @updated			03.27.2014
+ * @version			v2.0.1
  * @filesource
 */
 
+/**
+ * Primary PayPal Class
+ *
+ * This is the parent PayPal class that all child classes extend.  
+ *
+ * @package 		paypal-php-library
+ * @author			Andrew Angell <service@angelleye.com>
+ */
 class PayPal
 {
 
@@ -47,7 +54,7 @@ class PayPal
 	 * Constructor
 	 *
 	 * @access	public
-	 * @param	array	config preferences
+	 * @param	mixed[]	$DataArray	Array structure providing config data
 	 * @return	void
 	 */
 	function __construct($DataArray)
@@ -474,10 +481,10 @@ class PayPal
 	}  // End function PayPalPro()
 	
 	/**
-	 * Get the current API version setting
+	 * Get the current API version setting.
 	 *
 	 * @access	public
-	 * @return	string
+	 * @return	string	Returns the current value for API version.
 	 */
 	function GetAPIVersion()
 	{
@@ -485,11 +492,11 @@ class PayPal
 	}
 	
 	/**
-	 * Get the country code of the requested country
+	 * Get the country code of the requested country.
 	 *
 	 * @access	public
-	 * @param	string	country name
-	 * @return	string
+	 * @param	string	$CountryName	Name of the country to return the code for.
+	 * @return	string	Returns the country code for the supplied country name.
 	 */
 	function GetCountryCode($CountryName)
 	{
@@ -497,11 +504,11 @@ class PayPal
 	}
 	
 	/**
-	 * Get the state code for a requestad state
+	 * Get the state code for a requestad state.
 	 *
 	 * @access	public
-	 * @param	string	state/province name
-	 * @return	string
+	 * @param	string	$StateOrProvinceName	Name of the state or province to return the code for.
+	 * @return	string	Returns the 2-letter code for the supplied state or province name.
 	 */
 	function GetStateCode($StateOrProvinceName)
 	{
@@ -509,11 +516,11 @@ class PayPal
 	}
 	
 	/**
-	 * Get the country name based on the country code
+	 * Get the country name based on the country code.
 	 *
 	 * @access	public
-	 * @param	string	country code
-	 * @return	string
+	 * @param	string	$CountryCode	Country code that you would like the full name for.
+	 * @return	string	Returns the country name for the supplied country code.
 	 */
 	function GetCountryName($CountryCode)
 	{
@@ -522,11 +529,11 @@ class PayPal
 	}
 	
 	/**
-	 * Get the state name based on the l
+	 * Get the state name based on the 2-letter code.
 	 *
 	 * @access	public
-	 * @param	array	state/province code
-	 * @return	string
+	 * @param	mixed[]	$StateOrProvinceName	State or province name that you would like the full name for.
+	 * @return	string	Returns the full name of the state or province for the supplied code.
 	 */
 	function GetStateName($StateOrProvinceName)
 	{
@@ -535,11 +542,11 @@ class PayPal
 	}
 	
 	/**
-	 * Get the AVS (address verification) message
+	 * Get the AVS (address verification) message.
 	 *
 	 * @access	public
-	 * @param	string	AVS code
-	 * @return	string
+	 * @param	string	$AVSCode	Address verification result code.
+	 * @return	string	Returns the full message for the supplied AVS code.
 	 */
 	function GetAVSCodeMessage($AVSCode)
 	{					  
@@ -547,11 +554,11 @@ class PayPal
 	}
 	
 	/**
-	 * Get the security digits (CVV2 Code) message
+	 * Get the security digits (CVV2 Code) message.
 	 *
 	 * @access	public
-	 * @param	string	CVV2 code
-	 * @return	string
+	 * @param	string	$CVV2Code	Credit card security digits.
+	 * @return	string	Returns the full message for the supplied CVV2 code.
 	 */
 	function GetCVV2CodeMessage($CVV2Code)
 	{
@@ -559,11 +566,11 @@ class PayPal
 	}
 	
 	/**
-	 * Get the currency code text value
+	 * Get the currency code text value.
 	 *
 	 * @access	public
-	 * @param	string	currency code
-	 * @return	string
+	 * @param	string	$CurrencyCode	Currency code that you would like the full text for.
+	 * @return	string	Returns the full name for the supplied currency code.
 	 */
 	function GetCurrencyCodeText($CurrencyCode)
 	{
@@ -571,11 +578,11 @@ class PayPal
 	}
 	
 	/**
-	 * Get the currency code based on the text value
+	 * Get the currency code based on the text value.
 	 *
 	 * @access	public
-	 * @param	string	text value
-	 * @return	string
+	 * @param	string	$CurrencyCodeText	Full name for a currency.
+	 * @return	string	Returns the full name for the supplied currency code.
 	 */
 	function GetCurrencyCode($CurrencyCodeText)
 	{
@@ -584,11 +591,13 @@ class PayPal
 	}
 	
 	/**
-	 * Send the API request to PayPal using CURL
+	 * Send the API request to PayPal using CURL.
 	 *
 	 * @access	public
-	 * @param	string	NVP string
-	 * @return	string
+	 * @param	string	$Request		Raw API request string.
+	 * @param	string	$APIName		The name of the API which you are calling.
+	 * $param	string	$APIOperation	The method of the API which you are calling.
+	 * @return	string	$Response		Returns the raw HTTP response from PayPal.
 	 */
 	function CURLRequest($Request = "", $APIName = "", $APIOperation = "")
 	{
@@ -612,11 +621,11 @@ class PayPal
 	}
 	
 	/**
-	 * Convert an NVP string to an array with URL decoded values
+	 * Convert an NVP string to an array with URL decoded values.
 	 *
 	 * @access	public
-	 * @param	string	NVP string
-	 * @return	array
+	 * @param	string	$NVPString	Name-value-pair string that you would like to convert to an array.
+	 * @return	mixed[]	Returns the NVP string as an array structure.
 	 */
 	function NVPToArray($NVPString)
 	{
@@ -639,11 +648,11 @@ class PayPal
 	}
 	
 	/**
-	 * Check whether or not the API returned SUCCESS or SUCCESSWITHWARNING
+	 * Check whether or not the API call was successful.
 	 *
 	 * @access	public
-	 * @param	string	ACK returned from PayPal
-	 * @return	boolean
+	 * @param	string	$ack	The value for ACK returned by a PayPal API response.
+	 * @return	boolean	Returns a boolean (true/false) value for whether or not the ACK supplied is successful.
 	 */
 	function APICallSuccessful($ack)
 	{
@@ -658,11 +667,11 @@ class PayPal
 	}
 	
 	/**
-	 * Check whether or not warnings were returned
+	 * Check whether or not warnings were returned.
 	 *
 	 * @access	public
-	 * @param	string	ACK returned from PayPal
-	 * @return	boolean
+	 * @param	string	$ack	The value for ACK returned by a PayPal API response.
+	 * @return	boolean	Returns a boolean (true/false) value for whether or not the response includes warnings.
 	 */
 	function WarningsReturned($ack)
 	{
@@ -677,11 +686,11 @@ class PayPal
 	}
 	
 	/**
-	 * Get all errors returned from PayPal
+	 * Get all errors returned from PayPal.
 	 *
 	 * @access	public
-	 * @param	array	PayPal NVP response
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of PayPal NVP response.
+	 * @return	mixed[]	$Errors		Returns an array structure of all errors / warnings returned in a PayPal HTTP response.
 	 */
 	function GetErrors($DataArray)
 	{
@@ -714,8 +723,8 @@ class PayPal
 	 * Display errors on screen using line breaks.
 	 *
 	 * @access	public
-	 * @param	array	Errors array returned from class
-	 * @return	output
+	 * @param	mixed[]	$Errors	An array structure of errors returned in a PayPal HTTP response.
+	 * @return	output	Returns an HTML string of the errors passed in for basic display purposes.
 	 */
 	function DisplayErrors($Errors)
 	{
@@ -748,11 +757,11 @@ class PayPal
 	}
 	
 	/**
-	 * Parse order items from an NVP string
+	 * Parse order items from an NVP string.
 	 *
 	 * @access	public
-	 * @param	array	NVP string
-	 * @return	array
+	 * @param	mixed[]	$DataArray	An array structure of a PayPal HTTP response.	
+	 * @return	mixed[]	Returns an array structure of the order items included in a PayPal HTTP response.
 	 */
 	function GetOrderItems($DataArray)
 	{
@@ -807,11 +816,11 @@ class PayPal
 
 	
 	/**
-	 * Get all payment(s) details from an NVP string
+	 * Get all payment(s) details from an NVP string.
 	 *
 	 * @access	public
-	 * @param	array	NVP string
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure from a PayPal HTTP response.
+	 * @return	mixed[]	Returns an array structure for all of the payments included in a PayPal NVP response.
 	 */
 	function GetPayments($DataArray)
 	{
@@ -885,11 +894,11 @@ class PayPal
 	}
 	
 	/**
-	 * Parse payment info from Express Checkout API response
+	 * Parse payment info from Express Checkout API response.
 	 *
 	 * @access	public
-	 * @param	array	NVP response string
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of a PayPal HTTP response.
+	 * @return	mixed[]	Returns an array structure of the payment details for each payment on a PayPal HTTP response.
 	 */
 	function GetExpressCheckoutPaymentInfo($DataArray)
 	{
@@ -927,8 +936,8 @@ class PayPal
 	 * Mask the API credential values in the API call for logging purposes.
 	 *
 	 * @access	public
-	 * @param	string	API request string.
-	 * @return	boolean
+	 * @param	string	$api_result	Raw NVP string.
+	 * @return	string	Returns the raw NVP string with the API credentials masked.
 	 */
 	function MaskAPIResult($api_result)
 	{
@@ -957,8 +966,9 @@ class PayPal
 	 * Save log info to a location on the disk.
 	 *
 	 * @access	public
-	 * @param	array	NVP response string
-	 * @return	boolean
+	 * @param	$filename		Name of the file that will be saved.
+	 * @param	$string_data	String to be saved in the log.
+	 * @return	boolean			Returns boolean value (true) upon completion.
 	 */
 	function Logger($filename, $string_data)
 	{	
@@ -984,11 +994,11 @@ class PayPal
 	}
 	
 	/**
-	 * Capture a previously authorized transaction
+	 * Captures an authorized payment.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function DoCapture($DataArray)
 	{
@@ -1020,11 +1030,11 @@ class PayPal
 	}
 	
 	/**
-	 * Authorize an amount for processing against a credit card
+	 * Authorize a payment.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function DoAuthorization($DataArray)
 	{
@@ -1054,11 +1064,13 @@ class PayPal
 	}
 	
 	/**
-	 * Reauthorize a previously authorization transaction
+	 * Reauthorize an existing authorization transaction.
+	 *
+	 * The resulting reauthorization is a new transaction with a new AUTHORIZATIONID. 
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function DoReauthorization($DataArray)
 	{	
@@ -1088,7 +1100,8 @@ class PayPal
 	}
 	
 	/**
-	 * Used to change the shipping address of an existing authorization transaction. 
+	 * Change the shipping address of an existing authorization transaction.
+	 *  
 	 * In order to use this API operation, the original authorization should 
 	 * still be open, not completed, not reversed, not voided, and not on hold 
 	 * for any reason.
@@ -1096,8 +1109,8 @@ class PayPal
 	 * Advanced permission from PayPal is required to use this API operation.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function UpdateAuthorization($DataArray)
 	{
@@ -1126,11 +1139,11 @@ class PayPal
 	}
 	
 	/**
-	 * Void a previously authorized transaction.
+	 * Void an order or an authorization.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function DoVoid($DataArray)
 	{	
@@ -1160,11 +1173,11 @@ class PayPal
 	}
 	
 	/**
-	 * Create a mass payment
+	 * Make a payment to one or more PayPal account holders.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function MassPay($DataArray)
 	{
@@ -1209,11 +1222,21 @@ class PayPal
 	}
 
 	/**
-	 * Refund a prevously processed transaction.
+	 * Issue a refund to the PayPal account holder associated with a transaction.
+	 *
+	 * This API operation can be used to issue a full or partial refund for any transaction 
+	 * within a default period of 60 days from when the payment is received.
+	 * 
+	 * After the refund period has passed, merchants can no longer use the RefundTransaction 
+	 * API operation to issue refunds. Instead, merchants can manually issue a credit to the 
+	 * buyer by logging into their PayPal account; for PayPal payments, a credit can be issued 
+	 * by clicking Send Money. Alternatively, merchants can use the MassPay API to credit 
+	 * PayPal accounts or utilize the DoNonReferencedCredit API operation to issue a credit to 
+	 * a card without referencing the original transaction.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function RefundTransaction($DataArray)
 	{
@@ -1243,11 +1266,11 @@ class PayPal
 	}
 	
 	/**
-	 * Retrieve details about a previous transaction.
+	 * Obtain information about a specific transaction.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function GetTransactionDetails($DataArray)
 	{		
@@ -1279,11 +1302,14 @@ class PayPal
 	}
 
 	/**
-	 * Process a credit card directly.
+	 * Process a credit card payment.
+	 * 
+	 * This is only available with Website Payments Pro 3.0.  
+	 * If you're on Payments Pro 2.0 you'll need to use PayFlow instead.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function DoDirectPayment($DataArray)
 	{
@@ -1385,11 +1411,13 @@ class PayPal
 	}
 	
 	/**
-	 * Begin the Express Checkout flow
+	 * Initiate an Express Checkout transaction.
+	 * 
+	 * Used to generate a unique TOKEN for use with the checkout.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function SetExpressCheckout($DataArray)
 	{	
@@ -1525,8 +1553,8 @@ class PayPal
 	 * Generate an NVP response to return to PayPal's Instant Update (callback) API.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function CallbackResponse($DataArray)
 	{	
@@ -1560,12 +1588,16 @@ class PayPal
 	}
 	
 	/**
-	 * Retrieve Express Checkout information back from PayPal to continue a checkout
-	 * after a user has signed in to PayPal and clicked Continue (or Pay)
+	 * Obtain details about an Express Checkout transaction.
+	 *
+	 * This is used after PayPal redirects the buyer back to your 
+	 * ReturnURL supplied in the SetExpressCheckout request.  Data 
+	 * returned includes the buyer's name, shipping address, phone number, 
+	 * and general transaction details.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	string	$Token	The token returned from a previous SetExpressCheckout request.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function GetExpressCheckoutDetails($Token)
 	{
@@ -1593,11 +1625,15 @@ class PayPal
 	}  // End function GetExpressCheckoutDetails()
 	
 	/**
-	 * Finalize an Express Checkout payment and actually process the payment
+	 * Complete an Express Checkout transaction.
+	 *
+	 * If you set up a billing agreement in your SetExpressCheckout API call, 
+	 * the billing agreement is created when you call the DoExpressCheckoutPayment 
+	 * API operation.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function DoExpressCheckoutPayment($DataArray)
 	{
@@ -1723,11 +1759,13 @@ class PayPal
 	}
 
 	/**
-	 * Search PayPal for transactions in  your account history.
+	 * Search PayPal transaction history for transactions that meet the specified criteria.
+	 *
+	 * The maximum number of transactions that can be returned from a TransactionSearch API call is 100.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function TransactionSearch($DataArray)
 	{
@@ -1799,11 +1837,11 @@ class PayPal
 	}
 	
 	/**
-	 * Credit money back to a credit card without a previous transaction reference.
+	 * Issue a credit to a card not referenced by the original transaction.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function DoNonReferencedCredit($DataArray)
 	{
@@ -1865,11 +1903,11 @@ class PayPal
 	}
 	
 	/**
-	 * Process a new transaction using the same billing info from a previous transaction.
+	 * Process a payment from a buyer's account, which is identified by a previous transaction.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function DoReferenceTransaction($DataArray)
 	{	
@@ -1952,11 +1990,11 @@ class PayPal
 	}
 	
 	/**
-	 * Get the current PayPal balance.
+	 * Obtain the available balance for a PayPal account.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed balance results, errors and the raw request/response.
 	 */
 	function GetBalance($DataArray)
 	{
@@ -2003,11 +2041,12 @@ class PayPal
 	}
 
 	/**
-	 * Get the users PayPal account ID.
+	 * Obtain your Pal ID, which is the PayPal–assigned merchant account number, and other informaton about your account.
+	 *
+	 * You need the encrypted account number when working with dynamic versions of PayPal buttons and logos.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function GetPalDetails()
 	{
@@ -2029,11 +2068,11 @@ class PayPal
 	}
 	
 	/**
-	 * Verify an address against PayPal's system.
+	 * Confirm whether a postal address and postal code match those of the specified PayPal account holder.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function AddressVerify($DataArray)
 	{
@@ -2061,11 +2100,11 @@ class PayPal
 	}
 	
 	/**
-	 * Update the status of a transaction in a pending status.
+	 * Accept or deny a pending transaction held by Fraud Management Filters.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function ManagePendingTransactionStatus($DataArray)
 	{		
@@ -2093,11 +2132,22 @@ class PayPal
 	}
 	
 	/**
-	 * Create a profile to automatically process transactions at given intervals.
+	 * Create a recurring payments profile.
+	 *
+	 * You must invoke the CreateRecurringPaymentsProfile API operation for each 
+	 * profile you want to create. The API operation creates a profile and an 
+	 * associated billing agreement.
+	 * 
+	 * There is a one-to-one correspondence between billing agreements and 
+	 * recurring payments profiles. To associate a recurring payments profile 
+	 * with its billing agreement, you must ensure that the description in the 
+	 * recurring payments profile matches the description of a billing agreement. 
+	 * For version 54.0 and later, use SetExpressCheckout to initiate creation of 
+	 * a billing agreement.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function CreateRecurringPaymentsProfile($DataArray)
 	{
@@ -2194,11 +2244,11 @@ class PayPal
 	}
 	
 	/**
-	 * Retrieve the details of a previously created recurring payments profile.
+	 * Obtain information about a recurring payments profile.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function GetRecurringPaymentsProfileDetails($DataArray)
 	{
@@ -2226,11 +2276,11 @@ class PayPal
 	}
 
 	/**
-	 * Update the status of a previously created recurring payments profile.
+	 * Cancel, suspend, or reactivate a recurring payments profile.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function ManageRecurringPaymentsProfileStatus($DataArray)
 	{
@@ -2258,11 +2308,23 @@ class PayPal
 	}
 	
 	/**
-	 * Process the outstanding amount on a recurring payments profile.
+	 * Bill the buyer for the outstanding balance associated with a recurring payments profile.
+	 * 
+	 * To bill the outstanding amount:
+	 * - The profile status must be active or suspended.
+	 * - The profile must have a non-zero outstanding balance.
+	 * - The amount of the payment cannot exceed the outstanding amount for the profile.
+	 * 
+	 * The BillOutstandingAmount call cannot be within 24 hours of a regularly scheduled payment for this profile.
+	 * 
+	 * If another outstanding balance payment is already queued, an API error is returned.
+	 * 
+	 * You will be informed by IPN about the success or failure of the outstanding payment. 
+	 * For profiles created using Express Checkout, the buyer will receive an email notification of the payment.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function BillOutstandingAmount($DataArray)
 	{
@@ -2290,11 +2352,11 @@ class PayPal
 	}
 
 	/**
-	 * Update the details of a recurring payments profile.
+	 * Update a recurring payments profile.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function UpdateRecurringPaymentsProfile($DataArray)
 	{
@@ -2352,11 +2414,11 @@ class PayPal
 	}
 	
 	/**
-	 * Get the status of an existing recurring payments profile.
+	 * Obtain information about a recurring payments profile.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	string	$ProfileID	The ID of a recurring payments profile.
+	 * @return	mixed[]	Returns an array structure consisting of the full resuilt as well as the parsed profile status.
 	 */
 	function GetRecurringPaymentsProfileStatus($ProfileID)
 	{
@@ -2376,11 +2438,13 @@ class PayPal
 	}
 	
 	/**
-	 * Initiates the creation of a billing agreement.
+	 * Create a billing agreement with a PayPal account holder.
+	 *
+	 * CreateBillingAgreement is only valid for reference transactions.
 	 *
 	 * @access public
-	 * @param Token
-	 * @return array
+	 * @param string $Token	A token returned from a previous SetExpressCheckout request.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 *
 	 */
 	function CreateBillingAgreement($Token)
@@ -2403,11 +2467,18 @@ class PayPal
 	}
 	
 	/**
-	 * Initiates the creation of a billing agreement.
+	 * Initiate the creation of a billing agreement.
+	 * 
+	 * When using Express Checkout with version 54.0 or later of the API, 
+	 * do not use SetCustomerBillingAgreement and GetBillingAgreementCustomerDetails.  
+	 * Instead, use SetExpressCheckout and set the amount value to zero.  Call
+	 * GetExpressCheckoutDetails to obtain information about the buyer's checkout 
+	 * status.  Then use the CreateBillingAgreement API to create the abilling agreement.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @deprecated No longer used in PayPal API version 54.0 or higher.
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function SetCustomerBillingAgreement($DataArray)
 	{	
@@ -2448,11 +2519,18 @@ class PayPal
 	}
 	
 	/**
-	 * Obtains information about a billing agreement's PayPal account holder. 
+	 * Obtain information about a billing agreement's PayPal account holder
 	 *
+	 * When using Express Checkout with version 54.0 or later of the API, 
+	 * do not use SetCustomerBillingAgreement and GetBillingAgreementCustomerDetails.  
+	 * Instead, use SetExpressCheckout and set the amount value to zero.  Call
+	 * GetExpressCheckoutDetails to obtain information about the buyer's checkout 
+	 * status.  Then use the CreateBillingAgreement API to create the abilling agreement.
+
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @deprecated No longer used in PayPal API version 54.0 or higher.
+	 * @param	string $Token	Token returned by a previous SetCustomerBillingAgreement request.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function GetBillingAgreementCustomerDetails($Token)
 	{
@@ -2474,11 +2552,11 @@ class PayPal
 	}
 	
 	/**
-	 * Update details about a billing agreement. 
+	 * Update or delete a billing agreement. 
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function BillAgreementUpdate($DataArray)
 	{
@@ -2510,8 +2588,9 @@ class PayPal
 	 * Setup the mobile checkout flow.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @deprecated	No longer used by PayPal.  Use Express Checkout instead.
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function SetMobileCheckout($DataArray)
 	{
@@ -2548,8 +2627,9 @@ class PayPal
 	 * Finalize and process the sale from a mobile checkout flow.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @deprecated	No longer used by PayPal.  Use Express Checkout instead.
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function DoMobileCheckoutPayment($DataArray)
 	{
@@ -2580,8 +2660,8 @@ class PayPal
 	 * Set authorization params
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function SetAuthFlowParam($DataArray)
 	{		
@@ -2623,8 +2703,8 @@ class PayPal
 	 * Get authorization details
 	 *
 	 * @access	public
-	 * @param	string	token
-	 * @return	array
+	 * @param	string $Token
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function GetAuthDetails($Token)
 	{
@@ -2650,8 +2730,9 @@ class PayPal
 	 * Retrieve the current API permissions granted for the application.
 	 *
 	 * @access	public
-	 * @param	string	token
-	 * @return	array
+	 * @deprecated	No longer used by PayPal.
+	 * @param	string	$Token
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function GetAccessPermissionsDetails($Token)
 	{
@@ -2693,8 +2774,9 @@ class PayPal
 	 * Set the access permissions for an application on a 3rd party user's account.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @deprecated	No longer used by PayPal.
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function SetAccessPermissions($DataArray)
 	{
@@ -2756,8 +2838,9 @@ class PayPal
 	 * Update the access permissions for an application on a 3rd party user's account.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @deprecated	No longer used by PayPal.
+	 * @param	string $PayerID	Payer ID of the PayPal user.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function UpdateAccessPermissions($PayerID)
 	{
@@ -2780,12 +2863,14 @@ class PayPal
 	
 	
 	/**
+	 * Obtain a list of your hosted PayPal Payments Standard buttons.
+	 *
 	 * The request contains optional fields that are not currently used.  
 	 * All buttons are automatically requested.
 	 *
 	 * @access	public
-	 * @param	array	call config data
-	 * @return	array
+	 * @param	mixed[]	$DataArray	Array structure of request data.
+	 * @return	mixed[]	Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
 	 */
 	function BMButtonSearch($DataArray)
 	{

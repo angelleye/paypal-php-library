@@ -1,7 +1,6 @@
 <?php namespace angelleye\PayPal;
 /**
- * 	Angell EYE PayPal Financing (Bill Me Later) Class Library
- *	An open source PHP library written to easily work with PayPal's API's
+ *	An open source PHP library written to easily work with PayPal's Financing API
  *	
  *	Email:  service@angelleye.com
  *  Facebook: angelleyeconsulting
@@ -20,13 +19,22 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>
  *
- * @author			Andrew K. Angell
- * @link			https://github.com/angelleye/paypal-php-library
+ * @package			paypal-php-library
+ * @author			Andrew Angell <service@angelleye.com>
+ * @link			https://github.com/angelleye/paypal-php-library/
  * @website			http://www.angelleye.com
- * @since			Version 2.0.1
- * @updated			03.27.2014
+ * @version			v2.0.1
  * @filesource
 */
+
+/**
+ * PayPal Financing API Wrapper
+ *
+ * This is a wrapper to the PayPal Financing API.  
+ *
+ * @package 		paypal-php-library
+ * @author			Andrew Angell <service@angelleye.com>
+ */
 
 class Financing extends PayPal
 {
@@ -37,7 +45,7 @@ class Financing extends PayPal
 	 * Constructor
 	 *
 	 * @access	public
-	 * @param	array	config preferences
+	 * @param	mixed[]	$DataArray	Array of request parameters.
 	 * @return	void
 	 */
 	function __construct($DataArray)
@@ -58,11 +66,11 @@ class Financing extends PayPal
 	}
 	
 	/**
-	 * Build all HTTP headers required for the API call.
+	 * Builds all HTTP headers required for the API call.
 	 *
 	 * @access	public
-	 * @param	boolean	$PrintHeaders - Whether to print headers on screen or not (true/false)
-	 * @return	array $headers
+	 * @param	boolean	$PrintHeaders	Option to print headers on screen or not (true/false)
+	 * @return	string	$headers		Returns the HTTP headers as a string.
 	 */
 	function BuildHeaders($PrintHeaders)
 	{
@@ -83,13 +91,15 @@ class Financing extends PayPal
 		
 		return $headers;
 	}
-	
+	 
 	/**
-	 * Send the API request to PayPal using CURL
+	 * Sends the API request to PayPal using CURL.
 	 *
 	 * @access	public
-	 * @param	string	JSON string
-	 * @return	string
+	 * @param	string	$Request		Raw API request string.
+	 * @param	string	$APIName		The name of the API which you are calling.
+	 * $param	string	$APIOperation	The method of the API which you are calling.
+	 * @return	string	$Response		Returns the raw HTTP response from PayPal.
 	 */
 	function CURLRequest($Request = "", $APIName = "", $APIOperation = "")
 	{
@@ -109,11 +119,11 @@ class Financing extends PayPal
 	}
 	
 	/**
-	 * Get all errors returned from PayPal
+	 * Parses all errors returned from PayPal
 	 *
 	 * @access	public
-	 * @param	array	PayPal NVP response
-	 * @return	array
+	 * @param	mixed[]	$JSONResponse	Raw JSON string to pull errors from.
+	 * @return	mixed[]	$Errors			Returns an array result of errors pulled from the JSON string.
 	 */
 	function GetErrors($JSONResponse)
 	{
@@ -123,6 +133,13 @@ class Financing extends PayPal
 		return $Errors;
 	}
 	
+	/**
+	 * Enrolls a user in the financing banner system.
+	 *
+	 * @access public
+	 * @param mixed[]	$DataArray		Array of request parameters.
+	 * @return mixed[]	$ResultArray	Returns an array of the response parameters.
+	 */
 	function BannerEnrollment($DataArray)
 	{
 		$PayPalRequest['bnCode'] = $this->APIButtonSource;

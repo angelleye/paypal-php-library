@@ -1,10 +1,9 @@
 <?php namespace angelleye\PayPal;
 /**
- * 	Angell EYE PayPal PayFlow Class
- *	An open source PHP library written to easily work with PayPal's API's
- *
+ *	An open source PHP library written to easily work with PayPal's PayFlow API
+ *	
  *	Email:  service@angelleye.com
- *	Facebook: angelleyeconsulting
+ *  Facebook: angelleyeconsulting
  *  Twitter: angelleye
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -20,21 +19,30 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>
  *
- * @author			Andrew K. Angell
- * @link			https://github.com/angelleye/PayPal-PHP-Library
+ * @package			paypal-php-library
+ * @author			Andrew Angell <service@angelleye.com>
+ * @link			https://github.com/angelleye/paypal-php-library/
  * @website			http://www.angelleye.com
- * @since			Version 2.0.1
- * @updated			03.27.2014
+ * @version			v2.0.1
  * @filesource
+*/
+
+/**
+ * PayPal PayFlow Gateway Class
+ *
+ * This class is a wrapper for the PayFlow gateway.  
+ *
+ * @package 		paypal-php-library
+ * @author			Andrew Angell <service@angelleye.com>
  */
 
 class PayFlow extends PayPal 
-{	
+{	 
 	/**
 	 * Constructor
 	 *
 	 * @access	public
-	 * @param	array	config preferences
+	 * @param	mixed[]	$DataArray	Array structure providing config data
 	 * @return	void
 	 */
 	function __construct($DataArray)
@@ -70,8 +78,8 @@ class PayFlow extends PayPal
 	 * GetTransactionStateCodeMessage
 	 * 
 	 * @access public
-	 * @param number
-	 * @return string
+	 * @param	int		$Code	Transaction state code to obtain the full message for.
+	 * @return	string	Returns the full message for the supplied code.
 	 */
 	function GetTransactionStateCodeMessage($Code)
 	{
@@ -84,6 +92,16 @@ class PayFlow extends PayPal
 	 * @access public
 	 * @param string Request
 	 * @return string
+	 */
+	 
+	/**
+	 * Send the API request to PayFlow using CURL.
+	 *
+	 * @access	public
+	 * @param	string	$Request		Raw API request string.
+	 * @param	string	$APIName		The name of the API which you are calling.
+	 * $param	string	$APIOperation	The method of the API which you are calling.	
+	 * @return	string	$Response		Returns the raw HTTP response from PayPal.
 	 */
 	function CURLRequest($Request = "", $APIName = "", $APIOperation = "")
 	{
@@ -136,11 +154,11 @@ class PayFlow extends PayPal
 	
 	
 	/**
-	 * Convert an NVP string to an array with URL decoded values
+	 * Converts an NVP string to an array with URL decoded values
 	 *
 	 * @access	public
-	 * @param	string	NVP string
-	 * @return	array
+	 * @param	string	$NVPString	Raw NVP string to be converted to an array.
+	 * @return	mixed[]	$proArray	Returns the NVP string as an array.
 	 */
 	function NVPToArray($NVPString)
 	{
@@ -150,11 +168,11 @@ class PayFlow extends PayPal
 	}
 	
 	/*
-	 * ProcessTransaction
+	 * Processes the transaction on the PayFlow gateway.
 	 * 
 	 * @access public
-	 * @param array request parameters
-	 * @return array
+	 * @param	mixed[]	$DataArray			Array of request parameters.
+	 * @return	mixed[]	$NVPResponseArray	Returns the PayFlow response data as an array.
 	 */
 	function ProcessTransaction($DataArray)
 	{
