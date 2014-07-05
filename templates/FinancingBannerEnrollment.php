@@ -14,9 +14,9 @@ $PayPal = new angelleye\PayPal\Financing($PayPalConfig);
 
 // Prepare request arrays
 $BannerEnrollmentParams = array(
-							'PayerID' => '', 			// ID of the invoice.
-							'SellerName' => '', 			// Subject of the cancelation notification.
-							'EmailAddress' => '' 		// Note to send the payer within the cancelation notification.
+							'PayerID' => '',
+							'SellerName' => '',
+							'EmailAddress' => ''
 							);
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult

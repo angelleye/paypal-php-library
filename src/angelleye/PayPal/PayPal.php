@@ -49,6 +49,7 @@ class PayPal
 	var $Sandbox = '';
 	var $PathToCertKeyPEM = '';
 	var $SSL = '';
+    var $PrintHeaders = false;
 	
 	/**
 	 * Constructor
@@ -75,6 +76,7 @@ class PayPal
 		$this->PathToCertKeyPEM = '/path/to/cert/pem.txt';
 		$this->SSL = $_SERVER['SERVER_PORT'] == '443' ? true : false;
 		$this->APISubject = isset($DataArray['APISubject']) ? $DataArray['APISubject'] : '';
+        $this->PrintHeaders = isset($DataArray['PrintHeaders']) ? $DataArray['PrintHeaders'] : '';
 		
 		if($this->Sandbox)
 		{
@@ -596,10 +598,11 @@ class PayPal
 	 * @access	public
 	 * @param	string	$Request		Raw API request string.
 	 * @param	string	$APIName		The name of the API which you are calling.
-	 * $param	string	$APIOperation	The method of the API which you are calling.
+	 * @param	string	$APIOperation	The method of the API which you are calling.
+     * @param   string  $PrintHeaders   The option to print headers or not.
 	 * @return	string	$Response		Returns the raw HTTP response from PayPal.
 	 */
-	function CURLRequest($Request = "", $APIName = "", $APIOperation = "")
+	function CURLRequest($Request = "", $APIName = "", $APIOperation = "", $PrintHeaders = false)
 	{
 		$curl = curl_init();
 				// curl_setopt($curl, CURLOPT_HEADER,TRUE);

@@ -13,7 +13,8 @@ $PayPalConfig = array(
 					  'APIUsername' => $api_username,
 					  'APIPassword' => $api_password,
 					  'APISignature' => $api_signature,
-					  'APISubject' => $api_subject
+					  'APISubject' => $api_subject, 
+					  'PrintHeaders' => $print_headers
 					);
 
 $PayPal = new angelleye\PayPal\Adaptive($PayPalConfig);

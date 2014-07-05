@@ -72,7 +72,7 @@ class Financing extends PayPal
 	 * @param	boolean	$PrintHeaders	Option to print headers on screen or not (true/false)
 	 * @return	string	$headers		Returns the HTTP headers as a string.
 	 */
-	function BuildHeaders($PrintHeaders)
+	function BuildHeaders($PrintHeaders = false)
 	{
 		$timestamp = intval(round(microtime(true) * 1000));
 		$token = sha1($this->ClientSecret.$timestamp);
@@ -98,10 +98,11 @@ class Financing extends PayPal
 	 * @access	public
 	 * @param	string	$Request		Raw API request string.
 	 * @param	string	$APIName		The name of the API which you are calling.
-	 * $param	string	$APIOperation	The method of the API which you are calling.
+	 * @param	string	$APIOperation	The method of the API which you are calling.
+     * @param   string  $PrintHeaders   The option to print headers or not.
 	 * @return	string	$Response		Returns the raw HTTP response from PayPal.
 	 */
-	function CURLRequest($Request = "", $APIName = "", $APIOperation = "")
+	function CURLRequest($Request = "", $APIName = "", $APIOperation = "", $PrintHeaders = false)
 	{
 		$curl = curl_init();
 				// curl_setopt($curl, CURLOPT_HEADER,TRUE);
@@ -111,7 +112,7 @@ class Financing extends PayPal
 				curl_setopt($curl, CURLOPT_URL, $this->EndPointURL);
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 				curl_setopt($curl, CURLOPT_POSTFIELDS, $Request);
-				curl_setopt($curl, CURLOPT_HTTPHEADER, $this->BuildHeaders(FALSE));
+				curl_setopt($curl, CURLOPT_HTTPHEADER, $this->BuildHeaders($this->PrintHeaders));
 		
 		$Response = curl_exec($curl);		
 		curl_close($curl);

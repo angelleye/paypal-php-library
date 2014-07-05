@@ -9,7 +9,8 @@ $PayPalConfig = array(
 						'APIUsername' => $payflow_username, 
 						'APIPassword' => $payflow_password, 
 						'APIVendor' => $payflow_vendor, 
-						'APIPartner' => $payflow_partner
+						'APIPartner' => $payflow_partner,
+                        'PrintHeaders' => $print_headers
 					  );
 
 $PayPal = new angelleye\PayPal\PayFlow($PayPalConfig);

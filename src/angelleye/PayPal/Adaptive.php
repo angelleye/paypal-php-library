@@ -47,7 +47,7 @@ class Adaptive extends PayPal
 	var $IPAddress = '';
 	var $DetailLevel = '';
 	var $ErrorLanguage = '';
-	
+
 	/**
 	 * Constructor
 	 *
@@ -66,7 +66,7 @@ class Adaptive extends PayPal
 		$this->ErrorLanguage = isset($DataArray['ErrorLanguage']) ? $DataArray['ErrorLanguage'] : 'en_US';
 		$this->APISubject = isset($DataArray['APISubject']) ? $DataArray['APISubject'] : '';
 		$this->DeveloperAccountEmail = isset($DataArray['DeveloperAccountEmail']) ? $DataArray['DeveloperAccountEmail'] : '';
-		
+
 		if($this -> Sandbox)
 		{	
 			// Sandbox Credentials
@@ -137,10 +137,11 @@ class Adaptive extends PayPal
 	 * @access	public
 	 * @param	string	$Request		Raw API request string.
 	 * @param	string	$APIName		The name of the API which you are calling.
-	 * $param	string	$APIOperation	The method in the API you're calling.		
+	 * @param	string	$APIOperation	The method in the API you're calling.
+     * @param   string  $PrintHeaders   The option to print header output or not.
 	 * @return	string	$Response		Returns the raw HTTP response from PayPal.
 	 */
-	function CURLRequest($Request = "", $APIName = "", $APIOperation = "")
+	function CURLRequest($Request = "", $APIName = "", $APIOperation = "", $PrintHeaders = false)
 	{
 		$curl = curl_init();
 				curl_setopt($curl, CURLOPT_VERBOSE, 1);
@@ -149,7 +150,7 @@ class Adaptive extends PayPal
 				curl_setopt($curl, CURLOPT_URL, $this -> EndPointURL . $APIName . '/' . $APIOperation);
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 				curl_setopt($curl, CURLOPT_POSTFIELDS, $Request);
-				curl_setopt($curl, CURLOPT_HTTPHEADER, $this -> BuildHeaders(false));
+				curl_setopt($curl, CURLOPT_HTTPHEADER, $this -> BuildHeaders($this->PrintHeaders));
 								
 		if($this -> APIMode == 'Certificate')
 		{
@@ -2166,7 +2167,7 @@ class Adaptive extends PayPal
 		$XMLRequest .= '</AddBankAccountRequest>';
 		 
 		 // Call the API and load XML response into DOM
-		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptiveAccounts', 'AddBankAccount');
+		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptiveAccounts', 'AddBankAccount', $PrintHeaders);
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
 		

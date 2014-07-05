@@ -9,7 +9,8 @@ $PayPalConfig = array(
 					'APIUsername' => $api_username,
 					'APIPassword' => $api_password,
 					'APISignature' => $api_signature, 
-					'APIVersion' => '55.0'
+					'APIVersion' => '55.0',
+                    'PrintHeaders' => $print_headers
 					);
 
 $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);

@@ -100,10 +100,11 @@ class PayFlow extends PayPal
 	 * @access	public
 	 * @param	string	$Request		Raw API request string.
 	 * @param	string	$APIName		The name of the API which you are calling.
-	 * $param	string	$APIOperation	The method of the API which you are calling.	
+	 * @param	string	$APIOperation	The method of the API which you are calling.
+     * @param   string  $PrintHeaders   The option to print headers or not.
 	 * @return	string	$Response		Returns the raw HTTP response from PayPal.
 	 */
-	function CURLRequest($Request = "", $APIName = "", $APIOperation = "")
+	function CURLRequest($Request = "", $APIName = "", $APIOperation = "", $PrintHeaders = false)
 	{
 	
 		$unique_id = date('ymd-H').rand(1000,9999);
@@ -112,6 +113,12 @@ class PayFlow extends PayPal
 		$headers[] = "Content-Length : " . strlen ($Request);  // Length of data to be passed
 		$headers[] = "X-VPS-Timeout: 45";
 		$headers[] = "X-VPS-Request-ID:" . $unique_id;
+
+        if($this->PrintHeaders)
+        {
+            echo '<pre />';
+            print_r($headers);
+        }
 	
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);

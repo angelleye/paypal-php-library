@@ -131,4 +131,9 @@ $finance_client_secret = $sandbox ? 'SANDBOX_CLIENT_SECRET' : 'LIVE_CLIENT_SECRE
 $api_subject = '';	// If making calls on behalf a third party, their PayPal email address or account ID goes here.
 $device_id = '';
 $device_ip_address = $_SERVER['REMOTE_ADDR'];
-?>
+
+/**
+ * Enable Headers
+ * Option to print headers to screen when dumping results or not.
+ */
+$print_headers = true;
