@@ -22,8 +22,8 @@ $PayPal = new angelleye\PayPal\Adaptive($PayPalConfig);
 // Prepare request arrays
 $RemindInvoiceFields = array(
 							'InvoiceID' => '', 			// ID of the invoice.
-							'Subject' => '', 			// Subject of the cancelation notification.
-							'NoteForPayer' => '' 		// Note to send the payer within the cancelation notification.
+							'Subject' => '', 			// Subject of the reminder notification.
+							'NoteForPayer' => '' 		// Note to send the payer within the reminder notification.
 							);
 
 $PayPalRequestData = array('RemindInvoiceFields' => $RemindInvoiceFields);
