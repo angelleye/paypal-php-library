@@ -678,14 +678,14 @@ class PayPal
 	 */
 	function WarningsReturned($ack)
 	{
-		if(strtoupper($ack) == 'SUCCESSWITHWARNING')
-		{
-			return true;
-		}
-		else
-		{
-			return false;	
-		}
+        if(strpos(strtoupper($ack),'WARNING') !== false)
+        {
+            return true;
+        }
+        else
+        {
+            false;
+        }
 	}
 	
 	/**
