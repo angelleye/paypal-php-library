@@ -49,7 +49,9 @@ class PayPal
 	var $Sandbox = '';
 	var $PathToCertKeyPEM = '';
 	var $SSL = '';
-    var $PrintHeaders = false;
+    var $PrintHeaders = '';
+    var $LogResults = '';
+    var $LogPath = '';
 	
 	/**
 	 * Constructor
@@ -76,8 +78,10 @@ class PayPal
 		$this->PathToCertKeyPEM = '/path/to/cert/pem.txt';
 		$this->SSL = $_SERVER['SERVER_PORT'] == '443' ? true : false;
 		$this->APISubject = isset($DataArray['APISubject']) ? $DataArray['APISubject'] : '';
-        $this->PrintHeaders = isset($DataArray['PrintHeaders']) ? $DataArray['PrintHeaders'] : '';
-		
+        $this->PrintHeaders = isset($DataArray['PrintHeaders']) ? $DataArray['PrintHeaders'] : false;
+        $this->LogResults = isset($DataArray['LogResults']) ? $DataArray['LogResults'] : false;
+        $this->LogPath = isset($DataArray['LogPath']) ? $DataArray['LogPath'] : '/logs/';
+
 		if($this->Sandbox)
 		{
 			// Show Errors
@@ -952,6 +956,16 @@ class PayPal
 			$api_result_array['PWD'] = '*****';
 			$api_result_array['SIGNATURE'] = '*****';	
 		}
+
+        if(isset($api_result_array['ACCT']))
+        {
+            $api_result_array['ACCT'] = '*****'.substr($api_result_array['ACCT'],-4);
+        }
+
+        if(isset($api_result_array['CVV2']))
+        {
+            $api_result_array['CVV2'] = '*****';
+        }
 		
 		$api_result = '';
 		foreach($api_result_array as $var => $val)
@@ -965,33 +979,29 @@ class PayPal
 		return $api_result;
 	}
 	
-	/**
-	 * Save log info to a location on the disk.
-	 *
-	 * @access	public
-	 * @param	$filename		Name of the file that will be saved.
-	 * @param	$string_data	String to be saved in the log.
-	 * @return	boolean			Returns boolean value (true) upon completion.
-	 */
-	function Logger($filename, $string_data)
-	{	
-		$timestamp = strtotime('now');
-		$timestamp = date('mdY_giA_',$timestamp);
-		
-		$string_data = $this->MaskAPIResult($string_data);
+    /**
+     * Save log info to a location on the disk.
+     *
+     * @param $log_path
+     * @param $filename
+     * @param $string_data
+     * @return bool
+     */
+    function Logger($log_path, $filename, $string_data)
+	{
 
-		$string_data_indiv = '';
-		$string_data_array = $this->NVPToArray($string_data);
-		
-		foreach($string_data_array as $var => $val)
-		{
-			$string_data_indiv .= $var.'='.$val.chr(13);
-		}
-		
-		$file = $_SERVER['DOCUMENT_ROOT']."/paypal/logs/".$timestamp.$filename.".txt";
-		$fh = fopen($file, 'w');
-		fwrite($fh, $string_data.chr(13).chr(13).$string_data_indiv);
-		fclose($fh);
+        if($this->LogResults)
+        {
+            $timestamp = strtotime('now');
+            $timestamp = date('mdY_gi_s_A_',$timestamp);
+
+            $string_data_array = $this->NVPToArray($string_data);
+
+            $file = $log_path.$timestamp.$filename.'.txt';
+            $fh = fopen($file, 'w');
+            fwrite($fh, $string_data.chr(13).chr(13).print_r($string_data_array, true));
+            fclose($fh);
+        }
 		
 		return true;	
 	}
@@ -1021,13 +1031,16 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['RAWREQUEST'] = $NVPRequest;
 		$NVPResponseArray['RAWRESPONSE'] = $NVPResponse;
-									
-		return $NVPResponseArray;
+
+        return $NVPResponseArray;
 		
 	
 	}
@@ -1056,6 +1069,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -1092,6 +1108,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -1132,6 +1151,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -1165,6 +1187,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -1214,6 +1239,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -1258,6 +1286,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -1293,6 +1324,9 @@ class PayPal
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
 		$OrderItems = $this->GetOrderItems($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['ORDERITEMS'] = $OrderItems;
@@ -1403,6 +1437,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -1528,6 +1565,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		if(isset($NVPResponseArray['TOKEN']) && $NVPResponseArray['TOKEN'] != '')
 		{
@@ -1585,6 +1625,8 @@ class PayPal
 		}
 		
 		$NVPResponse = $CBFieldsNVP . $ShippingOptionsNVP;
+
+        $this->Logger($this->LogPath, __FUNCTION__, $NVPResponse);
 				
 		return $NVPResponse;
 		
@@ -1614,6 +1656,9 @@ class PayPal
 		$Errors = $this->GetErrors($NVPResponseArray);
 		$OrderItems = $this->GetOrderItems($NVPResponseArray);
 		$Payments = $this->GetPayments($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['ORDERITEMS'] = $OrderItems;
@@ -1694,6 +1739,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		// Loop through all possible payments and parse out data accordingly.
 		// This is to handle parallel payments.
@@ -1795,6 +1843,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$SearchResults = array();
 		$n = 0;
@@ -1895,6 +1946,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -1982,7 +2036,10 @@ class PayPal
 		$NVPRequestArray = $this->NVPToArray($NVPRequest);
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
-		$Errors = $this->GetErrors($NVPResponseArray);	
+		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2016,6 +2073,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$BalanceResults = array();
 		$n = 0;
@@ -2038,7 +2098,7 @@ class PayPal
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
 		$NVPResponseArray['RAWREQUEST'] = $NVPRequest;
 		$NVPResponseArray['RAWRESPONSE'] = $NVPResponse;
-		
+
 		return $NVPResponseArray;
 	
 	}
@@ -2061,6 +2121,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2093,6 +2156,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2125,6 +2191,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2237,6 +2306,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2269,6 +2341,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2301,6 +2376,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2345,6 +2423,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2407,6 +2488,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2421,7 +2505,7 @@ class PayPal
 	 *
 	 * @access	public
 	 * @param	string	$ProfileID	The ID of a recurring payments profile.
-	 * @return	mixed[]	Returns an array structure consisting of the full resuilt as well as the parsed profile status.
+	 * @return	mixed[]	Returns an array structure consisting of the full result as well as the parsed profile status.
 	 */
 	function GetRecurringPaymentsProfileStatus($ProfileID)
 	{
@@ -2460,6 +2544,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2512,6 +2599,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2545,6 +2635,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2577,6 +2670,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2617,7 +2713,10 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
-		
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
+
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
 		$NVPResponseArray['RAWREQUEST'] = $NVPRequest;
@@ -2650,6 +2749,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2692,6 +2794,9 @@ class PayPal
 		$Errors = $this->GetErrors($NVPResponseArray);
 		$Token = isset($NVPResponseArray['TOKEN']) ? $NVPResponseArray['TOKEN'] : '';
 		$RedirectURL = $Token != '' ? 'https://www.paypal.com/us/cgi-bin/webscr?cmd=_account-authenticate-login&token=' . $Token : '';
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REDIRECTURL'] = $RedirectURL;
@@ -2719,6 +2824,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2747,6 +2855,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$Permissions = array();
 		$n = 0;
@@ -2815,6 +2926,9 @@ class PayPal
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
 		$Token = isset($NVPResponseArray['TOKEN']) ? $NVPResponseArray['TOKEN'] : '';
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		if($this->Sandbox)
 		{
@@ -2855,6 +2969,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$NVPResponseArray['ERRORS'] = $Errors;
 		$NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
@@ -2892,6 +3009,9 @@ class PayPal
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 		
 		$Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
 		
 		$SearchResults = array();
 		$n = 0;

@@ -218,28 +218,36 @@ class Adaptive extends PayPal
 		$XML .= '</requestEnvelope>';
 		
 		return $XML;
-	}	
-	
-	/**
-	 * Log result to a location on the disk.
-	 *
-	 * @access	public
-	 * @param	string	$filename		File name for the log file. 
-	 * @param   string  $string_data	String to be saved in the log file.
-	 * @return	void
-	 */
-	function Logger($filename, $string_data)
-	{	
-		$timestamp = strtotime('now');
-		$timestamp = date('mdY_giA_',$timestamp);
-		$file = $_SERVER['DOCUMENT_ROOT']."/paypal/logs/".$timestamp.$filename.".xml";
-		$fh = fopen($file, 'w');
-		fwrite($fh, $string_data);
-		fclose($fh);	
 	}
-	
-	
-	/**
+
+    /**
+     * Log result to a location on the disk.
+     *
+     * @param $log_path
+     * @param $filename
+     * @param $string_data
+     * @return bool
+     */
+    function Logger($log_path, $filename, $string_data)
+    {
+
+        if($this->LogResults)
+        {
+            $timestamp = strtotime('now');
+            $timestamp = date('mdY_gi_s_A_',$timestamp);
+
+            $file = $log_path.$timestamp.$filename.'.xml';
+            $fh = fopen($file, 'w');
+            fwrite($fh, $string_data);
+            fclose($fh);
+        }
+
+        return true;
+    }
+
+
+
+    /**
 	 * Submits Pay API request to PayPal
 	 *
 	 * @access	public
@@ -400,6 +408,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptivePayments', 'Pay');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 						
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -616,6 +627,9 @@ class Adaptive extends PayPal
 		
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, 'PayRequest', $PayXMLResponse);
+        $this->Logger($this->LogPath, 'PayResponse', $PayXMLResponse);
 	
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -814,6 +828,9 @@ class Adaptive extends PayPal
 		
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, 'SetPaymentOptionsRequest', $SetPaymentOptionsXMLRequest);
+        $this->Logger($this->LogPath, 'SetPaymentOptionsResponse', $SetPaymentOptionsXMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -866,6 +883,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptivePayments', 'PaymentDetails');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 						
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -981,6 +1001,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptivePayments', 'ExecutePayment');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 						
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -1026,6 +1049,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptivePayments', 'GetPaymentOptions');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 						
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -1289,6 +1315,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptivePayments', 'SetPaymentOptions');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -1387,6 +1416,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptivePayments', 'Preapproval');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 						
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -1446,6 +1478,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptivePayments', 'PreapprovalDetails');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 						
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -1536,6 +1571,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptivePayments', 'CancelPreapproval');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 						
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -1610,6 +1648,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptivePayments', 'Refund');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 						
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -1702,6 +1743,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptivePayments', 'ConvertCurrency');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 						
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -2053,6 +2097,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptiveAccounts', 'CreateAccount');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -2170,6 +2217,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptiveAccounts', 'AddBankAccount', $PrintHeaders);
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+         $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+         $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -2309,6 +2359,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptiveAccounts', 'AddPaymentCard');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+         $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+         $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -2366,6 +2419,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptiveAccounts', 'SetFundingSourceConfirmed');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+         $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+         $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -2418,6 +2474,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptiveAccounts', 'GetVerifiedStatus');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+         $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+         $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -2492,6 +2551,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptiveAccounts', 'GetUserAgreement');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+         $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+         $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -2541,6 +2603,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptiveAccounts', 'GetFundingPlans');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+         $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+         $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -2659,6 +2724,9 @@ class Adaptive extends PayPal
 		
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -2911,6 +2979,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'CreateInvoice');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -2961,6 +3032,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'SendInvoice');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -3199,6 +3273,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'CreateAndSendInvoice');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -3440,6 +3517,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'UpdateInvoice');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -3490,6 +3570,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'GetInvoiceDetails');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -3775,6 +3858,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'CancelInvoice');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -3824,6 +3910,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'DeleteInvoice');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -3865,6 +3954,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'GenerateInvoiceNumber');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -3984,6 +4076,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'SearchInvoices');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -4093,6 +4188,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'MarkInvoiceAsPaid');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -4143,6 +4241,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'MarkInvoiceAsUnpaid');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -4205,6 +4306,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'MarkInvoiceAsRefunded');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -4263,6 +4367,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Invoice', 'RemindInvoice');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -4322,6 +4429,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Permissions', 'RequestPermissions');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -4377,6 +4487,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Permissions', 'GetAccessToken');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -4433,6 +4546,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Permissions', 'GetPermissions');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -4485,6 +4601,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Permissions', 'CancelPermissions');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -4533,6 +4652,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Permissions', 'GetBasicPersonalData');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;
@@ -4597,6 +4719,9 @@ class Adaptive extends PayPal
 		$XMLResponse = $this -> CURLRequest($XMLRequest, 'Permissions', 'GetAdvancedPersonalData');
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $XMLRequest);
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $XMLResponse);
 		
 		// Parse XML values
 		$Fault = $DOM -> getElementsByTagName('FaultMessage') -> length > 0 ? true : false;

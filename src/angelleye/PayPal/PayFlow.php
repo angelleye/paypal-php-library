@@ -174,7 +174,7 @@ class PayFlow extends PayPal
 		return $proArray;
 	}
 	
-	/*
+	/**
 	 * Processes the transaction on the PayFlow gateway.
 	 * 
 	 * @access public
@@ -196,6 +196,9 @@ class PayFlow extends PayPal
 		$NVPResponse = $this->CURLRequest($NVPRequest);
 		$NVPResponse = strstr($NVPResponse,"RESULT");
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
+
+        $this->Logger($this->LogPath, 'PayFlowRequest', $NVPRequest);
+        $this->Logger($this->LogPath, 'PayFlowResponse', $NVPResponse);
 		
 		$NVPResponseArray['RAWREQUEST'] = $NVPRequest;
 		$NVPResponseArray['RAWRESPONSE'] = $NVPResponse;
