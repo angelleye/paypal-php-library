@@ -11,7 +11,9 @@ $PayPalConfig = array(
 					'APISignature' => $api_signature, 
 					'APIVersion' => '97.0', 
 					'APISubject' => '',
-                    'PrintHeaders' => $print_headers
+                    'PrintHeaders' => $print_headers, 
+					'LogResults' => $log_results, 
+					'LogPath' => $log_path,
 					);
 
 $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);

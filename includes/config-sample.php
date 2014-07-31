@@ -45,7 +45,7 @@ if($sandbox)
 	ini_set('display_errors', '1');	
 }
 
-/* 
+/**
  * PayPal API Version
  * ------------------
  * The library is currently using PayPal API version 109.0.  
@@ -53,7 +53,7 @@ if($sandbox)
  */
 $api_version = '112.0'; // Released 03.26.2014
 
-/*
+/**
  * PayPal Application ID
  * --------------------------------------
  * The application is only required with Adaptive Payments applications.
@@ -66,13 +66,13 @@ $api_version = '112.0'; // Released 03.26.2014
  */
 $application_id = $sandbox ? 'APP-80W284485P519543T' : '';
 
-/*
+/**
  * PayPal Developer Account Email Address
  * This is the email address that you use to sign in to http://developer.paypal.com
  */
 $developer_account_email = '';
 
-/*
+/**
  * PayPal Gateway API Credentials
  * ------------------------------
  * These are your PayPal API credentials for working with the PayPal gateway directly.
@@ -87,7 +87,7 @@ $api_username = $sandbox ? 'SANDBOX_API_USERNAME' : 'LIVE_API_USERNAME';
 $api_password = $sandbox ? 'SANDBOX_API_PASSWORD' : 'LIVE_API_PASSWORD';
 $api_signature = $sandbox ? 'SANDBOX_API_SIGNATURE' : 'LIVE_API_SIGNATURE';
 
-/*
+/**
  * Payflow Gateway API Credentials
  * ------------------------------
  * These are the credentials you use for your PayPal Manager:  http://manager.paypal.com
@@ -104,7 +104,7 @@ $payflow_password = $sandbox ? 'SANDBOX_PAYFLOW_PASSWORD' : 'LIVE_PAYFLOW_PASSWO
 $payflow_vendor = $sandbox ? 'SANDBOX_PAYFLOW_VENDOR' : 'LIVE_PAYFLOW_VENDOR';
 $payflow_partner = $sandbox ? 'SANDBOX_PAYFLOW_PARTNER' : 'LIVE_PAYFLOW_PARTNER';
 
-/* 
+/**
  * PayPal REST API Credentials
  * ---------------------------
  * These are the API credentials used for the PayPal REST API.
@@ -115,7 +115,7 @@ $payflow_partner = $sandbox ? 'SANDBOX_PAYFLOW_PARTNER' : 'LIVE_PAYFLOW_PARTNER'
 $rest_client_id = $sandbox ? 'SANDBOX_CLIENT_ID' : 'LIVE_CLIENT_ID';
 $rest_client_secret = $sandbox ? 'SANDBOX_CLIENT_ID' : 'LIVE_SECRET_ID';
 
-/*
+/**
  * PayPal Finance Portal API
  * -------------------------
  * These are credentials used for obtaining a PublisherID used in Bill Me Later Banner code.
@@ -136,4 +136,11 @@ $device_ip_address = $_SERVER['REMOTE_ADDR'];
  * Enable Headers
  * Option to print headers to screen when dumping results or not.
  */
-$print_headers = true;
+$print_headers = false;
+
+/**
+ * Enable Logging
+ * Option to log API requests and responses to log file.
+ */
+$log_results = false;
+$log_path = $_SERVER['DOCUMENT_ROOT'].'/logs/';

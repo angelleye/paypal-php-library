@@ -11,7 +11,9 @@ $PayPalConfig = array(
 						'APIVendor' => $payflow_vendor, 
 						'APIPartner' => $payflow_partner, 
 						'Verbosity' => 'HIGH',		// Detail level for API response.  Values are:  LOW, MEDIUM, HIGH
-                        'PrintHeaders' => $print_headers
+                        'PrintHeaders' => $print_headers,
+                        'LogResults' => $log_results,
+                        'LogPath' => $log_path,
 					  );
 
 $PayPal = new angelleye\PayPal\PayFlow($PayPalConfig);

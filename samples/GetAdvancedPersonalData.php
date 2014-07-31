@@ -15,7 +15,9 @@ $PayPalConfig = array(
 					  'APIPassword' => $api_password,
 					  'APISignature' => $api_signature,
 					  'APISubject' => 'sandbo_1204199080_biz@angelleye.com',
-                      'PrintHeaders' => $print_headers
+                      'PrintHeaders' => $print_headers,
+                      'LogResults' => $log_results,
+                      'LogPath' => $log_path,
 					);
 
 $PayPal = new angelleye\PayPal\Adaptive($PayPalConfig);
