@@ -64,8 +64,7 @@ To use the library in your project, include the following into your file(s).
 You may refer to this [overview video](http://www.angelleye.com/overview-of-php-class-library-for-paypal/) of how to use the library, 
 and there are also samples provided in the /samples directory as well as blank templates ready to use under /templates.
 
-You may [contact me directly](http://www.angelleye.com/contact-us/) if you need additional help getting started.  I offer 30 min of free training for using this library, 
-which is generally plenty to get you up-and-running.
+If you need additional help you may [place an order for premium support](http://www.angelleye.com/product/premium-support/).
 
 ## Supported APIs
 
