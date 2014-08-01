@@ -23,7 +23,8 @@
  * @author			Andrew Angell <service@angelleye.com>
  * @link			https://github.com/angelleye/paypal-php-library/
  * @website			http://www.angelleye.com
- * @version			v2.0.1
+ * @support         http://www.angelleye.com/product/premium-support/
+ * @version			v2.0.2
  * @filesource
 */
 
