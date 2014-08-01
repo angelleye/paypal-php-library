@@ -2215,7 +2215,7 @@ class Adaptive extends PayPal
 		$XMLRequest .= '</AddBankAccountRequest>';
 		 
 		 // Call the API and load XML response into DOM
-		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptiveAccounts', 'AddBankAccount', $PrintHeaders);
+		$XMLResponse = $this -> CURLRequest($XMLRequest, 'AdaptiveAccounts', 'AddBankAccount', $this->PrintHeaders);
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
 
