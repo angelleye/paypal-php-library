@@ -173,6 +173,10 @@ If you need additional help you may [place an order for premium support](http://
 -  SetMobileCheckout
 -  UpdateAccessPermissions
 
+## Tutorials
+
+- [How to install the Angell EYE PHP Class Library for PayPal](http://www.angelleye.com/install-angell-eye-php-class-library-paypal/)
+
 ## Resources
 
 -  [Adaptive Accounts Developer Guide](https://developer.paypal.com/webapps/developer/docs/classic/adaptive-accounts/integration-guide/ACIntroduction/)
