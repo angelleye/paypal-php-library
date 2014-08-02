@@ -32,11 +32,11 @@ Create a composer.json file with the following section and run composer update.
 
 ## Setup
 
-Open /includes/config-sample.php, fill out your details accordingly, and save-as config.php.
+Open /samples/config/config-sample.php, fill out your details accordingly, and save-as config.php to a location of your choice.
 
 To use the library in your project, include the following into your file(s).
 
-- /includes/config.php (It is recommended that you move this to a directory outside your site root on the web server and use an absolute path to include it.)
+- /path/to/config.php (It is recommended that you move this to a directory outside your site root on the web server and use an absolute path to include it.)
 - autoload.php
 
 ## Usage
