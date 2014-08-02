@@ -66,6 +66,11 @@ and there are also samples provided in the /samples directory as well as blank t
 
 If you need additional help you may [place an order for premium support](http://www.angelleye.com/product/premium-support/).
 
+## Tutorials
+
+- [How to install the Angell EYE PHP Class Library for PayPal](http://www.angelleye.com/install-angell-eye-php-class-library-paypal/)
+
+
 ## Supported APIs
 
 ### Adaptive Accounts
@@ -172,6 +177,7 @@ If you need additional help you may [place an order for premium support](http://
 -  SetAuthFlowParam
 -  SetMobileCheckout
 -  UpdateAccessPermissions
+
 
 ## Resources
 
