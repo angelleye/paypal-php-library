@@ -13,6 +13,8 @@ This PHP class library for PayPal makes it easy to integrate PayPal APIs, includ
 
 ## Installation
 
+[![How to Install via Composer or Manual Download](http://img.youtube.com/vi/f9wi8m7_FDc/0.jpg)](http://www.youtube.com/watch?v=f9wi8m7_FDc)
+
 ### Composer Install
 
 Create a composer.json file with the following section and run composer update.
