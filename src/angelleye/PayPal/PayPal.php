@@ -1902,7 +1902,7 @@ class PayPal
 	{
 		$DNRCFieldsNVP = '&METHOD=DoNonReferencedCredit';
 		$CCDetailsNVP = '';
-		$PayerName = '';
+		$PayerNameNVP = '';
 		$PayerInfoNVP = '';
 		$BillingAddressNVP = '';
 		
