@@ -623,7 +623,19 @@ class PayPal
 			curl_setopt($curl, CURLOPT_SSLCERT, $this->PathToCertKeyPEM);
 		}
 		
-		$Response = curl_exec($curl);		
+		$Response = curl_exec($curl);
+		
+		/*
+		 * If a cURL error occurs, output it for review.
+		 */
+		if($this->Sandbox)
+		{
+			if(curl_error($curl))
+			{
+				echo curl_error($curl).'<br /><br />';	
+			}
+		}
+				
 		curl_close($curl);
 		return $Response;	
 	}
