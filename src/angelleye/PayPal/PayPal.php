@@ -613,6 +613,8 @@ class PayPal
 				// curl_setopt($curl, CURLOPT_HEADER,TRUE);
 				curl_setopt($curl, CURLOPT_VERBOSE, 1);
 				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+				curl_setopt($curl, CURLOPT_SSL_CIPHER_LIST, 'TLSv1');
+				curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
 				curl_setopt($curl, CURLOPT_TIMEOUT, 30);
 				curl_setopt($curl, CURLOPT_URL, $this->EndPointURL);
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

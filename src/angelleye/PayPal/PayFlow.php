@@ -128,6 +128,8 @@ class PayFlow extends PayPal
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 0);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+		curl_setopt($curl, CURLOPT_SSL_CIPHER_LIST, 'TLSv1');
+		curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
 		curl_setopt($curl, CURLOPT_FORBID_REUSE, true);
 		curl_setopt($curl, CURLOPT_TIMEOUT, 90);
 		curl_setopt($curl, CURLOPT_URL, $this->APIEndPoint);
