@@ -25,7 +25,7 @@ echo '<br /><br /></pre>';
 $DECPFields = array(
 					'token' => $_SESSION['SetExpressCheckoutResult']['TOKEN'], 								// Required.  A timestamped token, the value of which was returned by a previous SetExpressCheckout call.
 					'payerid' => $GECDResult['PAYERID'], 							// Required.  Unique PayPal customer id of the payer.  Returned by GetExpressCheckoutDetails, or if you used SKIPDETAILS it's returned in the URL back to your RETURNURL.
-					'returnfmfdetails' => '1', 					// Flag to indiciate whether you want the results returned by Fraud Management Filters or not.  1 or 0.
+					'returnfmfdetails' => '1', 					// Flag to indicate whether you want the results returned by Fraud Management Filters or not.  1 or 0.
 					'giftmessage' => '', 						// The gift message entered by the buyer on the PayPal Review page.  150 char max.
 					'giftreceiptenable' => '', 					// Pass true if a gift receipt was selected by the buyer on the PayPal Review page. Otherwise pass false.
 					'giftwrapname' => '', 						// The gift wrap name only if the gift option on the PayPal Review page was selected by the buyer.
