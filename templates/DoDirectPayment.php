@@ -18,7 +18,7 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 // Prepare request arrays
 $DPFields = array(
-					'paymentaction' => '', 						// How you want to obtain payment.  Authorization indidicates the payment is a basic auth subject to settlement with Auth & Capture.  Sale indicates that this is a final sale for which you are requesting payment.  Default is Sale.
+					'paymentaction' => '', 						// How you want to obtain payment.  Authorization indicates the payment is a basic auth subject to settlement with Auth & Capture.  Sale indicates that this is a final sale for which you are requesting payment.  Default is Sale.
 					'ipaddress' => '', 							// Required.  IP address of the payer's browser.
 					'returnfmfdetails' => '' 					// Flag to determine whether you want the results returned by FMF.  1 or 0.  Default is 0.
 				);

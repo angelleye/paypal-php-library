@@ -23,14 +23,14 @@ $CRPPFields = array(
 				
 $ProfileDetails = array(
 					'subscribername' => '', 					// Full name of the person receiving the product or service paid for by the recurring payment.  32 char max.
-					'profilestartdate' => '', 					// Required.  The date when the billing for this profiile begins.  Must be a valid date in UTC/GMT format.
+					'profilestartdate' => '', 					// Required.  The date when the billing for this profile begins.  Must be a valid date in UTC/GMT format.
 					'profilereference' => '' 					// The merchant's own unique invoice number or reference ID.  127 char max.
 				);
 				
 $ScheduleDetails = array(
 					'desc' => '', 								// Required.  Description of the recurring payment.  This field must match the corresponding billing agreement description included in SetExpressCheckout.
 					'maxfailedpayments' => '', 					// The number of scheduled payment periods that can fail before the profile is automatically suspended.  
-					'autobilloutamt' => '' 						// This field indiciates whether you would like PayPal to automatically bill the outstanding balance amount in the next billing cycle.  Values can be: NoAutoBill or AddToNextBilling
+					'autobilloutamt' => '' 						// This field indicates whether you would like PayPal to automatically bill the outstanding balance amount in the next billing cycle.  Values can be: NoAutoBill or AddToNextBilling
 				);
 				
 $BillingPeriod = array(
