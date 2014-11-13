@@ -28,7 +28,7 @@ $URPPFields = array(
 				   'shippingamt' => '', 						// Shipping amount for each billing cycle during the payment period.
 				   'taxamt' => '', 								// Tax amount for each billing cycle during the payment period.
 				   'outstandingamt' => '', 						// The current past-due or outstanding amount.  You can only decrease this amount.  
-				   'autobilloutamt' => '', 						// This field indiciates whether you would like PayPal to automatically bill the outstanding balance amount in the next billing cycle.
+				   'autobilloutamt' => '', 						// This field indicates whether you would like PayPal to automatically bill the outstanding balance amount in the next billing cycle.
 				   'maxfailedpayments' => '', 					// The number of failed payments allowed before the profile is automatically suspended.  The specified value cannot be less than the current number of failed payments for the profile.
 				   'profilestartdate' => ''						// The date when the billing for this profile begins.  UTC/GMT format.
 				   );
