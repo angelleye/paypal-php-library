@@ -3236,4 +3236,72 @@ class PayPal
         return $NVPResponseArray;
     }
 
+    /**
+     * Use the BMSetInventory API operation to set the inventory level and inventory management
+     * features for the specified button. When you set the inventory level for a button,
+     * PayPal can track inventory, calculate the gross profit associated with sales, send you
+     * an alert when inventory drops below a specified quantity, and manage sold out conditions.
+     *
+     * @param $DataArray
+     * @return \mixed[]
+     */
+    function BMSetInventory($DataArray)
+    {
+        $BMSetInventoryNVP = '&METHOD=BMSetInventory';
+
+        // BMSetInventory Fields
+        $BMSetInventoryFields = isset($DataArray['BMSetInventoryFields']) ? $DataArray['BMSetInventoryFields'] : array();
+        foreach($BMSetInventoryFields as $BMSetInventoryFieldsVar => $BMSetInventoryFieldsVal)
+        {
+            $BMSetInventoryNVP .= $BMSetInventoryFieldsVal != '' ? '&' . strtoupper($BMSetInventoryFieldsVar) . '=' . urlencode($BMSetInventoryFieldsVal) : '';
+        }
+
+        // DigitalDownloadKeys
+        $n = 0;
+        $DigitalDownloadKeys = isset($DataArray['DigitalDownloadKeys']) ? $DataArray['DigitalDownloadKeys'] : array();
+        foreach($DigitalDownloadKeys as $DigitalDownloadKey)
+        {
+            $BMSetInventoryNVP .= '&L_DIGITALDOWNLOADKEYS' . $n . '=' . urlencode($DigitalDownloadKey);
+            $n++;
+        }
+
+        // ItemTrackingDetails
+        $ItemTrackingDetailsFields = isset($DataArray['ItemTrackingDetails']) ? $DataArray['ItemTrackingDetails'] : array();
+        foreach($ItemTrackingDetailsFields as $ItemTrackingDetailsFieldsVar => $ItemTrackingDetailsFieldsVal)
+        {
+            $BMSetInventoryNVP .= $ItemTrackingDetailsFieldsVal != '' ? '&' . strtoupper($ItemTrackingDetailsFieldsVar) . '=' . urlencode($ItemTrackingDetailsFieldsVal) : '';
+        }
+
+        // OptionTrackingDetails
+        $n = 0;
+        $OptionTrackingDetails = isset($DataArray['OptionTrackingDetails']) ? $DataArray['OptionTrackingDetails'] : array();
+        foreach($OptionTrackingDetails as $OptionTrackingDetail)
+        {
+            $BMSetInventoryNVP .= '&L_OPTIONNUMBER' . $n . '=' . urlencode($OptionTrackingDetail['number']);
+            $BMSetInventoryNVP .= '&L_OPTIONQTY' . $n . '=' . urlencode($OptionTrackingDetail['qty']);
+            $BMSetInventoryNVP .= '&L_OPTIONSELECT' . $n . '=' . urlencode($OptionTrackingDetail['select']);
+            $BMSetInventoryNVP .= '&L_OPTIONQTYDELTA' . $n . '=' . urlencode($OptionTrackingDetail['qtydelta']);
+            $BMSetInventoryNVP .= '&L_OPTIONALERT' . $n . '=' . urlencode($OptionTrackingDetail['alert']);
+            $BMSetInventoryNVP .= '&L_OPTIONCOST' . $n . '=' . urlencode($OptionTrackingDetail['cost']);
+            $n++;
+        }
+        
+        $NVPRequest = $this->NVPCredentials . $BMSetInventoryNVP;
+        $NVPResponse = $this->CURLRequest($NVPRequest);
+        $NVPRequestArray = $this->NVPToArray($NVPRequest);
+        $NVPResponseArray = $this->NVPToArray($NVPResponse);
+
+        $Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
+
+        $NVPResponseArray['ERRORS'] = $Errors;
+        $NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
+        $NVPResponseArray['RAWREQUEST'] = $NVPRequest;
+        $NVPResponseArray['RAWRESPONSE'] = $NVPResponse;
+
+        return $NVPResponseArray;
+    }
+
 }
