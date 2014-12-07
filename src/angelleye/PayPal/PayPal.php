@@ -3056,6 +3056,77 @@ class PayPal
 	}
 
     /**
+     * Use the BMCreateButton API operation to create a PayPal Payments Standard button.
+     * You can create either a button that is hosted on PayPal or a non-hosted button.
+     *
+     * @param $DataArray
+     * @return \mixed[]
+     */
+    function BMCreateButton($DataArray)
+    {
+        $BMCreateButtonNVP = '&METHOD=BMCreateButton';
+
+        // BMCreateButton Fields
+        $BMCreateButtonFields = isset($DataArray['BMCreateButtonFields']) ? $DataArray['BMCreateButtonFields'] : array();
+        foreach($BMCreateButtonFields as $BMCreateButtonFieldsVar => $BMCreateButtonFieldsVal)
+        {
+            $BMCreateButtonNVP .= $BMCreateButtonFieldsVal != '' ? '&' . strtoupper($BMCreateButtonFieldsVar) . '=' . urlencode($BMCreateButtonFieldsVal) : '';
+        }
+
+        $n = 0;
+        $BMButtonVars = isset($DataArray['BMButtonVars']) ? $DataArray['BMButtonVars'] : array();
+        $BMButtonVars['bn'] = $this->APIButtonSource;
+        foreach($BMButtonVars as $BMButtonVarName => $BMButtonVarValue)
+        {
+            $BMCreateButtonNVP .= $BMButtonVarValue != '' ? "&L_BUTTONVAR" . $n . "=" . urlencode($BMButtonVarName . "=" . $BMButtonVarValue) : "";
+            if($BMButtonVarValue != '')
+            {
+                $BMCreateButtonNVP .= "&L_BUTTONVAR" . $n . "=" . urlencode($BMButtonVarName . "=" . $BMButtonVarValue);
+                $n++;
+            }
+        }
+
+        $n = 0;
+        $BMButtonOptions = isset($DataArray['BMButtonOptions']) ? $DataArray['BMButtonOptions'] : array();
+        foreach($BMButtonOptions as $BMButtonOption)
+        {
+            $n_selection = 0;
+
+            $ButtonOptionName = $BMButtonOption['name'];
+            $ButtonOptionSelections = $BMButtonOption['selections'];
+
+            $BMCreateButtonNVP .= '&OPTION'. $n . 'NAME=' . $ButtonOptionName;
+            foreach($ButtonOptionSelections as $ButtonOptionSelection)
+            {
+                $BMCreateButtonNVP .= $ButtonOptionSelection['value'] != '' ? '&L_OPTION' . $n . 'SELECT' . $n_selection . '=' . $ButtonOptionSelection['value'] : '';
+                $BMCreateButtonNVP .= $ButtonOptionSelection['price'] != '' ? '&L_OPTION' . $n . 'PRICE' . $n_selection . '=' . $ButtonOptionSelection['price'] : '';
+                $BMCreateButtonNVP .= $ButtonOptionSelection['type'] != '' ? '&L_OPTION' . $n . 'TYPE' . $n_selection . '=' . $ButtonOptionSelection['type'] : '';
+
+                $n_selection++;
+            }
+
+            $n++;
+        }
+
+        $NVPRequest = $this->NVPCredentials . $BMCreateButtonNVP;
+        $NVPResponse = $this->CURLRequest($NVPRequest);
+        $NVPRequestArray = $this->NVPToArray($NVPRequest);
+        $NVPResponseArray = $this->NVPToArray($NVPResponse);
+
+        $Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
+
+        $NVPResponseArray['ERRORS'] = $Errors;
+        $NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
+        $NVPResponseArray['RAWREQUEST'] = $NVPRequest;
+        $NVPResponseArray['RAWRESPONSE'] = $NVPResponse;
+
+        return $NVPResponseArray;
+    }
+
+    /**
      * Use the BMGetButtonDetails API operation to obtain information about a hosted PayPal Payments Standard button.
      * You can use this information to set the fields that have not changed when updating a button.
      *
