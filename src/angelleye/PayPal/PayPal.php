@@ -3201,4 +3201,33 @@ class PayPal
         return $NVPResponseArray;
     }
 
+    function BMManageButtonStatus($DataArray)
+    {
+        $BMManageButtonStatusNVP = '&METHOD=BMManageButtonStatus';
+
+        // BMManageButtonStatus Fields
+        $BMManageButtonStatusFields = isset($DataArray['BMManageButtonStatusFields']) ? $DataArray['BMManageButtonStatusFields'] : array();
+        foreach($BMManageButtonStatusFields as $BMManageButtonStatusFieldsVar => $BMManageButtonStatusFieldsVal)
+        {
+            $BMManageButtonStatusNVP .= $BMManageButtonStatusFieldsVal != '' ? '&' . strtoupper($BMManageButtonStatusFieldsVar) . '=' . urlencode($BMManageButtonStatusFieldsVal) : '';
+        }
+
+        $NVPRequest = $this->NVPCredentials . $BMManageButtonStatusNVP;
+        $NVPResponse = $this->CURLRequest($NVPRequest);
+        $NVPRequestArray = $this->NVPToArray($NVPRequest);
+        $NVPResponseArray = $this->NVPToArray($NVPResponse);
+
+        $Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
+
+        $NVPResponseArray['ERRORS'] = $Errors;
+        $NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
+        $NVPResponseArray['RAWREQUEST'] = $NVPRequest;
+        $NVPResponseArray['RAWRESPONSE'] = $NVPResponse;
+
+        return $NVPResponseArray;
+    }
+
 }
