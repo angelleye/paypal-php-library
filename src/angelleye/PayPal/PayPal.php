@@ -3055,6 +3055,13 @@ class PayPal
 		return $NVPResponseArray;
 	}
 
+    /**
+     * Use the BMGetButtonDetails API operation to obtain information about a hosted PayPal Payments Standard button.
+     * You can use this information to set the fields that have not changed when updating a button.
+     *
+     * @param $HostedButtonID
+     * @return mixed[] $NVPResponseArray Returns an array structure of the PayPal HTTP response params as well as parsed errors and the raw request/response.
+     */
     function BMGetButtonDetails($HostedButtonID)
     {
         $BMGetButtonDetailsNVP = '&METHOD=BMGetButtonDetails&HOSTEDBUTTONID=' . $HostedButtonID;
