@@ -19,8 +19,8 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 // Prepare request arrays
 $BMCreateButtonFields = array
 						(
-						'buttoncode' => 'CLEARTEXT', 		// The kind of button code to create.  It is one of the following values:  HOSTED, ENCRYPTED, CLEARTEXT, TOKEN
-						'buttontype' => 'CART',			// Required.  The kind of button you want to create.  It is one of the following values:  BUYNOW, CART, GIFTCERTIFICATE, SUBSCRIBE, DONATE, UNSUBSCRIBE, VIEWCART, PAYMENTPLAN, AUTOBILLING, PAYMENT
+						'buttoncode' => '', 		// The kind of button code to create.  It is one of the following values:  HOSTED, ENCRYPTED, CLEARTEXT, TOKEN
+						'buttontype' => '',			// Required.  The kind of button you want to create.  It is one of the following values:  BUYNOW, CART, GIFTCERTIFICATE, SUBSCRIBE, DONATE, UNSUBSCRIBE, VIEWCART, PAYMENTPLAN, AUTOBILLING, PAYMENT
                         'buttonsubtype' => '',      // The use of button you want to create.  Values are:  PRODUCTS, SERVICES
 );
 
