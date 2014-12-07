@@ -3098,9 +3098,9 @@ class PayPal
             $BMCreateButtonNVP .= '&OPTION'. $n . 'NAME=' . $ButtonOptionName;
             foreach($ButtonOptionSelections as $ButtonOptionSelection)
             {
-                $BMCreateButtonNVP .= $ButtonOptionSelection['value'] != '' ? '&L_OPTION' . $n . 'SELECT' . $n_selection . '=' . $ButtonOptionSelection['value'] : '';
-                $BMCreateButtonNVP .= $ButtonOptionSelection['price'] != '' ? '&L_OPTION' . $n . 'PRICE' . $n_selection . '=' . $ButtonOptionSelection['price'] : '';
-                $BMCreateButtonNVP .= $ButtonOptionSelection['type'] != '' ? '&L_OPTION' . $n . 'TYPE' . $n_selection . '=' . $ButtonOptionSelection['type'] : '';
+                $BMCreateButtonNVP .= $ButtonOptionSelection['value'] != '' ? '&L_OPTION' . $n . 'SELECT' . $n_selection . '=' . urlencode($ButtonOptionSelection['value']) : '';
+                $BMCreateButtonNVP .= $ButtonOptionSelection['price'] != '' ? '&L_OPTION' . $n . 'PRICE' . $n_selection . '=' . urlencode($ButtonOptionSelection['price']) : '';
+                $BMCreateButtonNVP .= $ButtonOptionSelection['type'] != '' ? '&L_OPTION' . $n . 'TYPE' . $n_selection . '=' . urlencode($ButtonOptionSelection['type']) : '';
 
                 $n_selection++;
             }
@@ -3138,6 +3138,44 @@ class PayPal
         $BMGetButtonDetailsNVP = '&METHOD=BMGetButtonDetails&HOSTEDBUTTONID=' . $HostedButtonID;
 
         $NVPRequest = $this->NVPCredentials . $BMGetButtonDetailsNVP;
+        $NVPResponse = $this->CURLRequest($NVPRequest);
+        $NVPRequestArray = $this->NVPToArray($NVPRequest);
+        $NVPResponseArray = $this->NVPToArray($NVPResponse);
+
+        $Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
+
+        $NVPResponseArray['ERRORS'] = $Errors;
+        $NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
+        $NVPResponseArray['RAWREQUEST'] = $NVPRequest;
+        $NVPResponseArray['RAWRESPONSE'] = $NVPResponse;
+
+        return $NVPResponseArray;
+    }
+
+    function BMGetInventory($DataArray)
+    {
+        $BMGetInventoryNVP = '&METHOD=BMGetInventory';
+
+        // BMGetInventory Fields
+        $BMGetInventoryFields = isset($DataArray['BMGetInventoryFields']) ? $DataArray['BMGetInventoryFields'] : array();
+        foreach($BMGetInventoryFields as $BMGetInventoryFieldsVar => $BMGetInventoryFieldsVal)
+        {
+            $BMGetInventoryNVP .= $BMGetInventoryFieldsVal != '' ? '&' . strtoupper($BMGetInventoryFieldsVar) . '=' . urlencode($BMGetInventoryFieldsVal) : '';
+        }
+
+        // DigitalDownloadKeys
+        $n = 0;
+        $DigitalDownloadKeys = isset($DataArray['DigitalDownloadKeys']) ? $DataArray['DigitalDownloadKeys'] : array();
+        foreach($DigitalDownloadKeys as $DigitalDownloadKey)
+        {
+            $BMGetInventoryNVP .= '&L_DIGITALDOWNLOADKEYS' . $n . '=' . urlencode($DigitalDownloadKey);
+            $n++;
+        }
+
+        $NVPRequest = $this->NVPCredentials . $BMGetInventoryNVP;
         $NVPResponse = $this->CURLRequest($NVPRequest);
         $NVPRequestArray = $this->NVPToArray($NVPRequest);
         $NVPResponseArray = $this->NVPToArray($NVPResponse);
