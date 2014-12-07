@@ -3201,6 +3201,12 @@ class PayPal
         return $NVPResponseArray;
     }
 
+    /**
+     * Use the BMManageButtonStatus API operation to change the status of a hosted button. Currently, you can only delete a button.
+     *
+     * @param $DataArray
+     * @return \mixed[]
+     */
     function BMManageButtonStatus($DataArray)
     {
         $BMManageButtonStatusNVP = '&METHOD=BMManageButtonStatus';
