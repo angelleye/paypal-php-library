@@ -3155,6 +3155,14 @@ class PayPal
         return $NVPResponseArray;
     }
 
+    /**
+     * Use the BMGetInventory API operation to determine the inventory levels and other inventory-related
+     * information for a button and menu items associated with the button. Typically, you call BMGetInventory
+     * to obtain field values before calling BMSetInventory to change the inventory levels.
+     *
+     * @param $DataArray
+     * @return \mixed[]
+     */
     function BMGetInventory($DataArray)
     {
         $BMGetInventoryNVP = '&METHOD=BMGetInventory';
