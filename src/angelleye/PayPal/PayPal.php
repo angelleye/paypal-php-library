@@ -3127,6 +3127,78 @@ class PayPal
     }
 
     /**
+     * Use the BMUpdateButton API operation to modify a PayPal Payments Standard button that is hosted on PayPal.
+     * This operation replaces all fields in the specified button; therefore, you must specify a value for
+     * each field you want to include for the button, whether or not it changed.
+     * 
+     * @param $DataArray
+     * @return \mixed[]
+     */
+    function BMUpdateButton($DataArray)
+    {
+        $BMUpdateButtonNVP = '&METHOD=BMUpdateButton';
+
+        // BMUpdateButton Fields
+        $BMUpdateButtonFields = isset($DataArray['BMUpdateButtonFields']) ? $DataArray['BMUpdateButtonFields'] : array();
+        foreach($BMUpdateButtonFields as $BMUpdateButtonFieldsVar => $BMUpdateButtonFieldsVal)
+        {
+            $BMUpdateButtonNVP .= $BMUpdateButtonFieldsVal != '' ? '&' . strtoupper($BMUpdateButtonFieldsVar) . '=' . urlencode($BMUpdateButtonFieldsVal) : '';
+        }
+
+        $n = 0;
+        $BMButtonVars = isset($DataArray['BMButtonVars']) ? $DataArray['BMButtonVars'] : array();
+        $BMButtonVars['bn'] = $this->APIButtonSource;
+        foreach($BMButtonVars as $BMButtonVarName => $BMButtonVarValue)
+        {
+            $BMUpdateButtonNVP .= $BMButtonVarValue != '' ? "&L_BUTTONVAR" . $n . "=" . urlencode($BMButtonVarName . "=" . $BMButtonVarValue) : "";
+            if($BMButtonVarValue != '')
+            {
+                $BMUpdateButtonNVP .= "&L_BUTTONVAR" . $n . "=" . urlencode($BMButtonVarName . "=" . $BMButtonVarValue);
+                $n++;
+            }
+        }
+
+        $n = 0;
+        $BMButtonOptions = isset($DataArray['BMButtonOptions']) ? $DataArray['BMButtonOptions'] : array();
+        foreach($BMButtonOptions as $BMButtonOption)
+        {
+            $n_selection = 0;
+
+            $ButtonOptionName = $BMButtonOption['name'];
+            $ButtonOptionSelections = $BMButtonOption['selections'];
+
+            $BMUpdateButtonNVP .= '&OPTION'. $n . 'NAME=' . $ButtonOptionName;
+            foreach($ButtonOptionSelections as $ButtonOptionSelection)
+            {
+                $BMUpdateButtonNVP .= $ButtonOptionSelection['value'] != '' ? '&L_OPTION' . $n . 'SELECT' . $n_selection . '=' . urlencode($ButtonOptionSelection['value']) : '';
+                $BMUpdateButtonNVP .= $ButtonOptionSelection['price'] != '' ? '&L_OPTION' . $n . 'PRICE' . $n_selection . '=' . urlencode($ButtonOptionSelection['price']) : '';
+                $BMUpdateButtonNVP .= $ButtonOptionSelection['type'] != '' ? '&L_OPTION' . $n . 'TYPE' . $n_selection . '=' . urlencode($ButtonOptionSelection['type']) : '';
+
+                $n_selection++;
+            }
+
+            $n++;
+        }
+
+        $NVPRequest = $this->NVPCredentials . $BMUpdateButtonNVP;
+        $NVPResponse = $this->CURLRequest($NVPRequest);
+        $NVPRequestArray = $this->NVPToArray($NVPRequest);
+        $NVPResponseArray = $this->NVPToArray($NVPResponse);
+
+        $Errors = $this->GetErrors($NVPResponseArray);
+
+        $this->Logger($this->LogPath, __FUNCTION__.'Request', $this->MaskAPIResult($NVPRequest));
+        $this->Logger($this->LogPath, __FUNCTION__.'Response', $NVPResponse);
+
+        $NVPResponseArray['ERRORS'] = $Errors;
+        $NVPResponseArray['REQUESTDATA'] = $NVPRequestArray;
+        $NVPResponseArray['RAWREQUEST'] = $NVPRequest;
+        $NVPResponseArray['RAWRESPONSE'] = $NVPResponse;
+
+        return $NVPResponseArray;
+    }
+
+    /**
      * Use the BMGetButtonDetails API operation to obtain information about a hosted PayPal Payments Standard button.
      * You can use this information to set the fields that have not changed when updating a button.
      *
