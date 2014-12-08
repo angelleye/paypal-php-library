@@ -18,8 +18,8 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 // Prepare request arrays
 $DECPFields = array(
-					'token' => '', 								// Required.  A timestamped token, the value of which was returned by a previous SetExpressCheckout call.
-					'payerid' => '', 							// Required.  Unique PayPal customer id of the payer.  Returned by GetExpressCheckoutDetails, or if you used SKIPDETAILS it's returned in the URL back to your RETURNURL.
+					'token' => '123423', 								// Required.  A timestamped token, the value of which was returned by a previous SetExpressCheckout call.
+					'payerid' => 'abc', 							// Required.  Unique PayPal customer id of the payer.  Returned by GetExpressCheckoutDetails, or if you used SKIPDETAILS it's returned in the URL back to your RETURNURL.
 					'returnfmfdetails' => '', 					// Flag to indicate whether you want the results returned by Fraud Management Filters or not.  1 or 0.
 					'giftmessage' => '', 						// The gift message entered by the buyer on the PayPal Review page.  150 char max.
 					'giftreceiptenable' => '', 					// Pass true if a gift receipt was selected by the buyer on the PayPal Review page. Otherwise pass false.
@@ -35,10 +35,10 @@ $DECPFields = array(
 						
 $Payments = array();
 $Payment = array(
-				'amt' => '', 							// Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
+				'amt' => '100.00', 							// Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
 				'bucketcategorytype' => '', 			// The category of a payment. It is one of the following values:  1 - International shipping   2 - Local delivery
 				'currencycode' => '', 					// A three-character currency code.  Default is USD.
-				'itemamt' => '', 						// Required if you specify itemized L_AMT fields. Sum of cost of all items in this order.  
+				'itemamt' => '100.00', 						// Required if you specify itemized L_AMT fields. Sum of cost of all items in this order.
 				'shippingamt' => '', 					// Total shipping costs for this order.  If you specify SHIPPINGAMT you mut also specify a value for ITEMAMT.
 				'shippingdiscamt' => '', 				// Total shipping discount for this order, specified as a negative number.
 				'insuranceoptionoffered' => '', 		// If true, the insurance drop-down on the PayPal review page displays the string 'Yes' and the insurance amount.  If true, the total shipping insurance for this order must be a positive number.
@@ -70,11 +70,11 @@ $Payment = array(
 // The $PaymentOrderItems array may contain multiple $Item arrays within it.
 $PaymentOrderItems = array();
 $Item = array(
-			'name' => '', 								// Item name. 127 char max.
+			'name' => 'Test Widget', 								// Item name. 127 char max.
 			'desc' => '', 								// Item description. 127 char max.
-			'amt' => '', 								// Cost of item.
-			'number' => '', 							// Item number.  127 char max.
-			'qty' => '', 								// Item qty on order.  Any positive integer.
+			'amt' => '50.00', 								// Cost of item.
+			'number' => 'abc-123', 							// Item number.  127 char max.
+			'qty' => '2', 								// Item qty on order.  Any positive integer.
 			'taxamt' => '', 							// Item sales tax
 			'itemurl' => '', 							// URL for the item.
 			'itemcategory' => '', 						// One of the following values:  Digital, Physical
@@ -97,15 +97,30 @@ $Payment['order_items'] = $PaymentOrderItems;
 // The $PaymentRedeemedOffers array may contain multiple $RedeemedOffer arrays within it.
 $PaymentRedeemedOffers = array();
 $RedeemedOffer = array(
-    'redeemedoffername' => '', 						    // The name of the buyer's wallet item offer redeemed in this transaction, such as, a merchant coupon or a loyalty program card.
-    'redeemedofferdescription' => '',                    // Description of the offer redeemed in this transaction, such as, a merchant coupon or a loyalty program.  This is returned in GetExpressCheckoutDetails as WALLETDESCRIPTIONn
-    'redeemedofferamount' => '',                         // Amount of the offer redeemed in this transaction
-    'redeemedoffertype' => '',                           // The type of the offer redeemed in this transaction.  This is returned in GetExpressCheckoutDetails as WALLETTYPEn
-    'redeemedofferid' => '',                             // Unique ID of the offer redeemed in this transaction or the buyer's loyalty card account number.  This is returned in GetExpresscheckoutDetails as WALLETIDn
+    'redeemedoffername' => 'SomeOfferName', 						    // The name of the buyer's wallet item offer redeemed in this transaction, such as, a merchant coupon or a loyalty program card.
+    'redeemedofferdescription' => 'SomeOfferDescription',                    // Description of the offer redeemed in this transaction, such as, a merchant coupon or a loyalty program.
+    'redeemedofferamount' => '5.00',                         // Amount of the offer redeemed in this transaction
+    'redeemedoffertype' => 'LOYALTY_CARD',                           // The type of the offer redeemed in this transaction
+    'redeemedofferid' => '123-ID',                             // Unique ID of the offer redeemed in this transaction or the buyer's loyalty card account number.
     'redeemedofferpointsaccrued' => '',                  // The number of loyalty points accrued in this transaction.
     'cummulativepointsname' => '',          // The name of the loyalty points program in which the buyer earned points in this transaction.
     'cummulativepointsdescription' => '',   // Description of the loyalty points program.
-    'cummulativepointstype' => '',          // Type of discount or loyalty p rogram.  Values:  LOYALTY_CARD
+    'cummulativepointstype' => '',          // Type of discount or loyalty program.  Values:  LOYALTY_CARD
+    'cummulativepointsid' => '',            // Unique ID of the buyer's loyalty points account.
+    'cummulativepointsaccrued' => '',       // The cummulative number of loyalty points the buyer has accrued.
+);
+array_push($PaymentRedeemedOffers, $RedeemedOffer);
+
+$RedeemedOffer = array(
+    'redeemedoffername' => 'SomeOtherOfferName', 						    // The name of the buyer's wallet item offer redeemed in this transaction, such as, a merchant coupon or a loyalty program card.
+    'redeemedofferdescription' => 'SomeOtherOfferDescription',                    // Description of the offer redeemed in this transaction, such as, a merchant coupon or a loyalty program.
+    'redeemedofferamount' => '1.00',                         // Amount of the offer redeemed in this transaction
+    'redeemedoffertype' => 'LOYALTY_CARD',                           // The type of the offer redeemed in this transaction
+    'redeemedofferid' => '1232-ID',                             // Unique ID of the offer redeemed in this transaction or the buyer's loyalty card account number.
+    'redeemedofferpointsaccrued' => '',                  // The number of loyalty points accrued in this transaction.
+    'cummulativepointsname' => '',          // The name of the loyalty points program in which the buyer earned points in this transaction.
+    'cummulativepointsdescription' => '',   // Description of the loyalty points program.
+    'cummulativepointstype' => '',          // Type of discount or loyalty program.  Values:  LOYALTY_CARD
     'cummulativepointsid' => '',            // Unique ID of the buyer's loyalty points account.
     'cummulativepointsaccrued' => '',       // The cummulative number of loyalty points the buyer has accrued.
 );
@@ -115,8 +130,20 @@ $Payment['redeemed_offers'] = $PaymentRedeemedOffers;
 // You may include up to 16 $MerchantDataVar arrays within the $MerchantDataVars array.
 $MerchantDataVars = array();
 $MerchantDataVar = array(
-    'merchantdatakey' => '',                            // The key name of a merchant data key-value pair passed with the transaction.
-    'merchantdatavalue' => '',                          // The value of the data passed for the key.
+    'merchantdatakey' => 'CustomKey',                            // The key name of a merchant data key-value pair passed with the transaction.
+    'merchantdatavalue' => 'CustomValue',                          // The value of the data passed for the key.
+);
+array_push($MerchantDataVars, $MerchantDataVar);
+
+$MerchantDataVar = array(
+    'merchantdatakey' => 'CustomKey2',                            // The key name of a merchant data key-value pair passed with the transaction.
+    'merchantdatavalue' => 'CustomValue2',                          // The value of the data passed for the key.
+);
+array_push($MerchantDataVars, $MerchantDataVar);
+
+$MerchantDataVar = array(
+    'merchantdatakey' => 'CustomKey3',                            // The key name of a merchant data key-value pair passed with the transaction.
+    'merchantdatavalue' => 'CustomValue3',                          // The value of the data passed for the key.
 );
 array_push($MerchantDataVars, $MerchantDataVar);
 

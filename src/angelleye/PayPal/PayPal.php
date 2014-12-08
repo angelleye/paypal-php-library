@@ -1717,23 +1717,51 @@ class PayPal
 			$CurrentPayment = $Payments[$PaymentsVar];
 			foreach($CurrentPayment as $CurrentPaymentVar => $CurrentPaymentVal)
 			{
-				if(strtoupper($CurrentPaymentVar) != 'ORDER_ITEMS')
+				if(strtoupper($CurrentPaymentVar) == 'ORDER_ITEMS')
 				{
-					$PaymentsNVP .= $CurrentPaymentVal != '' ? '&PAYMENTREQUEST_' . $n . '_' . strtoupper($CurrentPaymentVar) . '=' . urlencode($CurrentPaymentVal) : '';
+                    $PaymentOrderItems = $CurrentPayment['order_items'];
+                    $n_item = 0;
+                    foreach($PaymentOrderItems as $OrderItemsVar => $OrderItemsVal)
+                    {
+                        $CurrentItem = $PaymentOrderItems[$OrderItemsVar];
+                        foreach ($CurrentItem as $CurrentItemVar => $CurrentItemVal)
+                        {
+                            $PaymentsNVP .= $CurrentItemVal != '' ? '&L_PAYMENTREQUEST_' . $n . '_' . strtoupper($CurrentItemVar) . $n_item . '=' . urlencode($CurrentItemVal) : '';
+                        }
+                        $n_item++;
+                    }
 				}
+                elseif(strtoupper($CurrentPaymentVar) == 'REDEEMED_OFFERS')
+                {
+                    $RedeemedOffers = $CurrentPayment['redeemed_offers'];
+                    $n_item = 0;
+                    foreach($RedeemedOffers as $RedeemedOfferVar => $RedeemedOfferVal)
+                    {
+                        $CurrentRedeemedOffer = $RedeemedOffers[$RedeemedOfferVar];
+                        foreach ($CurrentRedeemedOffer as $CurrentRedeemedOfferVar => $CurrentRedeemedOfferVal)
+                        {
+                            $PaymentsNVP .= $CurrentRedeemedOfferVal != '' ? '&L_PAYMENTREQUEST_' . $n . '_' . strtoupper($CurrentRedeemedOfferVar) . $n_item . '=' . urlencode($CurrentRedeemedOfferVal) : '';
+                        }
+                        $n_item++;
+                    } 
+                }
+                elseif(strtoupper($CurrentPaymentVar) == 'MERCHANT_DATA_VARS')
+                {
+                    $MerchantDataVars = $CurrentPayment['merchant_data_vars'];
+                    $n_item = 0;
+                    foreach($MerchantDataVars as $MerchantDataVarsVar => $MerchantDataVarsVal)
+                    {
+                        $CurrentMerchantDataVar = $MerchantDataVars[$MerchantDataVarsVar];
+                        foreach ($CurrentMerchantDataVar as $CurrentMerchantDataVarVar => $CurrentMerchantDataVarVal)
+                        {
+                            $PaymentsNVP .= $CurrentMerchantDataVarVal != '' ? '&L_PAYMENTREQUEST_' . $n . '_' . strtoupper($CurrentMerchantDataVarVar) . $n_item . '=' . urlencode($CurrentMerchantDataVarVal) : '';
+                        }
+                        $n_item++;
+                    } 
+                }
 				else
 				{
-					$PaymentOrderItems = $CurrentPayment['order_items'];
-					$n_item = 0;
-					foreach($PaymentOrderItems as $OrderItemsVar => $OrderItemsVal)
-					{
-						$CurrentItem = $PaymentOrderItems[$OrderItemsVar];
-						foreach($CurrentItem as $CurrentItemVar => $CurrentItemVal)
-						{
-							$PaymentsNVP .= $CurrentItemVal != '' ? '&L_PAYMENTREQUEST_' . $n . '_' . strtoupper($CurrentItemVar) . $n_item . '=' . urlencode($CurrentItemVal) : '';
-						}
-						$n_item++;
-					}	
+                    $PaymentsNVP .= $CurrentPaymentVal != '' ? '&PAYMENTREQUEST_' . $n . '_' . strtoupper($CurrentPaymentVar) . '=' . urlencode($CurrentPaymentVal) : '';
 				}
 			}
 			$n++;
