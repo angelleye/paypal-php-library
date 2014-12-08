@@ -197,6 +197,7 @@ If you need additional help you may [place an order for premium support](http://
 
 ## Resources
 
+-  [Payments Standard Button Manager Guide](https://developer.paypal.com/webapps/developer/docs/classic/button-manager/integration-guide/NVP/ButtonMgrOverview/)
 -  [Adaptive Accounts Developer Guide](https://developer.paypal.com/webapps/developer/docs/classic/adaptive-accounts/integration-guide/ACIntroduction/)
 -  [Adaptive Payments Developer Guide](https://developer.paypal.com/webapps/developer/docs/classic/adaptive-payments/integration-guide/APIntro/)
 -  [Express Checkout Integration Guide](https://developer.paypal.com/webapps/developer/docs/classic/express-checkout/integration-guide/ECGettingStarted/)
