@@ -79,6 +79,16 @@ If you need additional help you may [place an order for premium support](http://
 
 ## Supported APIs
 
+### Payments Standard Button Manager
+
+- [BMButtonSearch](https://developer.paypal.com/webapps/developer/docs/classic/api/button-manager/BMButtonSearch_API_Operation_NVP/)
+- [BMCreateButton](https://developer.paypal.com/webapps/developer/docs/classic/api/button-manager/BMCreateButton_API_Operation_NVP/)
+- [BMGetButtonDetails](https://developer.paypal.com/webapps/developer/docs/classic/api/button-manager/BMGetButtonDetails_API_Operation_NVP/)
+- [BMGetInventory](https://developer.paypal.com/webapps/developer/docs/classic/api/button-manager/BMGetInventory_API_Operation_NVP/)
+- [BMManageButtonStatus](https://developer.paypal.com/webapps/developer/docs/classic/api/button-manager/BMManageButtonStatus_API_Operation_NVP/)
+- [BMSetInventory](https://developer.paypal.com/webapps/developer/docs/classic/api/button-manager/BMSetInventory_API_Operation_NVP/)
+- [BMUpdateButton](https://developer.paypal.com/webapps/developer/docs/classic/api/button-manager/BMUpdateButton_API_Operation_NVP/)
+
 ### Adaptive Accounts
 
 -  [AddBankAccount](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/AddBankAccount_API_Operation/)
