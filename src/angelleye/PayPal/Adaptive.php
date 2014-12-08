@@ -2500,24 +2500,25 @@ class Adaptive extends PayPal
 		$Suffix = $DOM -> getElementsByTagName('suffix') -> length > 0 ? $DOM -> getElementsByTagName('suffix') -> item(0) -> nodeValue : '';
 				
 		$ResponseDataArray = array(
-								   'Errors' => $Errors, 
-								   'Ack' => $Ack, 
-								   'Build' => $Build, 
-								   'CorrelationID' => $CorrelationID, 
-								   'Timestamp' => $Timestamp, 
-								   'AccountStatus' => $AccountStatus, 
-								   'CountryCode' => $CountryCode, 
-								   'EmailAddress' => $EmailAddress, 
-								   'AccountID' => $AccountID, 
-								   'BusinessName' => $BusinessName, 
-								   'Salutation' => $Salutation, 
-								   'FirstName' => $FirstName, 
-								   'MiddleName' => $MiddleName, 
-								   'LastName' => $LastName, 
-								   'Suffix' => $Suffix, 
-								   'XMLRequest' => $XMLRequest, 
-								   'XMLResponse' => $XMLResponse
-								   );
+           'Errors' => $Errors,
+           'Ack' => $Ack,
+           'Build' => $Build,
+           'CorrelationID' => $CorrelationID,
+           'Timestamp' => $Timestamp,
+           'AccountStatus' => $AccountStatus,
+           'CountryCode' => $CountryCode,
+           'EmailAddress' => $EmailAddress,
+           'AccountID' => $AccountID,
+           'AccountType' => $AccountType,
+           'BusinessName' => $BusinessName,
+           'Salutation' => $Salutation,
+           'FirstName' => $FirstName,
+           'MiddleName' => $MiddleName,
+           'LastName' => $LastName,
+           'Suffix' => $Suffix,
+           'XMLRequest' => $XMLRequest,
+           'XMLResponse' => $XMLResponse
+        );
 		
 		return $ResponseDataArray;
 	 }
@@ -4760,6 +4761,5 @@ class Adaptive extends PayPal
 		
 		return $ResponseDataArray;
 	 }
-	 
-	 
+
 } // End Class PayPal_Adaptive
