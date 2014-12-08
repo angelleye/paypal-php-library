@@ -1,6 +1,6 @@
 # Angell EYE PayPal PHP Library
 
-This PHP class library for PayPal makes it easy to integrate PayPal APIs, including [Adaptive Accounts](https://developer.paypal.com/webapps/developer/docs/classic/api/#aa), 
+This PHP class library for PayPal makes it easy to integrate PayPal APIs, including the [Payments Standard Button Manager](https://developer.paypal.com/webapps/developer/docs/classic/api/#bm), [Adaptive Accounts](https://developer.paypal.com/webapps/developer/docs/classic/api/#aa),
 [Adaptive Payments](https://developer.paypal.com/webapps/developer/docs/classic/api/#ap), [Invoicing](https://developer.paypal.com/webapps/developer/docs/classic/api/#invoicing), 
 [General Merchant APIs](https://developer.paypal.com/webapps/developer/docs/classic/api/#merchant), and [Permissions](https://developer.paypal.com/webapps/developer/docs/classic/api/#permissions).
 
