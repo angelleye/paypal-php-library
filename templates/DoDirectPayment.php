@@ -18,10 +18,12 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 // Prepare request arrays
 $DPFields = array(
-					'paymentaction' => '', 						// How you want to obtain payment.  Authorization indicates the payment is a basic auth subject to settlement with Auth & Capture.  Sale indicates that this is a final sale for which you are requesting payment.  Default is Sale.
-					'ipaddress' => '', 							// Required.  IP address of the payer's browser.
-					'returnfmfdetails' => '' 					// Flag to determine whether you want the results returned by FMF.  1 or 0.  Default is 0.
-				);
+    'paymentaction' => '', 						// How you want to obtain payment.  Authorization indicates the payment is a basic auth subject to settlement with Auth & Capture.  Sale indicates that this is a final sale for which you are requesting payment.  Default is Sale.
+    'ipaddress' => '', 							// Required.  IP address of the payer's browser.
+    'returnfmfdetails' => '', 					// Flag to determine whether you want the results returned by FMF.  1 or 0.  Default is 0.
+    'softdescriptor' => '',                     // Information that is usually displayed in the account holder's statement.  23 char max.
+    'softdescriptorcity' => '',                 // A unique phone number, emaili address or URL, which is displayed on the account holder's statement.
+);
 				
 $CCDetails = array(
 					'creditcardtype' => '', 					// Required. Type of credit card.  Visa, MasterCard, Discover, Amex, Maestro, Solo.  If Maestro or Solo, the currency code must be GBP.  In addition, either start date or issue number must be specified.

@@ -61,7 +61,7 @@ $SECFields = array(
 					'buyerusername' => '', 						// The user name of the user at the marketplaces site.
 					'buyerregistrationdate' => '',  			// Date when the user registered with the marketplace.
 					'allowpushfunding' => '', 					// Whether the merchant can accept push funding.  0 = Merchant can accept push funding : 1 = Merchant cannot accept push funding.			
-					'userselectedfundingsource' => '', 			// This element could be used to specify the preferred funding option for a guest user.  However, the LANDINGPAGE element must also be set to Billing.  Otherwise, it is ignored.  Values:  BML, ChinaUnionPay, CreditCard, ELV
+					'userselectedfundingsource' => '', 			// This element could be used to specify the preferred funding option for a guest user.  However, the LANDINGPAGE element must also be set to Billing.  Otherwise, it is ignored.  Values:  BML, ChinaUnionPay, CreditCard, ELV, Finance, QIWI
 					'taxidtype' => '', 							// The buyer's tax ID type.  This field is required for Brazil and used for Brazil only.  Values:  BR_CPF for individuals and BR_CNPJ for businesses.
 					'taxid' => ''								// The buyer's tax ID.  This field is required for Brazil and used for Brazil only.  The tax ID is 11 single-byte characters for individutals and 14 single-byte characters for businesses.
 				);
@@ -71,36 +71,38 @@ $SurveyChoices = array('Choice 1', 'Choice2', 'Choice3', 'etc');
 
 $Payments = array();
 $Payment = array(
-				'amt' => '', 							// Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
-				'bucketcategorytype' => '', 			// The category of a payment.  Values:  1 = International shipping.  2 = Local delivery.
-				'currencycode' => '', 					// A three-character currency code.  Default is USD.
-				'itemamt' => '', 						// Required if you specify itemized L_AMT fields. Sum of cost of all items in this order.  
-				'shippingamt' => '', 					// Total shipping costs for this order.  If you specify SHIPPINGAMT you mut also specify a value for ITEMAMT.
-				'shipdiscamt' => '', 					// Shipping discount for this order, specified as a negative number.
-				'insuranceamt' => '', 					// Total shipping insurance costs for this order.  
-				'insuranceoptionoffered' => '', 		// If true, the insurance drop-down on the PayPal review page displays the string 'Yes' and the insurance amount.  If true, the total shipping insurance for this order must be a positive number.
-				'handlingamt' => '', 					// Total handling costs for this order.  If you specify HANDLINGAMT you mut also specify a value for ITEMAMT.
-				'taxamt' => '', 						// Required if you specify itemized L_TAXAMT fields.  Sum of all tax items in this order. 
-				'desc' => '', 							// Description of items on the order.  127 char max.
-				'custom' => '', 						// Free-form field for your own use.  256 char max.
-				'invnum' => '', 						// Your own invoice or tracking number.  127 char max.
-				'notifyurl' => '', 						// URL for receiving Instant Payment Notifications
-				'multishipping' => '', 					// The value 1 indicates that this payment is associated with multiple shipping addresses.  
-				'shiptoname' => '', 					// Required if shipping is included.  Person's name associated with this address.  32 char max.
-				'shiptostreet' => '', 					// Required if shipping is included.  First street address.  100 char max.
-				'shiptostreet2' => '', 					// Second street address.  100 char max.
-				'shiptocity' => '', 					// Required if shipping is included.  Name of city.  40 char max.
-				'shiptostate' => '', 					// Required if shipping is included.  Name of state or province.  40 char max.
-				'shiptozip' => '', 						// Required if shipping is included.  Postal code of shipping address.  20 char max.
-				'shiptocountrycode' => '', 				// Required if shipping is included.  Country code of shipping address.  2 char max.
-				'shiptophonenum' => '',  				// Phone number for shipping address.  20 char max.
-				'notetext' => '', 						// Note to the merchant.  255 char max.  
-				'allowedpaymentmethod' => '', 			// The payment method type.  Specify the value InstantPaymentOnly.
-				'paymentaction' => '', 					// How you want to obtain the payment.  When implementing parallel payments, this field is required and must be set to Order. 
-				'paymentrequestid' => '',  				// A unique identifier of the specific payment request, which is required for parallel payments. 
-				'sellerpaypalaccountid' => '',			// A unique identifier for the merchant.  For parallel payments, this field is required and must contain the Payer ID or the email address of the merchant.
-				'transactionid' => ''					// Transaction ID number of the transaction that was created.  You can specify up to 10 payments.  
-				);
+    'amt' => '', 							// Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
+    'currencycode' => '', 					// A three-character currency code.  Default is USD.
+    'itemamt' => '', 						// Required if you specify itemized L_AMT fields. Sum of cost of all items in this order.
+    'shippingamt' => '', 					// Total shipping costs for this order.  If you specify SHIPPINGAMT you mut also specify a value for ITEMAMT.
+    'shipdiscamt' => '', 					// Shipping discount for this order, specified as a negative number.
+    'insuranceamt' => '', 					// Total shipping insurance costs for this order.
+    'insuranceoptionoffered' => '', 		// If true, the insurance drop-down on the PayPal review page displays the string 'Yes' and the insurance amount.  If true, the total shipping insurance for this order must be a positive number.
+    'handlingamt' => '', 					// Total handling costs for this order.  If you specify HANDLINGAMT you mut also specify a value for ITEMAMT.
+    'taxamt' => '', 						// Required if you specify itemized L_TAXAMT fields.  Sum of all tax items in this order.
+    'desc' => '', 							// Description of items on the order.  127 char max.
+    'custom' => '', 						// Free-form field for your own use.  256 char max.
+    'invnum' => '', 						// Your own invoice or tracking number.  127 char max.
+    'notifyurl' => '', 						// URL for receiving Instant Payment Notifications
+    'multishipping' => '', 					// The value 1 indicates that this payment is associated with multiple shipping addresses.
+    'shiptoname' => '', 					// Required if shipping is included.  Person's name associated with this address.  32 char max.
+    'shiptostreet' => '', 					// Required if shipping is included.  First street address.  100 char max.
+    'shiptostreet2' => '', 					// Second street address.  100 char max.
+    'shiptocity' => '', 					// Required if shipping is included.  Name of city.  40 char max.
+    'shiptostate' => '', 					// Required if shipping is included.  Name of state or province.  40 char max.
+    'shiptozip' => '', 						// Required if shipping is included.  Postal code of shipping address.  20 char max.
+    'shiptocountrycode' => '', 				// Required if shipping is included.  Country code of shipping address.  2 char max.
+    'shiptophonenum' => '',  				// Phone number for shipping address.  20 char max.
+    'notetext' => '', 						// Note to the merchant.  255 char max.
+    'allowedpaymentmethod' => '', 			// The payment method type.  Specify the value InstantPaymentOnly.
+    'paymentaction' => '', 					// How you want to obtain the payment.  When implementing parallel payments, this field is required and must be set to Order.
+    'paymentrequestid' => '',  				// A unique identifier of the specific payment request, which is required for parallel payments.
+    'sellerpaypalaccountid' => '',			// A unique identifier for the merchant.  For parallel payments, this field is required and must contain the Payer ID or the email address of the merchant.
+    'transactionid' => '',					// Transaction ID number of the transaction that was created.  You can specify up to 10 payments.
+    'bucketcategorytype' => '',             // The category of a payment.  Values are:  1 - International shipping, 2 - Local delivery, 3 - BOPIS (Buy online pick-up in store), 4 - PUDO (Pick up drop off)
+    'location_type' => '',                  // The type of merchant location.  Set this field if the items purchased will not be shipped, such as, BOPIS transactions.  Values are: 1 - Consumer, 2 - Store, for BOPIS transactions, 3 - PUDO
+    'location_id' => '',                    // The Location ID specified by the merchant for BOPIS or PUDO transactions.
+);
 				
 $PaymentOrderItems = array();
 $Item = array(

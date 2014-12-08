@@ -1287,11 +1287,22 @@ class PayPal
 		$RTFieldsNVP = '&METHOD=RefundTransaction';
 		
 		$RTFields = isset($DataArray['RTFields']) ? $DataArray['RTFields'] : array();
+        $MerchantDataVars = isset($DataArray['MerchantDataVars']) ? $DataArray['MerchantDataVars'] : array();
 		
 		foreach($RTFields as $RTFieldsVar => $RTFieldsVal)
 		{
 			$RTFieldsNVP .= $RTFieldsVal != '' ? '&' . strtoupper($RTFieldsVar) . '=' . urlencode($RTFieldsVal) : '';
 		}
+
+        $n = 0;
+        foreach($MerchantDataVars as $MerchantData)
+        {
+            $MerchantDataKey = $MerchantData['key'];
+            $MerchantDataValue = $MerchantData['value'];
+            $RTFieldsNVP .= $MerchantData['value'] != '' ? '&MERCHANTDATA' . $n . 'KEY=' . urlencode($MerchantData['key']) .
+                '&MERCHANTDATA' . $n . 'VALUE=' . urlencode($MerchantData['value']) : '';
+            $n++;
+        }
 		
 		$NVPRequest = $this->NVPCredentials . $RTFieldsNVP;
 		$NVPResponse = $this->CURLRequest($NVPRequest);

@@ -18,8 +18,10 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 // Prepare request arrays
 $CRPPFields = array(
-					'token' => '', 								// Token returned from PayPal SetExpressCheckout.  Can also use token returned from SetCustomerBillingAgreement.
-					);
+    'token' => '', 								// Token returned from PayPal SetExpressCheckout.  Can also use token returned from SetCustomerBillingAgreement.
+    'softdescriptor' => '',                     // Information that is usually displayed in the account holder's statement.  23 char max.
+    'softdescriptorcity' => '',                 // A unique phone number, emaili address or URL, which is displayed on the account holder's statement.
+);
 				
 $ProfileDetails = array(
 					'subscribername' => '', 					// Full name of the person receiving the product or service paid for by the recurring payment.  32 char max.

@@ -18,15 +18,16 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 // Prepare request arrays
 $DRTFields = array(
-				   'referenceid' => '', 						// Required.  A transaction ID from a previous purchase, such as a credit card charage using DoDirectPayment, or a billing agreement ID
-				   'paymentaction' => '', 						// How you want to obtain payment.  Values are:  Authorization, Sale
-				   'paymenttype' => '', 						// Specifies type of PayPal payment you require for the billing agreement.  Values are:  Any, InstantOnly
-				   'ipaddress' => '', 							// IP address of the buyer's browser
-				   'reqconfirmshipping' => '', 					// Whether you require that the buyer's shipping address on file with PayPal be a confirmed address or not.  Values are 0/1
-				   'returnfmfdetails' => '', 					// Flag to indicate whether you want the results returned by Fraud Management Filters.  Values are 0/1
-				   'softdescriptor' => '', 						// Per transaction description of the payment that is passed to the customer's credit card statement.
-				   'msgsubid' => ''								// A message ID used for idempotence to uniquely identify a message.
-				   );
+    'referenceid' => '', 						// Required.  A transaction ID from a previous purchase, such as a credit card charage using DoDirectPayment, or a billing agreement ID
+    'paymentaction' => '', 						// How you want to obtain payment.  Values are:  Authorization, Sale
+    'paymenttype' => '', 						// Specifies type of PayPal payment you require for the billing agreement.  Values are:  Any, InstantOnly
+    'ipaddress' => '', 							// IP address of the buyer's browser
+    'reqconfirmshipping' => '', 					// Whether you require that the buyer's shipping address on file with PayPal be a confirmed address or not.  Values are 0/1
+    'returnfmfdetails' => '', 					// Flag to indicate whether you want the results returned by Fraud Management Filters.  Values are 0/1
+    'softdescriptor' => '',                     // Information that is usually displayed in the account holder's statement.  23 char max.
+    'softdescriptorcity' => '',                 // A unique phone number, email address or URL, which is displayed on the account holder's statement.
+    'msgsubid' => ''								// A message ID used for idempotence to uniquely identify a message.
+);
 
 $ShippingAddress = array(
 						'shiptoname' => '', 					// Required if shipping is included.  Person's name associated with this address.  32 char max.

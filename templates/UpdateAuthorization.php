@@ -18,9 +18,18 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 // Prepare request arrays
 $UAFields = array(
-				'transactionid' => '', 				// Required. The value of the authorization's transaction identification number returned by a PayPal product.  Char length: 17 single-byte chars.
-				'ipaddress' => ''					// IP address of the customer.
-				);
+    'transactionid' => '', 				// Required. The value of the authorization's transaction identification number returned by a PayPal product.  Char length: 17 single-byte chars.
+    'ipaddress' => '',					// IP address of the customer.
+    'shiptoname' => '',
+    'shiptostreet' => '',
+    'shiptostreet2' => '',
+    'shiptocity' => '',
+    'shiptostate' => '',
+    'shiptozip' => '',
+    'shiptocountry' => '',              // Country code.
+    'shiptophonenum' => '',
+    'shiptostore' => '',                // Indicates if the item purchased will be shipped to a store location.
+);
 				
 $PayPalRequestData = array('UAFields'=>$UAFields);
 

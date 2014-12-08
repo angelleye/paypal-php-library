@@ -18,20 +18,21 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 // Prepare request arrays
 $DECPFields = array(
-					'token' => '', 								// Required.  A timestamped token, the value of which was returned by a previous SetExpressCheckout call.
-					'payerid' => '', 							// Required.  Unique PayPal customer id of the payer.  Returned by GetExpressCheckoutDetails, or if you used SKIPDETAILS it's returned in the URL back to your RETURNURL.
-					'returnfmfdetails' => '', 					// Flag to indicate whether you want the results returned by Fraud Management Filters or not.  1 or 0.
-					'giftmessage' => '', 						// The gift message entered by the buyer on the PayPal Review page.  150 char max.
-					'giftreceiptenable' => '', 					// Pass true if a gift receipt was selected by the buyer on the PayPal Review page. Otherwise pass false.
-					'giftwrapname' => '', 						// The gift wrap name only if the gift option on the PayPal Review page was selected by the buyer.
-					'giftwrapamount' => '', 					// The amount only if the gift option on the PayPal Review page was selected by the buyer.
-					'buyermarketingemail' => '', 				// The buyer email address opted in by the buyer on the PayPal Review page.
-					'skipbacreation' => '', 					// Merchant specified flag which indicates whether to create a billing agreement as part of DoExpressCheckout or not. This field is used for reference transactions during billing agreement creation. Merchants who offer a store account can control whether PayPal must create a billing agreement or if billing agreement creation should be skipped. Set the value of this field to true to skip the creation of a billing agreement ID. 
-					'usesessionpaymentdetails' => '', 			// Merchant specified flag which indicates whether to use the payment details information provided in SetExpressCheckoutDetails or in DoExpressCheckoutPayment. Possible values are true, false, 1, 0. If this is set to true or 1, the payment details information would be used from what was passed in SetExpressCheckoutDetails. Any change in the paymentdetails passed in DoExpressCheckoutPayment will be ignored if this field is set to true.
-					'surveyquestion' => '', 					// The survey question on the PayPal Review page.  50 char max.
-					'surveychoiceselected' => '',  				// The survey response selected by the buyer on the PayPal Review page.  15 char max.
-					'allowedpaymentmethod' => '' 				// The payment method type. Specify the value InstantPaymentOnly.
-				);
+    'token' => '', 								// Required.  A timestamped token, the value of which was returned by a previous SetExpressCheckout call.
+    'payerid' => '', 							// Required.  Unique PayPal customer id of the payer.  Returned by GetExpressCheckoutDetails, or if you used SKIPDETAILS it's returned in the URL back to your RETURNURL.
+    'returnfmfdetails' => '', 					// Flag to indicate whether you want the results returned by Fraud Management Filters or not.  1 or 0.
+    'giftmessage' => '', 						// The gift message entered by the buyer on the PayPal Review page.  150 char max.
+    'giftreceiptenable' => '', 					// Pass true if a gift receipt was selected by the buyer on the PayPal Review page. Otherwise pass false.
+    'giftwrapname' => '', 						// The gift wrap name only if the gift option on the PayPal Review page was selected by the buyer.
+    'giftwrapamount' => '', 					// The amount only if the gift option on the PayPal Review page was selected by the buyer.
+    'buyermarketingemail' => '', 				// The buyer email address opted in by the buyer on the PayPal Review page.
+    'skipbacreation' => '', 					// Merchant specified flag which indicates whether to create a billing agreement as part of DoExpressCheckout or not. This field is used for reference transactions during billing agreement creation. Merchants who offer a store account can control whether PayPal must create a billing agreement or if billing agreement creation should be skipped. Set the value of this field to true to skip the creation of a billing agreement ID.
+    'usesessionpaymentdetails' => '', 			// Merchant specified flag which indicates whether to use the payment details information provided in SetExpressCheckoutDetails or in DoExpressCheckoutPayment. Possible values are true, false, 1, 0. If this is set to true or 1, the payment details information would be used from what was passed in SetExpressCheckoutDetails. Any change in the paymentdetails passed in DoExpressCheckoutPayment will be ignored if this field is set to true.
+    'surveyquestion' => '', 					// The survey question on the PayPal Review page.  50 char max.
+    'surveychoiceselected' => '',  				// The survey response selected by the buyer on the PayPal Review page.  15 char max.
+    'allowedpaymentmethod' => '', 				// The payment method type. Specify the value InstantPaymentOnly.
+    'msgsubid' => '',                           // Unique ID passed for each API request to help prevent duplicate payments.  This ID is passed directly back in the response.
+);
 						
 $Payments = array();
 $Payment = array(
