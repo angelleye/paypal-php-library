@@ -75,6 +75,7 @@ If you need additional help you may [place an order for premium support](http://
 ## Tutorials
 
 - [How to install the Angell EYE PHP Class Library for PayPal](http://www.angelleye.com/install-angell-eye-php-class-library-paypal/)
+- [Demos / Samples](http://paypalphp.angelleye.com)
 
 
 ## Supported APIs
