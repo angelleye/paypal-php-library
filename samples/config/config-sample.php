@@ -113,7 +113,7 @@ $payflow_partner = $sandbox ? 'SANDBOX_PAYFLOW_PARTNER' : 'LIVE_PAYFLOW_PARTNER'
  * You may obtain these credentials from within your account at http://developer.paypal.com
  */
 $rest_client_id = $sandbox ? 'SANDBOX_CLIENT_ID' : 'LIVE_CLIENT_ID';
-$rest_client_secret = $sandbox ? 'SANDBOX_CLIENT_ID' : 'LIVE_SECRET_ID';
+$rest_client_secret = $sandbox ? 'SANDBOX_SECRET_ID' : 'LIVE_SECRET_ID';
 
 /**
  * PayPal Finance Portal API
