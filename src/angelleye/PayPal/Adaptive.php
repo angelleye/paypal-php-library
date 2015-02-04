@@ -287,6 +287,7 @@ class Adaptive extends PayPal
 		$Receivers = isset($DataArray['Receivers']) ? $DataArray['Receivers'] : array();
 		$Amount = isset($Receivers['Amount']) ? $Receivers['Amount'] : '';
 		$Email = isset($Receivers['Email']) ? $Receivers['Email'] : '';
+		$AccountID = isset($Receivers['AccountID']) ? $Receivers['AccountID'] : '';
 		$InvoiceID = isset($Receivers['InvoiceID']) ? $Receivers['InvoiceID'] : '';
 		$PaymentType = isset($Receivers['PaymentType']) ? $Receivers['PaymentType'] : '';
 		$PaymentSubType = isset($Receivers['PaymentSubType']) ? $Receivers['PaymentSubType'] : '';
@@ -357,6 +358,7 @@ class Adaptive extends PayPal
 			$XMLRequest .= '<receiver xmlns="">';
 			$XMLRequest .= $Receiver['Amount'] != '' ? '<amount xmlns="">' . $Receiver['Amount'] . '</amount>' : '';
 			$XMLRequest .= $Receiver['Email'] != '' ? '<email xmlns="">' . $Receiver['Email'] . '</email>' : '';
+			$XMLRequest .= $Receiver['AccountID'] != '' ? '<accountId xmlns="">' . $Receiver['AccountID'] . '</accountId>' : '';
 			$XMLRequest .= $Receiver['InvoiceID'] != '' ? '<invoiceId xmlns="">' . $Receiver['InvoiceID'] . '</invoiceId>' : '';
 			$XMLRequest .= $Receiver['PaymentType'] != '' ? '<paymentType xmlns="">' . $Receiver['PaymentType'] . '</paymentType>' : '';
 			$XMLRequest .= $Receiver['PaymentSubType'] != '' ? '<paymentSubType xmlns="">' . $Receiver['PaymentSubType'] . '</paymentSubType>' : '';
