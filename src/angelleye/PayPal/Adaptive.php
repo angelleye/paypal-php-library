@@ -1221,6 +1221,7 @@ class Adaptive extends PayPal
 			// ReceiverIdentifer Fields
 			$ReceiverIdentifier = isset($ReceiverOption['ReceiverIdentifier']) ? $ReceiverOption['ReceiverIdentifier'] : array();
 			$ReceiverIdentifierEmail = isset($ReceiverIdentifier['Email']) ? $ReceiverIdentifier['Email'] : '';
+			$ReceiverIdentifierAccountID = isset($ReceiverIdentifier['AccountID']) ? $ReceiverIdentifier['AccountID'] : '';
 			$PhoneCountryCode = isset($ReceiverIdentifier['PhoneCountryCode']) ? $ReceiverIdentifier['PhoneCountryCode'] : '';
 			$PhoneNumber = isset($ReceiverIdentifier['PhoneNumber']) ? $ReceiverIdentifier['PhoneNumber'] : '';
 			$PhoneExtension = isset($ReceiverIdentifier['PhoneExtension']) ? $ReceiverIdentifier['PhoneExtension'] : '';
@@ -1255,6 +1256,7 @@ class Adaptive extends PayPal
 				{
 					$ReceiverOptionsXML .= '<receiver xmlns="">';
 					$ReceiverOptionsXML .= $ReceiverIdentifierEmail != '' ? '<email xmlns="">'.$ReceiverIdentifierEmail.'</email>' : '';
+					$ReceiverOptionsXML .= $ReceiverIdentifierAccountID != '' ? '<accountId xmlns="">'.$ReceiverIdentifierAccountID.'</accountId>' : '';
 			
 					if($PhoneNumber != '')
 					{
