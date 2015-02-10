@@ -629,7 +629,7 @@ class Adaptive extends PayPal
 		$DOM = new DOMDocument();
 		$DOM -> loadXML($XMLResponse);
 
-        $this->Logger($this->LogPath, 'PayRequest', $PayXMLResponse);
+        $this->Logger($this->LogPath, 'PayRequest', $PayXMLRequest);
         $this->Logger($this->LogPath, 'PayResponse', $PayXMLResponse);
 	
 		// Parse XML values
