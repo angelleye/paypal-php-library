@@ -76,7 +76,6 @@ If you need additional help you may [place an order for premium support](http://
 
 - [How to install the Angell EYE PHP Class Library for PayPal](http://www.angelleye.com/install-angell-eye-php-class-library-paypal/)
 
-
 ## Supported APIs
 
 ### Payments Standard Button Manager
