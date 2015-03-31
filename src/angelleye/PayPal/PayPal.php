@@ -611,7 +611,7 @@ class PayPal
 	{
 		$curl = curl_init();
 				// curl_setopt($curl, CURLOPT_HEADER,TRUE);
-				curl_setopt($curl, CURLOPT_VERBOSE, 1);
+				curl_setopt($curl, CURLOPT_VERBOSE, $this->Sandbox);
 				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
 				curl_setopt($curl, CURLOPT_TIMEOUT, 30);
 				curl_setopt($curl, CURLOPT_URL, $this->EndPointURL);
