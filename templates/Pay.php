@@ -52,7 +52,8 @@ $Receivers = array();
 $Receiver = array(
 				'Amount' => '', 											// Required.  Amount to be paid to the receiver.
 				'Email' => '', 												// Receiver's email address. 127 char max.
-				'InvoiceID' => '', 											// The invoice number for the payment.  127 char max.
+				'AccountID' => '',                                          // Receiver's PayPal account ID.
+                'InvoiceID' => '', 											// The invoice number for the payment.  127 char max.
 				'PaymentType' => '', 										// Transaction type.  Values are:  GOODS, SERVICE, PERSONAL, CASHADVANCE, DIGITALGOODS
 				'PaymentSubType' => '', 									// The transaction subtype for the payment.
 				'Phone' => array('CountryCode' => '', 'PhoneNumber' => '', 'Extension' => ''), // Receiver's phone number.   Numbers only.
