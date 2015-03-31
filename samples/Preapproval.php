@@ -41,7 +41,8 @@ $PreapprovalFields = array(
 						   'SenderEmail' => '', 							// Sender's email address.  If not specified, the email address of the sender who logs on to approve is used.
 						   'StartingDate' => '2013-09-24', 							// Required.  First date for which the preapproval is valid.  Cannot be before today's date or after the ending date.
 						   'FeesPayer' => '', 								// The payer of the PayPal fees.  Values are:  SENDER, PRIMARYRECEIVER, EACHRECEIVER, SECONDARYONLY
-						   'DisplayMaxTotalAmount' => ''					// Whether to display the max total amount of this preapproval.  Values are:  true/false
+						   'RequireInstantFundingSource' => '',             // Boolean (true/false).  Whether the PayPal user account must have an instant funding source for preapproval to be available.
+                           'DisplayMaxTotalAmount' => ''					// Whether to display the max total amount of this preapproval.  Values are:  true/false
 						   );
 
 $ClientDetailsFields = array(

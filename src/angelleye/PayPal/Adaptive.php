@@ -1364,8 +1364,9 @@ class Adaptive extends PayPal
 		$StartingDate = isset($PreapprovalFields['StartingDate']) ? $PreapprovalFields['StartingDate'] : '';
 		$FeesPayer = isset($PreapprovalFields['FeesPayer']) ? $PreapprovalFields['FeesPayer'] : '';
 		$DisplayMaxTotalAmount = isset($PreapprovalFields['DisplayMaxTotalAmount']) ? $PreapprovalFields['DisplayMaxTotalAmount'] : '';
-		
-		$ClientDetailsFields = isset($DataArray['ClientDetailsFields']) ? $DataArray['ClientDetailsFields'] : array();
+        $RequireInstantFundingSource = isset($PreapprovalFields['RequireInstantFundingSource']) ? $PreapprovalFields['RequireInstantFundingSource'] : '';
+
+        $ClientDetailsFields = isset($DataArray['ClientDetailsFields']) ? $DataArray['ClientDetailsFields'] : array();
 		$CustomerID = isset($ClientDetailsFields['CustomerID']) ? $ClientDetailsFields['CustomerID'] : '';
 		$CustomerType = isset($ClientDetailsFields['CustomerType']) ? $ClientDetailsFields['CustomerType'] : '';
 		$GeoLocation = isset($ClientDetailsFields['GeoLocation']) ? $ClientDetailsFields['GeoLocation'] : '';
@@ -1402,7 +1403,8 @@ class Adaptive extends PayPal
 		$XMLRequest .= $PaymentPeriod != '' ? '<paymentPeriod xmlns="">' . $PaymentPeriod . '</paymentPeriod>' : '';
 		$XMLRequest .= $PinType != '' ? '<pinType xmlns="">' . $PinType . '</pinType>' : '';
 		$XMLRequest .= $FeesPayer != '' ? '<feesPayer xmlns="">' . $FeesPayer . '</feesPayer>' : '';
-		$XMLRequest .= $DisplayMaxTotalAmount != '' ? '<displayMaxTotalAmount xmlns="">' . $DisplayMaxTotalAmount . '</displayMaxTotalAmount>' : '';
+        $XMLRequest .= $RequireInstantFundingSource != '' ? '<requireInstantFundingSource xmlns="">' . $RequireInstantFundingSource . '</requireInstantFundingSource>' : '';
+        $XMLRequest .= $DisplayMaxTotalAmount != '' ? '<displayMaxTotalAmount xmlns="">' . $DisplayMaxTotalAmount . '</displayMaxTotalAmount>' : '';
 		$XMLRequest .= $ReturnURL != '' ? '<returnUrl xmlns="">' . $ReturnURL . '</returnUrl>' : '';
 		$XMLRequest .= $SenderEmail != '' ? '<senderEmail xmlns="">' . $SenderEmail . '</senderEmail>' : '';
 		$XMLRequest .= $StartingDate != '' ? '<startingDate xmlns="">' . $StartingDate . '</startingDate>' : '';
