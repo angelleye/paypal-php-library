@@ -285,15 +285,7 @@ class Adaptive extends PayPal
 		
 		// Receivers Fields
 		$Receivers = isset($DataArray['Receivers']) ? $DataArray['Receivers'] : array();
-		$Amount = isset($Receivers['Amount']) ? $Receivers['Amount'] : '';
-		$Email = isset($Receivers['Email']) ? $Receivers['Email'] : '';
-		$AccountID = isset($Receivers['AccountID']) ? $Receivers['AccountID'] : '';
-		$InvoiceID = isset($Receivers['InvoiceID']) ? $Receivers['InvoiceID'] : '';
-		$PaymentType = isset($Receivers['PaymentType']) ? $Receivers['PaymentType'] : '';
-		$PaymentSubType = isset($Receivers['PaymentSubType']) ? $Receivers['PaymentSubType'] : '';
-		$Phone = isset($Receivers['Phone']) ? $Receivers['Phone'] : '';
-		$Primary = isset($Receivers['Primary']) ? strtolower($Receivers['Primary']) : '';
-		
+
 		// SenderIdentifier Fields
 		$SenderIdentifierFields = isset($DataArray['SenderIdentifierFields']) ? $DataArray['SenderIdentifierFields'] : array();
 		$UseCredentials = isset($SenderIdentifierFields['UseCredentials']) ? $SenderIdentifierFields['UseCredentials'] : '';
