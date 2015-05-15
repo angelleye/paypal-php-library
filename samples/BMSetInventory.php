@@ -18,7 +18,7 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 // Prepare request arrays
 $BMSetInventoryFields = array(
-    'hostedbuttonid' => 'EJKWK4LL36ACE', 			// Required.  The ID of the hosted button whose inventory you want to set.
+    'hostedbuttonid' => '3J9D98TNZHJDC', 			// Required.  The ID of the hosted button whose inventory you want to set.
     'trackinv' => '1',                   // Required.  Whether to track inventory levels associated with the button.  Values are:  0 - do not track, 1 - track
     'trackpnl' => '1',                   // Required.  Whether to track the gross profit associated with inventory changes.  Values are:  0 - do not track, 1 - track
     'optionnameindex' => '',            // Option index, which identifies the button.  Option index 0 is the menu that contains the price if one exists; otherwise, it is the first menu without a price.
@@ -78,8 +78,8 @@ array_push($OptionTrackingDetails, $OptionTrackingDetail);
 $PayPalRequestData = array(
     'BMSetInventoryFields' => $BMSetInventoryFields,
     'DigitalDownloadKeys' => $DigitalDownloadKeys,
-    'ItemTrackingDetailsFields' => $ItemTrackingDetails,
-    'OptionTrackingDetailsFields' => $OptionTrackingDetails,
+    'ItemTrackingDetails' => $ItemTrackingDetails,
+    'OptionTrackingDetails' => $OptionTrackingDetails,
 );
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
