@@ -55,7 +55,8 @@ $Receiver = array(
 				'InvoiceID' => '', 											// The invoice number for the payment.  127 char max.
 				'PaymentType' => '', 										// Transaction type.  Values are:  GOODS, SERVICE, PERSONAL, CASHADVANCE, DIGITALGOODS
 				'PaymentSubType' => '', 									// The transaction subtype for the payment.
-				'Phone' => array('CountryCode' => '', 'PhoneNumber' => '', 'Extension' => ''), // Receiver's phone number.   Numbers only.
+	            'AccountID' => '',
+                'Phone' => array('CountryCode' => '', 'PhoneNumber' => '', 'Extension' => ''), // Receiver's phone number.   Numbers only.
 				'Primary' => 'true'												// Whether this receiver is the primary receiver.  Values are boolean:  TRUE, FALSE
 				);
 array_push($Receivers,$Receiver);
@@ -66,7 +67,8 @@ $Receiver = array(
 				'InvoiceID' => '', 											// The invoice number for the payment.  127 char max.
 				'PaymentType' => '', 										// Transaction type.  Values are:  GOODS, SERVICE, PERSONAL, CASHADVANCE, DIGITALGOODS
 				'PaymentSubType' => '', 									// The transaction subtype for the payment.
-				'Phone' => array('CountryCode' => '', 'PhoneNumber' => '', 'Extension' => ''), // Receiver's phone number.   Numbers only.
+                'AccountID' => '',
+                'Phone' => array('CountryCode' => '', 'PhoneNumber' => '', 'Extension' => ''), // Receiver's phone number.   Numbers only.
 				'Primary' => 'false'												// Whether this receiver is the primary receiver.  Values are boolean:  TRUE, FALSE
 				);
 array_push($Receivers,$Receiver);
@@ -77,7 +79,8 @@ $Receiver = array(
 				'InvoiceID' => '', 											// The invoice number for the payment.  127 char max.
 				'PaymentType' => '', 										// Transaction type.  Values are:  GOODS, SERVICE, PERSONAL, CASHADVANCE, DIGITALGOODS
 				'PaymentSubType' => '', 									// The transaction subtype for the payment.
-				'Phone' => array('CountryCode' => '', 'PhoneNumber' => '', 'Extension' => ''), // Receiver's phone number.   Numbers only.
+                'AccountID' => '',
+                'Phone' => array('CountryCode' => '', 'PhoneNumber' => '', 'Extension' => ''), // Receiver's phone number.   Numbers only.
 				'Primary' => 'false'												// Whether this receiver is the primary receiver.  Values are boolean:  TRUE, FALSE
 				);
 array_push($Receivers,$Receiver);
