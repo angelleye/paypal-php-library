@@ -23,7 +23,7 @@ $PayPalRequestData = array(
 		'tender'=>'C', 				// Required.  The method of payment.  Values are: A = ACH, C = Credit Card, D = Pinless Debit, K = Telecheck, P = PayPal
 		'trxtype'=>'S', 				// Required.  Indicates the type of transaction to perform.  Values are:  A = Authorization, B = Balance Inquiry, C = Credit, D = Delayed Capture, F = Voice Authorization, I = Inquiry, L = Data Upload, N = Duplicate Transaction, S = Sale, V = Void
 		'acct'=>'4012888888881881', 				// Required for credit card transaction.  Credit card or purchase card number.
-		'expdate'=>'1215', 				// Required for credit card transaction.  Expiration date of the credit card.  Format:  MMYY
+		'expdate'=>'1220', 				// Required for credit card transaction.  Expiration date of the credit card.  Format:  MMYY
 		'amt'=>'10.00', 					// Required.  Amount of the transaction.  Must have 2 decimal places. 
 		'dutyamt'=>'', 				//
 		'freightamt'=>'5.00', 			//
