@@ -617,6 +617,7 @@ class PayPal
 				curl_setopt($curl, CURLOPT_URL, $this->EndPointURL);
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 				curl_setopt($curl, CURLOPT_POSTFIELDS, $Request);
+				curl_setopt($curl, CURLOPT_SSLVERSION, 6);
 				
 		if($this->APIMode == 'Certificate')
 		{
