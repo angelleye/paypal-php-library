@@ -19,8 +19,8 @@ class RestAPI {
                    ->setExpireMonth($requestData['creditCard']['expireMonth'])
                    ->setExpireYear($requestData['creditCard']['expireYear'])
                    ->setCvv2($requestData['creditCard']['cvv'])
-                   ->setFirstName($requestData['creditCard']['firstName'])
-                   ->setLastName($requestData['creditCard']['lastName']);   
+                   ->setFirstName($requestData['payerInfo']['firstName'])
+                   ->setLastName($requestData['payerInfo']['lastName']);   
             
         $creditCard->setBillingAddress($requestData['BillingAddress']);  
         

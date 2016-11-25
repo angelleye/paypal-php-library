@@ -35,5 +35,6 @@ $requestData = array(
 );
 
 $returnArray = $PayPal->StoreCreditCard($requestData);
-
+echo "<pre>";
+var_dump($returnArray);
 ?>
