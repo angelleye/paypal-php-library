@@ -1,15 +1,14 @@
 <?php
 
-require_once('../../autoload.php');
-require_once('../../includes/config.php');
-require_once('../../src/angelleye/PayPal/vault/CreditCardAPI.php');
+require_once('../../../autoload.php');
+require_once('../../../includes/config.php');
 
 $configArray = array(
                 'ClientID' => $rest_client_id,
                 'ClientSecret' => $rest_client_secret
                 );
 
-$PayPal = new CreditCardAPI($configArray);
+$PayPal = new \angelleye\PayPal\rest\vault\CreditCardAPI($configArray);
 
 $requestData=array(
                 'sort_by' => '',                        //Default is create_time. Sorts the vaulted credit cards in the response by either create_time or update_time.      

@@ -1,4 +1,5 @@
-<?php 
+<?php namespace angelleye\PayPal\rest\vault;
+
 class CreditCardAPI {
     private $_api_context;
     public function __construct($configArray)

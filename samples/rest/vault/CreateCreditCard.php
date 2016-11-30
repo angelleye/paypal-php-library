@@ -1,15 +1,14 @@
 <?php
 
-require_once('../../autoload.php');
-require_once('../../includes/config.php');
-require_once('../../src/angelleye/PayPal/vault/CreditCardAPI.php');
+require_once('../../../autoload.php');
+require_once('../../../includes/config.php');
 
 $configArray = array(
                 'ClientID' => $rest_client_id,
                 'ClientSecret' => $rest_client_secret
                 );
 
-$PayPal = new CreditCardAPI($configArray);
+$PayPal = new \angelleye\PayPal\rest\vault\CreditCardAPI($configArray);
 
 $creditCard = array(
     'Type' => 'visa',                 // Required. Type of credit card.  Visa, MasterCard, Discover, Amex, Maestro, Solo.  If Maestro or Solo, the currency code must be GBP.  In addition, either start date or issue number must be specified.
