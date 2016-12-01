@@ -179,10 +179,28 @@ class PaymentAPI {
             $approvalUrl = $payment->getApprovalLink();
             return array('approvalUrl'=>$approvalUrl , 'payment' => $payment);   
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
-            //return $ex->getData(); 
+            return $ex->getData(); 
         }    
     }
     
+    public function show_payment_details($PaymentID){
+        try {
+            $payment = Payment::get($PaymentID, $this->_api_context);
+            return $payment;
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+             return $ex->getData(); 
+        }
+    }
+    
+    public function list_payments($params){
+        try {
+            $payments = Payment::all(array_filter($params), $this->_api_context);
+            return $payments;
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+             return $ex->getData(); 
+        }
+    }
+
     public function setArrayToMethods($array,$object){
         foreach ($array as $key => $val){
             $method = 'set'.$key;
