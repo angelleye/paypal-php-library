@@ -1,14 +1,14 @@
 <?php
 
-require_once('../../autoload.php');
-require_once('../../includes/config.php');
+require_once('../../../autoload.php');
+require_once('../../../includes/config.php');
 
 $configArray = array(
     'ClientID' => $rest_client_id,
     'ClientSecret' => $rest_client_secret
 );
 
-$PayPal = new angelleye\PayPal\payments\PaymentAPI($configArray);
+$PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
 $intent='sale';                                     //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
 

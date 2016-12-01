@@ -10,33 +10,12 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
-$intent='sale';                                     //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
+$intent='sale';                                             //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
 
-$paymentCard = array(
-    'Type'              => '',                               // Required.  The card type.Possible values: VISA, AMEX, SOLO, JCB, STAR, DELTA, DISCOVER, SWITCH, MAESTRO, CB_NATIONALE, CONFINOGA, COFIDIS, ELECTRON, CETELEM, CHINA_UNION_PAY, MASTERCARD.
-    'Number'            => '',                               // Required.  The card number.  No spaces or punctuation.
-    'ExpireMonth'       => '',                               // Required.  The two-digit expiry month for the card.
-    'ExpireYear'        => '',                               // Required.  The four-digit expiry year for the card.
-    'Cvv2'              => '',                               // Required.  The validation code for the card. Supported for payments but not for saving payment cards for future use.
-    'FirstName'         => '',                               // Required.  The first name of the card holder.
-    'LastName'          => '',                               // The last name of the card holder.
-    'BillingCountry'    => '',                               // Required. The two-letter country code. For Example 'US'.
-    'StartMonth'        => '',                               // The two-digit start month for the card. Required for UK Maestro cards.
-    'StartYear'         => '',                               // The four-digit start year for the card. Required for UK Maestro cards. 
-    'ExternalCustomerId'=> '',                               // The externally-provided ID of the customer for whom to list credit cards.
-    'Status'            => '',                               // Possible values: EXPIRED, ACTIVE. The state of the funding instrument.
-    'CardProductClass'  => '',                               // Possible values: CREDIT, DEBIT, GIFT, PAYPAL_PREPAID, PREPAID, UNKNOWN. The product class of the financial instrument issuer.
-    'issue_number'      => ''                                // The one- to two-digit card issue number. Required for UK Maestro cards. Maximum length: 2.    
-);
-// billingAddress object with PaymentCard (Optional).
-$billingAddress = array(
-    'line1'        => '',                                    // Required.  First street address.
-    'line2'        => '',                                    // Optional line 2 of the Address
-    'city'         => '',                                    // Required.  Name of City.    
-    'state'        => '',                                    // Required. 2 letter code for US states, and the equivalent for other countries..
-    'postal_code'  => '',                                    // Required. postal code of your area.
-    'country_code' => '',                                    // 2 letter country code..   
-    'phone'        => ''                                     // Required.  Postal code of payer.
+$urls= array(
+    'ReturnUrl'   => '',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=true
+    'CancelUrl'   => '',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=false
+    'BaseUrl'     => ''                                     // Required. 
 );
 
 $orderItems = array();
@@ -86,16 +65,18 @@ $transaction = array(
 );
 
 $requestData = array(
-    'intent'         => $intent,
-    'paymentCard'    => $paymentCard,
-    'billingAddress' => $billingAddress,
+    'intent'         => $intent,    
     'orderItems'     => $orderItems,
     'paymentDetails' => $paymentDetails,
     'amount'         => $amount,
-    'transaction'    => $transaction
+    'transaction'    => $transaction,
+    'urls'           => $urls
 );
 
-$returnArray = $PayPal->payment_create($requestData);
+$returnArray = $PayPal->create_payment_with_paypal($requestData);
+echo "<h3>Redirect here to execute => {$returnArray['approvalUrl']}</h3>";
+echo "<h3>Payment State : ".$returnArray['payment']->state." </h3>";
+echo "(Payment ID : This will use for Execute payment in the next step)<h3>Payment ID: ".$returnArray['payment']->id." </h3>";
 echo "<pre>";
 var_dump($returnArray);
 ?>
