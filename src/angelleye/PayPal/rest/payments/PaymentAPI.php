@@ -1,6 +1,8 @@
 <?php namespace angelleye\PayPal\rest\payments;
 
 use PayPal\Api\Amount;
+use PayPal\Api\CreditCard;
+use PayPal\Api\CreditCardToken;
 use PayPal\Api\Details;
 use PayPal\Api\FundingInstrument;
 use PayPal\Api\Item;
@@ -181,6 +183,88 @@ class PaymentAPI {
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
             return $ex->getData(); 
         }    
+    }
+    
+    public function create_payment_using_saved_card($requestData,$credit_card_id){    
+        
+        try {            
+            $card = new CreditCard();    
+            $card->setId($credit_card_id);
+            // ### Credit card token
+            // Saved credit card id from a previous call to
+            // CreateCreditCard.php
+            $creditCardToken = new CreditCardToken();
+            $creditCardToken->setCreditCardId($card->getId());
+            // ### FundingInstrument
+            // A resource representing a Payer's funding instrument.
+            // For stored credit card payments, set the CreditCardToken
+            // field on this object.
+            $fi = new FundingInstrument();
+            $fi->setCreditCardToken($creditCardToken);
+
+            // ### Payer
+            // A resource representing a Payer that funds a payment
+            // For stored credit card payments, set payment method
+            // to 'credit_card'.
+            $payer = new Payer();
+            $payer->setPaymentMethod("credit_card")
+                ->setFundingInstruments(array($fi));
+
+            // ### Itemized information
+            // (Optional) Lets you specify item wise information
+            $itemListArray= array();
+            foreach ($requestData['orderItems'] as $value) {
+                    $item = new Item();
+                    $array=array_filter($value);
+                    if(count($array)>0){
+                        $this->setArrayToMethods($array, $item);
+                        array_push($itemListArray, $item);
+                    } 
+            }
+            $itemList = new ItemList();
+            $itemList->setItems($itemListArray);       
+            // ### Additional payment details
+            // Use this optional field to set additional payment information such as tax, shipping charges etc.
+
+            if(count(array_filter($requestData['paymentDetails']))>0){
+               $details = new Details();
+               $this->setArrayToMethods(array_filter($requestData['paymentDetails']),$details);
+            }
+
+            // ### Amount
+            // Lets you specify a payment amount. You can also specify additional details such as shipping, tax.
+            $amount = new Amount();
+            if(count(array_filter($requestData['amount']))>0){
+               $this->setArrayToMethods(array_filter($requestData['amount']),$amount);
+            }
+            if(!empty ($details)){
+                $amount->setDetails($details);
+            }
+
+            // ### Transaction
+            // A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
+            $transaction = new Transaction();
+            $transaction->setAmount($amount);
+            if(!empty($itemListArray)){
+                $transaction->setItemList($itemList);
+            }
+            if(count(array_filter($requestData['transaction']))>0){
+              $this->setArrayToMethods(array_filter($requestData['transaction']),$transaction);
+            }    
+
+            // ### Payment
+            // A Payment Resource; create one using the above types and intent set to sale 'sale'
+            $payment = new Payment();
+            $payment->setIntent('sale')
+                ->setPayer($payer)
+                ->setTransactions(array($transaction));
+                
+            $payment->create($this->_api_context);
+            return $payment;
+        }    
+         catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $ex->getData(); 
+        }        
     }
     
     public function show_payment_details($PaymentID){
