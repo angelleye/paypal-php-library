@@ -324,6 +324,19 @@ class PaymentAPI {
         }
     }
     
+    public function authorization_void($authorizationId){        
+        // # VoidAuthorization
+        try {
+            // Lookup the authorization
+            $authorization = Authorization::get($authorizationId, $this->_api_context);
+            // Void the authorization
+            $voidedAuth = $authorization->void($this->_api_context);
+            return $voidedAuth;
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $ex->getData();
+        }
+    }
+
     public function setArrayToMethods($array,$object){
         foreach ($array as $key => $val){
             $method = 'set'.$key;
@@ -336,5 +349,6 @@ class PaymentAPI {
         }
         return TRUE;
     }
+    
 }
 ?>
