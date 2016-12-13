@@ -191,8 +191,7 @@ class PaymentAPI {
             $card = new CreditCard();    
             $card->setId($credit_card_id);
             // ### Credit card token
-            // Saved credit card id from a previous call to
-            // CreateCreditCard.php
+            // Saved credit card id from CreateCreditCard.
             $creditCardToken = new CreditCardToken();
             $creditCardToken->setCreditCardId($card->getId());
             // ### FundingInstrument
@@ -255,7 +254,7 @@ class PaymentAPI {
             // ### Payment
             // A Payment Resource; create one using the above types and intent set to sale 'sale'
             $payment = new Payment();
-            $payment->setIntent('sale')
+            $payment->setIntent($requestData['intent'])
                 ->setPayer($payer)
                 ->setTransactions(array($transaction));
                 
