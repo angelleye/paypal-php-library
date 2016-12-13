@@ -1,6 +1,9 @@
 <?php namespace angelleye\PayPal\rest\payments;
 
 use PayPal\Api\Amount;
+use PayPal\Api\Address;
+use PayPal\Api\Authorization;
+use PayPal\Api\Capture;
 use PayPal\Api\CreditCard;
 use PayPal\Api\CreditCardToken;
 use PayPal\Api\Details;
@@ -11,12 +14,12 @@ use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\PaymentCard;
 use PayPal\Api\RedirectUrls;
-use PayPal\Api\Transaction;
+use PayPal\Api\Transaction;     
 
 class PaymentAPI {
     private $_api_context;
-    public function __construct($configArray)
-    {   // setup PayPal api context 
+    public function __construct($configArray) {
+        // setup PayPal api context 
         $this->_api_context = new \PayPal\Rest\ApiContext(
                 new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'],$configArray['ClientSecret'])
             );
@@ -87,18 +90,25 @@ class PaymentAPI {
             // ### Payment
             // A Payment Resource; create one using the above types and intent set to sale 'sale'
             $payment = new Payment();
-            $payment->setIntent('sale')
+            $payment->setIntent($requestData['intent'])
                 ->setPayer($payer)
                 ->setTransactions(array($transaction));
 
             // ### Create Payment
             // Create a payment by calling the payment->create() method with a valid ApiContext. The return object contains the state.
             $payment->create($this->_api_context);
-            return $payment;
+            if($requestData['intent']=='authorize'){
+                $transactions     = $payment->getTransactions();
+                $relatedResources = $transactions[0]->getRelatedResources();
+                $authorization    = $relatedResources[0]->getAuthorization();
+                return array('Authorization'=>$authorization,'Payment'=>$payment);
+            }
+            else{
+                return $payment;
+            }
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
             return $ex->getData();    
-        }
-        
+        }        
     }
     
     public function create_payment_with_paypal($requestData){
@@ -165,7 +175,7 @@ class PaymentAPI {
             // ### Payment
             // A Payment Resource; create one using the above types and intent set to sale 'sale'
             $payment = new Payment();
-            $payment->setIntent('sale')
+            $payment->setIntent($requestData['intent'])
                 ->setPayer($payer)
                 ->setRedirectUrls($redirectUrls)    
                 ->setTransactions(array($transaction));
@@ -266,6 +276,15 @@ class PaymentAPI {
         }        
     }
     
+    public function get_authorization($authorizationId){
+        try {
+            $result = Authorization::get($authorizationId, $this->_api_context);
+            return $result;
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $ex->getData();    
+        }
+    }
+
     public function show_payment_details($PaymentID){
         try {
             $payment = Payment::get($PaymentID, $this->_api_context);
@@ -284,6 +303,27 @@ class PaymentAPI {
         }
     }
 
+    public function authorization_capture($authorizationId,$amountArray){
+        // # AuthorizationCapture
+        
+        /** @var Authorization $authorization */
+        $authorization= new Authorization();
+        
+        try {
+            $authId = $authorization->setId($authorizationId);
+            $amt = new Amount();
+            $this->setArrayToMethods($amountArray, $amt);
+            ### Capture
+            $capture = new Capture();
+            $capture->setAmount($amt);
+            // Perform a capture
+            $getCapture = $authorization->capture($capture,$this->_api_context);
+            return $getCapture;
+        }  catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $ex->getData(); 
+        }
+    }
+    
     public function setArrayToMethods($array,$object){
         foreach ($array as $key => $val){
             $method = 'set'.$key;

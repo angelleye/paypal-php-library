@@ -10,7 +10,7 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
-$intent='sale';                                     //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
+$intent='authorize';                                     //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
 
 $paymentCard = array(
     'Type'              => 'visa',                               // Required.  The card type.Possible values: VISA, AMEX, SOLO, JCB, STAR, DELTA, DISCOVER, SWITCH, MAESTRO, CB_NATIONALE, CONFINOGA, COFIDIS, ELECTRON, CETELEM, CHINA_UNION_PAY, MASTERCARD.
@@ -30,13 +30,13 @@ $paymentCard = array(
 );
 // billingAddress object with PaymentCard (Optional).
 $billingAddress = array(
-    'line1'        => '',                                    // Required.  First street address.
-    'line2'        => '',                                    // Optional line 2 of the Address
-    'city'         => '',                                    // Required.  Name of City.    
-    'state'        => '',                                    // Required. 2 letter code for US states, and the equivalent for other countries..
-    'postal_code'  => '',                                    // Required. postal code of your area.
-    'country_code' => '',                                    // 2 letter country code..   
-    'phone'        => ''                                     // Required.  Postal code of payer.
+    'line1'        => '3909 Witmer Road',                                    // Required.  First street address.
+    'line2'        => 'Niagara Falls',                                    // Optional line 2 of the Address
+    'city'         => 'Niagara Falls',                                    // Required.  Name of City.    
+    'state'        => 'NY',                                    // Required. 2 letter code for US states, and the equivalent for other countries..
+    'postal_code'  => '14305',                                    // Required. postal code of your area.
+    'country_code' => 'US',                                    // 2 letter country code..   
+    'phone'        => '716-298-1822'                                     // Required.  Postal code of payer.
 );
 
 $orderItems = array();

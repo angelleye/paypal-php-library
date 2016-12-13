@@ -10,7 +10,7 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
-$intent='sale';                                     //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
+$intent='';                                                  //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
 
 $paymentCard = array(
     'Type'              => '',                               // Required.  The card type.Possible values: VISA, AMEX, SOLO, JCB, STAR, DELTA, DISCOVER, SWITCH, MAESTRO, CB_NATIONALE, CONFINOGA, COFIDIS, ELECTRON, CETELEM, CHINA_UNION_PAY, MASTERCARD.

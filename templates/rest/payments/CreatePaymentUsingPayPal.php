@@ -10,7 +10,7 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
-$intent='sale';                                             //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
+$intent='';                                                 //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
 
 $urls= array(
     'ReturnUrl'   => '',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=true
