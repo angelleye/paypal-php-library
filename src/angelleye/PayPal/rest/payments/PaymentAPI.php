@@ -12,6 +12,7 @@ use PayPal\Api\Details;
 use PayPal\Api\FundingInstrument;
 use PayPal\Api\Item;
 use PayPal\Api\ItemList;
+use PayPal\Api\Order;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\PaymentCard;
@@ -165,6 +166,9 @@ class PaymentAPI {
             }
             if (count(array_filter($requestData['transaction'])) > 0) {
                 $this->setArrayToMethods(array_filter($requestData['transaction']), $transaction);
+            }
+            if(!empty($requestData['transaction'])){
+                $transaction->setInvoiceNumber($requestData['invoiceNumber']);
             }
 
             // ### Redirect urls
@@ -348,6 +352,64 @@ class PaymentAPI {
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
+    }
+
+    public function get_order($orderId){        
+        // #Get Order Sample        
+        try {
+            $result = Order::get($orderId, $this->_api_context);
+            return $result;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }
+    }
+
+    public function order_authorize($orderId,$amountArray){
+        try {
+            $order= new Order();
+            $order->setId($orderId);
+            $authorization = new Authorization();
+            $amount = new Amount();
+            $this->setArrayToMethods($amountArray, $amount);
+            $authorization->setAmount($amount);
+            $result = $order->authorize($authorization,$this->_api_context);
+            $authorizationId=$result->id;           
+            return array("Order Authorize"=>$result,'Authorization Id'=>$authorizationId);
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }
+    }
+    
+    public function order_capture($orderId,$amountArray){
+        try {
+            $order= new Order();
+            $order->setId($orderId);
+            
+            $amount = new Amount();
+            $this->setArrayToMethods($amountArray, $amount);
+            
+            $capture = new Capture();
+            $capture->setIsFinalCapture(true);
+            $capture->setAmount($amount);            
+            
+            $result = $order->capture($capture, $this->_api_context);
+            return $result;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }
+    }
+    
+    public function order_void(){
+        try {            
+            
+            $order= new Order();
+            $order->setId($orderId);
+            $result = $order->void($this->_api_context);
+            return $result;
+            
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }        
     }
 
     public function setArrayToMethods($array, $object) {

@@ -10,13 +10,26 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
-$intent='sale';                                             //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
+$intent='order';                                             //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
+
+// ### Notice
+// If your intent is "order" set this as URL array.
+// ReturnUrl=OrderGet.php?success=true 
+// CancelUrl=OrderGet.php?success=false
+//
+// ### For execute payment
+// If your intent is "sale" or "authorize" set this as URL array.
+//ReturnUrl=ExecutePayment.php?success=true
+//CancelUrl=ExecutePayment.php?success=false
+
 
 $urls= array(
-    'ReturnUrl'   => 'ExecutePayment.php?success=true',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=true
-    'CancelUrl'   => 'ExecutePayment.php?success=false',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=false
+    'ReturnUrl'   => 'OrderGet.php?success=true',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=true
+    'CancelUrl'   => 'OrderGet.php?success=false',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=false
     'BaseUrl'     => 'http://localhost/paypal-php-library/templates/rest/payments/'                                     // Required. 
 );
+
+$invoiceNumber='INVC239856856';
 
 $orderItems = array();
 $Item = array(
@@ -66,6 +79,7 @@ $transaction = array(
 
 $requestData = array(
     'intent'         => $intent,    
+    'invoiceNumber' => $invoiceNumber,
     'orderItems'     => $orderItems,
     'paymentDetails' => $paymentDetails,
     'amount'         => $amount,
