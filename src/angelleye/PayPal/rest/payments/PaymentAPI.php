@@ -17,6 +17,8 @@ use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\PaymentCard;
 use PayPal\Api\RedirectUrls;
+use PayPal\Api\Refund;
+use PayPal\Api\RefundRequest;
 use PayPal\Api\Transaction;
 
 class PaymentAPI {
@@ -101,7 +103,7 @@ class PaymentAPI {
 
             // ### Create Payment
             // Create a payment by calling the payment->create() method with a valid ApiContext. The return object contains the state.
-            $payment->create($this->_api_context);
+            $payment->create($this->_api_context);           
             if ($requestData['intent'] == 'authorize') {
                 $transactions = $payment->getTransactions();
                 $relatedResources = $transactions[0]->getRelatedResources();
@@ -410,6 +412,29 @@ class PaymentAPI {
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }        
+    }
+    
+    public function refund_capture($capture_id,$amountArray,$refundParameters){
+        try {            
+            
+            $capture = new Capture();
+            $capture->setId($capture_id);
+            
+            $amount = new Amount();
+            $this->setArrayToMethods($amountArray, $amount);
+            // ### Refund
+            // Create a refund object indicating
+            // refund amount and call the refund method
+            
+            $refundRequest = new RefundRequest();
+            $refundRequest->setAmount($amount);
+            $this->setArrayToMethods(array_filter($refundParameters), $refundRequest);                        
+            
+            $captureRefund = $capture->refundCapturedPayment($refundRequest,$this->_api_context);
+            return $captureRefund;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }
     }
 
     public function setArrayToMethods($array, $object) {

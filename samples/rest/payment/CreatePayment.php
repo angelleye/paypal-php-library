@@ -14,9 +14,9 @@ $intent='authorize';                                     //Allowed values: sale,
 
 $paymentCard = array(
     'Type'              => 'visa',                               // Required.  The card type.Possible values: VISA, AMEX, SOLO, JCB, STAR, DELTA, DISCOVER, SWITCH, MAESTRO, CB_NATIONALE, CONFINOGA, COFIDIS, ELECTRON, CETELEM, CHINA_UNION_PAY, MASTERCARD.
-    'Number'            => '4669424246660779',                               // Required.  The card number.  No spaces or punctuation.
-    'ExpireMonth'       => '11',                               // Required.  The two-digit expiry month for the card.
-    'ExpireYear'        => '2019',                               // Required.  The four-digit expiry year for the card.
+    'Number'            => '4032039334307404',                               // Required.  The card number.  No spaces or punctuation.
+    'ExpireMonth'       => '12',                               // Required.  The two-digit expiry month for the card.
+    'ExpireYear'        => '2021',                               // Required.  The four-digit expiry year for the card.
     'Cvv2'              => '012',                               // Required.  The validation code for the card. Supported for payments but not for saving payment cards for future use.
     'FirstName'         => 'Tejas',                               // Required.  The first name of the card holder.
     'LastName'          => 'Mehta',                               // The last name of the card holder.
