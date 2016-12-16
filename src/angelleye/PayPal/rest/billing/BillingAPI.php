@@ -7,6 +7,7 @@ use PayPal\Api\Currency;
 use PayPal\Api\MerchantPreferences;
 use PayPal\Api\PaymentDefinition;
 use PayPal\Api\Plan;
+use PayPal\Common\PayPalModel;
 
 class BillingAPI {
 
@@ -58,6 +59,42 @@ class BillingAPI {
 
             $output = $plan->create($this->_api_context);
             return $output;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }
+    }
+
+    public function get_plan($planId){
+        try {
+            $plan = Plan::get($planId, $this->_api_context);
+            return $plan;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }
+    }
+    
+    public function list_plan($parameters){
+            try {
+                $planList = Plan::all(array_filter($parameters), $this->_api_context);
+                return $planList;
+            } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+                return $ex->getData();
+            }        
+    }
+    
+    public function update_plan($planId,$parameters){       
+        try {
+            $patch = new Patch();
+            $value = new PayPalModel('{
+                       "state":"ACTIVE"
+                     }');
+            $this->setArrayToMethods(array_filter($parameters, $patch)) 
+                 ->setValue($value);
+            $patchRequest = new PatchRequest();
+            $patchRequest->addPatch($patch);
+            $createdPlan->update($patchRequest, $this->_api_context);
+            $plan = Plan::get($planId, $this->_api_context);
+            return $plan;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
