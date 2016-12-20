@@ -7,7 +7,7 @@ $configArray = array(
 );
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
-$planId = 'P-9BP22380CK293492RA6JGUSI';                       // The ID of the billing plan for which to show details.
+$planId = 'P-3P439474RB082731BA3QJ56I';                       // The ID of the billing plan for which to show details.
 
 $returnArray = $PayPal->get_plan($planId);
 echo "<pre>";

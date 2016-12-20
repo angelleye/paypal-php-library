@@ -2,12 +2,20 @@
 
 namespace angelleye\PayPal\rest\billing;
 
+use PayPal\Api\Agreement;
 use PayPal\Api\ChargeModel;
+use PayPal\Api\CreditCard;
 use PayPal\Api\Currency;
+use PayPal\Api\FundingInstrument;
 use PayPal\Api\MerchantPreferences;
 use PayPal\Api\PaymentDefinition;
+use PayPal\Api\Payer;
+use PayPal\Api\PayerInfo;
 use PayPal\Api\Plan;
+use PayPal\Api\Patch;
+use PayPal\Api\PatchRequest;
 use PayPal\Common\PayPalModel;
+use PayPal\Api\ShippingAddress;
 
 class BillingAPI {
 
@@ -82,14 +90,19 @@ class BillingAPI {
             }        
     }
     
-    public function update_plan($planId,$parameters){       
+    public function update_plan($planId,$items,$state){       
         try {
+            
+            $createdPlan = new Plan();
+            $createdPlan->setId($planId);
+
             $patch = new Patch();
             $value = new PayPalModel('{
-                       "state":"ACTIVE"
+                       "state":"'.$state.'"
                      }');
-            $this->setArrayToMethods(array_filter($parameters, $patch)) 
-                 ->setValue($value);
+            $this->setArrayToMethods(array_filter($items), $patch);
+            $patch->setValue($value);                       
+            
             $patchRequest = new PatchRequest();
             $patchRequest->addPatch($patch);
             $createdPlan->update($patchRequest, $this->_api_context);
@@ -97,6 +110,86 @@ class BillingAPI {
             return $plan;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
+        }
+    }
+    
+    public function create_billing_agreement_with_creditcard($requestData){
+        
+        $agreement = new Agreement();
+        $this->setArrayToMethods(array_filter($requestData['agreement']), $agreement);
+            
+        // Add Plan ID
+        // Please note that the plan Id should be only set in this case.
+        $plan = new Plan();
+        $plan->setId($requestData['planId']);
+        
+        $agreement->setPlan($plan);                              
+        
+        // Add Payer
+        $payer = new Payer();
+        $this->setArrayToMethods(array_filter($requestData['payer']), $payer);       
+        
+        $payer->setPayerInfo(new PayerInfo(array_filter($requestData['payerInfo'])));
+
+        // Add Credit Card to Funding Instruments
+        $card = new CreditCard();
+        $this->setArrayToMethods(array_filter($requestData['creditCard']), $card);        
+        
+        $fundingInstrument = new FundingInstrument();
+        $fundingInstrument->setCreditCard($card);
+        $payer->setFundingInstruments(array($fundingInstrument));
+        //Add Payer to Agreement
+        $agreement->setPayer($payer);        
+        
+        // Add Shipping Address
+        $shippingAddress = new ShippingAddress();
+        $this->setArrayToMethods(array_filter($requestData['shippingAddress']), $shippingAddress);
+        
+        $agreement->setShippingAddress($shippingAddress);        
+        
+        // ### Create Agreement
+        try {
+            // Please note that as the agreement has not yet activated, we wont be receiving the ID just yet.
+            $agreement = $agreement->create($this->_api_context);
+            return $agreement;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+           return $ex->getData();
+        }
+    }
+
+    public function create_billing_agreement_with_paypal($requestData){
+        
+        $agreement = new Agreement();
+        $this->setArrayToMethods(array_filter($requestData['agreement']), $agreement);
+
+        // Add Plan ID
+        // Please note that the plan Id should be only set in this case.
+        $plan = new Plan();
+        $plan->setId($requestData['planId']);
+        
+        $agreement->setPlan($plan);
+
+        // Add Payer
+        $payer = new Payer();
+        $payer = new Payer();
+        $this->setArrayToMethods(array_filter($requestData['payer']), $payer);       
+        
+        $agreement->setPayer($payer);
+
+        // Add Shipping Address
+        $shippingAddress = new ShippingAddress();
+        $this->setArrayToMethods(array_filter($requestData['shippingAddress']), $shippingAddress);
+        $agreement->setShippingAddress($shippingAddress);                
+
+        // ### Create Agreement
+        try {
+            // Please note that as the agreement has not yet activated, we wont be receiving the ID just yet.
+            $result = $agreement->create($this->_api_context);            
+            $approvalUrl = $agreement->getApprovalLink();
+            return array('result'=>$result,'Approval URL' => $approvalUrl);
+            
+        }  catch (\PayPal\Exception\PayPalConnectionException $ex) {
+           return $ex->getData();
         }
     }
 
