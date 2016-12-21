@@ -3,6 +3,7 @@
 namespace angelleye\PayPal\rest\billing;
 
 use PayPal\Api\Agreement;
+use PayPal\Api\AgreementStateDescriptor;
 use PayPal\Api\ChargeModel;
 use PayPal\Api\CreditCard;
 use PayPal\Api\Currency;
@@ -113,6 +114,17 @@ class BillingAPI {
         }
     }
     
+    public function delete_plan($planId){
+        try {
+             $createdPlan = new Plan();
+             $createdPlan->setId($planId);
+             $result = $createdPlan->delete($this->_api_context);
+             return $result;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }
+    }
+
     public function create_billing_agreement_with_creditcard($requestData){
         
         $agreement = new Agreement();
@@ -191,6 +203,106 @@ class BillingAPI {
         }  catch (\PayPal\Exception\PayPalConnectionException $ex) {
            return $ex->getData();
         }
+    }
+
+    public function get_billing_agreement($agreementId){
+        try {
+            $agreement = Agreement::get($agreementId, $this->_api_context);
+            return $agreement;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }
+    }
+
+    public function suspend_billing_agreement($agreementId,$note){       
+        try {
+            //Create an Agreement State Descriptor, explaining the reason to suspend.
+            $agreementStateDescriptor = new AgreementStateDescriptor();
+            if(!empty(trim($note))){
+                $agreementStateDescriptor->setNote($note);
+            }
+            $createdAgreement = new Agreement();
+            $createdAgreement->setId($agreementId);
+            $createdAgreement->suspend($agreementStateDescriptor, $this->_api_context);            
+            $agreement = Agreement::get($agreementId, $this->_api_context);
+            return $agreement;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }
+    }
+    
+    public function reactivate_billing_agreement($agreementId,$note){
+        try {
+            
+            $agreementStateDescriptor = new AgreementStateDescriptor();
+            if(!empty(trim($note))){
+                $agreementStateDescriptor->setNote($note);
+            }
+            $suspendedAgreement = new Agreement();
+            $suspendedAgreement->setId($agreementId);
+            $suspendedAgreement->reActivate($agreementStateDescriptor, $this->_api_context);            
+            $agreement = Agreement::get($agreementId, $this->_api_context);
+            
+            return $agreement;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }
+        return $agreement;
+    }
+
+    public function search_billing_transactions($agreementId,$params){                
+        try {
+            $result = Agreement::searchTransactions($agreementId, $params, $this->_api_context);
+            return $result;
+        }  catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }                
+    }
+    
+    public function update_billing_agreement($agreementId,$agreement){
+
+        if(count(array_filter($agreement['shipping_address'])) == 0){
+            unset($agreement['shipping_address']);
+        }
+        
+        try {            
+            $patch = new Patch();
+            $patch->setOp('replace')
+                ->setPath('/')
+                ->setValue(json_decode(json_encode(array_filter($agreement))));        
+
+            $patchRequest = new PatchRequest();
+            $patchRequest->addPatch($patch);
+
+            $createdAgreement = new Agreement();
+            $createdAgreement->setId($agreementId);
+            
+            $createdAgreement->update($patchRequest, $this->_api_context);            
+            $agreement = Agreement::get($agreementId, $this->_api_context);
+            return $agreement;
+            
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }
+    }
+
+    public function cancel_billing_agreement($agreementId,$note){
+        try {
+            
+            $agreementStateDescriptor = new AgreementStateDescriptor();
+            if(!empty(trim($note))){
+                $agreementStateDescriptor->setNote($note);
+            }
+            $calcelAgreement = new Agreement();
+            $calcelAgreement->setId($agreementId);
+            $calcelAgreement->cancel($agreementStateDescriptor, $this->_api_context);            
+            $agreement = Agreement::get($agreementId, $this->_api_context);
+            
+            return $agreement;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }
+        return $agreement;
     }
 
     public function setArrayToMethods($array, $object) {
