@@ -8,6 +8,7 @@ use PayPal\Api\BillingInfo;
 use PayPal\Api\CancelNotification;
 use PayPal\Api\Cost;
 use PayPal\Api\Currency;
+use PayPal\Api\FileAttachment;
 use PayPal\Api\Invoice;
 use PayPal\Api\InvoiceAddress;
 use PayPal\Api\InvoiceItem;
@@ -242,6 +243,129 @@ class InvoiceAPI {
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }        
+    }
+    
+    public function update_invoice($requestData){
+        
+        try {       
+            
+            $invoice = $this->get_invoice($requestData['InvoiceID']);            
+            
+            // ### Setting Merchant info to invoice object.
+            // ### Start
+            $MerchantInfo = new MerchantInfo();
+            $this->setArrayToMethods(array_filter($requestData['merchantInfo']), $MerchantInfo);
+
+            $merchantPhone = new Phone();
+            $this->setArrayToMethods(array_filter($requestData['merchantPhone']), $merchantPhone);
+            $MerchantInfo->setPhone($merchantPhone);
+
+            $merchantAddress = new Address();
+            $this->setArrayToMethods(array_filter($requestData['merchantAddress']), $merchantAddress);
+            $MerchantInfo->setAddress($merchantAddress);
+
+            $invoice->setMerchantInfo($MerchantInfo);
+            // ### End
+
+            // ### Setting Billing Info to invoice object. 
+            // ### Start
+
+            $BillingInfo = new BillingInfo();
+            $this->setArrayToMethods(array_filter($requestData['billingInfo']), $BillingInfo);
+
+            $InvoiceAddress = new InvoiceAddress();
+            $this->setArrayToMethods(array_filter($requestData['billingInfoAddress']), $InvoiceAddress);
+            $BillingInfo->setAddress($InvoiceAddress);
+
+            $billingPhone = new Phone();
+            $this->setArrayToMethods(array_filter($requestData['billingInfoPhone']), $billingPhone);
+            $BillingInfo->setPhone($billingPhone);
+
+            $invoice->setBillingInfo(array($BillingInfo));
+
+
+            //End
+
+            // ### Add items in Invoice object.
+            // ### Start.    
+
+            if(count($requestData['itemArray'])>0){
+            $itemArray = array();
+            foreach ($requestData['itemArray'] as $item) {
+                $InvoiceItem = new InvoiceItem();
+
+                if(count(array_filter($item['UnitPrice'])) > 0){
+                    $ItemCurrency = new Currency();
+                    $this->setArrayToMethods(array_filter($item['UnitPrice']), $ItemCurrency);
+                    $InvoiceItem->setUnitPrice($ItemCurrency);
+                }
+                unset($item['UnitPrice']);
+                if(count(array_filter($item['Tax'])) > 0){
+                    $ItemTax = new Tax();
+                    $this->setArrayToMethods(array_filter($item['Tax']), $ItemTax);
+                    $InvoiceItem->setTax($ItemTax);
+                }
+                unset($item['Tax']);
+                if(count(array_filter($item['Discount'])) > 0){
+                    $ItemCost = new Cost();
+                    $this->setArrayToMethods(array_filter($item['Discount']), $ItemCost);
+                    $InvoiceItem->setDiscount($ItemCost);
+                }
+                unset($item['Discount']);
+
+                $this->setArrayToMethods(array_filter($item), $InvoiceItem);
+                array_push($itemArray, $InvoiceItem);
+            }
+
+            $invoice->setItems($itemArray);
+            }
+            // ### END
+
+            // #### Final Discount
+            // You can add final discount to the invoice as shown below. You could either use "percent" or "value" when providing the discount
+
+            if(count(array_filter($requestData['finalDiscountForInvoice'])) > 0){
+                $FinalDiscountCost = new Cost();
+                $FinalDiscountCost->setPercent($requestData['finalDiscountForInvoice']['Percent']);
+                $invoice->setDiscount($FinalDiscountCost);   
+            }
+
+            if(count(array_filter($requestData['paymentTerm'])) > 0){
+                $PaymentTerm = new PaymentTerm();
+                $this->setArrayToMethods(array_filter($requestData['paymentTerm']), $PaymentTerm);
+                $invoice->setPaymentTerm($PaymentTerm);
+            }
+
+            // ### Shipping Information
+            // ### Start
+
+            $ShippingInfo = new ShippingInfo();
+            $this->setArrayToMethods(array_filter($requestData['shippingInfo']), $ShippingInfo);
+
+            $ShippingInfoPhone = new Phone();
+            $this->setArrayToMethods(array_filter($requestData['shippingInfoPhone']), $ShippingInfoPhone);
+            $ShippingInfo->setPhone($ShippingInfoPhone);
+
+            $ShippingInfoInvoiceAddress = new InvoiceAddress();
+            $this->setArrayToMethods(array_filter($requestData['shippingInfoAddress']), $ShippingInfoInvoiceAddress);
+            $ShippingInfo->setAddress($ShippingInfoInvoiceAddress);
+
+            $invoice->setShippingInfo($ShippingInfo);
+
+            $this->setArrayToMethods(array_filter($requestData['invoiceData']), $invoice);
+            
+            if(count(array_filter($requestData['attachments'])) > 0){
+                $attachment = new FileAttachment();
+                $this->setArrayToMethods(array_filter($requestData['attachments']), $attachment);
+                $invoice->setAttachments(array($attachment));
+            }
+            
+            $invoice->update($this->_api_context);
+            $invoice = Invoice::get($invoice->getId(), $this->_api_context);
+            return $invoice;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+          return $ex->getData();
+        }
     }
 
     public function send_invoice($invoiceId){

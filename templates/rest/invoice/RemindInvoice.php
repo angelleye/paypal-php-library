@@ -8,18 +8,18 @@ $configArray = array(
 $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
 $remindNotification = array(
-    'Subject' => '',                      // Subject of the notification.
-    'Note'    => '',                      // Note to the payer.
-    'SendToMerchant' => '',               // Indicates whether to send a copy of the notification to the merchant.
-    'SendToPayer' => '',                  // Indicates whether to send a copy of the notification to the payer.
-    'CcEmails' => '',                     // Applicable for invoices created with Cc emails. If this field is not in the body, all the cc email addresses added as part of the invoice shall be notified else this field can be used to limit the list of email addresses. Note: additional email addresses are not supported.    
+    'Subject' => '',                         // Subject of the notification.
+    'Note'    => '',                         // Note to the payer.
+    'SendToMerchant' => '',                  // Indicates whether to send a copy of the notification to the merchant.
+    'SendToPayer' => '',                     // Indicates whether to send a copy of the notification to the payer.
+    'CcEmails' => '',                        // Applicable for invoices created with Cc emails. If this field is not in the body, all the cc email addresses added as part of the invoice shall be notified else this field can be used to limit the list of email addresses. Note: additional email addresses are not supported.    
 );
 
-$InvoiceID = '';    // Specify the ID of the invoice to cancel.
+$InvoiceID = '';                             // Specify the ID of the invoice to remind.
 
 
 
-$returnArray = $PayPal->remind_invoice($cancelNotification,$InvoiceID);
+$returnArray = $PayPal->remind_invoice($remindNotification,$InvoiceID);
 echo "<pre>";
 var_dump($returnArray);
 ?>
