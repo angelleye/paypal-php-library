@@ -12,10 +12,12 @@ use PayPal\Api\Invoice;
 use PayPal\Api\InvoiceAddress;
 use PayPal\Api\InvoiceItem;
 use PayPal\Api\MerchantInfo;
+use PayPal\Api\Notification;
 use PayPal\Api\PaymentTerm;
 use PayPal\Api\PaymentDetail;
 use PayPal\Api\Phone;
 use PayPal\Api\RefundDetail;
+use PayPal\Api\Search;
 use PayPal\Api\ShippingInfo;
 use PayPal\Api\Tax;
 
@@ -205,18 +207,38 @@ class InvoiceAPI {
         }
     }
 
-    public function remind_invoice(){
+    public function remind_invoice($remindNotification,$InvoiceID){
         try {
-            $invoice = require 'SendInvoice.php';
+            
             $notify = new Notification();
-            $notify
-                ->setSubject("Past due")
-                ->setNote("Please pay soon")
-                ->setSendToMerchant(true);
-
+            $this->setArrayToMethods(array_filter($remindNotification), $notify);
             $remindStatus = $invoice->remind($notify, $this->_api_context);
-            $invoice = Invoice::get($invoice->getId(), $this->_api_context);
-            return $invoice;
+            $invoice = Invoice::get($InvoiceID, $this->_api_context);
+            return array('RemindStatus' => '$remindStatus' , 'Invoice' => $invoice);
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }        
+    }
+    
+    public function retrieve_QR_code($parameters,$InvoiceID,$path){
+        
+        try{
+            $image = Invoice::qrCode($InvoiceID, array_filter($parameters), $this->_api_context);
+            $path = $image->saveToFile($path);
+            return array('Image' => $image->getImage());
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }                
+    }
+    
+    public function search_invoices($parameters){
+        
+        try{ 
+            $search = new Search(json_encode(array_filter($parameters)));
+            
+            $invoices = Invoice::search($search, $this->_api_context);
+            return $invoices;
+            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }        

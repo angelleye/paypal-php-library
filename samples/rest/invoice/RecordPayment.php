@@ -18,7 +18,7 @@ $amount = array(
     'value'    => '19.51'                                       // The amount up to N digits after the decimal separator, as defined in ISO 4217 for the appropriate currency code. 
 );
 
-$invoiceId = 'INV2-L2AC-WQSM-Q5PR-QVUY';                   // The ID of the invoice to mark as paid. 
+$invoiceId = 'INV2-GASZ-DB7C-NSRC-S9V6';                   // The ID of the invoice to mark as paid. 
 
 
 
