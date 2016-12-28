@@ -21,7 +21,10 @@ use PayPal\Api\RefundDetail;
 use PayPal\Api\Search;
 use PayPal\Api\ShippingInfo;
 use PayPal\Api\Tax;
-
+use PayPal\Api\Template;
+use PayPal\Api\TemplateData;
+use PayPal\Api\TemplateSettings;
+use PayPal\Api\TemplateSettingsMetadata;
 
 class InvoiceAPI {
 
@@ -40,7 +43,7 @@ class InvoiceAPI {
                     
                     // ### Setting Merchant info to invoice object.
                     // ### Start
-                    $MerchantInfo = new MerchantInfo();
+                        $MerchantInfo = new MerchantInfo();
                     $this->setArrayToMethods(array_filter($requestData['merchantInfo']), $MerchantInfo);
                     
                     $merchantPhone = new Phone();
@@ -423,6 +426,150 @@ class InvoiceAPI {
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }        
+    }
+    
+    
+    public function create_invoice_template($requestData){
+        
+        try {
+        $invoiceTemplateData = new TemplateData();    
+        $itemArray = array();
+        foreach ($requestData['InvoiceItemArray'] as $item) {
+            $InvoiceItem = new InvoiceItem();
+
+            if(count(array_filter($item['UnitPrice'])) > 0){
+                $ItemCurrency = new Currency();
+                $this->setArrayToMethods(array_filter($item['UnitPrice']), $ItemCurrency);
+                $InvoiceItem->setUnitPrice($ItemCurrency);
+            }
+            unset($item['UnitPrice']);
+            if(count(array_filter($item['Tax'])) > 0){
+                $ItemTax = new Tax();
+                $this->setArrayToMethods(array_filter($item['Tax']), $ItemTax);
+                $InvoiceItem->setTax($ItemTax);
+            }
+            unset($item['Tax']);
+            if(count(array_filter($item['Discount'])) > 0){
+                $ItemCost = new Cost();
+                $this->setArrayToMethods(array_filter($item['Discount']), $ItemCost);
+                $InvoiceItem->setDiscount($ItemCost);
+            }
+            unset($item['Discount']);
+
+            $this->setArrayToMethods(array_filter($item), $InvoiceItem);
+            array_push($itemArray, $InvoiceItem);
+            $invoiceTemplateData->addItem($InvoiceItem);
+        }
+        
+        // ### Setting Merchant info to invoice object.
+        // ### Start
+        $MerchantInfo = new MerchantInfo();
+        $this->setArrayToMethods(array_filter($requestData['merchantInfo']), $MerchantInfo);
+
+        $merchantPhone = new Phone();
+        $this->setArrayToMethods(array_filter($requestData['merchantPhone']), $merchantPhone);
+        $MerchantInfo->setPhone($merchantPhone);
+
+        $merchantAddress = new Address();
+        $this->setArrayToMethods(array_filter($requestData['merchantAddress']), $merchantAddress);
+        $MerchantInfo->setAddress($merchantAddress);
+
+        $invoiceTemplateData->setMerchantInfo($MerchantInfo);
+        // ### End
+        
+        // ### Setting Billing Info to invoice object. 
+        // ### Start
+
+        $BillingInfo = new BillingInfo();
+        $this->setArrayToMethods(array_filter($requestData['billingInfo']), $BillingInfo);
+
+        $InvoiceAddress = new InvoiceAddress();
+        $this->setArrayToMethods(array_filter($requestData['billingInfoAddress']), $InvoiceAddress);
+        $BillingInfo->setAddress($InvoiceAddress);
+
+        $billingPhone = new Phone();
+        $this->setArrayToMethods(array_filter($requestData['billingInfoPhone']), $billingPhone);
+        $BillingInfo->setPhone($billingPhone);
+
+        $invoiceTemplateData->setBillingInfo(array($BillingInfo));
+        //End
+                    
+        
+        // ### Shipping Information
+        // ### Start
+
+        $ShippingInfo = new ShippingInfo();
+        $this->setArrayToMethods(array_filter($requestData['shippingInfo']), $ShippingInfo);
+
+        $ShippingInfoPhone = new Phone();
+        $this->setArrayToMethods(array_filter($requestData['shippingInfoPhone']), $ShippingInfoPhone);
+        $ShippingInfo->setPhone($ShippingInfoPhone);
+
+        $ShippingInfoInvoiceAddress = new InvoiceAddress();
+        $this->setArrayToMethods(array_filter($requestData['shippingInfoAddress']), $ShippingInfoInvoiceAddress);
+        $ShippingInfo->setAddress($ShippingInfoInvoiceAddress);
+
+        $invoiceTemplateData->setShippingInfo($ShippingInfo);
+
+        if(count(array_filter($requestData['templateData']['MinimumAmountDue'])) > 0){
+                $TemplateMinimumAmountDueCurrency = new Currency();
+                $this->setArrayToMethods(array_filter($requestData['templateData']['MinimumAmountDue']), $TemplateMinimumAmountDueCurrency);
+                $invoiceTemplateData->setMinimumAmountDue($TemplateMinimumAmountDueCurrency);
+        }
+        unset($requestData['templateData']['MinimumAmountDue']);
+        
+        if(count(array_filter($requestData['templateData']['TotalAmount'])) > 0){
+                $TemplateTotalAmountCurrency = new Currency();
+                $this->setArrayToMethods(array_filter($requestData['templateData']['TotalAmount']), $TemplateTotalAmountCurrency);
+                $invoiceTemplateData->setTotalAmount($TemplateTotalAmountCurrency);
+        }
+        unset($requestData['templateData']['TotalAmount']);
+        
+        if(!empty(trim($requestData['TemplateDataCcInfo']))){
+            $invoiceTemplateData->setCcInfo(array($requestData['TemplateDataCcInfo']));
+        }
+        $this->setArrayToMethods(array_filter($requestData['templateData']), $invoiceTemplateData);
+        
+        if(count(array_filter($requestData['templateDiscount'])) > 0){
+            $templateDiscountCost = new Cost();
+            $this->setArrayToMethods(array_filter($requestData['templateDiscount']), $templateDiscountCost);
+            $invoiceTemplateData->setDiscount($templateDiscountCost);
+        }
+            
+        if(count(array_filter($requestData['paymentTerm'])) > 0){
+                        $PaymentTerm = new PaymentTerm();
+                        $this->setArrayToMethods(array_filter($requestData['paymentTerm']), $PaymentTerm);
+                        $invoiceTemplateData->setPaymentTerm($PaymentTerm);
+        }
+        
+        if(count(array_filter($requestData['attachments'])) > 0){
+            $attachment = new FileAttachment();
+            $this->setArrayToMethods(array_filter($requestData['attachments']), $attachment);
+            $invoiceTemplateData->setAttachments(array($attachment));
+        }
+        
+         // ### Template Settings    
+        $displayPreferences = new TemplateSettingsMetadata();
+        $this->setArrayToMethods(array_filter($requestData['TemplateSettingsMetadata']), $displayPreferences);
+        
+        $settingDate = new TemplateSettings();
+        $this->setArrayToMethods(array_filter($requestData['TemplateSettings']), $settingDate);
+        $settingDate->setDisplayPreference($displayPreferences);
+                  
+        // ### Template
+        $invoiceTemplate = new Template();
+        $this->setArrayToMethods(array_filter($requestData['Template']), $invoiceTemplate);
+        $invoiceTemplate->setTemplateData($invoiceTemplateData);
+        $invoiceTemplate->addSetting($settingDate);            
+                           
+        // ### Create Invoice Template
+        // Create an invoice by calling the invoice->create() method
+        // with a valid ApiContext (See bootstrap.php for more on `ApiContext`)
+        $invoiceTemplate->create($this->_api_context);
+        return $invoiceTemplate;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $ex->getData();
+        }
     }
 
     public function setArrayToMethods($array, $object) {
