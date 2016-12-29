@@ -144,7 +144,7 @@ $TemplateSettings = array(
 
 $Template = array(
     'TemplateId'    => '',                                  // Unique identifier id of the template.    
-    'Name'          => "Hours Template" . rand(),                                  // Name of the template.
+    'Name'          => "TJK  Template" . rand(),                                  // Name of the template.
     'Default'       => 'true',                                  // Indicates that this template is merchant's default. There can be only one template which can be a default.
     'UnitOfMeasure' => 'HOURS',                                  // Unit of measure for the template, possible values are Quantity, Hours, Amount.
     'Custom'        => '',                                  // Indicates whether this is a custom template created by the merchant. Non custom templates are system generated    
