@@ -833,8 +833,7 @@ class InvoiceAPI {
             }
         }
         return TRUE;
-    }
-
+    }    
 }
 
 ?>
