@@ -37,70 +37,95 @@ class PaymentAPI {
             // ### PaymentCard
             // A resource representing a payment card that can be used to fund a payment.
             $card = new PaymentCard();
-            $this->setArrayToMethods(array_filter($requestData['paymentCard']), $card);
-            $this->setArrayToMethods(array("BillingAddress" => array_filter($requestData['billingAddress'])), $card);
-
+            if($this->checkEmptyObject($requestData['paymentCard'])){
+                $this->setArrayToMethods(array_filter($requestData['paymentCard']), $card);
+            }
+            if($this->checkEmptyObject($requestData['billingAddress'])){
+                $this->setArrayToMethods(array("BillingAddress" => array_filter($requestData['billingAddress'])), $card);
+            }            
+            
             // ### FundingInstrument
             // A resource representing a Payer's funding instrument.
             $fi = new FundingInstrument();
-            $fi->setPaymentCard($card);
-
+            if($this->checkEmptyObject((array)$card)){
+                $fi->setPaymentCard($card);           
+            }
+                       
             // ### Payer
             // A resource representing a Payer that funds a payment
             $payer = new Payer();
-            $payer->setPaymentMethod("credit_card")
-                    ->setFundingInstruments(array($fi));
-
+            $payer->setPaymentMethod("credit_card");
+            if($this->checkEmptyObject((array)$fi)){
+                $payer->setFundingInstruments(array($fi));
+            }
+             
             // ### Itemized information
             // (Optional) Lets you specify item wise information
             $itemListArray = array();
-            foreach ($requestData['orderItems'] as $value) {
-                $item = new Item();
-                $array = array_filter($value);
-                if (count($array) > 0) {
-                    $this->setArrayToMethods($array, $item);
-                    array_push($itemListArray, $item);
-                }
+            if($this->checkEmptyObject($requestData['orderItems'])){
+                foreach ($requestData['orderItems'] as $value) {
+                   $item = new Item();
+                   $array = array_filter($value);
+                   if (count($array) > 0) {
+                       $this->setArrayToMethods($array, $item);
+                       array_push($itemListArray, $item);
+                   }
+               }   
             }
+            
             $itemList = new ItemList();
-            $itemList->setItems($itemListArray);
-
+            if($this->checkEmptyObject($itemListArray)){
+                $itemList->setItems($itemListArray);
+            }            
+            
             // ### Additional payment details
             // Use this optional field to set additional payment information such as tax, shipping charges etc.
-
-            if (count(array_filter($requestData['paymentDetails'])) > 0) {
-                $details = new Details();
+            $details = new Details();
+            if ($this->checkEmptyObject($requestData['paymentDetails'])) {                
                 $this->setArrayToMethods(array_filter($requestData['paymentDetails']), $details);
-            }
-
+            }            
             // ### Amount
             // Lets you specify a payment amount. You can also specify additional details such as shipping, tax.
             $amount = new Amount();
-            if (count(array_filter($requestData['amount'])) > 0) {
+            if ($this->checkEmptyObject($requestData['amount'])) {
                 $this->setArrayToMethods(array_filter($requestData['amount']), $amount);
             }
-            if (!empty($details)) {
+            if ($this->checkEmptyObject((array)$details)) {
                 $amount->setDetails($details);
             }
 
             // ### Transaction
             // A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
             $transaction = new Transaction();
-            $transaction->setAmount($amount);
-            if (!empty($itemListArray)) {
+            if($this->checkEmptyObject((array)$amount)){
+                $transaction->setAmount($amount);
+            }
+            
+            if ($this->checkEmptyObject((array)$itemList)) {
                 $transaction->setItemList($itemList);
             }
-            if (count(array_filter($requestData['transaction'])) > 0) {
+            
+            if ($this->checkEmptyObject($requestData['transaction'])) {
                 $this->setArrayToMethods(array_filter($requestData['transaction']), $transaction);
             }
 
             // ### Payment
             // A Payment Resource; create one using the above types and intent set to sale 'sale'
             $payment = new Payment();
-            $payment->setIntent($requestData['intent'])
-                    ->setPayer($payer)
-                    ->setTransactions(array($transaction));
-
+            if(!empty(trim($requestData['ExperienceProfileId']))){
+                $payment->setExperienceProfileId($requestData['ExperienceProfileId']);
+            }
+            if(!empty(trim($requestData['NoteToPayer']))){
+                $payment->setNoteToPayer($requestData['NoteToPayer']);
+            }
+            
+            $payment->setIntent(trim($requestData['intent']));
+            if($this->checkEmptyObject((array)$payer)){
+                $payment->setPayer($payer);
+            }
+            if($this->checkEmptyObject((array)$transaction)){
+                $payment->setTransactions(array($transaction));
+            }            
             // ### Create Payment
             // Create a payment by calling the payment->create() method with a valid ApiContext. The return object contains the state.
             $payment->create($this->_api_context);           
@@ -130,21 +155,25 @@ class PaymentAPI {
             // ### Itemized information
             // (Optional) Lets you specify item wise information
             $itemListArray = array();
-            foreach ($requestData['orderItems'] as $value) {
-                $item = new Item();
-                $array = array_filter($value);
-                if (count($array) > 0) {
-                    $this->setArrayToMethods($array, $item);
-                    array_push($itemListArray, $item);
+            if($this->checkEmptyObject($requestData['orderItems'])){
+                foreach ($requestData['orderItems'] as $value) {
+                    $item = new Item();
+                    $array = array_filter($value);
+                    if (count($array) > 0) {
+                        $this->setArrayToMethods($array, $item);
+                        array_push($itemListArray, $item);
+                    }
                 }
             }
             $itemList = new ItemList();
-            $itemList->setItems($itemListArray);
-
+            if($this->checkEmptyObject($itemListArray)){
+                $itemList->setItems($itemListArray);
+            }
+            
             // ### Additional payment details
             // Use this optional field to set additional payment information such as tax, shipping charges etc.
 
-            if (count(array_filter($requestData['paymentDetails'])) > 0) {
+            if ($this->checkEmptyObject($requestData['paymentDetails'])) {
                 $details = new Details();
                 $this->setArrayToMethods(array_filter($requestData['paymentDetails']), $details);
             }
@@ -152,24 +181,27 @@ class PaymentAPI {
             // ### Amount
             // Lets you specify a payment amount. You can also specify additional details such as shipping, tax.
             $amount = new Amount();
-            if (count(array_filter($requestData['amount'])) > 0) {
+            if ($this->checkEmptyObject($requestData['amount'])) {
                 $this->setArrayToMethods(array_filter($requestData['amount']), $amount);
             }
-            if (!empty($details)) {
+            if ($this->checkEmptyObject((array)$details)) {
                 $amount->setDetails($details);
             }
 
             // ### Transaction
             // A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
             $transaction = new Transaction();
-            $transaction->setAmount($amount);
-            if (!empty($itemListArray)) {
+            if ($this->checkEmptyObject((array)$amount)) {
+                $transaction->setAmount($amount);
+            }
+            
+            if ($this->checkEmptyObject((array)$itemList)) {
                 $transaction->setItemList($itemList);
             }
-            if (count(array_filter($requestData['transaction'])) > 0) {
+            if ($this->checkEmptyObject($requestData['transaction'])) {
                 $this->setArrayToMethods(array_filter($requestData['transaction']), $transaction);
             }
-            if(!empty($requestData['transaction'])){
+            if(!empty(trim($requestData['invoiceNumber']))){
                 $transaction->setInvoiceNumber($requestData['invoiceNumber']);
             }
 
@@ -184,11 +216,26 @@ class PaymentAPI {
             // ### Payment
             // A Payment Resource; create one using the above types and intent set to sale 'sale'
             $payment = new Payment();
-            $payment->setIntent($requestData['intent'])
-                    ->setPayer($payer)
-                    ->setRedirectUrls($redirectUrls)
-                    ->setTransactions(array($transaction));
-
+            
+            if(!empty(trim($requestData['intent']))){
+                $payment->setIntent($requestData['intent']);
+            }
+            if($this->checkEmptyObject((array)$payer)){
+                $payment->setPayer($payer);
+            }
+            if($this->checkEmptyObject((array)$redirectUrls)){
+                $payment->setRedirectUrls($redirectUrls);
+            }
+            if($this->checkEmptyObject((array)$transaction)){
+                $payment->setTransactions(array($transaction));
+            }
+            if(!empty(trim($requestData['ExperienceProfileId']))){
+                $payment->setExperienceProfileId(trim($requestData['ExperienceProfileId']));
+            }
+            if(!empty(trim($requestData['NoteToPayer']))){
+                $payment->setNoteToPayer(trim($requestData['NoteToPayer']));
+            }
+            
             // ### Create Payment
             // Create a payment by calling the payment->create() method with a valid ApiContext. The return object contains the state.
             $payment->create($this->_api_context);
@@ -218,33 +265,42 @@ class PaymentAPI {
             // For stored credit card payments, set the CreditCardToken
             // field on this object.
             $fi = new FundingInstrument();
-            $fi->setCreditCardToken($creditCardToken);
+            if($this->checkEmptyObject((array)$creditCardToken)){
+                $fi->setCreditCardToken($creditCardToken);
+            }
 
             // ### Payer
             // A resource representing a Payer that funds a payment
             // For stored credit card payments, set payment method
             // to 'credit_card'.
             $payer = new Payer();
-            $payer->setPaymentMethod("credit_card")
-                    ->setFundingInstruments(array($fi));
+            $payer->setPaymentMethod("credit_card");
+            if($this->checkEmptyObject((array)$fi)){
+                $payer->setFundingInstruments(array($fi));
+            }                                        
 
             // ### Itemized information
             // (Optional) Lets you specify item wise information
             $itemListArray = array();
-            foreach ($requestData['orderItems'] as $value) {
-                $item = new Item();
-                $array = array_filter($value);
-                if (count($array) > 0) {
-                    $this->setArrayToMethods($array, $item);
-                    array_push($itemListArray, $item);
+            if($this->checkEmptyObject($requestData['orderItems'])){
+                foreach ($requestData['orderItems'] as $value) {
+                    $item = new Item();
+                    $array = array_filter($value);
+                    if (count($array) > 0) {
+                        $this->setArrayToMethods($array, $item);
+                        array_push($itemListArray, $item);
+                    }
                 }
             }
+            
             $itemList = new ItemList();
-            $itemList->setItems($itemListArray);
+            if($this->checkEmptyObject($itemListArray)){
+                $itemList->setItems($itemListArray);
+            }
             // ### Additional payment details
             // Use this optional field to set additional payment information such as tax, shipping charges etc.
 
-            if (count(array_filter($requestData['paymentDetails'])) > 0) {
+            if ($this->checkEmptyObject($requestData['paymentDetails'])) {
                 $details = new Details();
                 $this->setArrayToMethods(array_filter($requestData['paymentDetails']), $details);
             }
@@ -252,31 +308,39 @@ class PaymentAPI {
             // ### Amount
             // Lets you specify a payment amount. You can also specify additional details such as shipping, tax.
             $amount = new Amount();
-            if (count(array_filter($requestData['amount'])) > 0) {
+            if ($this->checkEmptyObject($requestData['amount'])) {
                 $this->setArrayToMethods(array_filter($requestData['amount']), $amount);
             }
-            if (!empty($details)) {
+            if ($this->checkEmptyObject((array)$details)) {
                 $amount->setDetails($details);
             }
 
             // ### Transaction
             // A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
             $transaction = new Transaction();
-            $transaction->setAmount($amount);
-            if (!empty($itemListArray)) {
+            if($this->checkEmptyObject((array)$amount)){
+                $transaction->setAmount($amount);
+            }
+            
+            if ($this->checkEmptyObject((array)$itemList)) {
                 $transaction->setItemList($itemList);
             }
-            if (count(array_filter($requestData['transaction'])) > 0) {
+            if ($this->checkEmptyObject($requestData['transaction'])) {
                 $this->setArrayToMethods(array_filter($requestData['transaction']), $transaction);
             }
 
             // ### Payment
             // A Payment Resource; create one using the above types and intent set to sale 'sale'
             $payment = new Payment();
-            $payment->setIntent($requestData['intent'])
-                    ->setPayer($payer)
-                    ->setTransactions(array($transaction));
-
+            $payment->setIntent($requestData['intent']);
+            
+            if($this->checkEmptyObject((array)$payer)){
+                $payment->setPayer($payer);
+            }
+            if($this->checkEmptyObject((array)$transaction)){
+                $payment->setTransactions(array($transaction));
+            }
+            
             $payment->create($this->_api_context);
             return $payment;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
@@ -346,8 +410,7 @@ class PaymentAPI {
     }
 
     public function get_capture($authorizationCaptureId) {
-        // # GetCapture
-        //$request = require 'AuthorizationCapture.php';
+        // # GetCapture       
         try {
             $capture = Capture::get($authorizationCaptureId, $this->_api_context);
             return $capture;
@@ -448,7 +511,15 @@ class PaymentAPI {
         }
         return TRUE;
     }
+    
+    public function checkEmptyObject($array){
+        if(count(array_filter($array)) > 0){
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
+    }
 
 }
-
 ?>

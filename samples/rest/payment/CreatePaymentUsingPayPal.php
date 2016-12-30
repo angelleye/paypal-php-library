@@ -10,7 +10,7 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
-$intent='order';                                             //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
+$intent='sale';                                             //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
 
 // ### Notice
 // If your intent is "order" set this as URL array.
@@ -29,7 +29,9 @@ $urls= array(
     'BaseUrl'     => 'http://localhost/paypal-php-library/templates/rest/payments/'                                     // Required. 
 );
 
-$invoiceNumber='INVC239856856';
+$invoiceNumber='INVC2398568465456';
+$ExperienceProfileId = 'TXP-9M301037RG311853B';                                   // Optional. PayPal generated identifier for the merchant's payment experience profile. Refer to [this](https://developer.paypal.com/docs/api/#payment-experience) link to create experience profile ID.
+$NoteToPayer = 'This is my Note to Payer';                                        // Optional. free-form field for the use of clients to pass in a message to the payer.
 
 $orderItems = array();
 $Item = array(
@@ -84,7 +86,9 @@ $requestData = array(
     'paymentDetails' => $paymentDetails,
     'amount'         => $amount,
     'transaction'    => $transaction,
-    'urls'           => $urls
+    'urls'           => $urls,
+    'ExperienceProfileId' => $ExperienceProfileId,
+    'NoteToPayer'    => $NoteToPayer
 );
 
 $returnArray = $PayPal->create_payment_with_paypal($requestData);

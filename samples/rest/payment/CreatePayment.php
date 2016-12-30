@@ -7,10 +7,12 @@ $configArray = array(
     'ClientID' => $rest_client_id,
     'ClientSecret' => $rest_client_secret
 );
-
+// This is Create Payment with Creditcard.
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
-$intent='authorize';                                     //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
+$intent='authorize';                                         // Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.
+$ExperienceProfileId = 'TXP-9M301037RG311853B';                                   // Optional. PayPal generated identifier for the merchant's payment experience profile. Refer to [this](https://developer.paypal.com/docs/api/#payment-experience) link to create experience profile ID.
+$NoteToPayer = 'This is my Note to Payer';                                           // free-form field for the use of clients to pass in a message to the payer.
 
 $paymentCard = array(
     'Type'              => 'visa',                               // Required.  The card type.Possible values: VISA, AMEX, SOLO, JCB, STAR, DELTA, DISCOVER, SWITCH, MAESTRO, CB_NATIONALE, CONFINOGA, COFIDIS, ELECTRON, CETELEM, CHINA_UNION_PAY, MASTERCARD.
@@ -47,7 +49,7 @@ $Item = array(
     'Quantity'    => '1',                                     // Number of a particular item. 10 characters max
     'Price'       => '7.50',                                     // Item cost. 10 characters max. 
     'Currency'    => 'USD',                                     // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
-    'Tax'         => '0.3'                                     // Tax of the item. Only supported when the `payment_method` is set to `paypal`.    
+    'Tax'         => '0.3'                                      // Tax of the item. Only supported when the `payment_method` is set to `paypal`.    
 );
 array_push($orderItems, $Item);
 
@@ -58,7 +60,7 @@ $Item = array(
     'Quantity'    => '5',                                     // Number of a particular item. 10 characters max
     'Price'       => '2',                                     // Item cost. 10 characters max. 
     'Currency'    => 'USD',                                     // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
-    'Tax'         => '0.2'                                     // Tax of the item. Only supported when the `payment_method` is set to `paypal`.    
+    'Tax'         => '0.2'                                      // Tax of the item. Only supported when the `payment_method` is set to `paypal`.    
 );
 array_push($orderItems, $Item);
 
@@ -71,18 +73,18 @@ $paymentDetails = array(
 );
 
 $amount = array(
-    'Currency' => 'USD',                                       //Required. 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/). PayPal does not support all currencies. 
+    'Currency' => 'USD',                                        //Required. 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/). PayPal does not support all currencies. 
     'Total'    => '20',                                        //Required. Total amount charged from the payer to the payee. In case of a refund, this is the refunded amount to the original payer from the payee. 10 characters max with support for 2 decimal places. 
 );
 
 $transaction = array(
-    'ReferenceId'    => '',                                      // Optional parameter. Merchant identifier to the purchase unit. Maximum length: 256. 
-    'Description'    => '',                                      // Payment description for particular transaction. Maximum length: 127.
-    'InvoiceNumber'  => '',                                      // Unique id of the Invoice. Maximum length: 127.
-    'Custom'         => '',                                      // free-form field for the use of clients. Maximum length: 127.
-    'SoftDescriptor' => '',                                      // Soft descriptor used when charging this funding source. If length exceeds max length, the value will be truncated. Maximum length: 22.
-    'NotifyUrl'      => '',                                      // URL to send payment notifications. Maximum length: 2048. Format: uri.
-    'OrderUrl'       => ''                                       // Url on merchant site pertaining to this payment. Maximum length: 2048. Format: uri.
+    'ReferenceId'    => '',                                  // Optional parameter. Merchant identifier to the purchase unit. Maximum length: 256. 
+    'Description'    => '',                                  // Payment description for particular transaction. Maximum length: 127.
+    'InvoiceNumber'  => '',                                  // Unique id of the Invoice. Maximum length: 127.
+    'Custom'         => '',                                  // free-form field for the use of clients. Maximum length: 127.
+    'SoftDescriptor' => '',                                  // Soft descriptor used when charging this funding source. If length exceeds max length, the value will be truncated. Maximum length: 22.
+    'NotifyUrl'      => '',                                  // URL to send payment notifications. Maximum length: 2048. Format: uri.
+    'OrderUrl'       => ''                                   // Url on merchant site pertaining to this payment. Maximum length: 2048. Format: uri.
 );
 
 $requestData = array(
@@ -92,7 +94,9 @@ $requestData = array(
     'orderItems'     => $orderItems,
     'paymentDetails' => $paymentDetails,
     'amount'         => $amount,
-    'transaction'    => $transaction
+    'transaction'    => $transaction,
+    'ExperienceProfileId' => $ExperienceProfileId,
+    'NoteToPayer'    => $NoteToPayer
 );
 
 $returnArray = $PayPal->payment_create($requestData);
