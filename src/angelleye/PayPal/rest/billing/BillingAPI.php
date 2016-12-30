@@ -35,37 +35,46 @@ class BillingAPI {
         try {
             // Create a new instance of Plan object
             $plan = new Plan();
-            $this->setArrayToMethods(array_filter($requestData['plan']), $plan);        
-
+            if($this->checkEmptyObject($requestData['plan'])){
+               $this->setArrayToMethods(array_filter($requestData['plan']), $plan);
+            }            
             // # Payment definitions for this billing plan.
-            $paymentDefinition = new PaymentDefinition();
-
+            $paymentDefinition = new PaymentDefinition();           
             $paymentDefinition
                 ->setAmount(new Currency($requestData['paymentDefinition']['Amount']));
             array_pop($requestData['paymentDefinition']);
-            $this->setArrayToMethods(array_filter($requestData['paymentDefinition']), $paymentDefinition); 
-
-
+            if($this->checkEmptyObject((array)$paymentDefinition)){
+                $this->setArrayToMethods(array_filter($requestData['paymentDefinition']), $paymentDefinition); 
+            }
+            
             // Charge Models
             $chargeModel = new ChargeModel();
             $chargeModel->setAmount(new Currency($requestData['chargeModel']['Amount']));
             array_pop($requestData['chargeModel']);
-            $this->setArrayToMethods(array_filter($requestData['chargeModel']), $chargeModel); 
-
-            $paymentDefinition->setChargeModels(array($chargeModel));
-
+            if($this->checkEmptyObject((array)$chargeModel)){
+                $this->setArrayToMethods(array_filter($requestData['chargeModel']), $chargeModel); 
+                $paymentDefinition->setChargeModels(array($chargeModel));
+            }
+            
             $merchantPreferences = new MerchantPreferences();
             $baseUrl = $requestData['baseUrl'];
 
             $merchantPreferences->setReturnUrl($baseUrl.$requestData['ReturnUrl'])
-                ->setCancelUrl($baseUrl.$requestData['CancelUrl'])
-                ->setSetupFee(new Currency($requestData['merchant_preferences']['SetupFee']));      
+                ->setCancelUrl($baseUrl.$requestData['CancelUrl']);
+            if($this->checkEmptyObject($requestData['merchant_preferences']['SetupFee'])){
+                $merchantPreferences->setSetupFee(new Currency($requestData['merchant_preferences']['SetupFee']));
+            }
             array_pop($requestData['merchant_preferences']);
-            $this->setArrayToMethods(array_filter($requestData['merchant_preferences']), $merchantPreferences);     
-
-            $plan->setPaymentDefinitions(array($paymentDefinition));
-            $plan->setMerchantPreferences($merchantPreferences);
-
+            
+            if($this->checkEmptyObject($requestData['merchant_preferences'])){
+                $this->setArrayToMethods(array_filter($requestData['merchant_preferences']), $merchantPreferences);
+            }
+            if($this->checkEmptyObject((array)$paymentDefinition)){
+                $plan->setPaymentDefinitions(array($paymentDefinition));
+            }
+            if($this->checkEmptyObject((array)$merchantPreferences)){
+                $plan->setMerchantPreferences($merchantPreferences);
+            }            
             $output = $plan->create($this->_api_context);
             return $output;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
@@ -128,8 +137,10 @@ class BillingAPI {
     public function create_billing_agreement_with_creditcard($requestData){
         
         $agreement = new Agreement();
-        $this->setArrayToMethods(array_filter($requestData['agreement']), $agreement);
-            
+        if($this->checkEmptyObject($requestData['agreement'])){
+            $this->setArrayToMethods(array_filter($requestData['agreement']), $agreement);
+        }
+                    
         // Add Plan ID
         // Please note that the plan Id should be only set in this case.
         $plan = new Plan();
@@ -139,26 +150,35 @@ class BillingAPI {
         
         // Add Payer
         $payer = new Payer();
-        $this->setArrayToMethods(array_filter($requestData['payer']), $payer);       
-        
-        $payer->setPayerInfo(new PayerInfo(array_filter($requestData['payerInfo'])));
-
+        if($this->checkEmptyObject($requestData['payer'])){
+            $this->setArrayToMethods(array_filter($requestData['payer']), $payer);
+        }
+        if($this->checkEmptyObject($requestData['payerInfo'])){
+            $payer->setPayerInfo(new PayerInfo(array_filter($requestData['payerInfo'])));
+        }
+   
         // Add Credit Card to Funding Instruments
         $card = new CreditCard();
-        $this->setArrayToMethods(array_filter($requestData['creditCard']), $card);        
-        
+        if($this->checkEmptyObject($requestData['creditCard'])){
+            $this->setArrayToMethods(array_filter($requestData['creditCard']), $card);
+        }
         $fundingInstrument = new FundingInstrument();
-        $fundingInstrument->setCreditCard($card);
-        $payer->setFundingInstruments(array($fundingInstrument));
+        if($this->checkEmptyObject((array)$card)){
+            $fundingInstrument->setCreditCard($card);
+        }
+        if($this->checkEmptyObject((array)$fundingInstrument)){
+            $payer->setFundingInstruments(array($fundingInstrument));   
+        }
         //Add Payer to Agreement
-        $agreement->setPayer($payer);        
-        
+        if($this->checkEmptyObject((array)$payer)){
+            $agreement->setPayer($payer);
+        }                
         // Add Shipping Address
-        $shippingAddress = new ShippingAddress();
-        $this->setArrayToMethods(array_filter($requestData['shippingAddress']), $shippingAddress);
-        
-        $agreement->setShippingAddress($shippingAddress);        
-        
+        if($this->checkEmptyObject($requestData['shippingAddress'])){
+            $shippingAddress = new ShippingAddress();
+            $this->setArrayToMethods(array_filter($requestData['shippingAddress']), $shippingAddress);
+            $agreement->setShippingAddress($shippingAddress);        
+        }        
         // ### Create Agreement
         try {
             // Please note that as the agreement has not yet activated, we wont be receiving the ID just yet.
@@ -172,27 +192,33 @@ class BillingAPI {
     public function create_billing_agreement_with_paypal($requestData){
         
         $agreement = new Agreement();
-        $this->setArrayToMethods(array_filter($requestData['agreement']), $agreement);
-
+        if($this->checkEmptyObject($requestData['agreement'])){
+            $this->setArrayToMethods(array_filter($requestData['agreement']), $agreement);
+        }        
         // Add Plan ID
         // Please note that the plan Id should be only set in this case.
         $plan = new Plan();
         $plan->setId($requestData['planId']);
         
-        $agreement->setPlan($plan);
-
-        // Add Payer
+        if($this->checkEmptyObject((array)$plan)){
+            $agreement->setPlan($plan);
+        }        
+        // Add Payer        
         $payer = new Payer();
-        $payer = new Payer();
-        $this->setArrayToMethods(array_filter($requestData['payer']), $payer);       
-        
-        $agreement->setPayer($payer);
-
+        if($this->checkEmptyObject($requestData['payer'])){
+            $this->setArrayToMethods(array_filter($requestData['payer']), $payer);
+        }
+        if($this->checkEmptyObject((array)$payer)){
+            $agreement->setPayer($payer);
+        }
         // Add Shipping Address
         $shippingAddress = new ShippingAddress();
-        $this->setArrayToMethods(array_filter($requestData['shippingAddress']), $shippingAddress);
-        $agreement->setShippingAddress($shippingAddress);                
-
+        if($this->checkEmptyObject($requestData['shippingAddress'])){
+            $this->setArrayToMethods(array_filter($requestData['shippingAddress']), $shippingAddress);
+        }
+        if($this->checkEmptyObject((array)$shippingAddress)){
+            $agreement->setShippingAddress($shippingAddress);
+        }        
         // ### Create Agreement
         try {
             // Please note that as the agreement has not yet activated, we wont be receiving the ID just yet.
@@ -315,6 +341,15 @@ class BillingAPI {
             }
         }
         return TRUE;
+    }
+    
+    public function checkEmptyObject($array){
+        if(count(array_filter($array)) > 0){
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
     }
 
 }

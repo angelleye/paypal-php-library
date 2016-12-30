@@ -60,7 +60,7 @@ $requestData = array(
         "agreement"       => $agreement,
         "creditCard"      => $creditCard,
         "payer"           => $payer,
-        "payerInfo"       => $payerInfo ,
+        "payerInfo"       => $payerInfo,
         "shippingAddress" => $shippingAddress        
 );
 
