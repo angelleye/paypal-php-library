@@ -7,7 +7,7 @@ $configArray = array(
 );
 $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
-$template_id = 'TEMP-2F480752N0057011C';    // The ID of the template to delete.
+$template_id = 'TEMP-2F480752N0057011C';    // Required. The ID of the template to delete.
 
 $returnArray = $PayPal->delete_invoice_template($template_id);
 echo "<pre>";

@@ -12,7 +12,7 @@ $PayPal = new angelleye\PayPal\rest\payouts\PayoutsAPI($configArray);
 
 //## Payout Item ID you get when you create Mass payment single/batch.
 
-$payoutItemId='G25MM6DB4KLNQ';                  //The ID of the Payout Item for which to show details.
+$payoutItemId='G25MM6DB4KLNQ';                  // Required. The ID of the Payout Item for which to show details.
 
 $returnArray = $PayPal->get_payout_item_status($payoutItemId);
 echo "<pre>";

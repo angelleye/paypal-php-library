@@ -8,7 +8,7 @@ $configArray = array(
 );
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
-$agreement_id  = 'I-C76T8XF96HBX';                                  // Identifier of the agreement resource to update.
+$agreement_id  = 'I-C76T8XF96HBX';                                  // Required. Identifier of the agreement resource to update.
 
 $agreement = array(
     "description" => 'Payment with Paypal',                 // Description of the agreement.   

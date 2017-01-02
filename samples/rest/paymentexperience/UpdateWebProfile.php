@@ -11,7 +11,7 @@ $configArray = array(
 $PayPal = new \angelleye\PayPal\rest\paymentexperience\PaymentExperianceAPI($configArray);
 
 
-$profileID = 'TXP-6R370526ET894714C';                                                //The ID of the profile to update.
+$profileID = 'TXP-6R370526ET894714C';                                                //Required. The ID of the profile to update.
 
 $FlowConfig = array(
     'LandingPageType'     => 'Billing',                                             // The type of landing page to display on the PayPal site for user checkout. Set to `Billing` to use the non-PayPal account landing page. Set to `Login` to use the PayPal account login landing page.

@@ -11,12 +11,12 @@ $configArray = array(
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
 $plan= array(
-  'Name'         => '',                                         // Name of the billing plan. 128 characters max.
-  'Description'  => '',                                         // Description of the billing plan. 128 characters max.
-  'Type'         => '',                                         // Type of the billing plan. Allowed values: `FIXED`, `INFINITE`.
+  'Name'         => '',                                         // Required. Name of the billing plan. 128 characters max.
+  'Description'  => '',                                         // Required. Description of the billing plan. 128 characters max.
+  'Type'         => '',                                         // Required. Type of the billing plan. Allowed values: `FIXED`, `INFINITE`.
   'CreateTime'   => '',                                         // Time when the billing plan was created. Format YYYY-MM-DDTimeTimezone, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).  
 );
-
+// Payment Defination is Required for creating Plan. 
 $paymentDefinition = array(
     'Name'              => '',                                  // Name of the payment definition. 128 characters max.
     'Type'              => '',                                  // Allowed values: `TRIAL`, `REGULAR`. Type of the payment definition.
@@ -41,7 +41,7 @@ $chargeModel = array (
 $baseUrl   = '';                                            // Base URL of your directory.    
 $CancelUrl = '';                                            // Redirect URL on cancellation of agreement request. 1000 characters max.
 $ReturnUrl = '';                                            // Redirect URL on creation of agreement request. 1000 characters max.
-
+// Merchant Preferences are optional for creating plan.
 $merchant_preferences = array(   
     "NotifyUrl"               => '',                         // Notify URL on agreement creation. 1000 characters max.
     "MaxFailAttempts"         => '',                         // Total number of failed attempts allowed. Default is 0, representing an infinite number of failed attempts.

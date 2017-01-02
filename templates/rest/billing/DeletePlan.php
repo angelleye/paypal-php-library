@@ -7,7 +7,7 @@ $configArray = array(
 );
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
-$planId = '';                       // The ID of the billing plan for delete.
+$planId = '';                       // Required. The ID of the billing plan for delete.
 
 $returnArray = $PayPal->delete_plan($planId);
 echo "<pre>";

@@ -10,7 +10,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
-$InvoiceID = 'INV2-X62M-AZPE-MCSA-N3W6';                                            // The ID of the invoice to update.
+$InvoiceID = 'INV2-X62M-AZPE-MCSA-N3W6';                                            // Required. The ID of the invoice to update.
 
 $merchantInfo = array(
     'Email' => 'tejasm-merchant@itpathsolutions.co.in',                                           // The merchant email address. Maximum length is 260 characters.

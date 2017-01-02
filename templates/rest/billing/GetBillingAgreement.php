@@ -7,7 +7,7 @@ $configArray = array(
 );
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
-$agreementId = '';                       // The ID of the Billing Agreement for which to show details.
+$agreementId = '';                       // Required. The ID of the Billing Agreement for which to show details.
 
 $returnArray = $PayPal->get_billing_agreement($agreementId);
 echo "<pre>";
