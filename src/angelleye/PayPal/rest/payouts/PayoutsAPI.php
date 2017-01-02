@@ -23,16 +23,21 @@ class PayoutsAPI {
         try {
             $payouts = new Payout();
             $senderBatchHeader = new PayoutSenderBatchHeader();
-            $this->setArrayToMethods($requestData['batchHeader'], $senderBatchHeader);
-            
+            if ($this->checkEmptyObject($requestData['batchHeader'])) {
+                $this->setArrayToMethods(array_filter($requestData['batchHeader']), $senderBatchHeader);
+            }
             $senderItem = new PayoutItem();
-            $this->setArrayToMethods($requestData['PayoutItem'], $senderItem);
+            if ($this->checkEmptyObject($requestData['PayoutItem'])) {
+                $this->setArrayToMethods($requestData['PayoutItem'], $senderItem);
+            }
             $senderItem->setAmount(new Currency(json_encode($requestData['amount'])));
             
-            
-            $payouts->setSenderBatchHeader($senderBatchHeader)
-                    ->addItem($senderItem);
-
+            if ($this->checkEmptyObject((array)$senderBatchHeader)) {
+                $payouts->setSenderBatchHeader($senderBatchHeader);    
+            }
+            if ($this->checkEmptyObject((array)$senderItem)) {
+                $payouts->addItem($senderItem);
+            }                                
             $output = $payouts->createSynchronous($this->_api_context);
             return $output;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
@@ -45,17 +50,18 @@ class PayoutsAPI {
         try {
             $payouts = new Payout();
             $senderBatchHeader = new PayoutSenderBatchHeader();
-            $this->setArrayToMethods($requestData['batchHeader'], $senderBatchHeader);
+            $this->setArrayToMethods(array_filter($requestData['batchHeader']), $senderBatchHeader);
             
             foreach ($requestData['PayoutItem'] as $value) {
                 $senderItem = new PayoutItem();
-                $this->setArrayToMethods($value, $senderItem);
+                $this->setArrayToMethods(array_filter($value), $senderItem);
                 $senderItem->setAmount(new Currency(json_encode($requestData['amount'])));
                 $payouts->addItem($senderItem);
             }
-            
-            $payouts->setSenderBatchHeader($senderBatchHeader);
-                    
+            if ($this->checkEmptyObject((array)$senderBatchHeader)) {
+                $payouts->setSenderBatchHeader($senderBatchHeader);
+            }
+                                
             $output = $payouts->create(null,$this->_api_context);
             return $output;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
@@ -96,7 +102,7 @@ class PayoutsAPI {
         }
     }
 
-        public function setArrayToMethods($array, $object) {
+    public function setArrayToMethods($array, $object) {
         foreach ($array as $key => $val) {
             $method = 'set' . $key;
             if (!empty($val)) {
@@ -107,6 +113,14 @@ class PayoutsAPI {
         }
         return TRUE;
     }
+    
+    public function checkEmptyObject($array){
+        if(count(array_filter($array)) > 0){
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
+    }   
 }
-
 ?>

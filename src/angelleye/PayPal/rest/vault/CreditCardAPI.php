@@ -11,10 +11,18 @@ class CreditCardAPI {
     
     public function StoreCreditCard($requestData){
         $creditCard = new \PayPal\Api\CreditCard();
-        $this->setArrayToMethods($requestData['creditCard'], $creditCard);
-        $this->setArrayToMethods($requestData['payerInfo'], $creditCard);             
-        $this->setArrayToMethods(array("BillingAddress"=>array_filter($requestData['billingAddress'])), $creditCard);                   
-        $this->setArrayToMethods($requestData['optionalArray'], $creditCard);                     
+        if ($this->checkEmptyObject($requestData['creditCard'])) {
+            $this->setArrayToMethods(array_filter($requestData['creditCard']), $creditCard);
+        }
+        if ($this->checkEmptyObject($requestData['payerInfo'])) {
+            $this->setArrayToMethods(array_filter($requestData['payerInfo']), $creditCard);    
+        }
+        if ($this->checkEmptyObject($requestData['billingAddress'])) {
+            $this->setArrayToMethods(array("BillingAddress"=>array_filter($requestData['billingAddress'])), $creditCard); 
+        }
+        if ($this->checkEmptyObject($requestData['optionalArray'])) {
+            $this->setArrayToMethods($requestData['optionalArray'], $creditCard);                     
+        }
         try {
             $creditCard->create($this->_api_context);
             return $creditCard;
@@ -108,6 +116,15 @@ class CreditCardAPI {
             }
         }
         return TRUE;
+    }
+    
+    public function checkEmptyObject($array){
+        if(count(array_filter($array)) > 0){
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
     }
 }
 ?>
