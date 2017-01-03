@@ -7,7 +7,7 @@ $configArray = array(
 );
 $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
-$template_id = '';                                           // The ID of the template to update.
+$template_id = '';                                           // Required. The ID of the template to update.
 
 $InvoiceItemArray = array();
 

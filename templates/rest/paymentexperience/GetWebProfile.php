@@ -10,7 +10,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\paymentexperience\PaymentExperianceAPI($configArray);
 
-$ProfileID = '';       // The ID of the profile for which to show details.
+$ProfileID = '';       // Required. The ID of the profile for which to show details.
 
 $returnArray = $PayPal->get_web_profile($ProfileID);
 echo "<pre>";

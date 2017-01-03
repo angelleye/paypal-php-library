@@ -7,7 +7,7 @@ $configArray = array(
 );
 $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
-$InvoiceID = '';    //The ID of the invoice for which to show details.
+$InvoiceID = '';    // Required. The ID of the invoice for which to show details.
 
 $returnArray = $PayPal->get_invoice($InvoiceID);
 echo "<pre>";

@@ -10,7 +10,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\paymentexperience\PaymentExperianceAPI($configArray);
 
-$ProfileID = 'TXP-293865132D411505B';       // The ID of the profile for which to show details.
+$ProfileID = 'TXP-293865132D411505B';       // Required. The ID of the profile for which to show details.
 
 $returnArray = $PayPal->delete_web_profile($ProfileID);
 echo "<pre>";

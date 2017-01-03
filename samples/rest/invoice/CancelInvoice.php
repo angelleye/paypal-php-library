@@ -15,7 +15,7 @@ $cancelNotification = array(
     'CcEmails' => '',                     // Applicable for invoices created with Cc emails. If this field is not in the body, all the cc email addresses added as part of the invoice shall be notified else this field can be used to limit the list of email addresses. Note: additional email addresses are not supported.    
 );
 
-$InvoiceID = 'INV2-SFGR-48YA-YL5X-HWLZ';    // Specify the ID of the invoice to cancel.
+$InvoiceID = 'INV2-SFGR-48YA-YL5X-HWLZ';    // Required. Specify the ID of the invoice to cancel.
 
 
 

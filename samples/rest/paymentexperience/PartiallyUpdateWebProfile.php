@@ -10,7 +10,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\paymentexperience\PaymentExperianceAPI($configArray);
 
-$profileID = 'TXP-41X66969DC476211J';                   // The ID of the profile to update.
+$profileID = 'TXP-41X66969DC476211J';                   // Required. The ID of the profile to update.
 
 $patchArray = array();
 

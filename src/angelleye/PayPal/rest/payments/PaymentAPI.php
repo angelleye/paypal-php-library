@@ -254,12 +254,12 @@ class PaymentAPI {
     public function create_payment_using_saved_card($requestData, $credit_card_id) {
 
         try {
-            $card = new CreditCard();
-            $card->setId($credit_card_id);
+            ///$card = new CreditCard();
+            //$card->setId($credit_card_id);
             // ### Credit card token
             // Saved credit card id from CreateCreditCard.
             $creditCardToken = new CreditCardToken();
-            $creditCardToken->setCreditCardId($card->getId());
+            $creditCardToken->setCreditCardId($credit_card_id);
             // ### FundingInstrument
             // A resource representing a Payer's funding instrument.
             // For stored credit card payments, set the CreditCardToken

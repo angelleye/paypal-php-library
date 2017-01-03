@@ -12,7 +12,7 @@ $PayPal = new angelleye\PayPal\rest\payouts\PayoutsAPI($configArray);
 
 //## Payout Batch ID you get when you create Mass payment single/batch.
 
-$payoutBatchId='CQ8FTF9YGHETY';                  //The ID of the payout batch for which to show details.
+$payoutBatchId='CQ8FTF9YGHETY';                  // Required. The ID of the payout batch for which to show details.
 
 $returnArray = $PayPal->get_payout_batch_status($payoutBatchId);
 echo "<pre>";

@@ -10,13 +10,13 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
-$planId = 'P-3P439474RB082731BA3QJ56I';                     // Billing plan id that will be used to create a billing agreement.
+$planId = 'P-3P439474RB082731BA3QJ56I';                     // Required. Billing plan id that will be used to create a billing agreement.
 
 $agreement = array(
     "State" => '',                                          // State of the agreement.
-    "Name" => 'DPRP',                                       // Name of the agreement.
-    "Description" => 'Payment with credit Card',            // Description of the agreement.
-    "StartDate" => '2019-06-17T9:45:04Z'                    // Start date of the agreement. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
+    "Name" => 'DPRP',                                       // Required. Name of the agreement.
+    "Description" => 'Payment with credit Card',            // Required. Description of the agreement.
+    "StartDate" => '2019-06-17T9:45:04Z'                    // Required. Start date of the agreement. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
 );
 
 $creditCard = array(
@@ -37,7 +37,7 @@ $payer =array(
     "PaymentMethod" => 'credit_card',                         // Valid Values: ["credit_card", "bank", "paypal", "pay_upon_invoice", "carrier", "alternate_payment"]. Payment method being used - PayPal Wallet payment, Bank Direct Debit  or Direct Credit card.    
     "AccountType" => ''                                       // Valid Values: ["BUSINESS", "PERSONAL", "PREMIER"]. Type of account relationship payer has with PayPal. 
 );
-
+// Payerinfo is Required. 
 $payerInfo = array(
     'email' => 'tejasm-facilitator@itpathsolutions.co.in',       // Email address representing the payer. 127 characters max.    
     "first_name" => '',                                      // First name of the payer. 

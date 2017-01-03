@@ -13,7 +13,7 @@ $parameters = array(
     'action' => '',                                 // Default: pay. The type of URL for which to generate a QR code. Default is pay and is the only supported value.
 );
 
-$InvoiceID = 'INV2-GASZ-DB7C-NSRC-S9V6';            // Specify the ID of the invoice to remind.
+$InvoiceID = 'INV2-GASZ-DB7C-NSRC-S9V6';            // Required. Specify the ID of the invoice to remind.
 
 $path = 'images/sample.png';                        // Path to save Image.
 

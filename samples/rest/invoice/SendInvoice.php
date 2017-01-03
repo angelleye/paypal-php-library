@@ -8,7 +8,7 @@ $configArray = array(
 $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
 
-$InvoiceID = 'INV2-L2AC-WQSM-Q5PR-QVUY';    // The ID of the invoice to send.
+$InvoiceID = 'INV2-L2AC-WQSM-Q5PR-QVUY';    // Required. The ID of the invoice to send.
 
 
 

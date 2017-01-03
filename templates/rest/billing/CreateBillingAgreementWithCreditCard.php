@@ -10,13 +10,13 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
-$planId = '';                             // Billing plan id that will be used to create a billing agreement.
+$planId = '';                             // Required. Billing plan id that will be used to create a billing agreement.
 
 $agreement = array(
     "State" => '',                        // State of the agreement.
-    "Name" => '',                         // Name of the agreement.
-    "Description" => '',                  // Description of the agreement.
-    "StartDate" => ''                     // Start date of the agreement. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
+    "Name" => '',                         // Required. Name of the agreement.
+    "Description" => '',                  // Required. Description of the agreement.
+    "StartDate" => ''                     // Required. Start date of the agreement. Date format yyyy-MM-dd z, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).
 );
 
 $creditCard = array(
@@ -37,7 +37,7 @@ $payer =array(
     "PaymentMethod" => 'credit_card',                         // Valid Values: ["credit_card", "bank", "paypal", "pay_upon_invoice", "carrier", "alternate_payment"]. Payment method being used - PayPal Wallet payment, Bank Direct Debit  or Direct Credit card.    
     "AccountType" => ''                                       // Valid Values: ["BUSINESS", "PERSONAL", "PREMIER"]. Type of account relationship payer has with PayPal. 
 );
-
+// Payerinfo is Required. 
 $payerInfo = array(
     'email' => '',                                           // Email address representing the payer. 127 characters max.    
     "first_name" => '',                                      // First name of the payer. 

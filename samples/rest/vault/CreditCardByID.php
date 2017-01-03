@@ -11,7 +11,7 @@ $configArray = array(
 $PayPal = new \angelleye\PayPal\rest\vault\CreditCardAPI($configArray);
 
 $requestData=array(
-                'credit_card_id' => 'CARD-4A879407XM268533VLA55MMQ'             //Required.The credit_card_id is the ID of the stored credit card. 
+                'credit_card_id' => 'CARD-4A879407XM268533VLA55MMQ'             // Required. The credit_card_id is the ID of the stored credit card. 
             );
 
 $returnArray = $PayPal->showByID($requestData);
