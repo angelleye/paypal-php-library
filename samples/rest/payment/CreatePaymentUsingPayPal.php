@@ -24,12 +24,12 @@ $intent='sale';                                             //Allowed values: sa
 
 
 $urls= array(
-    'ReturnUrl'   => 'OrderGet.php?success=true',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=true
-    'CancelUrl'   => 'OrderGet.php?success=false',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=false
+    'ReturnUrl'   => 'ExecutePayment.php?success=true',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=true
+    'CancelUrl'   => 'ExecutePayment.php?success=false',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=false
     'BaseUrl'     => 'http://localhost/paypal-php-library/templates/rest/payment/'                                     // Required. 
 );
 
-$invoiceNumber='INVC2398568465456';
+$invoiceNumber='INVC23985684658';
 $ExperienceProfileId = '';                                   // Optional. PayPal generated identifier for the merchant's payment experience profile. Refer to [this](https://developer.paypal.com/docs/api/#payment-experience) link to create experience profile ID.
 $NoteToPayer = 'This is my Note to Payer';                                        // Optional. free-form field for the use of clients to pass in a message to the payer.
 

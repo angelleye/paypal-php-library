@@ -12,7 +12,7 @@ $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
 $intent='sale';                                              //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.    
 
-$cardID='CARD-31D57411JJ0305703LA6BWZI';                                                // Saved credit card id from vault.
+$cardID='CARD-9DU91900183254120LA6BZUI';                                                // Saved credit card id from vault.
 
 $orderItems = array();
 $Item = array(

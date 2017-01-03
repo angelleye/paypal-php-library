@@ -28,8 +28,14 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
         $relatedResources = $transaction->getRelatedResources();
         $relatedResource = $relatedResources[0];
         $order = $relatedResource->getOrder();
-        $result = \PayPal\Api\Order::get($order->getId(), $_api_context);
-        var_dump($result);
+        if(count(array_filter((array)$order)) > 0){
+            $result = \PayPal\Api\Order::get($order->getId(), $_api_context);
+            var_dump($result,$payment);
+        }
+        else{
+            var_dump($payment);
+        }
+        
     } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
         var_dump($ex->getData());
         exit;
