@@ -215,12 +215,14 @@ class PayFlow extends PayPal
 	function MaskPayflowAPIResult($api_result)
 	{
 		$api_result_array = $this->NVPToArray($api_result);
+                $api_result='';
                 $keyArrayToHide= array('USER','PWD','PARTNER','VENDOR','ACCT','EXPDATE','CVV2');
                 foreach ($api_result_array as $key=>$value){
                     if(in_array($key, $keyArrayToHide)){
                         $api_result_array[$key]= '*****';
                     }
-                }                
-                return $api_result_array;
+                }                        
+                $api_result=urldecode(http_build_query($api_result_array));
+                return $api_result;
         }
 }
