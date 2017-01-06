@@ -58,8 +58,8 @@ array_push($OptionTrackingDetailsFields, $OptionTrackingDetail);
 $PayPalRequestData = array(
     'BMSetInventoryFields' => $BMSetInventoryFields,
     'DigitalDownloadKeys' => $DigitalDownloadKeys,
-    'ItemTrackingDetailsFields' => $ItemTrackingDetails,
-    'OptionTrackingDetailsFields' => $OptionTrackingDetails,
+    'ItemTrackingDetails' => $ItemTrackingDetails,
+    'OptionTrackingDetails' => $OptionTrackingDetails,
 );
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult

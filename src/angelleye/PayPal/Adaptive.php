@@ -24,7 +24,6 @@
  * @link			https://github.com/angelleye/paypal-php-library/
  * @website			http://www.angelleye.com
  * @support         http://www.angelleye.com/product/premium-support/
- * @version			v2.0.3
  * @filesource
 */
 
@@ -285,18 +284,10 @@ class Adaptive extends PayPal
 		
 		// Receivers Fields
 		$Receivers = isset($DataArray['Receivers']) ? $DataArray['Receivers'] : array();
-		$Amount = isset($Receivers['Amount']) ? $Receivers['Amount'] : '';
-		$Email = isset($Receivers['Email']) ? $Receivers['Email'] : '';
-		$InvoiceID = isset($Receivers['InvoiceID']) ? $Receivers['InvoiceID'] : '';
-		$PaymentType = isset($Receivers['PaymentType']) ? $Receivers['PaymentType'] : '';
-		$PaymentSubType = isset($Receivers['PaymentSubType']) ? $Receivers['PaymentSubType'] : '';
-		$Phone = isset($Receivers['Phone']) ? $Receivers['Phone'] : '';
-		$Primary = isset($Receivers['Primary']) ? strtolower($Receivers['Primary']) : '';
-		
+
 		// SenderIdentifier Fields
 		$SenderIdentifierFields = isset($DataArray['SenderIdentifierFields']) ? $DataArray['SenderIdentifierFields'] : array();
-		$UseCredentials = isset($SenderIdentifierFields['UseCredentials']) ? $SenderIdentifierFields['UseCredentials'] : '';
-		
+
 		// AccountIdentifierFields Fields
 		$AccountIdentifierFields = isset($DataArray['AccountIdentifierFields']) ? $DataArray['AccountIdentifierFields'] : array();
 		$AccountEmail = isset($AccountIdentifierFields['Email']) ? $AccountIdentifierFields['Email'] : '';
@@ -357,6 +348,7 @@ class Adaptive extends PayPal
 			$XMLRequest .= '<receiver xmlns="">';
 			$XMLRequest .= $Receiver['Amount'] != '' ? '<amount xmlns="">' . $Receiver['Amount'] . '</amount>' : '';
 			$XMLRequest .= $Receiver['Email'] != '' ? '<email xmlns="">' . $Receiver['Email'] . '</email>' : '';
+			$XMLRequest .= $Receiver['AccountID'] != '' ? '<accountId xmlns="">' . $Receiver['AccountID'] . '</accountId>' : '';
 			$XMLRequest .= $Receiver['InvoiceID'] != '' ? '<invoiceId xmlns="">' . $Receiver['InvoiceID'] . '</invoiceId>' : '';
 			$XMLRequest .= $Receiver['PaymentType'] != '' ? '<paymentType xmlns="">' . $Receiver['PaymentType'] . '</paymentType>' : '';
 			$XMLRequest .= $Receiver['PaymentSubType'] != '' ? '<paymentSubType xmlns="">' . $Receiver['PaymentSubType'] . '</paymentSubType>' : '';
@@ -1219,6 +1211,7 @@ class Adaptive extends PayPal
 			// ReceiverIdentifer Fields
 			$ReceiverIdentifier = isset($ReceiverOption['ReceiverIdentifier']) ? $ReceiverOption['ReceiverIdentifier'] : array();
 			$ReceiverIdentifierEmail = isset($ReceiverIdentifier['Email']) ? $ReceiverIdentifier['Email'] : '';
+			$ReceiverIdentifierAccountID = isset($ReceiverIdentifier['AccountID']) ? $ReceiverIdentifier['AccountID'] : '';
 			$PhoneCountryCode = isset($ReceiverIdentifier['PhoneCountryCode']) ? $ReceiverIdentifier['PhoneCountryCode'] : '';
 			$PhoneNumber = isset($ReceiverIdentifier['PhoneNumber']) ? $ReceiverIdentifier['PhoneNumber'] : '';
 			$PhoneExtension = isset($ReceiverIdentifier['PhoneExtension']) ? $ReceiverIdentifier['PhoneExtension'] : '';
@@ -1253,6 +1246,7 @@ class Adaptive extends PayPal
 				{
 					$ReceiverOptionsXML .= '<receiver xmlns="">';
 					$ReceiverOptionsXML .= $ReceiverIdentifierEmail != '' ? '<email xmlns="">'.$ReceiverIdentifierEmail.'</email>' : '';
+					$ReceiverOptionsXML .= $ReceiverIdentifierAccountID != '' ? '<accountId xmlns="">'.$ReceiverIdentifierAccountID.'</accountId>' : '';
 			
 					if($PhoneNumber != '')
 					{
@@ -1369,8 +1363,9 @@ class Adaptive extends PayPal
 		$StartingDate = isset($PreapprovalFields['StartingDate']) ? $PreapprovalFields['StartingDate'] : '';
 		$FeesPayer = isset($PreapprovalFields['FeesPayer']) ? $PreapprovalFields['FeesPayer'] : '';
 		$DisplayMaxTotalAmount = isset($PreapprovalFields['DisplayMaxTotalAmount']) ? $PreapprovalFields['DisplayMaxTotalAmount'] : '';
-		
-		$ClientDetailsFields = isset($DataArray['ClientDetailsFields']) ? $DataArray['ClientDetailsFields'] : array();
+        $RequireInstantFundingSource = isset($PreapprovalFields['RequireInstantFundingSource']) ? $PreapprovalFields['RequireInstantFundingSource'] : '';
+
+        $ClientDetailsFields = isset($DataArray['ClientDetailsFields']) ? $DataArray['ClientDetailsFields'] : array();
 		$CustomerID = isset($ClientDetailsFields['CustomerID']) ? $ClientDetailsFields['CustomerID'] : '';
 		$CustomerType = isset($ClientDetailsFields['CustomerType']) ? $ClientDetailsFields['CustomerType'] : '';
 		$GeoLocation = isset($ClientDetailsFields['GeoLocation']) ? $ClientDetailsFields['GeoLocation'] : '';
@@ -1407,7 +1402,8 @@ class Adaptive extends PayPal
 		$XMLRequest .= $PaymentPeriod != '' ? '<paymentPeriod xmlns="">' . $PaymentPeriod . '</paymentPeriod>' : '';
 		$XMLRequest .= $PinType != '' ? '<pinType xmlns="">' . $PinType . '</pinType>' : '';
 		$XMLRequest .= $FeesPayer != '' ? '<feesPayer xmlns="">' . $FeesPayer . '</feesPayer>' : '';
-		$XMLRequest .= $DisplayMaxTotalAmount != '' ? '<displayMaxTotalAmount xmlns="">' . $DisplayMaxTotalAmount . '</displayMaxTotalAmount>' : '';
+        $XMLRequest .= $RequireInstantFundingSource != '' ? '<requireInstantFundingSource xmlns="">' . $RequireInstantFundingSource . '</requireInstantFundingSource>' : '';
+        $XMLRequest .= $DisplayMaxTotalAmount != '' ? '<displayMaxTotalAmount xmlns="">' . $DisplayMaxTotalAmount . '</displayMaxTotalAmount>' : '';
 		$XMLRequest .= $ReturnURL != '' ? '<returnUrl xmlns="">' . $ReturnURL . '</returnUrl>' : '';
 		$XMLRequest .= $SenderEmail != '' ? '<senderEmail xmlns="">' . $SenderEmail . '</senderEmail>' : '';
 		$XMLRequest .= $StartingDate != '' ? '<startingDate xmlns="">' . $StartingDate . '</startingDate>' : '';

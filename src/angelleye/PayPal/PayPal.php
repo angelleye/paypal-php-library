@@ -24,7 +24,7 @@
  * @link			https://github.com/angelleye/paypal-php-library/
  * @website			http://www.angelleye.com
  * @support         http://www.angelleye.com/product/premium-support/
- * @version			v2.0.3
+ * @version			v2.0.4
  * @filesource
 */
 
@@ -77,7 +77,7 @@ class PayPal
 		$this->APIMode = isset($DataArray['APIMode']) ? $DataArray['APIMode'] : 'Signature';
 		$this->APIButtonSource = 'AngellEYE_PHPClass';
 		$this->PathToCertKeyPEM = '/path/to/cert/pem.txt';
-		$this->SSL = $_SERVER['SERVER_PORT'] == '443' ? true : false;
+		$this->SSL = isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443' ? true : false;
 		$this->APISubject = isset($DataArray['APISubject']) ? $DataArray['APISubject'] : '';
         $this->PrintHeaders = isset($DataArray['PrintHeaders']) ? $DataArray['PrintHeaders'] : false;
         $this->LogResults = isset($DataArray['LogResults']) ? $DataArray['LogResults'] : false;
@@ -611,7 +611,7 @@ class PayPal
 	{
 		$curl = curl_init();
 				// curl_setopt($curl, CURLOPT_HEADER,TRUE);
-				curl_setopt($curl, CURLOPT_VERBOSE, 1);
+				curl_setopt($curl, CURLOPT_VERBOSE, $this->Sandbox);
 				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
 				curl_setopt($curl, CURLOPT_TIMEOUT, 30);
 				curl_setopt($curl, CURLOPT_URL, $this->EndPointURL);

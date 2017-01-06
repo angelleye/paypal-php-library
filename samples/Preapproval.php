@@ -28,7 +28,7 @@ $PreapprovalFields = array(
 						   'CurrencyCode' => 'USD', 							// Required.  Currency Code.
 						   'DateOfMonth' => '', 							// The day of the month on which a monthly payment is to be made.  0 - 31.  Specifying 0 indicates that payment can be made on any day of the month.
 						   'DayOfWeek' => '', 								// The day of the week that a weekly payment should be made.  Allowable values: NO_DAY_SPECIFIED, SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
-						   'EndingDate' => '2013-12-31', 								// Required.  The last date for which the preapproval is valid.  It cannot be later than one year from the starting date.
+						   'EndingDate' => date('Y-m-d',strtotime('now + 1 year')), 								// Required.  The last date for which the preapproval is valid.  It cannot be later than one year from the starting date.
 						   'IPNNotificationURL' => 'http://sandbox.angelleye.com/paypal/ipn/ipn-listener.php', 						// The URL for IPN notifications.
 						   'MaxAmountPerPayment' => '', 					// The preapproved maximum amount per payment.  Cannot exceed the preapproved max total amount of all payments.
 						   'MaxNumberOfPayments' => '', 					// The preapproved maximum number of payments.  Cannot exceed the preapproved max total number of all payments. 
@@ -39,9 +39,10 @@ $PreapprovalFields = array(
 						   'PinType' => '', 								// Whether a personal identification number is required.  It is one of the following:  NOT_REQUIRED, REQUIRED
 						   'ReturnURL' => $domain.'return.php', 								// URL to return the sender to after approving at PayPal.
 						   'SenderEmail' => '', 							// Sender's email address.  If not specified, the email address of the sender who logs on to approve is used.
-						   'StartingDate' => '2013-09-24', 							// Required.  First date for which the preapproval is valid.  Cannot be before today's date or after the ending date.
+						   'StartingDate' => date('Y-m-d'), 							// Required.  First date for which the preapproval is valid.  Cannot be before today's date or after the ending date.
 						   'FeesPayer' => '', 								// The payer of the PayPal fees.  Values are:  SENDER, PRIMARYRECEIVER, EACHRECEIVER, SECONDARYONLY
-						   'DisplayMaxTotalAmount' => ''					// Whether to display the max total amount of this preapproval.  Values are:  true/false
+						   'RequireInstantFundingSource' => '',             // Boolean (true/false).  Whether the PayPal user account must have an instant funding source for preapproval to be available.
+                           'DisplayMaxTotalAmount' => ''					// Whether to display the max total amount of this preapproval.  Values are:  true/false
 						   );
 
 $ClientDetailsFields = array(

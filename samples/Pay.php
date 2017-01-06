@@ -50,25 +50,27 @@ $FundingTypes = array('ECHECK', 'BALANCE', 'CREDITCARD');
 
 $Receivers = array();
 $Receiver = array(
-				'Amount' => '10.00', 											// Required.  Amount to be paid to the receiver.
-				'Email' => 'sandbo_1204199080_biz@angelleye.com', 												// Receiver's email address. 127 char max.
-				'InvoiceID' => '', 											// The invoice number for the payment.  127 char max.
-				'PaymentType' => '', 										// Transaction type.  Values are:  GOODS, SERVICE, PERSONAL, CASHADVANCE, DIGITALGOODS
-				'PaymentSubType' => '', 									// The transaction subtype for the payment.
-				'Phone' => array('CountryCode' => '', 'PhoneNumber' => '', 'Extension' => ''), // Receiver's phone number.   Numbers only.
-				'Primary' => ''												// Whether this receiver is the primary receiver.  Values are boolean:  TRUE, FALSE
-				);
+    'Amount' => '10.00', 											// Required.  Amount to be paid to the receiver.
+    'Email' => 'sandbo_1204199080_biz@angelleye.com', 												// Receiver's email address. 127 char max.
+    'AccountID' => '',                                          // Receiver's PayPal account ID.
+    'InvoiceID' => '', 											// The invoice number for the payment.  127 char max.
+    'PaymentType' => '', 										// Transaction type.  Values are:  GOODS, SERVICE, PERSONAL, CASHADVANCE, DIGITALGOODS
+    'PaymentSubType' => '', 									// The transaction subtype for the payment.
+    'Phone' => array('CountryCode' => '', 'PhoneNumber' => '', 'Extension' => ''), // Receiver's phone number.   Numbers only.
+    'Primary' => ''												// Whether this receiver is the primary receiver.  Values are boolean:  TRUE, FALSE
+);
 array_push($Receivers,$Receiver);
 
 $Receiver = array(
-				'Amount' => '5.00', 											// Required.  Amount to be paid to the receiver.
-				'Email' => 'usb_1329725429_biz@angelleye.com', 												// Receiver's email address. 127 char max.
-				'InvoiceID' => '123-ABCDEF', 											// The invoice number for the payment.  127 char max.
-				'PaymentType' => '', 										// Transaction type.  Values are:  GOODS, SERVICE, PERSONAL, CASHADVANCE, DIGITALGOODS
-				'PaymentSubType' => '', 									// The transaction subtype for the payment.
-				'Phone' => array('CountryCode' => '', 'PhoneNumber' => '', 'Extension' => ''), // Receiver's phone number.   Numbers only.
-				'Primary' => ''												// Whether this receiver is the primary receiver.  Values are boolean:  TRUE, FALSE
-				);
+    'Amount' => '5.00', 											// Required.  Amount to be paid to the receiver.
+    'Email' => 'usb_1329725429_biz@angelleye.com', 												// Receiver's email address. 127 char max.
+    'AccountID' => '',                                          // Receiver's PayPal account ID.
+    'InvoiceID' => '123-ABCDEF', 											// The invoice number for the payment.  127 char max.
+    'PaymentType' => '', 										// Transaction type.  Values are:  GOODS, SERVICE, PERSONAL, CASHADVANCE, DIGITALGOODS
+    'PaymentSubType' => '', 									// The transaction subtype for the payment.
+    'Phone' => array('CountryCode' => '', 'PhoneNumber' => '', 'Extension' => ''), // Receiver's phone number.   Numbers only.
+    'Primary' => ''												// Whether this receiver is the primary receiver.  Values are boolean:  TRUE, FALSE
+);
 array_push($Receivers,$Receiver);
 
 $SenderIdentifierFields = array(

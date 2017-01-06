@@ -72,6 +72,12 @@ and there are also samples provided in the /samples directory as well as blank t
 
 If you need additional help you may [place an order for premium support](http://www.angelleye.com/product/premium-support/).
 
+## Fully Functional Demos
+
+The library comes with basic usage samples, but if you feel more comfortable seeing the integration inside a fully functional 
+demo that is built into a basic shopping cart system, take a look at our 
+[demo kits available on our website](https://www.angelleye.com/product-category/php-class-libraries/demo-kits/).
+
 ## Tutorials
 
 - [How to install the Angell EYE PHP Class Library for PayPal](http://www.angelleye.com/install-angell-eye-php-class-library-paypal/)

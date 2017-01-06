@@ -20,9 +20,9 @@ $DPFields = array(
 				);
 				
 $CCDetails = array(
-					'creditcardtype' => 'MasterCard', 					// Required. Type of credit card.  Visa, MasterCard, Discover, Amex, Maestro, Solo.  If Maestro or Solo, the currency code must be GBP.  In addition, either start date or issue number must be specified.
-					'acct' => '5522340006063638', 								// Required.  Credit card number.  No spaces or punctuation.  
-					'expdate' => '022016', 							// Required.  Credit card expiration date.  Format is MMYYYY
+					'creditcardtype' => 'Visa', 					// Required. Type of credit card.  Visa, MasterCard, Discover, Amex, Maestro, Solo.  If Maestro or Solo, the currency code must be GBP.  In addition, either start date or issue number must be specified.
+					'acct' => '4916931560720881', 								// Required.  Credit card number.  No spaces or punctuation.
+					'expdate' => '022020', 							// Required.  Credit card expiration date.  Format is MMYYYY
 					'cvv2' => '456', 								// Requirements determined by your PayPal account settings.  Security digits for credit card.
 					'startdate' => '', 							// Month and year that Maestro or Solo card was issued.  MMYYYY
 					'issuenumber' => ''							// Issue number of Maestro or Solo card.  Two numeric digits max.
@@ -73,7 +73,7 @@ $PaymentDetails = array(
 						'taxamt' => '', 						// Required if you specify itemized cart tax details. Sum of tax for all items on the order.  Total sales tax. 
 						'desc' => 'Testing Payments Pro DESC Field', 							// Description of the order the customer is purchasing.  127 char max.
 						'custom' => 'TEST', 						// Free-form field for your own use.  256 char max.
-						'invnum' => '', 						// Your own invoice or tracking number
+						'invnum' => 'ZZZ-123-ABC', 						// Your own invoice or tracking number
 						'buttonsource' => '', 					// An ID code for use by 3rd party apps to identify transactions.
 						'notifyurl' => ''						// URL for receiving Instant Payment Notifications.  This overrides what your profile is set to use.
 					);

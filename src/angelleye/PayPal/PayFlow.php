@@ -24,7 +24,6 @@
  * @link			https://github.com/angelleye/paypal-php-library/
  * @website			http://www.angelleye.com
  * @support         http://www.angelleye.com/product/premium-support/
- * @version			v2.0.3
  * @filesource
 */
 
@@ -108,7 +107,7 @@ class PayFlow extends PayPal
 	function CURLRequest($Request = "", $APIName = "", $APIOperation = "", $PrintHeaders = false)
 	{
 	
-		$unique_id = date('ymd-H').rand(1000,9999);
+		$unique_id = date('ymd-His').rand(1000,9999);
 	
 		$headers[] = "Content-Type: text/namevalue"; //or text/xml if using XMLPay.
 		$headers[] = "Content-Length : " . strlen ($Request);  // Length of data to be passed
