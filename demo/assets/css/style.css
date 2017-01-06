@@ -1,0 +1,29 @@
+@charset "utf-8";
+/* CSS Document */
+
+#paypal_partner_logo {
+    width: 351px;
+    height: 49px;
+    float:right;
+    margin: 5% 0 3% 0;
+}
+
+th.center {
+	text-align:center;
+}
+
+td.center{
+	text-align:center;	
+}
+
+#paypal_errors {
+	margin-top:25px;	
+}
+
+.general_message {
+	margin: 20px 0 20px 0;	
+}
+
+.bg-info {
+	padding:15px;	
+}
