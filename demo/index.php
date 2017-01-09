@@ -83,7 +83,7 @@ The sample code provided by the download buttons is pulled straight from this si
       </div>
       <div class="row">
         <div class="col-md-4">
-          <div class="thumbnail"> <img alt="Express Checkout Billing Agreement" src="assets/images/paypal-express-checkout-digital-goods.jpg">
+            <div class="thumbnail"> <img alt="Express Checkout Billing Agreement" src="assets/images/paypal-express-checkout-billing-agreement.jpg">
             <div class="caption">
               <h3> Express Checkout Billing Agreement </h3>
               <h4> Billing Agreement </h4>
@@ -92,6 +92,16 @@ The sample code provided by the download buttons is pulled straight from this si
             </div>
           </div>
         </div>
+        <div class="col-md-4">
+            <div class="thumbnail"> <img alt="Express Checkout Parallel Payments" src="assets/images/paypal-express-parrallel-payments.jpg">
+            <div class="caption">
+              <h3> Express Checkout Parallel Payments </h3>
+              <h4> Parallel Payments </h4>
+              <p> Learn how to implement Parallel Payments into PayPal Express Checkout.  This includes the option for embedded payments. </p>
+              <p> <a class="btn btn-primary" href="express-checkout-parallel-payments/">Demo</a> <a class="btn btn-info" href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download Sample Code</a> </p>
+            </div>
+          </div>
+        </div>          
       </div>
     </div>
   </div>
