@@ -101,7 +101,17 @@ The sample code provided by the download buttons is pulled straight from this si
               <p> <a class="btn btn-primary" href="express-checkout-parallel-payments/">Demo</a> <a class="btn btn-info" href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download Sample Code</a> </p>
             </div>
           </div>
-        </div>          
+        </div>      
+        <div class="col-md-4">
+            <div class="thumbnail"> <img alt="Express checkout 3rd Party No Permissions" src="assets/images/paypal-express-3rd-party-no-permissions-required.jpg">
+            <div class="caption">
+              <h3> Express checkout 3rd Party No Permissions </h3>
+              <h4> 3rd Party No Permissions </h4>
+              <p> Learn how to implement 3rd Party No Permissions into PayPal Express Checkout.  This includes the option for embedded payments. </p>
+              <p> <a class="btn btn-primary" href="express-checkout-3rd-party-no-permissions/">Demo</a> <a class="btn btn-info" href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download Sample Code</a> </p>
+            </div>
+          </div>
+        </div>        
       </div>
     </div>
   </div>
