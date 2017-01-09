@@ -111,8 +111,20 @@ The sample code provided by the download buttons is pulled straight from this si
               <p> <a class="btn btn-primary" href="express-checkout-3rd-party-no-permissions/">Demo</a> <a class="btn btn-info" href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download Sample Code</a> </p>
             </div>
           </div>
-        </div>        
+        </div> 
       </div>
+      <div class="row">
+        <div class="col-md-4">
+            <div class="thumbnail"> <img alt="Website Payments Pro 30 Basic" src="assets/images/paypal-express-website-payments-pro-3-0.jpg">
+            <div class="caption">
+              <h3> Website Payments Pro 30 Basic </h3>
+              <h4> Website Payments Pro 30 Basic </h4>
+              <p> Learn how to implement Website Payments Pro 30 Basic.  This includes the option for embedded payments. </p>
+              <p> <a class="btn btn-primary" href="website-payments-pro-30-basic/">Demo</a> <a class="btn btn-info" href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download Sample Code</a> </p>
+            </div>
+          </div>
+        </div>              
+      </div> 
     </div>
   </div>
 </div>
