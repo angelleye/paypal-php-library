@@ -347,8 +347,8 @@ class Adaptive extends PayPal
 			
 			$XMLRequest .= '<receiver xmlns="">';
 			$XMLRequest .= $Receiver['Amount'] != '' ? '<amount xmlns="">' . $Receiver['Amount'] . '</amount>' : '';
-			$XMLRequest .= $Receiver['Email'] != '' ? '<email xmlns="">' . $Receiver['Email'] . '</email>' : '';
-			$XMLRequest .= $Receiver['AccountID'] != '' ? '<accountId xmlns="">' . $Receiver['AccountID'] . '</accountId>' : '';
+			$XMLRequest .= $Receiver['Email'] != '' ? '<email xmlns="">' . $Receiver['Email'] . '</email>' : '';			
+                        $XMLRequest .= !empty($Receiver['AccountID']) ? '<accountId xmlns="">' . $Receiver['AccountID'] . '</accountId>' : '';
 			$XMLRequest .= $Receiver['InvoiceID'] != '' ? '<invoiceId xmlns="">' . $Receiver['InvoiceID'] . '</invoiceId>' : '';
 			$XMLRequest .= $Receiver['PaymentType'] != '' ? '<paymentType xmlns="">' . $Receiver['PaymentType'] . '</paymentType>' : '';
 			$XMLRequest .= $Receiver['PaymentSubType'] != '' ? '<paymentSubType xmlns="">' . $Receiver['PaymentSubType'] . '</paymentSubType>' : '';
