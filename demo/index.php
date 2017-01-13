@@ -123,7 +123,17 @@ The sample code provided by the download buttons is pulled straight from this si
               <p> <a class="btn btn-primary" href="website-payments-pro-30-basic/">Demo</a> <a class="btn btn-info" href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download Sample Code</a> </p>
             </div>
           </div>
-        </div>              
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail"> <img alt="Express Checkout In-Context" src="assets/images/paypal-express-checkout-in-context.jpg">
+            <div class="caption">
+              <h3> Express Checkout In-Context </h3>
+              <h4> Express Checkout In-Context </h4>
+              <p> Learn how to implement Express Checkout In-Context.  This includes the option for embedded payments. </p>
+              <p> <a class="btn btn-primary" href="express-checkout-incontext/">Demo</a> <a class="btn btn-info" href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download Sample Code</a> </p>
+            </div>
+          </div>
+        </div>  
       </div> 
     </div>
   </div>
