@@ -6,7 +6,43 @@ require_once('../../includes/config.php');
  * throughout this demo.  In most cases, you will working with a dynamic
  * shopping cart system of some sort.
  */
-$_SESSION['items'][0] = array(
+$_SESSION['Payments'] = array();
+$_SESSION['Payment']  = array(
+				'amt' => '80.00', 							// Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
+				'currencycode' => 'USD', 					// A three-character currency code.  Default is USD.
+				'itemamt' => '80.00', 						// Required if you specify itemized L_AMT fields. Sum of cost of all items in this order.  
+				'shippingamt' => '0', 					// Total shipping costs for this order.  If you specify SHIPPINGAMT you mut also specify a value for ITEMAMT.
+				'taxamt' => '0', 						// Required if you specify itemized L_TAXAMT fields.  Sum of all tax items in this order. 
+                                'handlingamt' => '0',
+				'desc' => 'This is a test order.', 							// Description of items on the order.  127 char max.				
+				);
+				
+$_SESSION['PaymentOrderItems'] = array();
+$Item = array(
+			'name' => 'Widget 123', 							// Item name. 127 char max.
+			'desc' => 'Widget 123', 							// Item description. 127 char max.
+			'amt' => '40.00', 								// Cost of item.
+			'number' => '123', 							// Item number.  127 char max.
+			'qty' => '1', 								// Item qty on order.  Any positive integer.			
+			);
+array_push($_SESSION['PaymentOrderItems'] , $Item);
+
+$Item = array(
+			'name' => 'Widget 456', 							// Item name. 127 char max.
+			'desc' => 'Widget 456', 							// Item description. 127 char max.
+			'amt' => '40.00', 								// Cost of item.
+			'number' => '456', 							// Item number.  127 char max.
+			'qty' => '1', 								// Item qty on order.  Any positive integer.			
+			);
+array_push($_SESSION['PaymentOrderItems'], $Item);
+
+$_SESSION['Payment']['order_items'] = $_SESSION['PaymentOrderItems'];
+/**
+ * Here we push our single $Payment into our $Payments array.
+ */
+array_push($_SESSION['Payments'], $_SESSION['Payment']);
+
+/*$_SESSION['items'][0] = array(
     'id' => '123-ABC',
     'name' => 'Widget',
     'qty' => '2',
@@ -26,7 +62,7 @@ $_SESSION['shopping_cart'] = array(
 	'handling' => 0,
 	'tax' => 0,
 );
-$_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_cart']['subtotal'] + $_SESSION['shopping_cart']['shipping'] + $_SESSION['shopping_cart']['handling'] + $_SESSION['shopping_cart']['tax'],2);
+$_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_cart']['subtotal'] + $_SESSION['shopping_cart']['shipping'] + $_SESSION['shopping_cart']['handling'] + $_SESSION['shopping_cart']['tax'],2);*/
 ?>
 <html lang="en">
 <head>
@@ -93,14 +129,14 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
         </thead>
         <tbody>
           <?php
-    foreach($_SESSION['shopping_cart']['items'] as $cart_item) {
+    foreach($_SESSION['Payment']['order_items'] as $cart_item) {
         ?>
           <tr>
-            <td><?php echo $cart_item['id']; ?></td>
+            <td><?php echo $cart_item['number']; ?></td>
             <td><?php echo $cart_item['name']; ?></td>
-            <td class="center"> $<?php echo number_format($cart_item['price'],2); ?></td>
+            <td class="center"> $<?php echo number_format($cart_item['amt'],2); ?></td>
             <td class="center"><?php echo $cart_item['qty']; ?></td>
-            <td class="center"> $<?php echo round($cart_item['qty'] * $cart_item['price'],2); ?></td>
+            <td class="center"> $<?php echo round($cart_item['qty'] * $cart_item['amt'],2); ?></td>
           </tr>
           <?php
     }
@@ -115,29 +151,31 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
             <tbody>
               <tr>
                 <td><strong> Subtotal</strong></td>
-                <td> $<?php echo number_format($_SESSION['shopping_cart']['subtotal'],2); ?></td>
+                <td> $<?php echo number_format($_SESSION['Payment']['amt'],2); ?></td>
               </tr>
               <tr>
                 <td><strong>Shipping</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['shipping'],2); ?></td>
+                <td>$<?php echo number_format($_SESSION['Payment']['shippingamt'],2); ?></td>
               </tr>
               <tr>
                 <td><strong>Handling</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['handling'],2); ?></td>
+                <td>$<?php echo number_format($_SESSION['Payment']['handlingamt'],2); ?></td>
               </tr>
               <tr>
                 <td><strong>Tax</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['tax'],2); ?></td>
+                <td>$<?php echo number_format($_SESSION['Payment']['taxamt'],2); ?></td>
               </tr>
               <tr>
                 <td><strong>Grand Total</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?></td>
+                <td>$<?php echo number_format($_SESSION['Payment']['amt'],2); ?></td>
               </tr>
               <tr>
               </tr>
             </tbody>
           </table>
-            <form id="myContainer" method="post" action="SetExpressCheckout.php"></form> 
+            <form method="post" action="SetExpressCheckout.php">
+                <div id="myContainer"></div>
+            </form>
         </div>
       </div>
     </div>

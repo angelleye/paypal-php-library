@@ -65,17 +65,17 @@ require_once('../../includes/config.php');
         </thead>
         <tbody>
           <?php
-    foreach($_SESSION['shopping_cart']['items'] as $cart_item) {
+        foreach($_SESSION['Payment']['order_items'] as $cart_item) {
         ?>
           <tr>
-            <td><?php echo $cart_item['id']; ?></td>
+            <td><?php echo $cart_item['number']; ?></td>
             <td><?php echo $cart_item['name']; ?></td>
-            <td class="center"> $<?php echo number_format($cart_item['price'],2); ?></td>
+            <td class="center"> $<?php echo number_format($cart_item['amt'],2); ?></td>
             <td class="center"><?php echo $cart_item['qty']; ?></td>
-            <td class="center"> $<?php echo round($cart_item['qty'] * $cart_item['price'],2); ?></td>
+            <td class="center"> $<?php echo round($cart_item['qty'] * $cart_item['amt'],2); ?></td>
           </tr>
           <?php
-    }
+        }
     ?>
         </tbody>
       </table>
@@ -104,26 +104,26 @@ require_once('../../includes/config.php');
         <div class="col-md-4 column">
           <table class="table">
             <tbody>
-            <tr>
+              <tr>
                 <td><strong> Subtotal</strong></td>
-                <td> $<?php echo number_format($_SESSION['shopping_cart']['subtotal'],2); ?></td>
-            </tr>
-            <tr>
+                <td> $<?php echo number_format($_SESSION['Payment']['amt'],2); ?></td>
+              </tr>
+              <tr>
                 <td><strong>Shipping</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['shipping'],2); ?></td>
-            </tr>
-            <tr>
+                <td>$<?php echo number_format($_SESSION['Payment']['shippingamt'],2); ?></td>
+              </tr>
+              <tr>
                 <td><strong>Handling</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['handling'],2); ?></td>
-            </tr>
-            <tr>
+                <td>$<?php echo number_format($_SESSION['Payment']['handlingamt'],2); ?></td>
+              </tr>
+              <tr>
                 <td><strong>Tax</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['tax'],2); ?></td>
-            </tr>
-            <tr>
+                <td>$<?php echo number_format($_SESSION['Payment']['taxamt'],2); ?></td>
+              </tr>
+              <tr>
                 <td><strong>Grand Total</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?></td>
-            </tr>
+                <td>$<?php echo number_format($_SESSION['Payment']['grand_total'],2); ?></td>
+              </tr>
               <tr>
                   <td class="center" colspan="2"><a href="DoExpressCheckoutPayment.php" class="btn btn-success btn-lg" role="button">Complete Order</a></td>
               </tr>
