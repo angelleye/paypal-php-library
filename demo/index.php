@@ -135,7 +135,7 @@ The sample code provided by the download buttons is pulled straight from this si
           </div>
         </div>
         <div class="col-md-4">
-            <div class="thumbnail"> <img alt="Express Checkout Recurring Payment" src="assets/images/paypal-express-checkout-in-context.jpg">
+            <div class="thumbnail"> <img alt="Express Checkout Recurring Payment" src="assets/images/express-checkout-recurring-payments.jpg">
             <div class="caption">
               <h3> Express Checkout   </h3>
               <h4> Recurring Payments </h4>
