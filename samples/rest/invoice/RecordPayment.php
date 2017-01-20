@@ -25,4 +25,3 @@ $invoiceId = 'INV2-GASZ-DB7C-NSRC-S9V6';                   // Required. The ID o
 $returnArray = $PayPal->record_payment($invoiceId,$record,$amount);
 echo "<pre>";
 var_dump($returnArray);
-?>

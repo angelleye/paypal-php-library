@@ -12,4 +12,3 @@ $planId = '';                       // Required. The ID of the billing plan for 
 $returnArray = $PayPal->get_plan($planId);
 echo "<pre>";
 var_dump($returnArray);
-?>

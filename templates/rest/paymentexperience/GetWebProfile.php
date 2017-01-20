@@ -16,4 +16,3 @@ $returnArray = $PayPal->get_web_profile($ProfileID);
 echo "<pre>";
 var_dump($returnArray);
 
-?>

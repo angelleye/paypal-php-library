@@ -12,4 +12,3 @@ $InvoiceID = '';    // Required.  The ID of the invoice for which to show detail
 $returnArray = $PayPal->delete_invoice($InvoiceID);
 echo "<pre>";
 var_dump($returnArray);
-?>

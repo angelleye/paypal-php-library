@@ -177,4 +177,3 @@ $requestData = array(
 $returnArray = $PayPal->update_invoice_template($template_id,$requestData);
 echo "<pre>";
 var_dump($returnArray);
-?>

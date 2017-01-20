@@ -12,4 +12,3 @@ $orderId = '';               // OrderId From Return Object/Array When Created Pa
 $returnArray = $PayPal->order_void($orderId);
 echo "<pre>";
 var_dump($returnArray);
-?>

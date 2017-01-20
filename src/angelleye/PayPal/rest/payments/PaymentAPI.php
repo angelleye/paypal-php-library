@@ -522,4 +522,3 @@ class PaymentAPI {
     }
 
 }
-?>

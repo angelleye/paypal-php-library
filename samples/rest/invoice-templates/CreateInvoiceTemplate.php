@@ -174,4 +174,3 @@ $requestData = array(
 $returnArray = $PayPal->create_invoice_template($requestData);
 echo "<pre>";
 var_dump($returnArray);
-?>

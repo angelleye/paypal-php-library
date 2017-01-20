@@ -22,4 +22,3 @@ $InvoiceID = 'INV2-SFGR-48YA-YL5X-HWLZ';    // Required. Specify the ID of the i
 $returnArray = $PayPal->cancel_invoice($cancelNotification,$InvoiceID);
 echo "<pre>";
 var_dump($returnArray);
-?>

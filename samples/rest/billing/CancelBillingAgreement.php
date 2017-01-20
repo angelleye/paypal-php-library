@@ -13,4 +13,3 @@ $note        = 'Canceling the agreement.';             // Required. Reason for c
 $returnArray = $PayPal->cancel_billing_agreement($agreementId,$note);
 echo "<pre>";
 var_dump($returnArray);
-?>

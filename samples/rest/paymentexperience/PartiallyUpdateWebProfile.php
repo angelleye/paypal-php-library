@@ -32,4 +32,3 @@ $returnArray = $PayPal->partially_update_webprofile($patchArray,$profileID);
 echo "<pre>";
 var_dump($returnArray);
 
-?>

@@ -13,4 +13,3 @@ $note        = 'Suspending the agreement';             // Required. Reason for c
 $returnArray = $PayPal->suspend_billing_agreement($agreementId,$note);
 echo "<pre>";
 var_dump($returnArray);
-?>

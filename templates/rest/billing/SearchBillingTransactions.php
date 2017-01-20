@@ -17,4 +17,3 @@ $params = array(
 $returnArray = $PayPal->search_billing_transactions($agreementId,$params);
 echo "<pre>";
 var_dump($returnArray);
-?>

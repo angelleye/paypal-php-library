@@ -17,4 +17,3 @@ $parameters = array(
 $returnArray = $PayPal->list_plan($parameters);
 echo "<pre>";
 var_dump($returnArray);
-?>

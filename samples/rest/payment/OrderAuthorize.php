@@ -17,4 +17,3 @@ $amount = array(
 $returnArray = $PayPal->order_authorize($orderId,$amount);
 echo "<pre>";
 var_dump($returnArray);
-?>

@@ -67,4 +67,3 @@ $requestData = array(
 $returnArray = $PayPal->create_billing_agreement_with_creditcard($requestData);
 echo "<pre>";
 var_dump($returnArray);
-?>

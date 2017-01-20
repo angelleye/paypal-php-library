@@ -12,4 +12,3 @@ $authorizationId = '5A772513EY236593C'; // Replace $authorizationid with any sta
 $returnArray = $PayPal->authorization_void($authorizationId);
 echo "<pre>";
 var_dump($returnArray);
-?>

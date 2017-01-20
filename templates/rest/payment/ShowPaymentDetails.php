@@ -16,4 +16,3 @@ $returnArray = $PayPal->show_payment_details($PaymentID);
 echo "<h3>Payment State : ".$returnArray->state." </h3>";
 echo "<pre>";
 var_dump($returnArray);
-?>
