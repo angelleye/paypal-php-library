@@ -192,12 +192,12 @@ class PayFlow extends PayPal
 				$NVPRequest .= '&'.strtoupper($DataArrayVar).'['.strlen($DataArrayVal).']='.$DataArrayVal;
 			}
 		}
-		
+                
 		$NVPResponse = $this->CURLRequest($NVPRequest);
 		$NVPResponse = strstr($NVPResponse,"RESULT");
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 
-        $this->Logger($this->LogPath, 'PayFlowRequest', $NVPRequest);
+        $this->Logger($this->LogPath, 'PayFlowRequest', $this->MaskPayflowAPIResult($NVPRequest));
         $this->Logger($this->LogPath, 'PayFlowResponse', $NVPResponse);
 		
 		$NVPResponseArray['RAWREQUEST'] = $NVPRequest;
@@ -205,4 +205,24 @@ class PayFlow extends PayPal
 		
 		return $NVPResponseArray;
 	}
+        	/**
+	 * Mask function to be used when saving API logs for PayFlow.
+	 *
+	 * @access	public
+	 * @param	string	$api_result	Raw NVP string.
+	 * @return	string	Returns the raw NVP string with the API credentials masked.
+	 */
+	function MaskPayflowAPIResult($api_result)
+	{
+		$api_result_array = $this->NVPToArray($api_result);
+                $api_result='';
+                $keyArrayToHide= array('USER','PWD','PARTNER','VENDOR','ACCT','EXPDATE','CVV2');
+                foreach ($api_result_array as $key=>$value){
+                    if(in_array($key, $keyArrayToHide)){
+                        $api_result_array[$key]= '*****';
+                    }
+                }                        
+                $api_result=urldecode(http_build_query($api_result_array));
+                return $api_result;
+        }
 }
