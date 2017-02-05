@@ -21,7 +21,7 @@ $DPFields = array(
 				
 $CCDetails = array(
 					'creditcardtype' => 'Visa', 					// Required. Type of credit card.  Visa, MasterCard, Discover, Amex, Maestro, Solo.  If Maestro or Solo, the currency code must be GBP.  In addition, either start date or issue number must be specified.
-					'acct' => '4916931560720881', 								// Required.  Credit card number.  No spaces or punctuation.
+					'acct' => '4716392328094345', 								// Required.  Credit card number.  No spaces or punctuation.
 					'expdate' => '022020', 							// Required.  Credit card expiration date.  Format is MMYYYY
 					'cvv2' => '456', 								// Requirements determined by your PayPal account settings.  Security digits for credit card.
 					'startdate' => '', 							// Month and year that Maestro or Solo card was issued.  MMYYYY
