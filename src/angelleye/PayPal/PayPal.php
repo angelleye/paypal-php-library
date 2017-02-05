@@ -962,34 +962,23 @@ class PayPal
 	function MaskAPIResult($api_result)
 	{
 		$api_result_array = $this->NVPToArray($api_result);
-		
+		$api_result='';
 		if(isset($api_result_array['SIGNATURE']))
 		{
 			$api_result_array['USER'] = '*****';
 			$api_result_array['PWD'] = '*****';
 			$api_result_array['SIGNATURE'] = '*****';	
 		}
-
-        if(isset($api_result_array['ACCT']))
-        {
-            $api_result_array['ACCT'] = '*****'.substr($api_result_array['ACCT'],-4);
-        }
-
-        if(isset($api_result_array['CVV2']))
-        {
-            $api_result_array['CVV2'] = '*****';
-        }
-		
-		$api_result = '';
-		foreach($api_result_array as $var => $val)
-		{
-			$api_result .= $var.'='.$val.'&';	
-		}
-		
-		$api_result_length = strlen($api_result);
-		$api_result = substr($api_result,0,$api_result_length-1);
-		
-		return $api_result;
+                if(isset($api_result_array['ACCT']))
+                {
+                    $api_result_array['ACCT'] = '*****'.substr($api_result_array['ACCT'],-4);
+                }
+                if(isset($api_result_array['CVV2']))
+                {
+                    $api_result_array['CVV2'] = '*****';
+                }
+                $api_result=urldecode(http_build_query($api_result_array));
+                return $api_result;
 	}
 	
     /**
@@ -1786,6 +1775,7 @@ class PayPal
 		}
 		
 		$NVPRequest = $this->NVPCredentials . $DECPFieldsNVP . $PaymentsNVP . $UserSelectedOptionsNVP;
+                $this->MaskAPIResult($NVPRequest);
 		$NVPResponse = $this->CURLRequest($NVPRequest);
 		$NVPRequestArray = $this->NVPToArray($NVPRequest);
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
