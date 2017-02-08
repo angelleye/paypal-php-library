@@ -72,4 +72,3 @@ $PayPalResult = $PayPal->ProcessTransaction($PayPalRequestData);
 // Write the contents of the response array to the screen for demo purposes.
 echo '<pre />';
 print_r($PayPalResult);
-?>

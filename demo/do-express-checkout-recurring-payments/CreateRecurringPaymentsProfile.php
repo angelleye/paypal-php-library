@@ -102,5 +102,3 @@ else{
     $_SESSION['paypal_errors'] = $PayPalResult['ERRORS'];
     header('Location: ../error.php');
 }
-
-?>

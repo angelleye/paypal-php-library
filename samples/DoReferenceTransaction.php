@@ -105,4 +105,3 @@ $PayPalResult = $PayPal -> DoReferenceTransaction($PayPalRequestData);
 
 echo '<pre />';
 print_r($PayPalResult);
-?>
