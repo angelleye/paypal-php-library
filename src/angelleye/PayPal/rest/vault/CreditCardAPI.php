@@ -24,8 +24,12 @@ class CreditCardAPI {
             $this->setArrayToMethods($requestData['optionalArray'], $creditCard);                     
         }
         try {
-            $creditCard->create($this->_api_context);
-            return $creditCard;
+            $requestArray = clone $creditCard;
+            $creditCard->create($this->_api_context);     
+            $returnArray=$creditCard->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$creditCard->toJSON();            
+            return $returnArray;
         }
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();        
@@ -34,10 +38,14 @@ class CreditCardAPI {
         
     public function listAllCards($requestData) {   
         $creditCard = new \PayPal\Api\CreditCard();
-        try {
+        try {            
             $params = array_filter($requestData);
+            $requestArray = json_encode($params);
             $cards = $creditCard->all($params, $this->_api_context);
-            return $cards;
+            $returnArray=$cards->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$cards->toJSON();            
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
             return $ex->getData();                
         }
@@ -46,8 +54,12 @@ class CreditCardAPI {
     public function showByID($requestData){        
         $creditCard = new \PayPal\Api\CreditCard();
             try {
+                $requestArray = clone $creditCard->setId($requestData['credit_card_id']);;
                 $card = $creditCard->get($requestData['credit_card_id'], $this->_api_context);
-                return $card;
+                $returnArray=$card->toArray();
+                $returnArray['RAWREQUEST']=$requestArray->toJSON();
+                $returnArray['RAWRESPONSE']=$card->toJSON();
+                return $returnArray;
             } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
                 return $ex->getData();                
             }                    
@@ -94,8 +106,12 @@ class CreditCardAPI {
                 }
             } 
             if($i>0) {
+               
                 $card = $creditCard->update($pathRequest,$this->_api_context);
-                return $card;            
+                $returnArray=$card->toArray();
+                $returnArray['RAWREQUEST']= $pathRequest->toJSON();
+                $returnArray['RAWRESPONSE']=$card->toJSON();
+                return $returnArray;                
             }
             else{
                 return "Fill Atleast One Array Field/Element";
