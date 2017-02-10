@@ -37,9 +37,13 @@ class PayoutsAPI {
             }
             if ($this->checkEmptyObject((array)$senderItem)) {
                 $payouts->addItem($senderItem);
-            }                                
+            }   
+            $requestArray = clone $payouts;
             $output = $payouts->createSynchronous($this->_api_context);
-            return $output;
+            $returnArray=$output->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$output->toJSON();
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -62,8 +66,12 @@ class PayoutsAPI {
                 $payouts->setSenderBatchHeader($senderBatchHeader);
             }
                                 
-            $output = $payouts->create(null,$this->_api_context);
-            return $output;            
+           $requestArray = clone $payouts; 
+           $output = $payouts->create(null,$this->_api_context);
+           $returnArray=$output->toArray();
+           $returnArray['RAWREQUEST']=$requestArray->toJSON();
+           $returnArray['RAWRESPONSE']=$output->toJSON();            
+           return $returnArray;                      
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -72,7 +80,10 @@ class PayoutsAPI {
     public function get_payout_batch_status($payoutBatchId){
         try {
             $output = Payout::get($payoutBatchId, $this->_api_context);
-            return $output;
+            $returnArray=$output->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$payoutBatchId.'}';
+            $returnArray['RAWRESPONSE']=$output->toJSON();            
+           return $returnArray;              
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -81,7 +92,10 @@ class PayoutsAPI {
     public function get_payout_item_status($payoutItemId){
         try {
             $output = PayoutItem::get($payoutItemId, $this->_api_context);
-            return $output;
+            $returnArray=$output->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$payoutItemId.'}';
+            $returnArray['RAWRESPONSE']=$output->toJSON();     
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -91,8 +105,11 @@ class PayoutsAPI {
         try {
             $PayoutItem = PayoutItem::get($payoutItemId, $this->_api_context);
             if($PayoutItem->transaction_status == 'UNCLAIMED'){
-                $output = PayoutItem::cancel($payoutItemId, $this->_api_context);
-                return $output;
+                 $output = PayoutItem::cancel($payoutItemId, $this->_api_context);
+                 $returnArray=$output->toArray();
+                 $returnArray['RAWREQUEST']='{id:'.$payoutItemId.'}';
+                 $returnArray['RAWRESPONSE']=$output->toJSON();
+                 return $returnArray;                                      
             }
             else{
                 return "Payout Item Status is not UNCLAIMED";
