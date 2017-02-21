@@ -617,9 +617,12 @@ class InvoiceAPI {
             if(count(array_filter((array)$settingDate)) > 0){
                 $invoiceTemplate->addSetting($settingDate);
             }                           
-            
+            $requestArray = clone $invoiceTemplate;
             $invoiceTemplate->create($this->_api_context);
-            return $invoiceTemplate;
+            $returnArray=$invoiceTemplate->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$invoiceTemplate->toJSON();
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -629,8 +632,11 @@ class InvoiceAPI {
         try {
             $template = new Template();
             $template->setTemplateId($template_id);
-            $deleteStatus = $template->delete($this->_api_context);
-            return $deleteStatus;
+            $deleteStatus = $template->delete($this->_api_context);            
+            $returnArray=$deleteStatus;
+            $returnArray['RAWREQUEST']='{id:'.$template_id.'}';
+            $returnArray['RAWRESPONSE']=$deleteStatus;
+            return $returnArray;                                                     
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -640,7 +646,7 @@ class InvoiceAPI {
         
         try {
             $templates = Templates::getAll($fields, $this->_api_context);
-            return $templates;
+            return $templates->toArray();
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -649,7 +655,10 @@ class InvoiceAPI {
     public function get_invoice_template($templateId){
         try {
             $template = Template::get($templateId, $this->_api_context);
-            return $template;
+            $returnArray=$template->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$templateId.'}';
+            $returnArray['RAWRESPONSE']=$template->toJSON();
+            return $returnArray;                                                     
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -829,9 +838,12 @@ class InvoiceAPI {
             if(count(array_filter((array)$settingDate)) > 0){
                 $invoiceTemplate->addSetting($settingDate);
             }
-            
+            $requestArray = clone $invoiceTemplate;
             $invoiceTemplate->update($this->_api_context);
-            return $invoiceTemplate;
+            $returnArray=$invoiceTemplate->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$invoiceTemplate->toJSON();  
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }

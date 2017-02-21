@@ -11,5 +11,5 @@ $templateId = 'TEMP-3GK75625L7412105X';    // Required. The ID of the invoice te
 
 $returnArray = $PayPal->get_invoice_template($templateId);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>
