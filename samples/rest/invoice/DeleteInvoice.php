@@ -11,5 +11,5 @@ $InvoiceID = 'INV2-G69Z-7NQ7-QRLN-EWP2';    // Required.  The ID of the invoice 
 
 $returnArray = $PayPal->delete_invoice($InvoiceID);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>
