@@ -101,5 +101,5 @@ $requestData = array(
 
 $returnArray = $PayPal->payment_create($requestData);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>

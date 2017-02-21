@@ -67,17 +67,17 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
         // Execute the payment
         $result = $payment->execute($execution, $_api_context);
         echo "<h1>You Payement state : {$result->state} </h1>";
-        var_dump($result);
+        print_r($result->toArray());
         try {
             $payment = Payment::get($paymentId, $_api_context);
             echo "<h1>Your Payment object</h1>";
-            var_dump($payment);
+            print_r($payment->toArray());
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
-            var_dump($ex->getData());
+            print_r($ex->getData());
             exit;
         }
     } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
-        var_dump($ex->getData());
+        print_r($ex->getData());
         exit;
     }
 } else {

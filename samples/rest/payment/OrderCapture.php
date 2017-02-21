@@ -16,5 +16,5 @@ $amount = array(
 
 $returnArray = $PayPal->order_capture($orderId,$amount);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>
