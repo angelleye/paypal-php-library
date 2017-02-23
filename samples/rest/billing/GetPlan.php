@@ -11,5 +11,5 @@ $planId = 'P-3P439474RB082731BA3QJ56I';                       // Required. The I
 
 $returnArray = $PayPal->get_plan($planId);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>

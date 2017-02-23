@@ -12,5 +12,5 @@ $note        = 'Reactivating the agreement';           // Required. Reason for c
 
 $returnArray = $PayPal->reactivate_billing_agreement($agreementId,$note);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>
