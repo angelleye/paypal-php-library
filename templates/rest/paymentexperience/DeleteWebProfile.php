@@ -14,6 +14,6 @@ $ProfileID = '';       // Required. The ID of the profile for which to show deta
 
 $returnArray = $PayPal->delete_web_profile($ProfileID);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 
 ?>

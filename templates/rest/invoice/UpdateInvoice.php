@@ -168,6 +168,6 @@ $requestData =array(
 
 $returnArray = $PayPal->update_invoice($requestData);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 
 ?>

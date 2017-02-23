@@ -30,6 +30,6 @@ array_push($patchArray,$array2);
 
 $returnArray = $PayPal->partially_update_webprofile($patchArray,$profileID);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 
 ?>

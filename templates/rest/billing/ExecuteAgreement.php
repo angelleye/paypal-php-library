@@ -30,6 +30,7 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
     // Make a get call to retrieve the executed agreement details
     try {
         $agreement = \PayPal\Api\Agreement::get($agreement->getId(), $_api_context);
+        return $agreement->toArray();
     } catch (Exception $ex) {
         
         var_dump("Get Agreement", "Agreement", $ex);
@@ -37,5 +38,5 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
     }    
     var_dump("Get Agreement", "Agreement", $agreement->getId(), $agreement);
 } else {    
-    var_dump("User Cancelled the Approval");
+    print_r("User Cancelled the Approval");
 }

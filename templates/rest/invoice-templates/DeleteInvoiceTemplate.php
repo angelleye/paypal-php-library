@@ -11,5 +11,5 @@ $template_id = '';    // Required.  The ID of the template to delete.
 
 $returnArray = $PayPal->delete_invoice_template($template_id);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>

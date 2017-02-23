@@ -48,6 +48,6 @@ $requestData = array(
 
 $returnArray = $PayPal->update_web_profile($requestData,$profileID);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 
 ?>

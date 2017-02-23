@@ -13,5 +13,5 @@ $authorizationId='70W61014MU457634L';                  //The Authorization ID of
 
 $returnArray = $PayPal->get_authorization($authorizationId);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>

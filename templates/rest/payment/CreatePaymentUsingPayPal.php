@@ -74,9 +74,6 @@ $requestData = array(
 );
 
 $returnArray = $PayPal->create_payment_with_paypal($requestData);
-echo "<h3>Redirect here to execute => {$returnArray['approvalUrl']}</h3>";
-echo "<h3>Payment State : ".$returnArray['payment']->state." </h3>";
-echo "(Payment ID : This will use for Execute payment in the next step)<h3>Payment ID: ".$returnArray['payment']->id." </h3>";
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>

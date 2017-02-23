@@ -12,5 +12,5 @@ $note        = '';                       // Required. Reason for changing the st
 
 $returnArray = $PayPal->suspend_billing_agreement($agreementId,$note);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>

@@ -16,5 +16,5 @@ $payoutItemId='';                  // Required. The ID of the Payout Item for wh
 
 $returnArray = $PayPal->get_payout_item_status($payoutItemId);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>

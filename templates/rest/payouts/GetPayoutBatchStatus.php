@@ -16,5 +16,5 @@ $payoutBatchId='';                  // Required. The ID of the payout batch for 
 
 $returnArray = $PayPal->get_payout_batch_status($payoutBatchId);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>

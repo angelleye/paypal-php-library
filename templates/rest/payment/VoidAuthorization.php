@@ -11,5 +11,5 @@ $authorizationId = ''; // Replace $authorizationid with any static Id you might 
 
 $returnArray = $PayPal->authorization_void($authorizationId);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>

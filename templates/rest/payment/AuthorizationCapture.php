@@ -17,4 +17,4 @@ $amount = array(
 
 $returnArray = $PayPal->authorization_capture($authorizationId,$amount);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);

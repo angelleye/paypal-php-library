@@ -30,5 +30,5 @@ $parameters = array(
 
 $returnArray = $PayPal->search_invoices($parameters);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>

@@ -16,5 +16,5 @@ $payoutItemId='';                  // Required. The ID of the Payout Item for wh
 
 $returnArray = $PayPal->cancel_payout_item($payoutItemId);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>

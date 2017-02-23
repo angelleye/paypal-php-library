@@ -12,5 +12,5 @@ $note        = '';                       // Required. Reason for changing the st
 
 $returnArray = $PayPal->reactivate_billing_agreement($agreementId,$note);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>

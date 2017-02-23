@@ -45,6 +45,6 @@ $requestData = array(
 
 $returnArray = $PayPal->create_web_profile($requestData);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 
 ?>

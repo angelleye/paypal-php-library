@@ -66,5 +66,5 @@ $requestData = array(
 
 $returnArray = $PayPal->create_payment_using_saved_card($requestData,$cardID);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 ?>
