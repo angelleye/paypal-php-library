@@ -270,7 +270,10 @@ class InvoiceAPI {
             $search = new Search(json_encode(array_filter($parameters)));
             
             $invoices = Invoice::search($search, $this->_api_context);
-            return $invoices;
+            $returnArray=$invoices->toArray();
+            $returnArray['RAWREQUEST']=json_encode(array_filter($parameters));
+            $returnArray['RAWRESPONSE']=$invoices->toJSON();
+            return $returnArray;
             
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
@@ -391,10 +394,13 @@ class InvoiceAPI {
                 $this->setArrayToMethods(array_filter($requestData['attachments']), $attachment);
                 $invoice->setAttachments(array($attachment));
             }
-            
+            $requestArray = clone $invoice;
             $invoice->update($this->_api_context);
             $invoice = Invoice::get($invoice->getId(), $this->_api_context);
-            return $invoice;
+            $returnArray=$invoice->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$invoice->toJSON();
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
           return $ex->getData();
         }
@@ -406,7 +412,11 @@ class InvoiceAPI {
             $invoice->setId($invoiceId);
             $sendStatus = $invoice->send($this->_api_context);
             $Getinvoice = Invoice::get($invoice->getId(), $this->_api_context);
-            return array('SendStatus' => $sendStatus , 'Invoice' => $Getinvoice);            
+            
+            $returnArray=array('SendStatus' => $sendStatus , 'Invoice' => $Getinvoice->toArray());
+            $returnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
+            $returnArray['RAWRESPONSE']=$Getinvoice->toJSON();
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -418,7 +428,10 @@ class InvoiceAPI {
             $invoice = new Invoice();
             $invoice->setId($invoiceId);
             $deleteStatus = $invoice->delete($this->_api_context);
-            return $deleteStatus;
+            $returnArray=$deleteStatus;
+            $returnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
+            $returnArray['RAWRESPONSE']=$deleteStatus;
+            return $returnArray;            
         }
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
@@ -428,7 +441,7 @@ class InvoiceAPI {
     public function get_next_invoice_number(){
         try {
             $number = Invoice::generateNumber($this->_api_context);
-            return $number;
+            return $number->toArray();
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
            return $ex->getData();
         }
@@ -450,7 +463,7 @@ class InvoiceAPI {
             $recordStatus = $invoice->recordPayment($PaymentDetail, $this->_api_context);
             
             $returnInvoice = Invoice::get($invoiceId, $this->_api_context);
-            return array('Record Status' => $recordStatus,'Invoice' => $returnInvoice);
+            return array('Record Status' => $recordStatus,'Invoice' => $returnInvoice->toArray());
         }
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
