@@ -19,6 +19,7 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
         // ## Execute Agreement
         // Execute the agreement by passing in the token
         $agreement->execute($token, $_api_context);
+        print_r($agreement->toArray());
     } catch (Exception $ex) {
        var_dump("Executed an Agreement", "Agreement", $agreement->getId(), $_GET['token'], $ex);
         exit();
@@ -30,7 +31,7 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
     // Make a get call to retrieve the executed agreement details
     try {
         $agreement = \PayPal\Api\Agreement::get($agreement->getId(), $_api_context);
-        return $agreement->toArray();
+        print_r($agreement->toArray());
     } catch (Exception $ex) {
         
         var_dump("Get Agreement", "Agreement", $ex);
