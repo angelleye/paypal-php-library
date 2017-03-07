@@ -1,5 +1,7 @@
 # Angell EYE PayPal PHP Library
 
+[![API Testing](https://img.shields.io/badge/API%20Test-RapidAPI-blue.svg)](https://rapidapi.com/package/PayPal/functions?utm_source=PaypalGithub&utm_medium=button&utm_content=Vender_GitHub)
+
 This PHP class library for PayPal makes it easy to integrate PayPal APIs, including the [Payments Standard Button Manager](https://developer.paypal.com/webapps/developer/docs/classic/api/#bm), [Adaptive Accounts](https://developer.paypal.com/webapps/developer/docs/classic/api/#aa),
 [Adaptive Payments](https://developer.paypal.com/webapps/developer/docs/classic/api/#ap), [Invoicing](https://developer.paypal.com/webapps/developer/docs/classic/api/#invoicing), 
 [General Merchant APIs](https://developer.paypal.com/webapps/developer/docs/classic/api/#merchant), and [Permissions](https://developer.paypal.com/webapps/developer/docs/classic/api/#permissions).
