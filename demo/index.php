@@ -83,7 +83,7 @@ The sample code provided by the download buttons is pulled straight from this si
       </div>
       <div class="row">
         <div class="col-md-4">
-          <div class="thumbnail"> <img alt="Express Checkout Billing Agreement" src="assets/images/paypal-express-checkout-digital-goods.jpg">
+            <div class="thumbnail"> <img alt="Express Checkout Billing Agreement" src="assets/images/paypal-express-checkout-billing-agreement.jpg">
             <div class="caption">
               <h3> Express Checkout Billing Agreement </h3>
               <h4> Billing Agreement </h4>
@@ -92,7 +92,49 @@ The sample code provided by the download buttons is pulled straight from this si
             </div>
           </div>
         </div>
+        <div class="col-md-4">
+            <div class="thumbnail"> <img alt="Express Checkout Parallel Payments" src="assets/images/paypal-express-parrallel-payments.jpg">
+            <div class="caption">
+              <h3> Express Checkout Parallel Payments </h3>
+              <h4> Parallel Payments </h4>
+              <p> Learn how to implement Parallel Payments into PayPal Express Checkout.  This includes the option for embedded payments. </p>
+              <p> <a class="btn btn-primary" href="express-checkout-parallel-payments/">Demo</a> <a class="btn btn-info" href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download Sample Code</a> </p>
+            </div>
+          </div>
+        </div>      
+        <div class="col-md-4">
+            <div class="thumbnail"> <img alt="Express checkout 3rd Party No Permissions" src="assets/images/paypal-express-3rd-party-no-permissions-required.jpg">
+            <div class="caption">
+              <h3> Express checkout 3rd Party No Permissions </h3>
+              <h4> 3rd Party No Permissions </h4>
+              <p> Learn how to implement 3rd Party No Permissions into PayPal Express Checkout.  This includes the option for embedded payments. </p>
+              <p> <a class="btn btn-primary" href="express-checkout-3rd-party-no-permissions/">Demo</a> <a class="btn btn-info" href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download Sample Code</a> </p>
+            </div>
+          </div>
+        </div> 
       </div>
+      <div class="row">
+        <div class="col-md-4">
+            <div class="thumbnail"> <img alt="Website Payments Pro 30 Basic" src="assets/images/paypal-express-website-payments-pro-3-0.jpg">
+            <div class="caption">
+              <h3> Website Payments Pro 30 Basic </h3>
+              <h4> Website Payments Pro 30 Basic </h4>
+              <p> Learn how to implement Website Payments Pro 30 Basic.  This includes the option for embedded payments. </p>
+              <p> <a class="btn btn-primary" href="website-payments-pro-30-basic/">Demo</a> <a class="btn btn-info" href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download Sample Code</a> </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail"> <img alt="Express Checkout In-Context" src="assets/images/paypal-express-checkout-in-context.jpg">
+            <div class="caption">
+              <h3> Express Checkout In-Context </h3>
+              <h4> Express Checkout In-Context </h4>
+              <p> Learn how to implement Express Checkout In-Context.  This includes the option for embedded payments. </p>
+              <p> <a class="btn btn-primary" href="express-checkout-incontext/">Demo</a> <a class="btn btn-info" href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download Sample Code</a> </p>
+            </div>
+          </div>
+        </div>  
+      </div> 
     </div>
   </div>
 </div>
