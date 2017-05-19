@@ -92,6 +92,18 @@ The sample code provided by the download buttons is pulled straight from this si
             </div>
           </div>
         </div>
+       
+        <div class="col-md-4">
+            <div class="thumbnail"> <img alt="Express Checkout Billing Agreement" src="assets/images/paypal-express-checkout-digital-goods.jpg">
+              <div class="caption">
+                <h3> Login With PayPal </h3>
+                <h4> Login With PayPal </h4>
+                <p> Log In with PayPal (formerly PayPal Access) is a commerce identity solution that enables your customers to sign in to your web site quickly and securely by using their PayPal login credentials.</p>
+                <p> <a class="btn btn-primary" href="login-with-paypal/">Demo</a> <a class="btn btn-info" href="download/#">Download Sample Code</a> </p>
+              </div>
+            </div>
+        </div>
+          
       </div>
     </div>
   </div>
