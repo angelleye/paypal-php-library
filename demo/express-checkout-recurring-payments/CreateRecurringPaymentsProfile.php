@@ -26,7 +26,6 @@ $StartDateGMT = $Year . '-' . $Mo . '-' . $Day . 'T00:00:00\Z';
 				
 $ProfileDetails = array(
                     'subscribername' => $_SESSION['first_name'].' '.$_SESSION['last_name'], 					// Full name of the person receiving the product or service paid for by the recurring payment.  32 char max.
-                    'subscribername' => '',
                     'profilestartdate' => $StartDateGMT, 					// Required.  The date when the billing for this profile begins.  Must be a valid date in UTC/GMT format.
                     'profilereference' => '' 					// The merchant's own unique invoice number or reference ID.  127 char max.
 				);
