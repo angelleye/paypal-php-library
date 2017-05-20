@@ -47,7 +47,6 @@ require_once('../../includes/config.php');
       </div>
       <h2 align="center">Order Review</h2>
       <p class="bg-info"></p>
-      <p class="bg-info">The payment has not been processed at this point because we have not yet called the final DoExpressCheckoutPayment API. That is what will happen when we click the "Complete Recurring Payment" button below.
       </p>
       <table class="table table-bordered">
         <thead>

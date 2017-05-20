@@ -78,7 +78,7 @@ require_once('../../includes/config.php');
 			echo $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] . '<br />' . 
 			$_SESSION['email'] . '<br />'. 
 			$_SESSION['phone_number'] . '<br />' . 
-			'Recurring Payment Profile ID ' .$_SESSION['RecurringProfileId'];
+			'Recurring Payment Profile ID: ' .$_SESSION['RecurringProfileId'];
 			?>
           </p>
         </div>
