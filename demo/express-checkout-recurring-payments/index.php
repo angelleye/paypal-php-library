@@ -21,7 +21,7 @@ $_SESSION['items'][1] = array(
 
 $_SESSION['shopping_cart'] = array(
 	'items' => $_SESSION['items'],	
-        'subtotal' => $_SESSION['items'][0]['amt'],
+    'subtotal' => $_SESSION['items'][0]['amt'],
 	'shipping' => 0,
 	'handling' => 0,
 	'tax' => 0,
