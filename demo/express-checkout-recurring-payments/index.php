@@ -73,9 +73,7 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
         </div>
       </div>
       <h2 align="center">Shopping Cart</h2>
-      <p class="bg-info">Here we are using a basic shopping cart for display purposes, however, for this basic demo, all we are sending to PayPal is the order total without any line item details. We are assuming that we have not collected any 
-      billing or shipping information from the buyer yet because we'll be obtaining those details from PayPal 
-      after the user logs in and is returned back to the site.</p>
+      <p class="bg-info">Here we have a basic shopping cart for display purposes that breaks down a one-time setup fee to go with a monthly subscription.  We are assuming that we have not collected any billing or shipping information from the buyer yet because we'll be obtaining those details from PayPal after the user logs in and is returned back to the site.</p>
       <p class="bg-info">To complete the demo, click the Checkout with PayPal button and use the following credentials to login to PayPal.<br /><br />
       Email Address:  paypalphp@angelleye.com<br />
       Password:  paypalphp
