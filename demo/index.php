@@ -133,6 +133,16 @@ The sample code provided by the download buttons is pulled straight from this si
               <p> <a class="btn btn-primary" href="express-checkout-incontext/">Demo</a> <a class="btn btn-info" href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download Sample Code</a> </p>
             </div>
           </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail"> <img alt="Express Checkout Recurring Payment" src="assets/images/express-checkout-recurring-payments.jpg">
+            <div class="caption">
+              <h3> Express Checkout   </h3>
+              <h4> Recurring Payments </h4>
+              <p> Learn how to implement Express Checkout - Recurring Payments.  This includes the option for embedded payments. </p>
+              <p> <a class="btn btn-primary" href="express-checkout-recurring-payments/">Demo</a> <a class="btn btn-info" href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download Sample Code</a> </p>
+            </div>
+          </div>
         </div>  
       </div> 
     </div>
