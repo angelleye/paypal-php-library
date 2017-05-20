@@ -73,7 +73,7 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
         </div>
       </div>
       <h2 align="center">Shopping Cart</h2>
-      <p class="bg-info">Here we have a basic shopping cart for display purposes that breaks down a one-time setup fee to go with a monthly subscription.  We are assuming that we have not collected any billing or shipping information from the buyer yet because we'll be obtaining those details from PayPal after the user logs in and is returned back to the site.</p>
+      <p class="bg-info">Here we have a basic shopping cart for display purposes that breaks down a one-time setup fee to go with a monthly subscription.  The one-time fee is considered an "Initial Amount" on the subscription profile and will be processed immediately. The monthly amount will be processed separately at its given interval.</p>
       <p class="bg-info">To complete the demo, click the Checkout with PayPal button and use the following credentials to login to PayPal.<br /><br />
       Email Address:  paypalphp@angelleye.com<br />
       Password:  paypalphp
@@ -105,24 +105,12 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
           <table class="table">
             <tbody>
               <tr>
-                <td><strong> Subtotal</strong></td>
+                <td><strong>Subtotal</strong></td>
                 <td> $<?php echo number_format($_SESSION['shopping_cart']['subtotal'],2); ?></td>
               </tr>
               <tr>
-                <td><strong>Shipping</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['shipping'],2); ?></td>
-              </tr>
-              <tr>
-                <td><strong>Handling</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['handling'],2); ?></td>
-              </tr>
-              <tr>
-                <td><strong>Tax</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['tax'],2); ?></td>
-              </tr>
-              <tr>
                 <td><strong>Grand Total</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?></td>
+                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?> one-time <br />and $10.00 / mo there-after.</td>
               </tr>
               <tr>
                   <td class="center" colspan="2"><a href="SetExpressCheckout.php"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"></a></td>
