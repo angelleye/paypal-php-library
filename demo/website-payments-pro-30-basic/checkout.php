@@ -331,6 +331,7 @@ $country = array(
                             <div class="form-group col-md-6">
                                 <label for="billing_country">Country</label>
                                 <select class="form-control" id="billing_country" required="" name="billing_country">
+                                    <option value="">Select...</option>
                                     <?php
                                     foreach ($country as $key => $value) {
                                         printf("<option value='%s'>%s</option> ", $key, $value);
