@@ -23,12 +23,16 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 /**
  * Here we are setting up the parameters for a basic Express Checkout flow.
  *
+ * Note the use of the "noshipping" parameter, which removes the requirement
+ * for buyers to provide shipping details during checkout.
+ *
  * Note the use of the "skipdetails" parameter, which makes the button at PayPal
  * say "Agree and Pay" instead of "Agree and Continue".  This is because we are not
  * dealing with any shipping / tax requirements on subscription / service items,
  * so we do not need an additional review page back at our site.  Instead, PayPal
  * will act as the final review, and we'll send the user directly to the order
  * complete page on our site.
+ *
  *
  * The template provided at /vendor/angelleye/paypal-php-library/templates/SetExpressCheckout.php
  * contains a lot more parameters that we aren't using here, so I've removed them to keep this clean.
@@ -40,12 +44,13 @@ $SECFields = array(
 					'returnurl' => $domain . 'demo/express-checkout-recurring-payments/GetExpressCheckoutDetails.php', 							    // Required.  URL to which the customer will be returned after returning from PayPal.  2048 char max.
 					'cancelurl' => $domain . 'demo/express-checkout-recurring-payments/', 							    // Required.  URL to which the customer will be returned if they cancel payment on PayPal's site.
                     'L_BILLINGTYPE0' => 'RecurringPayments',
-                    'L_BILLINGAGREEMENTDESCRIPTION0' => 'DescForRP',
+                    'L_BILLINGAGREEMENTDESCRIPTION0' => $_SESSION['subscription_name'],
 					'hdrimg' => 'https://www.angelleye.com/images/angelleye-paypal-header-750x90.jpg', 			// URL for the image displayed as the header during checkout.  Max size of 750x90.  Should be stored on an https:// server or you'll get a warning message in the browser.
 					'logoimg' => 'https://www.angelleye.com/images/angelleye-logo-190x60.jpg', 					// A URL to your logo image.  Formats:  .gif, .jpg, .png.  190x60.  PayPal places your logo image at the top of the cart review area.  This logo needs to be stored on a https:// server.
 					'brandname' => 'Angell EYE', 							                                // A label that overrides the business name in the PayPal account on the PayPal hosted checkout pages.  127 char max.
 					'customerservicenumber' => '816-555-5555', 				                                // Merchant Customer Service number displayed on the PayPal Review page. 16 char max.
                     'skipdetails' => 1,
+                    'noshipping' => 1,
 );
 
 /**

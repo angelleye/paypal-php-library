@@ -46,10 +46,7 @@ require_once('../../includes/config.php');
         </div>
       </div>
       <h2 align="center">Payment Complete!</h2>
-      <p class="bg-info">
-      	We have now reached the final thank you / receipt page and the payment has been processed!  We have added the PayPal Profile ID 
-        to the Billing Information, which was provided in the CreateRecurringPaymentsProfile response.
-      </p>
+      <p class="bg-info">We have now reached the final thank you / receipt page and the payment has been processed and the subscription profile has been generated!  We have added the PayPal Profile ID to the Billing Information, which was returned in the CreateRecurringPaymentsProfile response.</p>
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -83,38 +80,18 @@ require_once('../../includes/config.php');
           </p>
         </div>
         <div class="col-md-4 column">
-          <p><strong>Shipping Information</strong></p>
-          <p>
-          	<?php 
-			echo $_SESSION['shipping_name'] . '<br />' .
-			$_SESSION['shipping_street'] . '<br />' .
-			$_SESSION['shipping_city'] . ', ' . $_SESSION['shipping_state'] . '  ' . $_SESSION['shipping_zip'] . '<br />' . 
-			$_SESSION['shipping_country_name']; 
-			?>
-          </p>
+          &nbsp;
         </div>
         <div class="col-md-4 column">
           <table class="table">
             <tbody>
             <tr>
-                <td><strong> Subtotal</strong></td>
+                <td><strong>Subtotal</strong></td>
                 <td> $<?php echo number_format($_SESSION['shopping_cart']['subtotal'],2); ?></td>
             </tr>
             <tr>
-                <td><strong>Shipping</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['shipping'],2); ?></td>
-            </tr>
-            <tr>
-                <td><strong>Handling</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['handling'],2); ?></td>
-            </tr>
-            <tr>
-                <td><strong>Tax</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['tax'],2); ?></td>
-            </tr>
-            <tr>
                 <td><strong>Grand Total</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?></td>
+                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?> one time <br />and $10.00 / mo there-after.</td>
             </tr>
               <tr>
                   <td class="center" colspan="2">&nbsp;</td>

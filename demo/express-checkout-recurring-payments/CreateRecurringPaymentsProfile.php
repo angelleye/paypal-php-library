@@ -31,7 +31,7 @@ $ProfileDetails = array(
 				);
 				
 $ScheduleDetails = array(
-					'desc' => 'DescForRP', 								// Required.  Description of the recurring payment.  This field must match the corresponding billing agreement description included in SetExpressCheckout.
+					'desc' => $_SESSION['subscription_name'], 								// Required.  Description of the recurring payment.  This field must match the corresponding billing agreement description included in SetExpressCheckout.
 					'maxfailedpayments' => '3', 					// The number of scheduled payment periods that can fail before the profile is automatically suspended.  
 					'autobillamt' => 'AddToNextBilling' 						// This field indicates whether you would like PayPal to automatically bill the outstanding balance amount in the next billing cycle.  Values can be: NoAutoBill or AddToNextBilling
 				);
@@ -69,28 +69,16 @@ $PayerName = array(
 					'middlename' => '', 						// Payer's middle name.  25 char max.
 					'lastname' => $_SESSION['last_name'], 							// Payer's last name.  25 char max.
 					'suffix' => ''								// Payer's suffix.  12 char max.
-				);				
-					
-$ShippingAddress = array(
-						'shiptoname' => $_SESSION['shipping_name'], 					// Required if shipping is included.  Person's name associated with this address.  32 char max.
-						'shiptostreet' => $_SESSION['shipping_street'], 					// Required if shipping is included.  First street address.  100 char max.
-						'shiptostreet2' => '', 					// Second street address.  100 char max.
-						'shiptocity' => $_SESSION['shipping_city'], 					// Required if shipping is included.  Name of city.  40 char max.
-						'shiptostate' => $_SESSION['shipping_state'], 					// Required if shipping is included.  Name of state or province.  40 char max.
-						'shiptozip' => $_SESSION['shipping_zip'], 						// Required if shipping is included.  Postal code of shipping address.  20 char max.
-						'shiptocountrycode' => $_SESSION['shipping_country_code'], 				// Required if shipping is included.  Country code of shipping address.  2 char max.
-						'shiptophonenum' => $_SESSION['phone_number']					// Phone number for shipping address.  20 char max.
-						);
+				);
 						
 $PayPalRequestData = array(
-'ProfileDetails' => $ProfileDetails, 
-'ScheduleDetails' => $ScheduleDetails, 
-'BillingPeriod' => $BillingPeriod, 
-'PayerInfo' => $PayerInfo, 
-'PayerName' => $PayerName, 
-'CRPPFields' => $CRPPFields,
-'ActivationDetails' => $ActivationDetails,
-'ShippingAddress' => $ShippingAddress    
+    'ProfileDetails' => $ProfileDetails,
+    'ScheduleDetails' => $ScheduleDetails,
+    'BillingPeriod' => $BillingPeriod,
+    'PayerInfo' => $PayerInfo,
+    'PayerName' => $PayerName,
+    'CRPPFields' => $CRPPFields,
+    'ActivationDetails' => $ActivationDetails,
 );
 
 $PayPalResult = $PayPal->CreateRecurringPaymentsProfile($PayPalRequestData);
@@ -103,5 +91,3 @@ else{
     $_SESSION['paypal_errors'] = $PayPalResult['ERRORS'];
     header('Location: ../error.php');
 }
-
-?>

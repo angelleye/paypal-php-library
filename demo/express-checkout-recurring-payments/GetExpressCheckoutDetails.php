@@ -58,34 +58,6 @@ if($PayPal->APICallSuccessful($PayPalResult['ACK']))
     $_SESSION['first_name'] = isset($PayPalResult['FIRSTNAME']) ? $PayPalResult['FIRSTNAME'] : '';
     $_SESSION['last_name'] = isset($PayPalResult['LASTNAME']) ? $PayPalResult['LASTNAME'] : '';
 
-    $payments = $PayPal->GetPayments($PayPalResult);
-
-    foreach($payments as $payment)
-    {
-        $_SESSION['shipping_name'] = isset($payment['SHIPTONAME']) ? $payment['SHIPTONAME'] : '';
-        $_SESSION['shipping_street'] = isset($payment['SHIPTOSTREET']) ? $payment['SHIPTOSTREET'] : '';
-        $_SESSION['shipping_city'] = isset($payment['SHIPTOCITY']) ? $payment['SHIPTOCITY'] : '';
-        $_SESSION['shipping_state'] = isset($payment['SHIPTOSTATE']) ? $payment['SHIPTOSTATE'] : '';
-        $_SESSION['shipping_zip'] = isset($payment['SHIPTOZIP']) ? $payment['SHIPTOZIP'] : '';
-        $_SESSION['shipping_country_code'] = isset($payment['SHIPTOCOUNTRYCODE']) ? $payment['SHIPTOCOUNTRYCODE'] : '';
-        $_SESSION['shipping_country_name'] = isset($payment['SHIPTOCOUNTRYNAME']) ? $payment['SHIPTOCOUNTRYNAME'] : '';   
-    }
-
-    /**
-     * At this point, we now have the buyer's shipping address available in our app.
-     * We could now run the data through a shipping calculator to retrieve rate
-     * information for this particular order.
-     *
-     * This would also be the time to calculate any sales tax you may need to
-     * add to the order, as well as handling fees.
-     *
-     * We're going to set static values for these things in our static
-     * shopping cart, and then re-calculate our grand total.
-     */
-    $_SESSION['shopping_cart']['shipping'] = 0.00;
-    $_SESSION['shopping_cart']['handling'] = 0.00;
-    $_SESSION['shopping_cart']['tax'] = 0.00;
-
     $_SESSION['shopping_cart']['grand_total'] = number_format(
         $_SESSION['shopping_cart']['subtotal']
         + $_SESSION['shopping_cart']['shipping']
@@ -93,11 +65,10 @@ if($PayPal->APICallSuccessful($PayPalResult['ACK']))
         + $_SESSION['shopping_cart']['tax'],2);
 
     /**
-     * Now we will redirect the user to a final review
-     * page so they can see the shipping/handling/tax
-     * that has been added to the order.
+     * Now we will send the application flow direction to CreateRecurringPaymentsProfile
+     * because there is no need for a final review page.
      */
-    header('Location: review.php');
+    header('Location: CreateRecurringPaymentsProfile.php');
 }
 else
 {

@@ -6,6 +6,7 @@ require_once('../../includes/config.php');
  * throughout this demo.  In most cases, you will working with a dynamic
  * shopping cart system of some sort.
  */
+$_SESSION['subscription_name'] = 'Angell EYE Monthly Subscription Demo';
 $_SESSION['billingperiod']='Month';
 $_SESSION['billingfrequency']='1';
 $_SESSION['totalbillingcycles']='0';
