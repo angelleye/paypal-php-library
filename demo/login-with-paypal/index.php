@@ -70,21 +70,34 @@ $redirectUrl = OpenIdSession::getAuthorizationUrl(
           <div id="paypal_partner_logo"> <img alt="PayPal Partner and Certified Developer" src="../assets/images/paypal-partner-logo.png"/> </div>
         </div>
       </div>
-      <h2 align="center">Login With PayPal</h2>      
+      <h2 align="center">Login With PayPal</h2>
+      <p class="bg-info">
+        Log In with PayPal (formerly PayPal Access) is a commerce identity solution that enables your customers to sign in to your web site quickly and securely using their PayPal login credentials. Log In with PayPal utilizes the latest security standards, and you don't have to worry about storing user data on your system.
+      </p>
+      <div class="row">
+        <div class="col-md-12">
+            <p class="bg-info"><label>Redirect Uri : </label>Uri on merchant website to where the user must be redirected to post paypal login
+                <br><code>http://localhost/paypal-php-library/demo/login-with-paypal/return.php?success=true</code>
+            </p>
+        </div>          
+        <div class="clearfix"></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12">
+            <p class="bg-info">
+                <label>Scope : </label> The access privilges that you are requesting for from the user. Pass empty array for all scopes.
+                <br><code>openid | profile | address | email | phone | https://uri.paypal.com/services/invoicing | https://uri.paypal.com/services/paypalattributes | https://uri.paypal.com/services/expresscheckout</code>
+            </p>
+        </div>
+        <div class="clearfix"></div>  
+      </div>            
       <p class="bg-info">To complete the demo, click the login with PayPal button and use the following credentials to login to PayPal.<br /><br />
       Email Address:  paypalphp@angelleye.com<br />
       Password:  paypalphp
       </p>         
     </div>
-    <div class="clearfix"></div>
-    <div class="col-md-12">
-        <div class="form-group">
-            <label>Redirect Uri : </label>  http://localhost/paypal-php-library/demo/login-with-paypal/return.php?success=true
-        </div>
-        <div class="form-group">
-            <label>Scope : </label> openid, profile, address, email, phone ,<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://uri.paypal.com/services/invoicing, https://uri.paypal.com/services/paypalattributes ,https://uri.paypal.com/services/expresscheckout
-        </div>
-    </div>
+    <div class="clearfix"></div>    
   </div>
     <div class="row">
         <div class="col-md-12 text-center">

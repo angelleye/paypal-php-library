@@ -17,7 +17,7 @@ $PayPal = new \angelleye\PayPal\rest\identity\IdentityAPI($configArray);
 
 // You can retrieve the refresh token by executing GetUserConsentURL.php and store the refresh token
 
-$refreshToken= 'R23AAGyZu3XpUNPdyUstkkEtRp6tYwz7FOvoPURXUQT-RlX28bUr2BVcTvyA5RVgTskJm68MZoC75_W5Be8DCcdLNMeL1BW5eNxxJWFk1k39yZ54giLx-xUM4TpyOH5YmaPRAIbOPDpLKHVvFzlGA';
+$refreshToken= '';
 
 $requestData = array(
     'refreshToken' => $refreshToken,    
