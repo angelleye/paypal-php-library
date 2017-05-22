@@ -94,7 +94,7 @@ The sample code provided by the download buttons is pulled straight from this si
         </div>
        
         <div class="col-md-4">
-            <div class="thumbnail"> <img alt="Express Checkout Billing Agreement" src="assets/images/paypal-express-checkout-digital-goods.jpg">
+            <div class="thumbnail"> <img alt="Express Checkout Billing Agreement" src="assets/images/login-with-paypal.png">
               <div class="caption">
                 <h3> Login With PayPal </h3>
                 <h4> Login With PayPal </h4>
