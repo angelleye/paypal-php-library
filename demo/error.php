@@ -1,5 +1,17 @@
 <?php
 require_once('../includes/config.php');
+require_once('../autoload.php');
+
+$PayPalConfig = array(
+    'Sandbox' => $sandbox,
+    'APIUsername' => $api_username,
+    'APIPassword' => $api_password,
+    'APISignature' => $api_signature,
+    'PrintHeaders' => $print_headers,
+    'LogResults' => $log_results,
+    'LogPath' => $log_path,
+);
+$PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 ?>
 <html lang="en">
 <head>
@@ -47,13 +59,7 @@ require_once('../includes/config.php');
       </div>
       <div id="paypal_errors">
       <?php
-	  foreach($_SESSION['paypal_errors'] as $error)
-	  {
-		echo '<p>';
-		echo 'Error Code: ' . $error['L_ERRORCODE'];
-		echo '<br />Error Message: ' . $error['L_LONGMESSAGE'];  
-		echo '</p>';
-	  }
+      $PayPal->DisplayErrors($_SESSION['paypal_errors']);
 	  ?>
       </div>
     </div>
