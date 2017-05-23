@@ -114,7 +114,7 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
           for a secure and seamless check out. A consistent experience for computers, tablets, and smart phones gives customers 
           a trusted way to pay across different devices.</p>
       <p class="bg-info">To complete the demo, click the PayPal Checkout button and use the following credentials to login to PayPal.<br /><br />
-      Email Address:  paypalphp@angelleye.com<br />
+      Email Address:  paypal-buyer@angelleye.com<br />
       Password:  paypalphp
       </p>
       <table class="table table-bordered">
