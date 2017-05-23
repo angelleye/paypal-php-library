@@ -43,8 +43,9 @@ $SECFields = array(
  * Express Checkout includes the ability to setup parallel payments,
  * so we have to populate our $Payments array here accordingly.
  *
- * For this sample (and in most use cases) we only need a single payment,
- * but we still have to populate $Payments with a single $Payment array.
+ * For this sample we are setting up a two-way split between two
+ * sellers, so we will populate two separate $Payment arrays that
+ * get pushed into a single $Payments array.
  *
  * Once again, the template file includes a lot more available parameters,
  * but for this basic sample we've removed everything that we're not using,
@@ -59,7 +60,7 @@ $Payment = array(
     'handlingamt' => 0, 	// Total handling costs for this order.  If you specify HANDLINGAMT you mut also specify a value for ITEMAMT.
     'taxamt' => 0, 			// Required if you specify itemized L_TAXAMT fields.  Sum of all tax items in this order.
     'paymentaction' => 'Sale',
-    'sellerpaypalaccountid' => $_SESSION['seller_a'],			// A unique identifier for the merchant.  For parallel payments, this field is required and must contain the Payer ID or the email address of the merchant.
+    'sellerpaypalaccountid' => $_SESSION['items'][0]['seller_id'],			// A unique identifier for the merchant.  For parallel payments, this field is required and must contain the Payer ID or the email address of the merchant.
     'paymentrequestid' => 'CART26488-PAYMENT0'
 );
 /**
@@ -76,7 +77,7 @@ $Payment = array(
     'handlingamt' => 0,     // Total handling costs for this order.  If you specify HANDLINGAMT you mut also specify a value for ITEMAMT.
     'taxamt' => 0,          // Required if you specify itemized L_TAXAMT fields.  Sum of all tax items in this order.
     'paymentaction' => 'Sale',
-    'sellerpaypalaccountid' => $_SESSION['seller_b'],         // A unique identifier for the merchant.  For parallel payments, this field is required and must contain the Payer ID or the email address of the merchant.
+    'sellerpaypalaccountid' => $_SESSION['items'][1]['seller_id'],         // A unique identifier for the merchant.  For parallel payments, this field is required and must contain the Payer ID or the email address of the merchant.
     'paymentrequestid' => 'CART26488-PAYMENT1'
 );
 /**

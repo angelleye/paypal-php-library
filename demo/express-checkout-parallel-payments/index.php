@@ -8,8 +8,8 @@ require_once('../../includes/config.php');
  * Here we have two separate PayPal sandbox accounts setup as receivers, so that
  * we can see the split take place during the demo.
  */
-$_SESSION['seller_a'] = 'paypal-facilitator@angelleye.com';
-$_SESSION['seller_b'] = 'sandbox-seller@angelleye.com';
+$seller_a = 'paypal-facilitator@angelleye.com';
+$seller_b = 'sandbox-seller@angelleye.com';
 
 /**
  * Here we are building a very simple, static shopping cart to use
@@ -24,7 +24,7 @@ $_SESSION['items'][0] = array(
     'name' => 'Widget',
     'qty' => '2',
     'price' => '9.99',
-    'seller_id' => $_SESSION['seller_a'],
+    'seller_id' => $seller_a,
 );
 
 $_SESSION['items'][1] = array(
@@ -32,7 +32,7 @@ $_SESSION['items'][1] = array(
     'name' => 'Gadget',
     'qty' => '1',
     'price' => '4.99',
-    'seller_id' => $_SESSION['seller_b'],
+    'seller_id' => $seller_b,
 );
 $_SESSION['shopping_cart'] = array(
 	'items' => $_SESSION['items'],
