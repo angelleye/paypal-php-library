@@ -4,6 +4,9 @@ require_once('../../includes/config.php');
  * A unique identifier for the merchant.  
  * For parallel payments, this field is required and must contain the Payer ID 
  * or the email address of the merchant.
+ *
+ * Here we have two separate PayPal sandbox accounts setup as receivers, so that
+ * we can see the split take place during the demo.
  */
 $_SESSION['seller_a'] = 'paypal-facilitator@angelleye.com';
 $_SESSION['seller_b'] = 'sandbox-seller@angelleye.com';
@@ -18,6 +21,7 @@ $_SESSION['items'][0] = array(
     'name' => 'Widget',
     'qty' => '2',
     'price' => '9.99',
+    'seller_id' => '',
 );
 
 $_SESSION['items'][1] = array(
