@@ -15,13 +15,16 @@ $_SESSION['seller_b'] = 'sandbox-seller@angelleye.com';
  * Here we are building a very simple, static shopping cart to use
  * throughout this demo.  In most cases, you will working with a dynamic
  * shopping cart system of some sort.
+ *
+ * For the purposes of this Parallel Payments demo we have added a
+ * "seller_id" to the cart items.
  */
 $_SESSION['items'][0] = array(
     'id' => '123-ABC',
     'name' => 'Widget',
     'qty' => '2',
     'price' => '9.99',
-    'seller_id' => '',
+    'seller_id' => $_SESSION['seller_a'],
 );
 
 $_SESSION['items'][1] = array(
@@ -29,6 +32,7 @@ $_SESSION['items'][1] = array(
     'name' => 'Gadget',
     'qty' => '1',
     'price' => '4.99',
+    'seller_id' => $_SESSION['seller_b'],
 );
 $_SESSION['shopping_cart'] = array(
 	'items' => $_SESSION['items'],
