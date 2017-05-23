@@ -46,11 +46,11 @@ require_once('../../includes/config.php');
         </div>
       </div>
       <h2 align="center">Order Review</h2>
-      <p class="bg-info">Here we display a final review to the buyer now that we've calculated shipping, handling, and tax.  The 
+      <p class="bg-info">Here we display a final review to the buyer now that we've calculated shipping, handling, and tax.  The
       billing and shipping information provided here is what we obtained in the GetExpressCheckoutDetails response.
       </p>
       <p class="bg-info">
-      The payment has not been processed at this point because we have not yet called the final DoExpressCheckoutPayment API. That is what will 
+      The payment has not been processed at this point because we have not yet called the final DoExpressCheckoutPayment API. That is what will
       happen when we click the "Complete Order" button below.
       </p>
       <table class="table table-bordered">
@@ -72,7 +72,7 @@ require_once('../../includes/config.php');
             <td><?php echo $cart_item['name']; ?></td>
             <td class="center"> $<?php echo number_format($cart_item['price'],2); ?></td>
             <td class="center"><?php echo $cart_item['qty']; ?></td>
-            <td class="center"> $<?php echo round($cart_item['qty'] * $cart_item['price'],2); ?></td>
+            <td class="center"> $<?php echo number_format(round($cart_item['price'],2),2); ?></td>
           </tr>
           <?php
     }

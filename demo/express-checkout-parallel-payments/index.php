@@ -22,8 +22,8 @@ $seller_b = 'sandbox-seller@angelleye.com';
 $_SESSION['items'][0] = array(
     'id' => '123-ABC',
     'name' => 'Widget',
-    'qty' => '2',
-    'price' => '9.99',
+    'qty' => '1',
+    'price' => '10.00',
     'seller_id' => $seller_a,
 );
 
@@ -31,12 +31,12 @@ $_SESSION['items'][1] = array(
     'id' => 'XYZ-456',
     'name' => 'Gadget',
     'qty' => '1',
-    'price' => '4.99',
+    'price' => '5.00',
     'seller_id' => $seller_b,
 );
 $_SESSION['shopping_cart'] = array(
 	'items' => $_SESSION['items'],
-	'subtotal' => 24.97,
+	'subtotal' => 15.00,
 	'shipping' => 0,
 	'handling' => 0,
 	'tax' => 0,
@@ -113,7 +113,7 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
             <td><?php echo $cart_item['name']; ?></td>
             <td class="center"> $<?php echo number_format($cart_item['price'],2); ?></td>
             <td class="center"><?php echo $cart_item['qty']; ?></td>
-            <td class="center"> $<?php echo round($cart_item['qty'] * $cart_item['price'],2); ?></td>
+            <td class="center"> $<?php echo number_format(round($cart_item['qty'] * $cart_item['price'],2),2); ?></td>
           </tr>
           <?php
     }

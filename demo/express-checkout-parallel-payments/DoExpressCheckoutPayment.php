@@ -46,14 +46,14 @@ $DECPFields = array(
  */
 $Payments = array();
 $Payment = array(
-    'amt' => $_SESSION['items'][0]['price'] * $_SESSION['items'][0]['qty'] ,    // Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
+    'amt' => $_SESSION['shopping_cart']['items'][0]['price'],    // Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
     'currencycode' => 'USD',
-    'itemamt' => $_SESSION['items'][0]['price'] * $_SESSION['items'][0]['qty'],       // Subtotal of items only.                                            // A three-character currency code.  Default is USD.
-    'shippingamt' => 0,     // Total shipping costs for this order.  If you specify SHIPPINGAMT you mut also specify a value for ITEMAMT.
-    'handlingamt' => 0,     // Total handling costs for this order.  If you specify HANDLINGAMT you mut also specify a value for ITEMAMT.
-    'taxamt' => 0,          // Required if you specify itemized L_TAXAMT fields.  Sum of all tax items in this order.
+    'itemamt' => $_SESSION['shopping_cart']['items'][0]['price'],       // Subtotal of items only.                                            // A three-character currency code.  Default is USD.
+    'shippingamt' => $_SESSION['shopping_cart']['items'][0]['shipping'],     // Total shipping costs for this order.  If you specify SHIPPINGAMT you mut also specify a value for ITEMAMT.
+    'handlingamt' => $_SESSION['shopping_cart']['items'][0]['handling'],     // Total handling costs for this order.  If you specify HANDLINGAMT you mut also specify a value for ITEMAMT.
+    'taxamt' => $_SESSION['shopping_cart']['items'][0]['tax'],          // Required if you specify itemized L_TAXAMT fields.  Sum of all tax items in this order.
     'paymentaction' => 'Sale',
-    'sellerpaypalaccountid' => $_SESSION['items'][0]['seller_id'],           // A unique identifier for the merchant.  For parallel payments, this field is required and must contain the Payer ID or the email address of the merchant.
+    'sellerpaypalaccountid' => $_SESSION['shopping_cart']['items'][0]['seller_id'],           // A unique identifier for the merchant.  For parallel payments, this field is required and must contain the Payer ID or the email address of the merchant.
     'paymentrequestid' => 'CART26488-PAYMENT0'
 );
 
@@ -64,14 +64,14 @@ array_push($Payments, $Payment);
 
 
 $Payment = array(
-    'amt' => $_SESSION['items'][1]['price'] * $_SESSION['items'][1]['qty'] ,    // Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
+    'amt' => $_SESSION['shopping_cart']['items'][1]['price'],    // Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
     'currencycode' => 'USD',
-    'itemamt' => $_SESSION['items'][1]['price'] * $_SESSION['items'][1]['qty'],       // Subtotal of items only.                                            // A three-character currency code.  Default is USD.
-    'shippingamt' => 0,     // Total shipping costs for this order.  If you specify SHIPPINGAMT you mut also specify a value for ITEMAMT.
-    'handlingamt' => 0,     // Total handling costs for this order.  If you specify HANDLINGAMT you mut also specify a value for ITEMAMT.
-    'taxamt' => 0,          // Required if you specify itemized L_TAXAMT fields.  Sum of all tax items in this order.
+    'itemamt' => $_SESSION['shopping_cart']['items'][1]['price'],       // Subtotal of items only.                                            // A three-character currency code.  Default is USD.
+    'shippingamt' => $_SESSION['shopping_cart']['items'][1]['shipping'],     // Total shipping costs for this order.  If you specify SHIPPINGAMT you mut also specify a value for ITEMAMT.
+    'handlingamt' => $_SESSION['shopping_cart']['items'][1]['handling'],     // Total handling costs for this order.  If you specify HANDLINGAMT you mut also specify a value for ITEMAMT.
+    'taxamt' => $_SESSION['shopping_cart']['items'][1]['tax'],          // Required if you specify itemized L_TAXAMT fields.  Sum of all tax items in this order.
     'paymentaction' => 'Sale',
-    'sellerpaypalaccountid' => $_SESSION['items'][1]['seller_id'],         // A unique identifier for the merchant.  For parallel payments, this field is required and must contain the Payer ID or the email address of the merchant.
+    'sellerpaypalaccountid' => $_SESSION['shopping_cart']['items'][1]['seller_id'],         // A unique identifier for the merchant.  For parallel payments, this field is required and must contain the Payer ID or the email address of the merchant.
     'paymentrequestid' => 'CART26488-PAYMENT1'
 );
 array_push($Payments, $Payment);

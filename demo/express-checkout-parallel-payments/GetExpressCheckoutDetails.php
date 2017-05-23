@@ -82,10 +82,27 @@ if($PayPal->APICallSuccessful($PayPalResult['ACK']))
      *
      * We're going to set static values for these things in our static
      * shopping cart, and then re-calculate our grand total.
+     *
+     * For the purposes of this Parallel Payments demo we will set
+     * values for the shipping, handling, and tax, but we will then
+     * split this up so that a portion gets passed into each seller's
+     * amount.  You may decide to do this based on percentage or some
+     * other method.
      */
-    $_SESSION['shopping_cart']['shipping'] = 0.00;
-    $_SESSION['shopping_cart']['handling'] = 0.00;
-    $_SESSION['shopping_cart']['tax'] = 0.00;
+    $_SESSION['shopping_cart']['shipping'] = 15.00;
+    $_SESSION['shopping_cart']['handling'] = 3.00;
+    $_SESSION['shopping_cart']['tax'] = 1.50;
+
+    /**
+     * Split shipping into seller cart item amounts.
+     */
+    $_SESSION['shopping_cart']['items'][0]['shipping'] = 10.00;
+    $_SESSION['shopping_cart']['items'][0]['handling'] = 2.00;
+    $_SESSION['shopping_cart']['items'][0]['tax'] = 1.00;
+
+    $_SESSION['shopping_cart']['items'][1]['shipping'] = 5.00;
+    $_SESSION['shopping_cart']['items'][1]['handling'] = 1.00;
+    $_SESSION['shopping_cart']['items'][1]['tax'] = .50;
 
     $_SESSION['shopping_cart']['grand_total'] = number_format(
         $_SESSION['shopping_cart']['subtotal']
