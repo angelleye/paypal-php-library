@@ -42,7 +42,7 @@ $DECPFields = array(
  * Just like with SetExpressCheckout, we need to gather our $Payment
  * data to pass into our $Payments array.  This time we can include
  * the shipping, handling, tax, and shipping address details that we
- * now have.
+ * now have for each individual item / seller.
  */
 $Payments = array();
 $Payment = array(
