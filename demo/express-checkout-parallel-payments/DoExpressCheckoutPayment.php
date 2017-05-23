@@ -46,7 +46,7 @@ $DECPFields = array(
  */
 $Payments = array();
 $Payment = array(
-    'amt' => $_SESSION['shopping_cart']['items'][0]['price'],    // Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
+    'amt' => $_SESSION['shopping_cart']['items'][0]['price'] + $_SESSION['shopping_cart']['items'][0]['price_addon'],    // Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
     'currencycode' => 'USD',
     'itemamt' => $_SESSION['shopping_cart']['items'][0]['price'],       // Subtotal of items only.                                            // A three-character currency code.  Default is USD.
     'shippingamt' => $_SESSION['shopping_cart']['items'][0]['shipping'],     // Total shipping costs for this order.  If you specify SHIPPINGAMT you mut also specify a value for ITEMAMT.
@@ -64,7 +64,7 @@ array_push($Payments, $Payment);
 
 
 $Payment = array(
-    'amt' => $_SESSION['shopping_cart']['items'][1]['price'],    // Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
+    'amt' => $_SESSION['shopping_cart']['items'][1]['price'] + $_SESSION['shopping_cart']['items'][1]['price_addon'],    // Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
     'currencycode' => 'USD',
     'itemamt' => $_SESSION['shopping_cart']['items'][1]['price'],       // Subtotal of items only.                                            // A three-character currency code.  Default is USD.
     'shippingamt' => $_SESSION['shopping_cart']['items'][1]['shipping'],     // Total shipping costs for this order.  If you specify SHIPPINGAMT you mut also specify a value for ITEMAMT.

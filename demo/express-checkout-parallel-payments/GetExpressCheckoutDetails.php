@@ -99,10 +99,12 @@ if($PayPal->APICallSuccessful($PayPalResult['ACK']))
     $_SESSION['shopping_cart']['items'][0]['shipping'] = 10.00;
     $_SESSION['shopping_cart']['items'][0]['handling'] = 2.00;
     $_SESSION['shopping_cart']['items'][0]['tax'] = 1.00;
+    $_SESSION['shopping_cart']['items'][0]['price_addon'] = $_SESSION['shopping_cart']['items'][0]['shipping'] + $_SESSION['shopping_cart']['items'][0]['handling'] + $_SESSION['shopping_cart']['items'][0]['tax'];
 
     $_SESSION['shopping_cart']['items'][1]['shipping'] = 5.00;
     $_SESSION['shopping_cart']['items'][1]['handling'] = 1.00;
     $_SESSION['shopping_cart']['items'][1]['tax'] = .50;
+    $_SESSION['shopping_cart']['items'][1]['price_addon'] = $_SESSION['shopping_cart']['items'][1]['shipping'] + $_SESSION['shopping_cart']['items'][1]['handling'] + $_SESSION['shopping_cart']['items'][1]['tax'];
 
     $_SESSION['shopping_cart']['grand_total'] = number_format(
         $_SESSION['shopping_cart']['subtotal']
