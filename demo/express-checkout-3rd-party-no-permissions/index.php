@@ -6,7 +6,7 @@ require_once('../../includes/config.php');
  * For parallel payments, this field is required and must contain the Payer ID 
  * or the email address of the merchant
  */
-$_SESSION["seller"] = "paypalphp@angelleye.com";
+$_SESSION["seller"] = "paypal-facilitator@angelleye.com";
 
 /**
  * Here we are building a very simple, static shopping cart to use
