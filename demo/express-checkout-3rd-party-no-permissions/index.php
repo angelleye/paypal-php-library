@@ -2,9 +2,14 @@
 require_once('../../includes/config.php');
 
 /**
- * A unique identifier for the merchant.  
- * For parallel payments, this field is required and must contain the Payer ID 
- * or the email address of the merchant
+ * When using Express Checkout to send payments to 3rd party merchants
+ * you will use your own API credentials in the config file, and
+ * simply pass the email address or PayPal account ID of the account
+ * you want the money to go to in the API requests.
+ *
+ * Here we are setting a simple, static session value that we'll use
+ * to populate our SetExpressCheckout and DoExpressCheckoutPayment
+ * calls later in the checkout flow.
  */
 $_SESSION["seller"] = "paypal-facilitator@angelleye.com";
 
@@ -80,9 +85,8 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
         </div>
       </div>
       <h2 align="center">Shopping Cart</h2>
-      <p class="bg-info">Here we are using a basic shopping cart for display purposes, however, for this basic demo, all we are sending to PayPal is the order total without any line item details. We are assuming that we have not collected any 
-      billing or shipping information from the buyer yet because we'll be obtaining those details from PayPal 
-      after the user logs in and is returned back to the site.</p>
+      <p class="bg-info">Here we are using a basic shopping cart for display purposes, and we are expanding on the <a href="../express-checkout-basic/">basic demo</a> to include the cart line items with the PayPal payment so that they will show up on the PayPal review pages during checkout and in the PayPal transaction details.</p>
+      <p class="bg-info">If you look at the code for index.php in this demo you will see we are setting a static session variable to hold the seller PayPal account email address we want this money to go to.  We will still be using our own API credentials, and we do not need to send the user through any Permissions flow for this to work.</p>
       <p class="bg-info">To complete the demo, click the Checkout with PayPal button and use the following credentials to login to PayPal.<br /><br />
       Email Address:  paypal-buyer@angelleye.com<br />
       Password:  paypalphp
