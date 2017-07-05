@@ -50,6 +50,7 @@ require_once('../../includes/config.php');
       	We have now reached the final thank you / receipt page and the payment has been processed!  We have added the PayPal transaction ID 
         to the Billing Information, which was provided in the DoExpressCheckoutPayment response.
       </p>
+      <p class="bg-info">You will now see the payment in the 3rd party PayPal account specified by "sellerpaypalaccountid" in the SetExpressCheckout and DoExpressCheckoutPayment API requests.</p>
       <table class="table table-bordered">
         <thead>
           <tr>
