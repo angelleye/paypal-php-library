@@ -42,27 +42,7 @@ $_SESSION['Payment']['order_items'] = $_SESSION['PaymentOrderItems'];
  */
 array_push($_SESSION['Payments'], $_SESSION['Payment']);
 
-/*$_SESSION['items'][0] = array(
-    'id' => '123-ABC',
-    'name' => 'Widget',
-    'qty' => '2',
-    'price' => '9.99',
-);
-
-$_SESSION['items'][1] = array(
-    'id' => 'XYZ-456',
-    'name' => 'Gadget',
-    'qty' => '1',
-    'price' => '4.99',
-);
-$_SESSION['shopping_cart'] = array(
-	'items' => $_SESSION['items'],
-	'subtotal' => 24.97,
-	'shipping' => 0,
-	'handling' => 0,
-	'tax' => 0,
-);
-$_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_cart']['subtotal'] + $_SESSION['shopping_cart']['shipping'] + $_SESSION['shopping_cart']['handling'] + $_SESSION['shopping_cart']['tax'],2);*/
+$_SESSION['Payment']['grand_total'] = number_format($_SESSION['Payment']['amt'],2) + number_format($_SESSION['Payment']['shippingamt'],2) + number_format($_SESSION['Payment']['handlingamt'],2) + number_format($_SESSION['Payment']['taxamt'],2);
 ?>
 <html lang="en">
 <head>
@@ -167,7 +147,7 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
               </tr>
               <tr>
                 <td><strong>Grand Total</strong></td>
-                <td>$<?php echo number_format($_SESSION['Payment']['amt'],2); ?></td>
+                <td>$<?php echo number_format($_SESSION['Payment']['grand_total'],2); ?></td>
               </tr>
               <tr>
               </tr>
