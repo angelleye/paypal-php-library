@@ -87,6 +87,7 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
       <h2 align="center">Shopping Cart</h2>
       <p class="bg-info">Here we are using a basic shopping cart for display purposes, and we are expanding on the <a href="../express-checkout-basic/">basic demo</a> to include the cart line items with the PayPal payment so that they will show up on the PayPal review pages during checkout and in the PayPal transaction details.</p>
       <p class="bg-info">If you look at the code for index.php in this demo you will see we are setting a static session variable to hold the seller PayPal account email address we want this money to go to.  We will still be using our own API credentials, and we do not need to send the user through any Permissions flow for this to work.</p>
+      <p class="bg-info">You can also check SetExpressCheckout.php code to see how we include the "sellerpaypalaccountid" parameter in our request, which gets populated by our session data.</p>
       <p class="bg-info">To complete the demo, click the Checkout with PayPal button and use the following credentials to login to PayPal.<br /><br />
       Email Address:  paypal-buyer@angelleye.com<br />
       Password:  paypalphp

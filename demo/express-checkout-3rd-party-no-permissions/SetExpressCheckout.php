@@ -50,6 +50,12 @@ $SECFields = array(
  * Once again, the template file includes a lot more available parameters,
  * but for this basic sample we've removed everything that we're not using,
  * so all we have is an amount.
+ *
+ * For this demo we are including "sellerpaypalaccountid" to specify
+ * the 3rd party PayPal account we would like to send the payment to.
+ * We still use our own API credentials for this, and we do NOT have
+ * to send the user through any sort of Permissions API flow in order
+ * for this to work.
  */
 $Payments = array();
 $Payment = array(
