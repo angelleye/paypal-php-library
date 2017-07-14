@@ -1,8 +1,10 @@
-<?php namespace angelleye\PayPal;
+<?php
+
+namespace angelleye\PayPal;
 
 /**
  *  An open source PHP library written to easily work with PayPal's Adaptive Payments API
- *	
+ * 	
  *  Email:  service@angelleye.com
  *  Facebook: angelleyeconsulting
  *  Twitter: angelleye
@@ -26,7 +28,7 @@
  * @website			http://www.angelleye.com
  * @support         http://www.angelleye.com/product/premium-support/
  * @filesource
-*/
+ */
 
 /**
  * PayPal Adaptive Payments Class
@@ -36,10 +38,67 @@
  * @package 		paypal-php-library
  * @author			Andrew Angell <service@angelleye.com>
  */
-
 use DOMDocument;
 
-class PayPal_IntegratedSignup extends PayPal
-{
-    
+class PayPal_IntegratedSignup extends PayPal {
+
+    private $_auth_string;
+    var $Sandbox = '';
+    var $PathToCertKeyPEM = '';
+    var $SSL = '';
+    var $PrintHeaders = '';
+    var $LogResults = '';
+    var $LogPath = '';
+
+    public function __construct($configArray) {
+        // Append your secret to your client ID, separated by a colon (“:”). Base64-encode the resulting string.
+        $this->_auth_string = base64_encode($configArray['ClientID'] . ':' . $configArray['ClientSecret']);
+        if (isset($configArray['Sandbox'])) {
+            $this->Sandbox = $configArray['Sandbox'];
+        } else {
+            $this->Sandbox = true;
+        }
+
+        $this->PrintHeaders = isset($configArray['PrintHeaders']) ? $configArray['PrintHeaders'] : false;
+        $this->LogResults = isset($configArray['LogResults']) ? $configArray['LogResults'] : false;
+        $this->LogPath = isset($configArray['LogPath']) ? $configArray['LogPath'] : '/logs/';
+
+        if ($this->Sandbox) {
+            error_reporting(E_ALL);
+            ini_set('display_errors', '1');
+            $this->EndPointURL = 'https://api.sandbox.paypal.com/v1/';
+        } else {
+            $this->EndPointURL = 'https://api.paypal.com/v1/';
+        }
+    }
+
+    public function IntegratedSignup($requestData) {
+        $payload = json_encode($requestData, 0 | 64);
+        exit;
+    }
+
+    function BuildHeaders($PrintHeaders) {
+        $headers = array(
+            'Content-Type: application/x-www-form-urlencoded',
+            'Authorization: Basic ' . $this->_auth_string,
+        );
+        if ($PrintHeaders) {
+            echo '<pre />';
+            print_r($headers);
+        }
+        return $headers;
+    }
+
+    function CURLRequest($Request = "", $APIName = "", $APIOperation = "", $PrintHeaders = false) {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_VERBOSE, $this->Sandbox);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $Request);
+        curl_setopt($curl, CURLOPT_URL, $this->EndPointURL . $APIName . '/' . $APIOperation);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $this->BuildHeaders($this->PrintHeaders));
+        $result = curl_exec($curl);
+    }
+
 }

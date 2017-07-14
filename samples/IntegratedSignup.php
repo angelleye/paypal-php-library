@@ -4,11 +4,16 @@ if(!session_id()) session_start();
 require_once('../includes/config.php');
 require_once('../autoload.php');
 
-$collected_consents = array(
-    "granted" => "1",                                //Indicates whether consent was obtained. If set to false, PayPal will ignore all of the data passed in the customer_data top-level object.
-    "type" => "SHARE_DATA_CONSENT"                   //Indicates the type of consent obtained from the merchant. Valid values: SHARE_DATA_CONSENT (indicates that you have obtained consent from the merchant to share their data with PayPal).
+$configArray = array(
+    'ClientID' => $rest_client_id,
+    'ClientSecret' => $rest_client_secret,
+    'Sandbox' => $sandbox,
+    'PrintHeaders' => $print_headers, 
+    'LogResults' => $log_results, 
+    'LogPath' => $log_path
 );
 
+$PayPal = new angelleye\PayPal\PayPal_IntegratedSignup($configArray);
 
 $customer_data = array();
 $customer_data['customer_type'] = 'MERCHANT';       // Type of account to create. Valid value: MERCHANT (creates PayPal business account).
@@ -164,14 +169,12 @@ $partner_specific_identifiers = array(
     "value" => '55d29842a9cca'                       // Partner identifier. The partner identifier is a value for your own use in tracking the merchant and will be returned to you when the merchant is redirected back to your site from PayPal. Only alphanumeric characters are allowed in this field.
 );
 $customer_data['partner_specific_identifiers'][0] = $partner_specific_identifiers;
-// remaiins
-$products = array(
-    "0" => 'EXPRESS_CHECKOUT'              // Indicates which PayPal products the merchant should be enrolled in. Valid values: EXPRESS_CHECKOUT.
-);
 
 $requested_capabilities = array();         // Contains information on the capabilities, including specifics of API provisioning, that is being requested for the new account.
+
 $api_integration_preference = array();     // Contains information on the API integration to be performed with the partner.
 $api_integration_preference['classic_api_integration_type'] = 'THIRD_PARTY';             // The type of integration that will be performed with the partner. Valid values: THIRD_PARTY (indicates that third party permissions are to be granted from the merchant to the partner), FIRST_PARTY_INTEGRATED (indicates that first party API credentials are to be obtained from the merchant), FIRST_PARTY_NON_INTEGRATED (indicates that first party API credentials are to be generated and displayed to the merchant at the end of the signup flow).
+
 $classic_third_party_details = array();     // Contains information on the third party permissions that are to be granted to the partner. Only valid when classic_api_integration_type is set to THIRD_PARTY.
 $permission_list = array(
     "0" => 'EXPRESS_CHECKOUT',              // provides access to the SetExpressCheckout, GetExpressCheckoutDetails, DoExpressCheckoutPayment, and GetPalDetails APIs.
@@ -181,8 +184,18 @@ $permission_list = array(
     "4" => 'TRANSACTION_SEARCH',            // provides access to the TransactionSearch API.
     "5" => 'REFERENCE_TRANSACTION'          // provides access to the BillAgreementUpdate and DoReferenceTransaction APIs.
 );
+/* $classic_first_party_details = array(); 
+ * classic_first_party_details
+ * Indicates whether API credentials generated for the merchant
+   should contain an API signature or an API certificate. Only valid
+   when classic_api_integration_type is set to FIRST_PARTY_INTEGRATED
+   or FIRST_PARTY_NON_INTEGRATED.
+ * 
+$api_integration_preference['classic_api_integration_type'] = 'FIRST_PARTY_INTEGRATED';
+$api_integration_preference['classic_first_party_details'] = 'SIGNATURE';  // Valid values: SIGNATURE (indicates that API credentials generated for the merchant should contain an API signature) CERTIFICATE (indicates that API credentials generated for the merchant should contain an API certificate)
+*/
 $classic_third_party_details['permission_list'] = $permission_list;  
-$api_integration_preference['classic_third_party_details'] = $classic_third_party_details;  
+$api_integration_preference['classic_third_party_details'] = $classic_third_party_details;  // Contains information on the third party permissions that are to be granted to the partner. Only valid when classic_api_integration_type is set to THIRD_PARTY
 $api_integration_preference['partner_id'] = 'F29HACJW4XYU4';                // Payer ID of the partner with whom the merchant will integrate. This will generally be your payer ID.
 $requested_capabilities['api_integration_preference'] = $api_integration_preference;  
 $requested_capabilities['capability'] = 'API_INTEGRATION';                // Describes the capability being requested. Valid values: API_INTEGRATION.
@@ -192,19 +205,24 @@ $web_experience_preference = array(
     "partner_logo_url" => '',                            // URL of an image which will be displayed to the merchant during the signup flow. This allows you to co-brand the signup pages with your logo.
     "return_url" => 'http://localhost/isp/index.php'    // URL where the merchant will be returned to after they complete the signup flow on PayPal.
 );
+$collected_consents = array(
+    "granted" => "1",                                //Indicates whether consent was obtained. If set to false, PayPal will ignore all of the data passed in the customer_data top-level object.
+    "type" => "SHARE_DATA_CONSENT"                   //Indicates the type of consent obtained from the merchant. Valid values: SHARE_DATA_CONSENT (indicates that you have obtained consent from the merchant to share their data with PayPal).
+);
+$products = array(
+    "0" => 'EXPRESS_CHECKOUT'              // Indicates which PayPal products the merchant should be enrolled in. Valid values: EXPRESS_CHECKOUT.
+);
+$requestData = array();
+$requestData['collected_consents'][0] = $collected_consents;
+$requestData['customer_data'] = $customer_data;
+$requestData['products'] = $products;
+$requestData['requested_capabilities'][0] = $requested_capabilities;
+$requestData['web_experience_preference'] = $web_experience_preference;
 
+$responseData = $PayPal->IntegratedSignup($requestData);
 
-$finalArray = array();
 echo "<pre>";
-$finalArray['collected_consents'][0] = $collected_consents;
-$finalArray['customer_data'] = $customer_data;
-$finalArray['products'] = $products;
-$finalArray['requested_capabilities'][0] = $requested_capabilities;
-$finalArray['web_experience_preference'] = $web_experience_preference;
-
-$abc = json_encode($finalArray);
-print_r($abc);
-
+print_r($responseData);
 exit;
 
 
