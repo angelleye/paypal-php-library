@@ -27,8 +27,8 @@ $name = array(
     "given_name" => 'Ryan',                         // Account holder’s first name or given name.Maximum length: 140 characters.
     "surname" => 'Testing',                         // Account holder’s last name, family name, surname, or matronymic name. Maximum length: 140 characters.
     "middle_name" => '',                            // Account holder’s middle name or patronymic name.Maximum length: 140 characters
-    "suffix"    => '',                              //  
-    "alternate_full_name" => ''
+    "suffix"    => '',                              // The suffix of the account holder’s name (such as “Jr.”,“Sr.”, “II”, “III”, etc).Maximum length: 140 characters
+    "alternate_full_name" => ''                     // Account holder’s full name or business name. Can be used when the account holder’s name cannot be broken into separate parts, or when the business does not provide the name of the account holder.Maximum length: 300 characters
 );
 $person_details['name'] = $name;
 
@@ -203,10 +203,10 @@ $requested_capabilities['capability'] = 'API_INTEGRATION';                // Des
 $web_experience_preference = array(
     "action_renewal_url" => '',                           // URL where the merchant will be returned to in the event that the token (issued by this call) has expired.
     "partner_logo_url" => '',                            // URL of an image which will be displayed to the merchant during the signup flow. This allows you to co-brand the signup pages with your logo.
-    "return_url" => 'http://localhost/isp/index.php'    // URL where the merchant will be returned to after they complete the signup flow on PayPal.
+    "return_url" => $domain .'samples/IntegratedSignup_Callback.php'    // URL where the merchant will be returned to after they complete the signup flow on PayPal.
 );
 $collected_consents = array(
-    "granted" => "1",                                //Indicates whether consent was obtained. If set to false, PayPal will ignore all of the data passed in the customer_data top-level object.
+    "granted" => true,                                //Indicates whether consent was obtained. If set to false, PayPal will ignore all of the data passed in the customer_data top-level object.
     "type" => "SHARE_DATA_CONSENT"                   //Indicates the type of consent obtained from the merchant. Valid values: SHARE_DATA_CONSENT (indicates that you have obtained consent from the merchant to share their data with PayPal).
 );
 $products = array(

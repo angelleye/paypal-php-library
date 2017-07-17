@@ -43,6 +43,7 @@ use DOMDocument;
 class PayPal_IntegratedSignup extends PayPal {
 
     private $_auth_string;
+    private $_bearer_string;
     var $Sandbox = '';
     var $PathToCertKeyPEM = '';
     var $SSL = '';
@@ -71,17 +72,50 @@ class PayPal_IntegratedSignup extends PayPal {
             $this->EndPointURL = 'https://api.paypal.com/v1/';
         }
     }
-
-    public function IntegratedSignup($requestData) {
-        $payload = json_encode($requestData, 0 | 64);
-        exit;
+        
+    public function IntegratedSignup($requestData) {        
+        /*          
+         * Authentication
+         * Before using any of the PayPal REST APIs, you must first authenticate yourself and
+         * obtain an access token. This call uses the client token and secret assigned to you by
+         * PayPal; all other calls will use the access token obtained here.
+         */
+        $Request = "grant_type=client_credentials";
+        $AuthResponseJson = $this->CURLRequest($Request,'oauth2','token', $this->PrintHeaders);
+        $AuthResponseArray =json_decode($AuthResponseJson, true);
+        /* If token is is received then we can process for ISP */
+        if(isset($AuthResponseArray['token_type']) && isset($AuthResponseArray['access_token'])){
+            $TrimmedArray = $this->array_trim($requestData);
+            $RequestPayload = json_encode($TrimmedArray, 0 | 64);
+            $this->_bearer_string = $AuthResponseArray['access_token'];
+            $ConnectPayPalJson = $this->CURLRequest($RequestPayload, 'customer', 'partner-referrals', $this->PrintHeaders);
+            $ConnectPayPalArray = json_decode($ConnectPayPalJson, true);
+            if(isset($ConnectPayPalArray['links'])){
+                return $ConnectPayPalArray;
+            }
+            else{
+                return $ConnectPayPalArray;
+            }
+        }
+        else{
+            return $AuthResponseArray;
+        }
     }
 
-    function BuildHeaders($PrintHeaders) {
-        $headers = array(
-            'Content-Type: application/x-www-form-urlencoded',
-            'Authorization: Basic ' . $this->_auth_string,
-        );
+    function BuildHeaders($PrintHeaders,$API) {
+        $headers = array();
+        if($API == 'oauth2/token'){
+            $headers = array(
+                'Content-Type: application/x-www-form-urlencoded',
+                'Authorization: Basic ' . $this->_auth_string,
+            );
+        }
+        if($API == 'customer/partner-referrals'){
+            $headers = array(
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . $this->_bearer_string,
+            );
+        }        
         if ($PrintHeaders) {
             echo '<pre />';
             print_r($headers);
@@ -97,8 +131,27 @@ class PayPal_IntegratedSignup extends PayPal {
         curl_setopt($curl, CURLOPT_POSTFIELDS, $Request);
         curl_setopt($curl, CURLOPT_URL, $this->EndPointURL . $APIName . '/' . $APIOperation);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $this->BuildHeaders($this->PrintHeaders));
-        $result = curl_exec($curl);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $this->BuildHeaders($this->PrintHeaders,$APIName.'/'.$APIOperation));
+        $result = curl_exec($curl);        
+        /*
+        * If a cURL error occurs, output it for review.
+        */
+       if($this->Sandbox)
+       {
+               if(curl_error($curl))
+               {
+                       echo curl_error($curl).'<br /><br />';	
+               }
+       }
+
+       curl_close($curl);
+       return $result;
+    }
+    
+    public function array_trim($input) {
+        return is_array($input) ? array_filter($input, 
+            function (& $value) { return $value = $this->array_trim($value); }
+        ) : $input;
     }
 
 }
