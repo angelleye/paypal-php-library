@@ -82,15 +82,15 @@ if($PayPal->APICallSuccessful($PayPalResult['ACK']))
      * We're going to set static values for these things in our static
      * shopping cart, and then re-calculate our grand total.
      */
-    $_SESSION['Payment']['shippingamt'] = 10.00;
-    $_SESSION['Payment']['handlingamt'] = 2.50;
-    $_SESSION['Payment']['taxamt'] = 1.50;
+    $_SESSION['shopping_cart']['shipping'] = 10.00;
+    $_SESSION['shopping_cart']['handling'] = 2.50;
+    $_SESSION['shopping_cart']['tax'] = 1.50;
 
-    $_SESSION['Payment']['grand_total'] = number_format(
-        $_SESSION['Payment']['amt']
-        + $_SESSION['Payment']['shippingamt']
-        + $_SESSION['Payment']['handlingamt']
-        + $_SESSION['Payment']['taxamt'],2);
+    $_SESSION['shopping_cart']['grand_total'] = number_format(
+        $_SESSION['shopping_cart']['subtotal']
+        + $_SESSION['shopping_cart']['shipping']
+        + $_SESSION['shopping_cart']['handling']
+        + $_SESSION['shopping_cart']['tax'],2);
 
     /**
      * Now we will redirect the user to a final review

@@ -50,22 +50,40 @@ $SECFields = array(
  * but for this basic sample we've removed everything that we're not using,
  * so all we have is an amount.
  */
-//$Payments = array();
-//$Payment = array(
-//    'amt' => '10.', 	// Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
-//);
+$Payments = array();
+$Payment = array(
+    'amt' => $_SESSION['shopping_cart']['grand_total'], 							// Required.  The total cost of the transaction to the customer.  If shipping cost and tax charges are known, include them in this value.  If not, this value should be the current sub-total of the order.
+    'itemamt' => $_SESSION['shopping_cart']['subtotal'], 						// Required if you specify itemized L_AMT fields. Sum of cost of all items in this order.
+    'shippingamt' => $_SESSION['shopping_cart']['shipping'], 					// Total shipping costs for this order.  If you specify SHIPPINGAMT you mut also specify a value for ITEMAMT.
+    'handlingamt' => $_SESSION['shopping_cart']['handling'], 					// Total handling costs for this order.  If you specify HANDLINGAMT you mut also specify a value for ITEMAMT.
+    'taxamt' => $_SESSION['shopping_cart']['tax'], 						// Required if you specify itemized L_TAXAMT fields.  Sum of all tax items in this order.
+);
+
+$PaymentOrderItems = array();
+foreach($_SESSION['shopping_cart']['items'] as $cart_item)
+{
+    $Item = array(
+        'name' => $cart_item['name'], 								// Item name. 127 char max.
+        'desc' => $cart_item['name'], 								// Item description. 127 char max.
+        'amt' => $cart_item['price'], 								// Cost of item.
+        'number' => $cart_item['id'], 							// Item number.  127 char max.
+        'qty' => $cart_item['qty'], 								// Item qty on order.  Any positive integer.
+    );
+    array_push($PaymentOrderItems, $Item);
+}
+$Payment['order_items'] = $PaymentOrderItems;
 
 /**
  * Here we push our single $Payment into our $Payments array.
  */
-//array_push($Payments, $Payment);
+array_push($Payments, $Payment);
 
 /**
  * Now we gather all of the arrays above into a single array.
  */
 $PayPalRequestData = array(
 					   'SECFields' => $SECFields, 
-					   'Payments' => $_SESSION['Payments'],
+					   'Payments' => $Payments,
 					   );
 
 /**
