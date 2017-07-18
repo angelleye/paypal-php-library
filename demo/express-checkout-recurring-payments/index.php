@@ -23,6 +23,7 @@ $_SESSION['subscription'] = array(
     'billing_frequency' => '1',
     'total_billing_cycles' => '',
     'amount' => '49.99',
+    'name' => 'Monthly Subscription Demo'
 );
 
 $_SESSION['shopping_cart'] = array(
@@ -69,65 +70,83 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
 
 <body>
 <div class="container">
-  <div class="row clearfix">
-    <div class="col-md-12 column">
-      <div id="header" class="row clearfix">
-        <div class="col-md-6 column">
-          <div id="angelleye_logo"> <a href="/"><img alt="Angell EYE PayPal PHP Class Library Demo" src="../assets/images/logo.png"></a> </div>
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div id="header" class="row clearfix">
+                <div class="col-md-6 column">
+                    <div id="angelleye_logo"> <a href="/"><img alt="Angell EYE PayPal PHP Class Library Demo" src="../assets/images/logo.png"></a> </div>
+                </div>
+                <div class="col-md-6 column">
+                    <div id="paypal_partner_logo"> <img alt="PayPal Partner and Certified Developer" src="../assets/images/paypal-partner-logo.png"/> </div>
+                </div>
+            </div>
+            <h2 align="center">Shopping Cart</h2>
+            <p class="bg-info">Here we are using a basic shopping cart for display purposes, but for purposes of this demo we’ll only be sending the basic Subscription / Recurring Payments details to PayPal.  Check out other demo kits for a combination of cart items + subscription in the same checkout flow.</p>
+            <p class="bg-info">To complete the demo, click the Checkout with PayPal button and use the following credentials to login to PayPal.<br /><br />
+                Email Address:  paypal-buyer@angelleye.com<br />
+                Password:  paypalphp
+            </p>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th class="center">Price</th>
+                    <th class="center">QTY</th>
+                    <th class="center">Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                foreach($_SESSION['shopping_cart']['items'] as $cart_item) {
+                    ?>
+                    <tr>
+                        <td><?php echo $cart_item['id']; ?></td>
+                        <td><?php echo $cart_item['name']; ?></td>
+                        <td class="center"> $<?php echo number_format($cart_item['price'],2); ?></td>
+                        <td class="center"><?php echo $cart_item['qty']; ?></td>
+                        <td class="center"> $<?php echo round($cart_item['qty'] * $cart_item['price'],2); ?></td>
+                    </tr>
+                    <?php
+                }
+                ?>
+                </tbody>
+            </table>
+            <div class="row clearfix">
+                <div class="col-md-4 column"> </div>
+                <div class="col-md-4 column"> </div>
+                <div class="col-md-4 column">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong> Subtotal</strong></td>
+                            <td> $<?php echo number_format($_SESSION['shopping_cart']['subtotal'],2); ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Shipping</strong></td>
+                            <td>$<?php echo number_format($_SESSION['shopping_cart']['shipping'],2); ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Handling</strong></td>
+                            <td>$<?php echo number_format($_SESSION['shopping_cart']['handling'],2); ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tax</strong></td>
+                            <td>$<?php echo number_format($_SESSION['shopping_cart']['tax'],2); ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grand Total</strong></td>
+                            <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?> / mo</td>
+                        </tr>
+                        <tr>
+                            <td class="center" colspan="2"><a href="SetExpressCheckout.php"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6 column">
-          <div id="paypal_partner_logo"> <img alt="PayPal Partner and Certified Developer" src="../assets/images/paypal-partner-logo.png"/> </div>
-        </div>
-      </div>
-      <h2 align="center">Shopping Cart</h2>
-      <p class="bg-info">Here we have a basic shopping cart for display purposes that breaks down a one-time setup fee to go with a monthly subscription.  The one-time fee is considered an "Initial Amount" on the subscription profile and will be processed immediately. The monthly amount will be processed separately at its given interval.</p>
-      <p class="bg-info">To complete the demo, click the Checkout with PayPal button and use the following credentials to login to PayPal.<br /><br />
-      Email Address:  paypal-buyer@angelleye.com<br />
-      Password:  paypalphp
-      </p>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th class="center">Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-    foreach($_SESSION['shopping_cart']['items'] as $cart_item) {
-        ?>
-          <tr>
-            <td><?php echo $cart_item['name']; ?></td>
-            <td class="center"><?php echo number_format($cart_item['amt'],2) ?></td>
-          </tr>
-          <?php
-    }
-    ?>
-        </tbody>
-      </table>
-      <div class="row clearfix">
-        <div class="col-md-4 column"> </div>
-        <div class="col-md-4 column"> </div>
-        <div class="col-md-4 column">
-          <table class="table">
-            <tbody>
-              <tr>
-                <td><strong>Subtotal</strong></td>
-                <td> $<?php echo number_format($_SESSION['shopping_cart']['subtotal'],2); ?></td>
-              </tr>
-              <tr>
-                <td><strong>Grand Total</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?> one-time <br />and $10.00 / mo there-after.</td>
-              </tr>
-              <tr>
-                  <td class="center" colspan="2"><a href="SetExpressCheckout.php"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"></a></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 </body>
 </html>

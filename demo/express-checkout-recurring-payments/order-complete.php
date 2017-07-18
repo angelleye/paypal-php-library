@@ -1,4 +1,7 @@
 <?php
+/**
+ * Include our config file.
+ */
 require_once('../../includes/config.php');
 ?>
 <html lang="en">
@@ -60,7 +63,7 @@ require_once('../../includes/config.php');
         ?>
           <tr>
             <td><?php echo $cart_item['name']; ?></td>
-            <td class="center"><?php echo number_format($cart_item['amt'],2) ?></td>
+            <td class="center"><?php echo number_format($cart_item['price'],2) ?></td>
           </tr>
           <?php
     }
@@ -91,7 +94,7 @@ require_once('../../includes/config.php');
             </tr>
             <tr>
                 <td><strong>Grand Total</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?> one time <br />and $10.00 / mo there-after.</td>
+                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?> / mo</td>
             </tr>
               <tr>
                   <td class="center" colspan="2">&nbsp;</td>
