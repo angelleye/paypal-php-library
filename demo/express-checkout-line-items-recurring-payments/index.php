@@ -5,26 +5,40 @@ require_once('../../includes/config.php');
  * Here we are building a very simple, static shopping cart to use
  * throughout this demo.  In most cases, you will working with a dynamic
  * shopping cart system of some sort.
+ *
+ * We will add subscription details to the shopping cart as well,
+ * so that everything is available to us for the future API calls
+ * to both DoExpressCheckoutPayment and CreateRecurringPaymentsProfile.
  */
-$_SESSION['billingperiod']='Month';
-$_SESSION['billingfrequency']='1';
-$_SESSION['totalbillingcycles']='0';
-
 $_SESSION['items'][0] = array(
     'id' => '123-ABC',
     'name' => 'Widget',
-    'qty' => '1',
-    'price' => '50.00',
+    'qty' => '2',
+    'price' => '9.99',
 );
 
-$_SESSION['subscriptionamt']='10.00';
+$_SESSION['items'][1] = array(
+    'id' => 'XYZ-456',
+    'name' => 'Gadget',
+    'qty' => '1',
+    'price' => '4.99',
+);
+
+$_SESSION['subscription'] = array(
+    'name' => 'Shipped Items + Subscription Demo',
+    'billing_period' => 'Month',
+    'billing_frequency' => '1',
+    'total_billing_cycles' => '',
+    'amount' => '10.00',
+);
 
 $_SESSION['shopping_cart'] = array(
-	'items' => $_SESSION['items'],	
-    'subtotal' => $_SESSION['items'][0]['price'],
-	'shipping' => 0,
-	'handling' => 0,
-	'tax' => 0,
+    'items' => $_SESSION['items'],
+    'subtotal' => 24.97,
+    'shipping' => 0,
+    'handling' => 0,
+    'tax' => 0,
+    'subscription' => $_SESSION['subscription'],
 );
 $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_cart']['subtotal'] + $_SESSION['shopping_cart']['shipping'] + $_SESSION['shopping_cart']['handling'] + $_SESSION['shopping_cart']['tax'],2);
 ?>
@@ -73,9 +87,7 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
         </div>
       </div>
       <h2 align="center">Shopping Cart</h2>
-      <p class="bg-info">Here we are using a basic shopping cart for display purposes, however, for this basic demo, all we are sending to PayPal is the order total without any line item details. We are assuming that we have not collected any 
-      billing or shipping information from the buyer yet because we'll be obtaining those details from PayPal 
-      after the user logs in and is returned back to the site.</p>
+      <p class="bg-info">Here we are using a basic shopping cart for display purposes.  This demo will send the line item details for the shipped items as well as subscription details for the recurring payments profile.</p>
       <p class="bg-info">To complete the demo, click the Checkout with PayPal button and use the following credentials to login to PayPal.<br /><br />
       Email Address:  paypalphp@angelleye.com<br />
       Password:  paypalphp
@@ -144,7 +156,7 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
               </tr>
               <tr>
                 <td><strong>Grand Total</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?></td>
+                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?> one time<br />$<?php echo number_format($_SESSION['shopping_cart']['subscription']['amount'], 2); ?> / mo until canceled</td>
               </tr>
               <tr>
                   <td class="center" colspan="2"><a href="SetExpressCheckout.php"><img src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"></a></td>
