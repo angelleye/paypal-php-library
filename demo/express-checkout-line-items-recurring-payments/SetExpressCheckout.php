@@ -26,14 +26,17 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
  * The template provided at /vendor/angelleye/paypal-php-library/templates/SetExpressCheckout.php
  * contains a lot more parameters that we aren't using here, so I've removed them to keep this clean.
  *
+ * We are including the Billing Agreement paramters here so that the token we get back from PayPal
+ * will be valid for both DoExpressCheckoutPayment and CreateRecurringPaymentsProfile later.
+ *
  * $domain used here is set in the config file.
  */
 $SECFields = array(
 					'maxamt' => round($_SESSION['shopping_cart']['grand_total'] * 2,2), 					// The expected maximum total amount the order will be, including S&H and sales tax.
 					'returnurl' => $domain . 'demo/do-express-checkout-recurring-payments/GetExpressCheckoutDetails.php', 							    // Required.  URL to which the customer will be returned after returning from PayPal.  2048 char max.
 					'cancelurl' => $domain . 'demo/do-express-checkout-recurring-payments/', 							    // Required.  URL to which the customer will be returned if they cancel payment on PayPal's site.
-                                        'L_BILLINGTYPE0' => 'RecurringPayments',
-                                        'L_BILLINGAGREEMENTDESCRIPTION0' => 'TJDECPRP',    
+                    'L_BILLINGTYPE0' => 'RecurringPayments',
+                    'L_BILLINGAGREEMENTDESCRIPTION0' => $_SESSION['shopping_cart']['subscription']['name'],
 					'hdrimg' => 'https://www.angelleye.com/images/angelleye-paypal-header-750x90.jpg', 			// URL for the image displayed as the header during checkout.  Max size of 750x90.  Should be stored on an https:// server or you'll get a warning message in the browser.
 					'logoimg' => 'https://www.angelleye.com/images/angelleye-logo-190x60.jpg', 					// A URL to your logo image.  Formats:  .gif, .jpg, .png.  190x60.  PayPal places your logo image at the top of the cart review area.  This logo needs to be stored on a https:// server.
 					'brandname' => 'Angell EYE', 							                                // A label that overrides the business name in the PayPal account on the PayPal hosted checkout pages.  127 char max.
