@@ -21,7 +21,7 @@ $_SESSION['subscriptionamt']='10.00';
 
 $_SESSION['shopping_cart'] = array(
 	'items' => $_SESSION['items'],	
-        'subtotal' => $_SESSION['items'][0]['price'],
+    'subtotal' => $_SESSION['items'][0]['price'],
 	'shipping' => 0,
 	'handling' => 0,
 	'tax' => 0,
@@ -31,7 +31,7 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>PayPal Express Checkout Recurring Payments Profile Demo | PHP Class Library | Angell EYE</title>
+<title>PayPal Express Checkout Shipped Items + Recurring Payments Demo | PHP Class Library | Angell EYE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
