@@ -104,23 +104,23 @@ require_once('../../includes/config.php');
             <tbody>
                           <tr>
                 <td><strong> Subtotal</strong></td>
-                <td> $<?php echo number_format($_SESSION['Payment']['amt'],2); ?></td>
+                <td> $<?php echo number_format($_SESSION['shopping_cart']['subtotal'],2); ?></td>
               </tr>
               <tr>
                 <td><strong>Shipping</strong></td>
-                <td>$<?php echo number_format($_SESSION['Payment']['shippingamt'],2); ?></td>
+                <td>$<?php echo number_format($_SESSION['shopping_cart']['shipping'],2); ?></td>
               </tr>
               <tr>
                 <td><strong>Handling</strong></td>
-                <td>$<?php echo number_format($_SESSION['Payment']['handlingamt'],2); ?></td>
+                <td>$<?php echo number_format($_SESSION['shopping_cart']['handling'],2); ?></td>
               </tr>
               <tr>
                 <td><strong>Tax</strong></td>
-                <td>$<?php echo number_format($_SESSION['Payment']['taxamt'],2); ?></td>
+                <td>$<?php echo number_format($_SESSION['shopping_cart']['tax'],2); ?></td>
               </tr>
               <tr>
                 <td><strong>Grand Total</strong></td>
-                <td>$<?php echo number_format($_SESSION['Payment']['grand_total'],2); ?></td>
+                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?></td>
               </tr>
               <tr>
                   <td class="center" colspan="2">&nbsp;</td>

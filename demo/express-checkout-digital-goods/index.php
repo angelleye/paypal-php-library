@@ -75,7 +75,7 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
       <h2 align="center">Shopping Cart</h2>
       <p class="bg-info">Here we are using a basic shopping cart for display purposes, and we are expanding on the <a href="../express-checkout-line-items/">Express Checkout with LIne Items  demo</a> to <a href="https://developer.paypal.com/docs/classic/express-checkout/digital-goods/IntroducingExpressCheckoutDG/" target="_blank">add the Digital Goods experience</a> to the checkout flow. </p>
       <p class="bg-info">To complete the demo, click the Checkout with PayPal button and use the following credentials to login to PayPal.<br /><br />
-      Email Address:  paypalphp@angelleye.com<br />
+      Email Address:  paypal-buyer@angelleye.com<br />
       Password:  paypalphp
       </p>
       <table class="table table-bordered">

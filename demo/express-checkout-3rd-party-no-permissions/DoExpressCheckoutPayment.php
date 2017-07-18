@@ -43,6 +43,11 @@ $DECPFields = array(
  * data to pass into our $Payments array.  This time we can include
  * the shipping, handling, tax, and shipping address details that we
  * now have.
+ *
+ * Once again, we're passing our 3rd party PayPal account email address
+ * into the "sellerpaypalaccountid" parameter to specify that this payment
+ * should be sent to that account instead of our own, even though we're
+ * still using our own API credentials for the call.
  */
 $Payments = array();
 $Payment = array(

@@ -4,31 +4,39 @@ require_once('../../includes/config.php');
  * A unique identifier for the merchant.  
  * For parallel payments, this field is required and must contain the Payer ID 
  * or the email address of the merchant.
+ *
+ * Here we have two separate PayPal sandbox accounts setup as receivers, so that
+ * we can see the split take place during the demo.
  */
-$_SESSION['seller_a'] = 'vivekp@itpathsolutions.co.in';
-$_SESSION['seller_b'] = 'vivekp@itpathsolutions.co.in';
+$seller_a = 'paypal-facilitator@angelleye.com';
+$seller_b = 'sandbox-seller@angelleye.com';
 
 /**
  * Here we are building a very simple, static shopping cart to use
  * throughout this demo.  In most cases, you will working with a dynamic
  * shopping cart system of some sort.
+ *
+ * For the purposes of this Parallel Payments demo we have added a
+ * "seller_id" to the cart items.
  */
 $_SESSION['items'][0] = array(
     'id' => '123-ABC',
     'name' => 'Widget',
-    'qty' => '2',
-    'price' => '9.99',
+    'qty' => '1',
+    'price' => '10.00',
+    'seller_id' => $seller_a,
 );
 
 $_SESSION['items'][1] = array(
     'id' => 'XYZ-456',
     'name' => 'Gadget',
     'qty' => '1',
-    'price' => '4.99',
+    'price' => '5.00',
+    'seller_id' => $seller_b,
 );
 $_SESSION['shopping_cart'] = array(
 	'items' => $_SESSION['items'],
-	'subtotal' => 24.97,
+	'subtotal' => 15.00,
 	'shipping' => 0,
 	'handling' => 0,
 	'tax' => 0,
@@ -80,11 +88,10 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
         </div>
       </div>
       <h2 align="center">Shopping Cart</h2>
-      <p class="bg-info">Here we are using a basic shopping cart for display purposes, however, for this basic demo, all we are sending to PayPal is the order total without any line item details. We are assuming that we have not collected any 
-      billing or shipping information from the buyer yet because we'll be obtaining those details from PayPal 
-      after the user logs in and is returned back to the site.</p>
+      <p class="bg-info">Here we are using a basic shopping cart for display purposes.  With the PayPal Parallel Payment, the first item’s payment will go to one PayPal account while the second item’s payment goes to a separate PayPal account.</p>
+      <p class="bg-info">We are assuming that we have not collected any billing or shipping information from the buyer yet because we'll be obtaining those details from PayPal after the user logs in and is returned back to the site.</p>
       <p class="bg-info">To complete the demo, click the Checkout with PayPal button and use the following credentials to login to PayPal.<br /><br />
-      Email Address:  paypalphp@angelleye.com<br />
+      Email Address:  paypal-buyer@angelleye.com<br />
       Password:  paypalphp
       </p>
       <table class="table table-bordered">
@@ -106,7 +113,7 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
             <td><?php echo $cart_item['name']; ?></td>
             <td class="center"> $<?php echo number_format($cart_item['price'],2); ?></td>
             <td class="center"><?php echo $cart_item['qty']; ?></td>
-            <td class="center"> $<?php echo round($cart_item['qty'] * $cart_item['price'],2); ?></td>
+            <td class="center"> $<?php echo number_format(round($cart_item['qty'] * $cart_item['price'],2),2); ?></td>
           </tr>
           <?php
     }

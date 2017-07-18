@@ -53,6 +53,8 @@ require_once('../../includes/config.php');
       The payment has not been processed at this point because we have not yet called the final DoExpressCheckoutPayment API. That is what will 
       happen when we click the "Complete Order" button below.
       </p>
+      <p class="bg-info">Once again, the "sellerpaypalaccountid" parameter is passed into the DoExpressCheckoutPayment request to specify where
+       the payment should be sent, which you can see in DoExpressCheckoutPayment.php.</p>
       <table class="table table-bordered">
         <thead>
           <tr>
