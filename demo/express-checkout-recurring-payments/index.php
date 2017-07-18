@@ -5,27 +5,33 @@ require_once('../../includes/config.php');
  * Here we are building a very simple, static shopping cart to use
  * throughout this demo.  In most cases, you will working with a dynamic
  * shopping cart system of some sort.
+ *
+ * Separate from the cart items we have a subscription array
+ * with parameters specific to the recurring payments profile
+ * we'll be setting up.
  */
-$_SESSION['subscription_name'] = 'Angell EYE Monthly Subscription Demo';
-$_SESSION['billingperiod']='Month';
-$_SESSION['billingfrequency']='1';
-$_SESSION['totalbillingcycles']='0';
 
-$_SESSION['items'][0] = array(   
-    'name' => 'One-Time Setup Fee',   
-    'amt' => '50.00'
+$_SESSION['items'][0] = array(
+    'id' => '123-ABC',
+    'name' => 'Monthly Subscription',
+    'qty' => '1',
+    'price' => '49.99',
 );
-$_SESSION['items'][1] = array(   
-    'name' => 'Monthly Subscription',   
-    'amt' => '10.00'
+
+$_SESSION['subscription'] = array(
+    'billing_period' => 'Month',
+    'billing_frequency' => '1',
+    'total_billing_cycles' => '',
+    'amount' => '49.99',
 );
 
 $_SESSION['shopping_cart'] = array(
-	'items' => $_SESSION['items'],	
-    'subtotal' => $_SESSION['items'][0]['amt'],
-	'shipping' => 0,
-	'handling' => 0,
-	'tax' => 0,
+    'items' => $_SESSION['items'],
+    'subtotal' => $_SESSION['items'][0]['price'],
+    'shipping' => 0,
+    'handling' => 0,
+    'tax' => 0,
+    'subscription' => $_SESSION['subscription'],
 );
 $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_cart']['subtotal'] + $_SESSION['shopping_cart']['shipping'] + $_SESSION['shopping_cart']['handling'] + $_SESSION['shopping_cart']['tax'],2);
 ?>
