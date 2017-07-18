@@ -40,14 +40,13 @@ namespace angelleye\PayPal;
  */
 use DOMDocument;
 
-class PayPal_IntegratedSignup extends PayPal {
+class PayPal_IntegratedSignup {
 
     private $_auth_string;
     private $_bearer_string;
     var $Sandbox = '';
     var $PathToCertKeyPEM = '';
-    var $SSL = '';
-    var $PrintHeaders = '';
+    var $SSL = '';    
     var $LogResults = '';
     var $LogPath = '';
 
@@ -59,8 +58,7 @@ class PayPal_IntegratedSignup extends PayPal {
         } else {
             $this->Sandbox = true;
         }
-
-        $this->PrintHeaders = isset($configArray['PrintHeaders']) ? $configArray['PrintHeaders'] : false;
+        
         $this->LogResults = isset($configArray['LogResults']) ? $configArray['LogResults'] : false;
         $this->LogPath = isset($configArray['LogPath']) ? $configArray['LogPath'] : '/logs/';
 
@@ -70,68 +68,70 @@ class PayPal_IntegratedSignup extends PayPal {
             $this->EndPointURL = 'https://api.sandbox.paypal.com/v1/';
         } else {
             $this->EndPointURL = 'https://api.paypal.com/v1/';
-        }
+        }            
     }
         
-    public function IntegratedSignup($requestData) {        
-        /*          
-         * Authentication
-         * Before using any of the PayPal REST APIs, you must first authenticate yourself and
-         * obtain an access token. This call uses the client token and secret assigned to you by
-         * PayPal; all other calls will use the access token obtained here.
-         */
-        $Request = "grant_type=client_credentials";
-        $AuthResponseJson = $this->CURLRequest($Request,'oauth2','token', $this->PrintHeaders);
-        $AuthResponseArray =json_decode($AuthResponseJson, true);
-        /* If token is is received then we can process for ISP */
-        if(isset($AuthResponseArray['token_type']) && isset($AuthResponseArray['access_token'])){
-            $TrimmedArray = $this->array_trim($requestData);
-            $RequestPayload = json_encode($TrimmedArray, 0 | 64);
-            $this->_bearer_string = $AuthResponseArray['access_token'];
-            $ConnectPayPalJson = $this->CURLRequest($RequestPayload, 'customer', 'partner-referrals', $this->PrintHeaders);
-            $ConnectPayPalArray = json_decode($ConnectPayPalJson, true);
-            if(isset($ConnectPayPalArray['links'])){
-                return $ConnectPayPalArray;
-            }
-            else{
-                return $ConnectPayPalArray;
-            }
-        }
-        else{
-            return $AuthResponseArray;
-        }
-    }
-
-    function BuildHeaders($PrintHeaders,$API) {
-        $headers = array();
-        if($API == 'oauth2/token'){
-            $headers = array(
+    public function IntegratedSignup($requestData) {
+            /*          
+             * Authentication
+             * Before using any of the PayPal REST APIs, you must first authenticate yourself and
+             * obtain an access token. This call uses the client token and secret assigned to you by
+             * PayPal; all other calls will use the access token obtained here.
+             */
+            $Authheaders = array(
                 'Content-Type: application/x-www-form-urlencoded',
                 'Authorization: Basic ' . $this->_auth_string,
             );
-        }
-        if($API == 'customer/partner-referrals'){
-            $headers = array(
+            $Request = "grant_type=client_credentials";
+            $AuthURL = $this->EndPointURL.'oauth2/token';
+            $AuthResponseJson = $this->CURLRequest('POST',$Authheaders,$AuthURL,$Request);
+            $AuthResponseArray =json_decode($AuthResponseJson, true);
+            /* If token is is received then we can process for ISP */
+            if(isset($AuthResponseArray['token_type']) && isset($AuthResponseArray['access_token'])){
+                $this->_bearer_string = $AuthResponseArray['access_token'];                
+            }
+            else{            
+                return $AuthResponseArray;
+            }
+            $TrimmedArray = $this->array_trim($requestData);
+            $RequestPayload = json_encode($TrimmedArray, 0 | 64);            
+            $CPheaders = array(
                 'Content-Type: application/json',
                 'Authorization: Bearer ' . $this->_bearer_string,
             );
-        }        
-        if ($PrintHeaders) {
-            echo '<pre />';
-            print_r($headers);
-        }
-        return $headers;
+            $CPURL = $this->EndPointURL.'customer/partner-referrals';
+            $ConnectPayPalJson = $this->CURLRequest('POST',$CPheaders,$CPURL,$RequestPayload);
+            $ConnectPayPalArray = json_decode($ConnectPayPalJson, true);
+            if(isset($ConnectPayPalArray['links'])){                
+                return $ConnectPayPalArray;
+            }
+            else{                
+                return $ConnectPayPalArray;
+            }
     }
-
-    function CURLRequest($Request = "", $APIName = "", $APIOperation = "", $PrintHeaders = false) {
+    
+    public function getPayerID($PartnerID,$MerchantTrackingID){
+        $PIDheaders = array(            
+            'Authorization: Bearer ' . $this->_bearer_string,
+            'Accept : */*'
+        );
+        $PIDURL = $this->EndPointURL.'/customer/partners/'.$PartnerID.'/merchant-integrations?tracking_id='.$MerchantTrackingID;
+        $ResponseJson = $this->CURLRequest('GET',$PIDheaders,$PIDURL);
+        $ResponseArray = json_decode($ResponseJson, true);
+        return $ResponseArray;
+    }
+        
+    function CURLRequest($method,$headers,$url,$Request='') {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_VERBOSE, $this->Sandbox);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $Request);
-        curl_setopt($curl, CURLOPT_URL, $this->EndPointURL . $APIName . '/' . $APIOperation);
+        if($method==='POST'){            
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $Request);
+        }        
+        curl_setopt($curl, CURLOPT_URL,$url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $this->BuildHeaders($this->PrintHeaders,$APIName.'/'.$APIOperation));
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         $result = curl_exec($curl);        
         /*
         * If a cURL error occurs, output it for review.

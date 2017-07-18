@@ -5,8 +5,7 @@ require_once('../../autoload.php');
 $configArray = array(
     'ClientID' => $rest_client_id,
     'ClientSecret' => $rest_client_secret,
-    'Sandbox' => $sandbox,
-    'PrintHeaders' => $print_headers, 
+    'Sandbox' => $sandbox,    
     'LogResults' => $log_results, 
     'LogPath' => $log_path
 );
@@ -15,7 +14,7 @@ $PayPal = new angelleye\PayPal\PayPal_IntegratedSignup($configArray);
 
 $partner_specific_identifiers = array(
     "type" => 'TRACKING_ID',                          // (Required) Type of partner identifier.Valid values: TRACKING_ID.
-    "value" => '55d29842a9cca'                       // Partner identifier. The partner identifier is a value for your own use in tracking the merchant and will be returned to you when the merchant is redirected back to your site from PayPal. Only alphanumeric characters are allowed in this field.
+    "value" => '12d29842a912a'                       // Partner identifier. The partner identifier is a value for your own use in tracking the merchant and will be returned to you when the merchant is redirected back to your site from PayPal. Only alphanumeric characters are allowed in this field.
 );
 
 $requested_capabilities = array();         // Contains information on the capabilities, including specifics of API provisioning, that is being requested for the new account.
@@ -30,7 +29,13 @@ $permission_list = array(
     "2" => 'AUTH_CAPTURE',                  // provides access to the DoAuthorization,DoCapture, DoReauthorization, and DoVoid APIs.
     "3" => 'TRANSACTION_DETAILS',           // provides access to the GetTransactionDetails API.
     "4" => 'TRANSACTION_SEARCH',            // provides access to the TransactionSearch API.
-    "5" => 'REFERENCE_TRANSACTION'          // provides access to the BillAgreementUpdate and DoReferenceTransaction APIs.
+    "5" => 'REFERENCE_TRANSACTION',         // provides access to the BillAgreementUpdate and DoReferenceTransaction APIs.
+    "6" => 'DIRECT_PAYMENT',                // provides access to the DoDirectPayment API
+    "7" => 'BUTTON_MANAGER',                // provides access to the BMButtonSearch, BMCreateButton, BMGetButtonDetails, BMGetInventory, BMManageButtonStatus, BMSetInventory, and BMUpdateButton APIs
+    "8" => 'ACCOUNT_BALANCE',               // provides access to the GetBalance API
+    "9" => 'RECURRING_PAYMENTS',            // provides access to the CreateRecurringPaymentProfile, GetRecurringPaymentsProfileDetails, ManageRecurringPaymentsProfileStatus, UpdateRecurringPaymentsProfile, and BillOutstandingAmount APIs
+    "10" => 'INVOICING',                    // provides access to the CancelInvoice, CreateAndSendInvoice, CreateInvoice, DeleteInvoice, GenerateInvoiceNumber, GetInvoiceDetails, MarkInvoiceAsPaid, MarkInvoiceAsRefunded, MarkInvoiceAsUnpaid, RemindInvoice, SearchInvoice, SendInvoice, and UpdateInvoice APIs
+    "11" => 'ACCESS_BASIC_PERSONAL_DATA'    // provides you access to the merchant’s personal information
 );
 /* $classic_first_party_details = array(); 
  * classic_first_party_details

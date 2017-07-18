@@ -182,7 +182,13 @@ $permission_list = array(
     "2" => 'AUTH_CAPTURE',                  // provides access to the DoAuthorization,DoCapture, DoReauthorization, and DoVoid APIs.
     "3" => 'TRANSACTION_DETAILS',           // provides access to the GetTransactionDetails API.
     "4" => 'TRANSACTION_SEARCH',            // provides access to the TransactionSearch API.
-    "5" => 'REFERENCE_TRANSACTION'          // provides access to the BillAgreementUpdate and DoReferenceTransaction APIs.
+    "5" => 'REFERENCE_TRANSACTION',         // provides access to the BillAgreementUpdate and DoReferenceTransaction APIs.
+    "6" => 'DIRECT_PAYMENT',                // provides access to the DoDirectPayment API
+    "7" => 'BUTTON_MANAGER',                // provides access to the BMButtonSearch, BMCreateButton, BMGetButtonDetails, BMGetInventory, BMManageButtonStatus, BMSetInventory, and BMUpdateButton APIs
+    "8" => 'ACCOUNT_BALANCE',               // provides access to the GetBalance API
+    "9" => 'RECURRING_PAYMENTS',            // provides access to the CreateRecurringPaymentProfile, GetRecurringPaymentsProfileDetails, ManageRecurringPaymentsProfileStatus, UpdateRecurringPaymentsProfile, and BillOutstandingAmount APIs
+    "10" => 'INVOICING',                    // provides access to the CancelInvoice, CreateAndSendInvoice, CreateInvoice, DeleteInvoice, GenerateInvoiceNumber, GetInvoiceDetails, MarkInvoiceAsPaid, MarkInvoiceAsRefunded, MarkInvoiceAsUnpaid, RemindInvoice, SearchInvoice, SendInvoice, and UpdateInvoice APIs
+    "11" => 'ACCESS_BASIC_PERSONAL_DATA'    // provides you access to the merchant’s personal information
 );
 /* $classic_first_party_details = array(); 
  * classic_first_party_details
