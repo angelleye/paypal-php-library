@@ -145,12 +145,12 @@ The sample code provided by the download buttons is pulled straight from this si
           </div>
         </div>
           <div class="col-md-4">
-            <div class="thumbnail"> <img alt="Express Checkout Line Items + Recurring Payment" src="assets/images/express-checkout-line-items-recurring-payments.jpg">
+            <div class="thumbnail"> <img alt="Express Checkout Line Items + Recurring Payment" src="assets/images/express-checkout-shipped-items-recurring-payments.jpg">
             <div class="caption">
               <h3>Express Checkout</h3>
               <h4>Line Items + Recurring Payments</h4>
               <p>Learn how to implement Express Checkout with shipped items and Recurring Payments together on a single order.</p>
-              <p><a class="btn btn-primary" href="express-checkout-line-items-recurring-payments/">Demo</a> <a class="btn btn-info" href="#">Download Sample Code</a> </p>
+              <p><a class="btn btn-primary" href="express-checkout-shipped-items-recurring-payments/">Demo</a> <a class="btn btn-info" href="#">Download Sample Code</a> </p>
             </div>
           </div>
         </div>
