@@ -52,33 +52,25 @@
                       target="_blank">View PayPal Library on GitHub</a></p>
             </div>
             <p class="bg-info"><strong>Demo Kit Info</strong><br>
-                These demo kits offer a more complete demonstration of how the different checkout flows with PayPal work.
-            Make sure to check /samples and /templates which are included free with the library and are often all you need
-            to understand how things work.  The samples are functional, but are only setup for one call at a time.</p>
+                These demo kits offer a more complete demonstration of how the different checkout flows with PayPal
+                work.
+                Make sure to check /samples and /templates which are included free with the library and are often all
+                you need
+                to understand how things work. The samples are functional, but are only setup for one call at a time.
+            </p>
             <p class="bg-info">The demo kits available here are more complete and tie together a number of APIs within a
-            basic shopping cart interface so that you can see how to tie everything together.</p>
+                basic shopping cart interface so that you can see how to tie everything together.</p>
             <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="PayPal Express Checkout Basic Integration"
                                                 src="assets/images/paypal-express-checkout.jpg">
-                        <?php
-                        $DIR = '\express-checkout-basic';
-                        $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
-                        ?>
                         <div class="caption">
-                            <h3> Express Checkout </h3>
-                            <h4> Basic </h4>
+                            <h3>Express Checkout</h3>
+                            <h4>Basic</h4>
                             <p>Here we are integrating Express Checkout without any line item details or any extra
                                 features. We obtain the user's shipping information so that we can calculate shipping
                                 and tax, but otherwise no additional data is included with this checkout demo.</p>
-                            <p>
-                                <a class="btn btn-primary" href="express-checkout-basic/">Demo</a>
-                                <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-info" href="download/paypal-php-express-checkout-basic-demo.zip">Download
-                                        Sample Code</a>
-                                <?php else: ?>
-                                    <a class="btn btn-success" href="" target="_blank">Buy Now</a>
-                                <?php endif; ?>
+                            <p align="center"><a class="btn btn-primary" href="express-checkout-basic/">Launch Demo</a>
                             </p>
                         </div>
                     </div>
@@ -91,19 +83,18 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Express Checkout </h3>
-                            <h4> w/ Line Items </h4>
-                            <p> Here we expand on our basic Express Checkout demo to add individual order items to the
+                            <h3>Express Checkout</h3>
+                            <h4>w/ Line Items</h4>
+                            <p>Here we expand on our basic Express Checkout demo to add individual order items to the
                                 API requests so that the data is available within PayPal's checkout review pages
-                                transaction details. </p>
-                            <p>
-                                <a class="btn btn-primary" href="express-checkout-line-items/">Demo</a>
+                                transaction details.</p>
+                            <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-info"
-                                       href="download/paypal-php-express-checkout-line-items-demo.zip">Download Sample
-                                        Code</a>
+                                    <a class="btn btn-primary" href="express-checkout-line-items/">Launch Demo</a>
                                 <?php else: ?>
-                                    <a class="btn btn-success" href="" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-php-line-items-demo/?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
@@ -117,18 +108,17 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Express Checkout </h3>
-                            <h4> Digital Goods </h4>
-                            <p> Learn how to implement digital goods (micro-processing rates) into PayPal Express
-                                Checkout. This includes the option for embedded payments. </p>
-                            <p>
-                                <a class="btn btn-primary" href="express-checkout-digital-goods/">Demo</a>
+                            <h3>Express Checkout</h3>
+                            <h4>Digital Goods</h4>
+                            <p>Learn how to implement digital goods (micro-processing rates) into PayPal Express
+                                Checkout. This includes the option for embedded payments.</p>
+                            <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-info"
-                                       href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download
-                                        Sample Code</a>
+                                    <a class="btn btn-primary" href="express-checkout-digital-goods/">Launch Demo</a>
                                 <?php else: ?>
-                                    <a class="btn btn-success" href="" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-digital-goods-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
@@ -144,18 +134,18 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Express Checkout Billing Agreement </h3>
-                            <h4> Billing Agreement </h4>
-                            <p> Learn how to implement Billing Agreement into PayPal Express Checkout. This includes the
-                                option for embedded payments. </p>
-                            <p>
-                                <a class="btn btn-primary" href="express-checkout-billing-agreement/">Demo</a>
+                            <h3>Express Checkout Billing Agreement</h3>
+                            <h4>Billing Agreement</h4>
+                            <p>Learn how to implement Billing Agreement into PayPal Express Checkout. This includes the
+                                option for embedded payments.</p>
+                            <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-info"
-                                       href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download
-                                        Sample Code</a>
+                                    <a class="btn btn-primary" href="express-checkout-billing-agreement/">Launch
+                                        Demo</a>
                                 <?php else: ?>
-                                    <a class="btn btn-success" href="" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-billing-agreement-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
@@ -169,18 +159,18 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Express Checkout Parallel Payments </h3>
-                            <h4> Parallel Payments </h4>
-                            <p> Learn how to implement Parallel Payments into PayPal Express Checkout. This includes the
-                                option for embedded payments. </p>
-                            <p>
-                                <a class="btn btn-primary" href="express-checkout-parallel-payments/">Demo</a>
+                            <h3>Express Checkout Parallel Payments</h3>
+                            <h4>Parallel Payments</h4>
+                            <p>Learn how to implement Parallel Payments into PayPal Express Checkout. This includes the
+                                option for embedded payments.</p>
+                            <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-info"
-                                       href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download
-                                        Sample Code</a>
+                                    <a class="btn btn-primary" href="express-checkout-parallel-payments/">Launch
+                                        Demo</a>
                                 <?php else: ?>
-                                    <a class="btn btn-success" href="" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-parallel-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
@@ -194,18 +184,18 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Express checkout 3rd Party No Permissions </h3>
-                            <h4> 3rd Party No Permissions </h4>
-                            <p> Learn how to implement 3rd Party No Permissions into PayPal Express Checkout. This
-                                includes the option for embedded payments. </p>
-                            <p>
-                                <a class="btn btn-primary" href="express-checkout-3rd-party-no-permissions/">Demo</a>
+                            <h3>Express checkout 3rd Party No Permissions</h3>
+                            <h4>3rd Party No Permissions</h4>
+                            <p>Learn how to implement 3rd Party No Permissions into PayPal Express Checkout. This
+                                includes the option for embedded payments.</p>
+                            <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-info"
-                                       href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download
-                                        Sample Code</a>
+                                    <a class="btn btn-primary" href="express-checkout-3rd-party-no-permissions/">Launch
+                                        Demo</a>
                                 <?php else: ?>
-                                    <a class="btn btn-success" href="" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-3rd-party-no-permissions-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
@@ -216,25 +206,13 @@
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="Website Payments Pro 30 Basic"
                                                 src="assets/images/paypal-express-website-payments-pro-3-0.jpg">
-                        <?php
-                        $DIR = '\website-payments-pro-30-basic';
-                        $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
-                        ?>
                         <div class="caption">
-                            <h3> Website Payments Pro 30 Basic </h3>
-                            <h4> Website Payments Pro 30 Basic </h4>
-                            <p> Learn how to implement Website Payments Pro 30 Basic. This includes the option for
-                                embedded payments. </p>
-                            <p>
-                                <a class="btn btn-primary" href="website-payments-pro-30-basic/">Demo</a>
-                                <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-info"
-                                       href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download
-                                        Sample Code</a>
-                                <?php else: ?>
-                                    <a class="btn btn-success" href="" target="_blank">Buy Now</a>
-                                <?php endif; ?>
-                            </p>
+                            <h3>Website Payments Pro 30 Basic</h3>
+                            <h4>Website Payments Pro 30 Basic</h4>
+                            <p>Learn how to implement Website Payments Pro 30 Basic. This includes the option for
+                                embedded payments.</p>
+                            <p align="center"><a class="btn btn-primary" href="website-payments-pro-30-basic/">Launch
+                                    Demo</a></p>
                         </div>
                     </div>
                 </div>
@@ -246,18 +224,17 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Express Checkout In-Context </h3>
-                            <h4> Express Checkout In-Context </h4>
-                            <p> Learn how to implement Express Checkout In-Context. This includes the option for
-                                embedded payments. </p>
-                            <p>
-                                <a class="btn btn-primary" href="express-checkout-incontext/">Demo</a>
+                            <h3>Express Checkout In-Context</h3>
+                            <h4>Express Checkout In-Context</h4>
+                            <p>Learn how to implement Express Checkout In-Context so that users are not redirected away
+                                from your site for payment.</p>
+                            <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-info"
-                                       href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download
-                                        Sample Code</a>
+                                    <a class="btn btn-primary" href="express-checkout-incontext/">Launch Demo</a>
                                 <?php else: ?>
-                                    <a class="btn btn-success" href="" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-in-context-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
@@ -274,19 +251,21 @@
                             <h3>Express Checkout</h3>
                             <h4>Recurring Payments</h4>
                             <p>Learn how to implement Express Checkout - Recurring Payments.</p>
-                            <p><a class="btn btn-primary" href="express-checkout-recurring-payments/">Demo</a>
+                            <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a
-                                            class="btn btn-info"
-                                            href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download
-                                        Sample Code</a>
+                                    <a class="btn btn-primary" href="express-checkout-recurring-payments/">Launch
+                                        Demo</a>
                                 <?php else: ?>
-                                    <a class="btn btn-success" href="#" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="Express Checkout Shipped Items + Recurring Payment"
                                                 src="assets/images/express-checkout-shipped-items-recurring-payments.png">
@@ -299,13 +278,14 @@
                             <h4>Shipped Items + Subscription</h4>
                             <p>Learn how to implement Express Checkout with shipped items and Subscription / Recurring
                                 Payments together on a single order.</p>
-                            <p><a class="btn btn-primary"
-                                  href="express-checkout-shipped-items-recurring-payments/">Demo</a>
+                            <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a
-                                            class="btn btn-info" href="#">Download Sample Code</a>
+                                    <a class="btn btn-primary"
+                                       href="express-checkout-shipped-items-recurring-payments/">Launch Demo</a>
                                 <?php else: ?>
-                                    <a class="btn btn-success" href="#" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
 
@@ -313,5 +293,6 @@
                     </div>
                 </div>
             </div>
+        </div>
 </body>
 </html>
