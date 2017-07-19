@@ -121,4 +121,3 @@ $_SESSION['transaction_id'] = isset($PayPalResult['TRANSACTIONID']) ? $PayPalRes
 
 echo '<pre />';
 print_r($PayPalResult);
-?>

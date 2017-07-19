@@ -14,4 +14,3 @@ $returnArray = $PayPal->list_web_profiles();
 echo "<pre>";
 var_dump($returnArray);
 
-?>

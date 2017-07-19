@@ -17,4 +17,3 @@ $payoutItemId='G25MM6DB4KLNQ';                  // Required. The ID of the Payou
 $returnArray = $PayPal->cancel_payout_item($payoutItemId);
 echo "<pre>";
 var_dump($returnArray);
-?>

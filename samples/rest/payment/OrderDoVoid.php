@@ -12,4 +12,3 @@ $orderId = 'O-8BC98688LG524100U';               // OrderId From Return Object/Ar
 $returnArray = $PayPal->order_void($orderId);
 echo "<pre>";
 var_dump($returnArray);
-?>

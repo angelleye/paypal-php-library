@@ -12,4 +12,3 @@ $authorizationCaptureId = '';                       // Authorization Capture id 
 $returnArray = $PayPal->get_capture($authorizationCaptureId);
 echo "<pre>";
 var_dump($returnArray);
-?>

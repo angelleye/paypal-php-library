@@ -3,7 +3,7 @@
  * 	Angell EYE PayPal Express Checkout Callback Service
  *	An open source PHP library written to easily work with PayPal's API's
  *	
- *  Copyright © 2014  Andrew K. Angell
+ *  Copyright ï¿½ 2014  Andrew K. Angell
  *	Email:  andrew@angelleye.com
  *  Facebook: angelleyeconsulting
  *  Twitter: angelleye
@@ -23,7 +23,7 @@
  *
  * @package			Angell_EYE_PayPal_Class_Library
  * @author			Andrew K. Angell
- * @copyright       Copyright © 2014 Angell EYE, LLC
+ * @copyright       Copyright ï¿½ 2014 Angell EYE, LLC
  * @link			https://github.com/angelleye/PayPal-PHP-Library
  * @website			http://www.angelleye.com
  * @since			Version 1.52
@@ -122,4 +122,3 @@ foreach($response_content as $var => $val)
 }
 
 echo $callback_data_response;
-?>

@@ -179,4 +179,3 @@ $_SESSION['SetExpressCheckoutResult'] = $PayPal -> SetExpressCheckout($PayPalReq
 echo '<a href="' . $_SESSION['SetExpressCheckoutResult']['REDIRECTURL'] . '">Click here to continue.</a><br /><br />';
 echo '<pre />';
 print_r($_SESSION['SetExpressCheckoutResult']);
-?>

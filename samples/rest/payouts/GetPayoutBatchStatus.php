@@ -17,4 +17,3 @@ $payoutBatchId='CQ8FTF9YGHETY';                  // Required. The ID of the payo
 $returnArray = $PayPal->get_payout_batch_status($payoutBatchId);
 echo "<pre>";
 var_dump($returnArray);
-?>

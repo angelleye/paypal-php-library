@@ -15,4 +15,3 @@ $InvoiceID = 'INV2-L2AC-WQSM-Q5PR-QVUY';    // Required. The ID of the invoice t
 $returnArray = $PayPal->send_invoice($InvoiceID);
 echo "<pre>";
 var_dump($returnArray);
-?>

@@ -21,4 +21,3 @@ $params = array(
 $returnArray = $PayPal->list_payments($params);
 echo "<pre>";
 var_dump($returnArray);
-?>

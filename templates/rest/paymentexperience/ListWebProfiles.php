@@ -13,5 +13,3 @@ $PayPal = new \angelleye\PayPal\rest\paymentexperience\PaymentExperianceAPI($con
 $returnArray = $PayPal->list_web_profiles();
 echo "<pre>";
 var_dump($returnArray);
-
-?>

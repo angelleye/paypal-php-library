@@ -12,4 +12,3 @@ $planId = 'P-5TA8920425143812EA47LOGA';                       // Required. The I
 $returnArray = $PayPal->delete_plan($planId);
 echo "<pre>";
 var_dump($returnArray);
-?>

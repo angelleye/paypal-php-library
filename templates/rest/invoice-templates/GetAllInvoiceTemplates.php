@@ -14,4 +14,3 @@ $fields= array(
 $returnArray = $PayPal->get_all_invoice_templates($fields);
 echo "<pre>";
 var_dump($returnArray);
-?>

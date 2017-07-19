@@ -67,4 +67,3 @@ $requestData = array(
 $returnArray = $PayPal->create_plan($requestData);
 echo "<pre>";
 var_dump($returnArray);
-?>

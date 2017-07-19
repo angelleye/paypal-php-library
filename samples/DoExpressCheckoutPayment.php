@@ -132,4 +132,3 @@ $_SESSION['PayPalResult'] = $PayPal -> DoExpressCheckoutPayment($PayPalRequest);
 
 echo '<pre />';
 print_r($_SESSION['PayPalResult']);
-?>

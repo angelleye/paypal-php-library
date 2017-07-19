@@ -79,4 +79,3 @@ echo "<h3>Payment State : ".$returnArray['payment']->state." </h3>";
 echo "(Payment ID : This will use for Execute payment in the next step)<h3>Payment ID: ".$returnArray['payment']->id." </h3>";
 echo "<pre>";
 var_dump($returnArray);
-?>

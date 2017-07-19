@@ -162,4 +162,3 @@ class PaymentExperianceAPI {
         return TRUE;
     }
 }
-?>

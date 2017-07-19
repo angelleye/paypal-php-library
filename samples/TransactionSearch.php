@@ -51,4 +51,3 @@ $PayPalResult = $PayPal -> TransactionSearch($PayPalRequest);
 
 echo '<pre />';
 print_r($PayPalResult);
-?>

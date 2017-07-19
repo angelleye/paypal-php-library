@@ -21,4 +21,3 @@ $returnArray = $PayPal->retrieve_QR_code($parameters,$InvoiceID,$path);
 echo "<pre>";
 var_dump($returnArray);
 echo '<img src="data:image/png;base64,'. $returnArray['Image']. '" alt="Invoice QR Code" />';
-?>

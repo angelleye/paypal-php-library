@@ -25,4 +25,3 @@ $invoiceId = '';                   // Required. The ID of the invoice to mark as
 $returnArray = $PayPal->record_payment($invoiceId,$record,$amount);
 echo "<pre>";
 var_dump($returnArray);
-?>

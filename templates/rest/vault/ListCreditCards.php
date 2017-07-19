@@ -26,4 +26,3 @@ $requestData=array(
 $returnArray = $PayPal->listAllCards($requestData);
 echo "<pre>";
 var_dump($returnArray);
-?>

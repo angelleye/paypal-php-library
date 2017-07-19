@@ -115,4 +115,3 @@ $PayPalResult = $PayPal->CreateRecurringPaymentsProfile($PayPalRequestData);
 
 echo '<pre />';
 print_r($PayPalResult);
-?>

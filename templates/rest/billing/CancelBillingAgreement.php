@@ -13,4 +13,3 @@ $note        = '';                       // Required.Reason for changing the sta
 $returnArray = $PayPal->cancel_billing_agreement($agreementId,$note);
 echo "<pre>";
 var_dump($returnArray);
-?>
