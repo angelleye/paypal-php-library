@@ -127,8 +127,8 @@ $_SESSION['shopping_cart']['grand_total'] = number_format($_SESSION['shopping_ca
           </thead>
           <tbody>
               <tr>
-                  <td><?php echo $_SESSION['billingperiod']; ?></td>
-                  <td><?php echo "$".$_SESSION['subscriptionamt']; ?></td>
+                  <td><?php echo $_SESSION['shopping_cart']['subscription']['billing_period']; ?></td>
+                  <td><?php echo "$".$_SESSION['shopping_cart']['subscription']['amount']; ?></td>
               </tr>
           </tbody>
       </table>

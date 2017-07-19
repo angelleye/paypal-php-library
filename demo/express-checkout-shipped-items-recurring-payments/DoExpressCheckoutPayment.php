@@ -4,6 +4,7 @@
  */
 require_once('../../includes/config.php');
 require_once('../../autoload.php');
+
 /**
  * Setup configuration for the PayPal library using vars from the config file.
  * Then load the PayPal object into $PayPal
@@ -35,8 +36,6 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 $DECPFields = array(
     'token' => $_SESSION['paypal_token'], 								// Required.  A timestamped token, the value of which was returned by a previous SetExpressCheckout call.
     'payerid' => $_SESSION['paypal_payer_id'], 							// Required.  Unique PayPal customer id of the payer.  Returned by GetExpressCheckoutDetails, or if you used SKIPDETAILS it's returned in the URL back to your RETURNURL.
-    'L_BILLINGTYPE0' => 'RecurringPayments',
-    'L_BILLINGAGREEMENTDESCRIPTION0' => 'TJDECPRP'    
 );
 
 /**
@@ -108,6 +107,11 @@ if($PayPal->APICallSuccessful($PayPalResult['ACK']))
      * Here, we're only pulling out the PayPal transaction ID and fee amount, but you may
      * refer to the API reference for all the additional parameters you have available at
      * this point.
+     *
+     * Rather than redirect directly to an order complete page, we'll be redirecting
+     * through the CreateRecurringPaymentsProfile request in order to add the subscription
+     * profile to this checkout flow.  The end result will be a one-time payment from the
+     * DoExpressCheckoutPaymentRequest call, and a subscription profile from CreateRecurring...
      *
      * https://developer.paypal.com/docs/classic/api/merchant/DoExpressCheckoutPayment_API_Operation_NVP/
      */

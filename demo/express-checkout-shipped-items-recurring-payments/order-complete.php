@@ -1,5 +1,24 @@
 <?php
+/**
+ * Include our config file and the PayPal library.
+ */
 require_once('../../includes/config.php');
+require_once('../../autoload.php');
+
+/**
+ * Setup configuration for the PayPal library using vars from the config file.
+ * Then load the PayPal object into $PayPal
+ */
+$PayPalConfig = array(
+    'Sandbox' => $sandbox,
+    'APIUsername' => $api_username,
+    'APIPassword' => $api_password,
+    'APISignature' => $api_signature,
+    'PrintHeaders' => $print_headers,
+    'LogResults' => $log_results,
+    'LogPath' => $log_path,
+);
+$PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 ?>
 <html lang="en">
 <head>
@@ -47,10 +66,21 @@ require_once('../../includes/config.php');
       </div>
       <h2 align="center">Payment Complete!</h2>
       <p class="bg-info">
-      	We have now reached the final thank you / receipt page and the payment has been processed!  We have added the PayPal Profile ID 
-        to the Billing Information, which was provided in the CreateRecurringPaymentsProfile response.
+      	We have now reached the final thank you / receipt page and the payment has been processed!  We have added the PayPal Transaction ID
+          from the shipped items in the cart and the Profile ID from the subscription
+        to the Billing Information, which was provided in the DoExpressCheckcoutPayment and CreateRecurringPaymentsProfile responses.
       </p>
-      <table class="table table-bordered">
+      <?php
+      /**
+       * If any PayPal errors are present at this point we will display them
+       * in a separate paragraph.
+       */
+      if(!empty($_SESSION['paypal_errors']))
+      {
+          echo '<p class="bg-info">' . $PayPal->DisplayErrors($_SESSION['paypal_errors']) . '</p>';
+      }
+      ?>
+        <table class="table table-bordered">
         <thead>
           <tr>
             <th>ID</th>
@@ -85,8 +115,8 @@ require_once('../../includes/config.php');
           </thead>
           <tbody>
               <tr>
-                  <td><?php echo $_SESSION['billingperiod']; ?></td>
-                  <td><?php echo "$".$_SESSION['subscriptionamt']; ?></td>
+                  <td><?php echo $_SESSION['shopping_cart']['subscription']['billing_period']; ?></td>
+                  <td><?php echo "$".$_SESSION['shopping_cart']['subscription']['amount']; ?></td>
               </tr>
           </tbody>
       </table>
@@ -135,7 +165,7 @@ require_once('../../includes/config.php');
             </tr>
             <tr>
                 <td><strong>Grand Total</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?></td>
+                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?> one time<br />$<?php echo number_format($_SESSION['shopping_cart']['subscription']['amount'], 2); ?> / mo until canceled</td>
             </tr>
               <tr>
                   <td class="center" colspan="2">&nbsp;</td>
@@ -151,4 +181,3 @@ require_once('../../includes/config.php');
 </html>
 <?php
 session_destroy();
-?>

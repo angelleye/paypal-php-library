@@ -1,7 +1,14 @@
 <?php
+/**
+ * Include our config file and the PayPal library.
+ */
 require_once('../../includes/config.php');
 require_once('../../autoload.php');
 
+/**
+ * Setup configuration for the PayPal library using vars from the config file.
+ * Then load the PayPal object into $PayPal
+ */
 $PayPalConfig = array(
                     'Sandbox' => $sandbox,
                     'APIUsername' => $api_username,
@@ -11,13 +18,25 @@ $PayPalConfig = array(
                     'LogResults' => $log_results,
                     'LogPath' => $log_path,
 		);
-
 $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
+/**
+ * Now we'll setup the request params for CreateRecurringPaymentsProfile request,
+ * which creates our subscription profile in PayPal.  We'll be using the same
+ * token that we used in DoExpressCheckoutPayment.
+ *
+ *
+ * Once again, the template for CreateRecurringPaymentsProfile provides
+ * many more params that are available, but we've stripped everything
+ * we are not using in this basic demo out.
+ */
 $CRPPFields = array(
 		'token' => $_SESSION['paypal_token'], 								// Token returned from PayPal SetExpressCheckout.
 		);
-				
+
+/**
+ * Generate profile start time / timestamp
+ */
 $DaysTimestamp = strtotime('now');
 $Mo = date('m', $DaysTimestamp);
 $Day = date('d', $DaysTimestamp);
@@ -27,49 +46,30 @@ $StartDateGMT = $Year . '-' . $Mo . '-' . $Day . 'T00:00:00\Z';
 $ProfileDetails = array(
                     'subscribername' => $_SESSION['first_name'].' '.$_SESSION['last_name'], 					// Full name of the person receiving the product or service paid for by the recurring payment.  32 char max.                    
                     'profilestartdate' => $StartDateGMT, 					// Required.  The date when the billing for this profile begins.  Must be a valid date in UTC/GMT format.
-                    'profilereference' => '' 					// The merchant's own unique invoice number or reference ID.  127 char max.
 				);
 				
 $ScheduleDetails = array(
-					'desc' => 'TJDECPRP', 								// Required.  Description of the recurring payment.  This field must match the corresponding billing agreement description included in SetExpressCheckout.
+					'desc' => $_SESSION['shopping_cart']['subscription']['name'], 								// Required.  Description of the recurring payment.  This field must match the corresponding billing agreement description included in SetExpressCheckout.
 					'maxfailedpayments' => '3', 					// The number of scheduled payment periods that can fail before the profile is automatically suspended.  
 					'autobillamt' => 'AddToNextBilling' 						// This field indicates whether you would like PayPal to automatically bill the outstanding balance amount in the next billing cycle.  Values can be: NoAutoBill or AddToNextBilling
 				);
 				
 $BillingPeriod = array(
-					'trialbillingperiod' => '', 
-					'trialbillingfrequency' => '', 
-					'trialtotalbillingcycles' => '', 
-					'trialamt' => '', 
-					'billingperiod' => $_SESSION['billingperiod'], 						// Required.  Unit for billing during this subscription period.  One of the following: Day, Week, SemiMonth, Month, Year
-					'billingfrequency' => $_SESSION['billingfrequency'], 					// Required.  Number of billing periods that make up one billing cycle.  The combination of billing freq. and billing period must be less than or equal to one year. 
-					'totalbillingcycles' => $_SESSION['totalbillingcycles'], 				// the number of billing cycles for the payment period (regular or trial).  For trial period it must be greater than 0.  For regular payments 0 means indefinite...until canceled.  
-					'amt' => $_SESSION['subscriptionamt'], 								// Required.  Billing amount for each billing cycle during the payment period.  This does not include shipping and tax. 
-					'currencycode' => 'USD', 						// Required.  Three-letter currency code.
-					'shippingamt' => '', 						// Shipping amount for each billing cycle during the payment period.
-					'taxamt' => '' 								// Tax amount for each billing cycle during the payment period.
+					'billingperiod' => $_SESSION['shopping_cart']['subscription']['billing_period'], 						// Required.  Unit for billing during this subscription period.  One of the following: Day, Week, SemiMonth, Month, Year
+					'billingfrequency' => $_SESSION['shopping_cart']['subscription']['billing_frequency'], 					// Required.  Number of billing periods that make up one billing cycle.  The combination of billing freq. and billing period must be less than or equal to one year.
+					'totalbillingcycles' => $_SESSION['shopping_cart']['subscription']['total_billing_cycles'], 				// the number of billing cycles for the payment period (regular or trial).  For trial period it must be greater than 0.  For regular payments 0 means indefinite...until canceled.
+					'amt' => $_SESSION['shopping_cart']['subscription']['amount'], 								// Required.  Billing amount for each billing cycle during the payment period.  This does not include shipping and tax.
 				);
-				
-$ActivationDetails = array(
-					'initamt' => '', 							// Initial non-recurring payment amount due immediatly upon profile creation.  Use an initial amount for enrolment or set-up fees.
-					'failedinitamtaction' => '', 				// By default, PayPal will suspend the pending profile in the event that the initial payment fails.  You can override this.  Values are: ContinueOnFailure or CancelOnFailure
-				);
-				
+
 $PayerInfo = array(
 					'email' => $_SESSION['email'], 								// Email address of payer.
 					'payerid' => $_SESSION['paypal_payer_id'], 							// Unique PayPal customer ID for payer.
-					'payerstatus' => '', 						// Status of payer.  Values are verified or unverified
-					'countrycode' => '', 						// Payer's country of residence in the form of the two letter code.
-					'business' => '' 							// Payer's business name.
 				);
 				
 $PayerName = array(
-					'salutation' => '', 						// Payer's salutation.  20 char max.
 					'firstname' => $_SESSION['first_name'], 							// Payer's first name.  25 char max.
-					'middlename' => '', 						// Payer's middle name.  25 char max.
 					'lastname' => $_SESSION['last_name'], 							// Payer's last name.  25 char max.
-					'suffix' => ''								// Payer's suffix.  12 char max.
-				);				
+				);
 					
 $ShippingAddress = array(
 						'shiptoname' => $_SESSION['shipping_name'], 					// Required if shipping is included.  Person's name associated with this address.  32 char max.
@@ -81,26 +81,43 @@ $ShippingAddress = array(
 						'shiptocountrycode' => $_SESSION['shipping_country_code'], 				// Required if shipping is included.  Country code of shipping address.  2 char max.
 						'shiptophonenum' => $_SESSION['phone_number']					// Phone number for shipping address.  20 char max.
 						);
-						
+
+/**
+ * Now we gather all of the arrays above into a single array.
+ */
 $PayPalRequestData = array(
-'ProfileDetails' => $ProfileDetails, 
-'ScheduleDetails' => $ScheduleDetails, 
-'BillingPeriod' => $BillingPeriod, 
-'PayerInfo' => $PayerInfo, 
-'PayerName' => $PayerName, 
-'CRPPFields' => $CRPPFields,
-'ShippingAddress' => $ShippingAddress    
+    'CRPPFields' => $CRPPFields,
+    'ProfileDetails' => $ProfileDetails,
+    'ScheduleDetails' => $ScheduleDetails,
+    'BillingPeriod' => $BillingPeriod,
+    'PayerInfo' => $PayerInfo,
+    'PayerName' => $PayerName,
+    'ShippingAddress' => $ShippingAddress,
 );
 
+/**
+ * Here we are making the call to the CreateRecurringPaymentsProfile function in the library,
+ * and we're passing in our $PayPalRequestData that we just set above.
+ */
 $PayPalResult = $PayPal->CreateRecurringPaymentsProfile($PayPalRequestData);
 
+/**
+ * Now we'll check for any errors returned by PayPal, and if we get an error,
+ * we'll save the error details to a session, but instead of redirecting
+ * to an error page we're still going to redirect to the order complete page
+ * because the DoExpressCheckoutPayment call was made successfully and the
+ * buyer needs to know that.  We'll simply add the error about the subscription
+ * to this page.
+ *
+ * If the call is successful, we'll save some data we might want to use
+ * later into session variables, and then redirect to our final
+ * thank you / receipt page.
+ */
 if($PayPal->APICallSuccessful($PayPalResult['ACK'])){
     $_SESSION['RecurringProfileId'] = $PayPalResult['PROFILEID'];
     header('Location: order-complete.php');
 }
 else{
     $_SESSION['paypal_errors'] = $PayPalResult['ERRORS'];
-    header('Location: ../error.php');
+    header('Location: ../order-complete.php');
 }
-
-?>

@@ -47,11 +47,13 @@ require_once('../../includes/config.php');
       </div>
       <h2 align="center">Order Review</h2>
       <p class="bg-info">Here we display a final review to the buyer now that we've calculated shipping, handling, and tax.  The 
-      billing and shipping information provided here is what we obtained in the GetExpressCheckoutDetails response.
+      billing and shipping information provided here is what we obtained in the GetExpressCheckoutDetails response.  We have also
+          displayed the subscription information again with a final break-down of everything for the one-time and recurring payments.
       </p>
       <p class="bg-info">
-      The payment has not been processed at this point because we have not yet called the final DoExpressCheckoutPayment API. That is what will 
-      happen when we click the "Complete Recurring Payment" button below.
+      Nothing has been processed at this point!  When the Complete Checkout button is clicked it will trigger the call to
+          DoExpressCheckoutPayment to process the $38.97 one-time payment.  If this succeeds, it will then process the
+          CreateRecurringPaymentsProfile request to create the subscription profile.
       </p>
       <table class="table table-bordered">
         <thead>
@@ -88,8 +90,8 @@ require_once('../../includes/config.php');
             </thead>
             <tbody>
                 <tr>
-                    <td><?php echo $_SESSION['billingperiod']; ?></td>
-                    <td><?php echo "$".$_SESSION['subscriptionamt']; ?></td>
+                    <td><?php echo $_SESSION['shopping_cart']['subscription']['billing_period']; ?></td>
+                    <td><?php echo "$".$_SESSION['shopping_cart']['subscription']['amount']; ?></td>
                 </tr>
             </tbody>
        </table>
@@ -136,10 +138,10 @@ require_once('../../includes/config.php');
             </tr>
             <tr>
                 <td><strong>Grand Total</strong></td>
-                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?></td>
+                <td>$<?php echo number_format($_SESSION['shopping_cart']['grand_total'],2); ?> one time<br />$<?php echo number_format($_SESSION['shopping_cart']['subscription']['amount'], 2); ?> / mo until canceled</td>
             </tr>
               <tr>
-                  <td class="center" colspan="2"><a href="DoExpressCheckoutPayment.php" class="btn btn-success btn-lg" role="button">Complete Recurring Payment</a></td>
+                  <td class="center" colspan="2"><a href="DoExpressCheckoutPayment.php" class="btn btn-success btn-lg" role="button">Complete Checkout</a></td>
               </tr>
             </tbody>
           </table>
