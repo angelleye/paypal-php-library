@@ -51,12 +51,12 @@
                 <p><a class="btn btn-primary btn-large" href="https://github.com/angelleye/paypal-php-library"
                       target="_blank">View PayPal Library on GitHub</a></p>
             </div>
-            <p class="bg-info"><strong>Sample Code Info</strong><br>
-                The sample code provided by the download buttons is pulled straight from this site. All paths to CSS,
-                JS, etc. are setup relative to the site root, so if you are setting up a demo on your own server it is
-                best to use a virtual host so that you can drop the demo files into the site root of your test server.
-                We <a href="http://www.angelleye.com/product/training/">offer training for this sort of thing</a> if you
-                are unsure how to handle this.</p>
+            <p class="bg-info"><strong>Demo Kit Info</strong><br>
+                These demo kits offer a more complete demonstration of how the different checkout flows with PayPal work.
+            Make sure to check /samples and /templates which are included free with the library and are often all you need
+            to understand how things work.  The samples are functional, but are only setup for one call at a time.</p>
+            <p class="bg-info">The demo kits available here are more complete and tie together a number of APIs within a
+            basic shopping cart interface so that you can see how to tie everything together.</p>
             <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="PayPal Express Checkout Basic Integration"
@@ -276,12 +276,12 @@
                             <p>Learn how to implement Express Checkout - Recurring Payments.</p>
                             <p><a class="btn btn-primary" href="express-checkout-recurring-payments/">Demo</a>
                                 <?php if ($DIR_exists) : ?>
-                                <a
-                                        class="btn btn-info"
-                                        href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download
-                                    Sample Code</a>
-                            <?php else: ?>
-                            <a class="btn btn-success" href="#" target="_blank">Buy Now</a>
+                                    <a
+                                            class="btn btn-info"
+                                            href="download/paypal-php-express-checkout-digital-goods-demo.zip">Download
+                                        Sample Code</a>
+                                <?php else: ?>
+                                    <a class="btn btn-success" href="#" target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
@@ -301,10 +301,10 @@
                                 Payments together on a single order.</p>
                             <p><a class="btn btn-primary"
                                   href="express-checkout-shipped-items-recurring-payments/">Demo</a>
-                                <?php if($DIR_exists) :?>
-                                <a
-                                        class="btn btn-info" href="#">Download Sample Code</a>
-                            <?php else: ?>
+                                <?php if ($DIR_exists) : ?>
+                                    <a
+                                            class="btn btn-info" href="#">Download Sample Code</a>
+                                <?php else: ?>
                                     <a class="btn btn-success" href="#" target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
