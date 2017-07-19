@@ -12,6 +12,7 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\PayPal_IntegratedSignup($configArray);
 
+$error = false;
 $partner_specific_identifiers = array(
     "type" => 'TRACKING_ID',                          // (Required) Type of partner identifier.Valid values: TRACKING_ID.
     "value" => '12d29842a912a'                       // Partner identifier. The partner identifier is a value for your own use in tracking the merchant and will be returned to you when the merchant is redirected back to your site from PayPal. Only alphanumeric characters are allowed in this field.
@@ -49,7 +50,7 @@ $api_integration_preference['classic_first_party_details'] = 'SIGNATURE';  // Va
 */
 $classic_third_party_details['permission_list'] = $permission_list;  
 $api_integration_preference['classic_third_party_details'] = $classic_third_party_details;  // Contains information on the third party permissions that are to be granted to the partner. Only valid when classic_api_integration_type is set to THIRD_PARTY
-$api_integration_preference['partner_id'] = 'F29HACJW4XYU4';                // Payer ID of the partner with whom the merchant will integrate. This will generally be your payer ID.
+$api_integration_preference['partner_id'] = 'VVUB43QZJ6TEU';                // Payer ID of the partner with whom the merchant will integrate. This will generally be your payer ID.
 $requested_capabilities['api_integration_preference'] = $api_integration_preference;  
 $requested_capabilities['capability'] = 'API_INTEGRATION';                // Describes the capability being requested. Valid values: API_INTEGRATION.
 
@@ -63,7 +64,7 @@ $collected_consents = array(
     "type" => "SHARE_DATA_CONSENT"                   //Indicates the type of consent obtained from the merchant. Valid values: SHARE_DATA_CONSENT (indicates that you have obtained consent from the merchant to share their data with PayPal).
 );
 $products = array(
-    "0" => 'EXPRESS_CHECKOUT'              // Indicates which PayPal products the merchant should be enrolled in. Valid values: EXPRESS_CHECKOUT.
+    "0" => 'EXPRESS_CHECKOUT'              // Indicates which PayPal products the merchant should be enrolled in. Valid values: EXPRESS_CHECKOUT.   
 );
 $requestData = array();
 $requestData['collected_consents'][0] = $collected_consents;
@@ -72,8 +73,8 @@ $requestData['requested_capabilities'][0] = $requested_capabilities;
 $requestData['web_experience_preference'] = $web_experience_preference;
 
 $responseData = $PayPal->IntegratedSignup($requestData);
-if(isset($responseData['links'])){
-    $action_url = $responseData['links'][1]['href'];
+if(isset($responseData['RAWRESPONSE']['links'])){
+    $action_url = $responseData['RAWRESPONSE']['links'][1]['href'];
 }
 else{
     $error = true;
@@ -124,11 +125,19 @@ else{
                             <div id="paypal_partner_logo"> <img alt="PayPal Partner and Certified Developer" src="../assets/images/paypal-partner-logo.png"/> </div>
                         </div>
                     </div>
-                    <h2 align="center">Integrated Signup Pre-Fill Onboarding API</h2>      
+                    <h2 align="center">Integrated Signup Pre-Fill Onboarding API (Third Party Demo)</h2>      
                     <?php
                             if(isset($error) && $error==true){
-                                echo "<pre>";
-                                print_r($errorArray);                                
+                                echo '<br/><div><p class="text-danger"><span>Error Name :</span>'.$errorArray['RAWRESPONSE']['name'].'</p>';
+                                echo '<p class="text-danger"><span>Error Message :</span>'.$errorArray['RAWRESPONSE']['message'].'</p>';
+                                echo '<p class="text-danger"><span>Debug ID :</span>'.$errorArray['RAWRESPONSE']['debug_id'].'</p>';
+                                echo '<p class="text-danger"><span>Details</span><ul>';
+                                foreach ($errorArray['RAWRESPONSE']['details'] as $detail) {
+                                    echo '<li class="text-danger">Field : '.$detail['field'].'</li>';
+                                    echo '<li class="text-danger">Issue : '.$detail['issue'].'</li>';
+                                }
+                                echo "</ul></p>";
+                                echo "</div>";
                             }
                             else {
                         ?>

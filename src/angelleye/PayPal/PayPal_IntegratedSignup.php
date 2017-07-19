@@ -49,6 +49,7 @@ class PayPal_IntegratedSignup {
     var $SSL = '';    
     var $LogResults = '';
     var $LogPath = '';
+    var $EndPointURL = '';
 
     public function __construct($configArray) {
         // Append your secret to your client ID, separated by a colon (“:”). Base64-encode the resulting string.
@@ -944,8 +945,8 @@ class PayPal_IntegratedSignup {
             "zh_XC" => "Chinese (International)"
         );
     }
-        
-    public function IntegratedSignup($requestData) {
+    
+    public function get_auth_token(){
             /*          
              * Authentication
              * Before using any of the PayPal REST APIs, you must first authenticate yourself and
@@ -962,13 +963,26 @@ class PayPal_IntegratedSignup {
             $AuthResponseArray =json_decode($AuthResponseJson, true);
             /* If token is is received then we can process for ISP */
             if(isset($AuthResponseArray['token_type']) && isset($AuthResponseArray['access_token'])){
-                $this->_bearer_string = $AuthResponseArray['access_token'];                
+                return $AuthResponseArray['access_token'];
             }
-            else{            
+            else{                
+                $returnArray['headers'] = $Authheaders;
+                $returnArray['EndPointURL'] = $AuthURL;
+                $returnArray['RAWREQUEST'] = $Request;
+                $returnArray['RAWRESPONSE'] = $AuthResponseArray;                
                 return $AuthResponseArray;
             }
+            //$this->Logger($this->LogPath, __FUNCTION__.'Request', $Request);
+            //$this->Logger($this->LogPath, __FUNCTION__.'Response',$Response);                        
+    }
+
+    public function IntegratedSignup($requestData) {
+            
+            $AuthToken = $this->get_auth_token();
+            $this->_bearer_string =  $AuthToken;
+            
             $TrimmedArray = $this->array_trim($requestData);
-            $RequestPayload = json_encode($TrimmedArray, 0 | 64);            
+            $RequestPayload = json_encode($TrimmedArray, 0 | 64);
             $CPheaders = array(
                 'Content-Type: application/json',
                 'Authorization: Bearer ' . $this->_bearer_string,
@@ -976,12 +990,13 @@ class PayPal_IntegratedSignup {
             $CPURL = $this->EndPointURL.'customer/partner-referrals';
             $ConnectPayPalJson = $this->CURLRequest('POST',$CPheaders,$CPURL,$RequestPayload);
             $ConnectPayPalArray = json_decode($ConnectPayPalJson, true);
-            if(isset($ConnectPayPalArray['links'])){                
-                return $ConnectPayPalArray;
-            }
-            else{                
-                return $ConnectPayPalArray;
-            }
+            
+            $returnArray['headers'] = $CPheaders;
+            $returnArray['EndPointURL'] = $CPURL;
+            $returnArray['RAWREQUEST'] = $TrimmedArray;
+            $returnArray['RAWRESPONSE'] = $ConnectPayPalArray;
+            
+            return $returnArray;            
     }
     
     public function getPayerID($PartnerID,$MerchantTrackingID){
@@ -994,7 +1009,27 @@ class PayPal_IntegratedSignup {
         $ResponseArray = json_decode($ResponseJson, true);
         return $ResponseArray;
     }
+    
+    public function getAccountDetails ($PartnerID,$MerchantID){
+        $AuthToken = $this->get_auth_token();
+        $this->_bearer_string =  $AuthToken;
         
+        $ADheaders = array(
+            'Authorization: Bearer ' . $this->_bearer_string,
+            'Accept : */*'
+        );
+        $ADURL = $this->EndPointURL.'customer/partners/'.$PartnerID.'/merchant-integrations/'.$MerchantID;
+        
+        $ResponseJson = $this->CURLRequest('GET',$ADheaders,$ADURL);
+        $ResponseArray = json_decode($ResponseJson, true);
+        
+        $returnArray['headers'] = $ADheaders;
+        $returnArray['EndPointURL'] = $ADURL;
+        $returnArray['RAWREQUEST'] = '';
+        $returnArray['RAWRESPONSE'] = $ResponseArray;
+        return $returnArray;
+    }
+    
     function CURLRequest($method,$headers,$url,$Request='') {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_VERBOSE, $this->Sandbox);
@@ -1021,6 +1056,33 @@ class PayPal_IntegratedSignup {
        curl_close($curl);
        return $result;
     }
+    
+    /**
+     * Save log info to a location on the disk.
+     *
+     * @param $log_path
+     * @param $filename
+     * @param $string_data
+     * @return bool
+     */
+    function Logger($log_path, $filename, $string_data)
+	{
+
+        if($this->LogResults)
+        {
+            $timestamp = strtotime('now');
+            $timestamp = date('mdY_gi_s_A_',$timestamp);
+
+            $string_data_array = $this->NVPToArray($string_data);
+
+            $file = $log_path.$timestamp.$filename.'.txt';
+            $fh = fopen($file, 'w');
+            fwrite($fh, $string_data.chr(13).chr(13).print_r($string_data_array, true));
+            fclose($fh);
+        }
+		
+		return true;	
+	}
     
     public function array_trim($input) {
         return is_array($input) ? array_filter($input, 

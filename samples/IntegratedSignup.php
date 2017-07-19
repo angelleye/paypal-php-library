@@ -20,7 +20,7 @@ $customer_data['customer_type'] = 'MERCHANT';       // Type of account to create
 
 $person_details = array();                          // Contains information on the person who will be responsible for the PayPal account.
 
-$person_details['email_address'] = 'test_5753@paypal.com';        // Primary email address for the PayPal account.
+$person_details['email_address'] = 'test_5754563@paypal.com';        // Primary email address for the PayPal account.
 
 $name = array(
     "prefix" => "",                                 // The prefix of the account holder’s name (such as “Mr.”,“Mrs.”, “Dr.”, etc). Maximum length: 140 characters  
@@ -202,7 +202,7 @@ $api_integration_preference['classic_first_party_details'] = 'SIGNATURE';  // Va
 */
 $classic_third_party_details['permission_list'] = $permission_list;  
 $api_integration_preference['classic_third_party_details'] = $classic_third_party_details;  // Contains information on the third party permissions that are to be granted to the partner. Only valid when classic_api_integration_type is set to THIRD_PARTY
-$api_integration_preference['partner_id'] = 'F29HACJW4XYU4';                // Payer ID of the partner with whom the merchant will integrate. This will generally be your payer ID.
+$api_integration_preference['partner_id'] = 'VVUB43QZJ6TEU';                // Payer ID of the partner with whom the merchant will integrate. This will generally be your payer ID.
 $requested_capabilities['api_integration_preference'] = $api_integration_preference;  
 $requested_capabilities['capability'] = 'API_INTEGRATION';                // Describes the capability being requested. Valid values: API_INTEGRATION.
 

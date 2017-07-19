@@ -1,8 +1,19 @@
 <?php
-if(!session_id()) session_start();
+if (!session_id())
+    session_start();
 
 require_once('../../includes/config.php');
 require_once('../../autoload.php');
+
+$configArray = array(
+    'ClientID' => $rest_client_id,
+    'ClientSecret' => $rest_client_secret,
+    'Sandbox' => $sandbox,
+    'LogResults' => $log_results,
+    'LogPath' => $log_path
+);
+
+$PayPal = new angelleye\PayPal\PayPal_IntegratedSignup($configArray);
 ?>
 <html lang="en">
     <head>
@@ -48,16 +59,83 @@ require_once('../../autoload.php');
                             <div id="paypal_partner_logo"> <img alt="PayPal Partner and Certified Developer" src="../assets/images/paypal-partner-logo.png"/> </div>
                         </div>
                     </div>
-                    <h2 align="center">Integrated Signup Pre-Fill Onboarding API Callback</h2>      
-                    <div class="bg-info">
-                        <?php
-                        if(isset($_REQUEST)){
-                            echo "<pre>";
-                            print_r($_REQUEST);
-                            exit;
+                    <h2 align="center">Integrated Signup Pre-Fill Onboarding API Callback</h2>
+                    <?php
+                    if (isset($_REQUEST)) {
+                        if (isset($_REQUEST['merchantIdInPayPal'])) {
+                            $AccountDetail = $PayPal->getAccountDetails('VVUB43QZJ6TEU', $_REQUEST['merchantIdInPayPal']);                                                                                    
+                            if (!empty($AccountDetail['RAWRESPONSE']) && isset($AccountDetail['RAWRESPONSE']['merchant_id'])) {
+                                ?>
+                                <div class="clearfix"></div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <tbody>
+                                            <tr>        
+                                                <td><strong>Primary Email</strong></td>
+                                                <td class="text-primary"><?php echo isset($AccountDetail['RAWRESPONSE']['primary_email']) ? $AccountDetail['RAWRESPONSE']['primary_email'] : ''; ?></td>
+                                            </tr>
+                                            <tr>        
+                                                <td><strong>Merchant Id</strong></td>
+                                                <td class="text-primary"><?php echo isset($_REQUEST['merchantIdInPayPal']) ? $_REQUEST['merchantIdInPayPal'] : ''; ?></td>
+                                            </tr>
+                                            <tr>        
+                                                <td><strong>Permissions Granted</strong></td>
+                                                <td class="text-primary"><?php echo isset($_REQUEST['permissionsGranted']) ? $_REQUEST['permissionsGranted'] : ''; ?></td>
+                                            </tr>
+                                            <tr>        
+                                                <td><strong>Account Status</strong></td>
+                                                <td class="text-primary"><?php echo isset($_REQUEST['accountStatus']) ? $_REQUEST['accountStatus'] : ''; ?></td>
+                                            </tr>
+                                            <tr>        
+                                                <td><strong>Consent Status</strong></td>
+                                                <td class="text-primary"><?php echo isset($_REQUEST['consentStatus']) ? $_REQUEST['consentStatus'] : ''; ?></td>
+                                            </tr>
+                                            <tr>        
+                                                <td><strong>Product Intent ID</strong></td>
+                                                <td class="text-primary"><?php echo isset($_REQUEST['productIntentID']) ? $_REQUEST['productIntentID'] : ''; ?></td>
+                                            </tr>
+                                            <tr>        
+                                                <td><strong>Email Confirmed</strong></td>
+                                                <td class="text-primary"><?php echo isset($_REQUEST['isEmailConfirmed']) ? $_REQUEST['isEmailConfirmed'] : ''; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Accepted Permissions</strong></td>
+                                                <td class="text-primary">
+                                                    <ul>
+                                                        <?php
+                                                        if(isset($AccountDetail['RAWRESPONSE']['permissions'])){
+                                                            foreach ($AccountDetail['RAWRESPONSE']['permissions'] as $permission) {
+                                                                echo "<li class='text-primary'>{$permission}</li>";
+                                                            }                                                        
+                                                        }
+                                                        ?>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Products</td>
+                                                <td class="text-primary"><?php echo isset($AccountDetail['RAWRESPONSE']['products'][0]['name']) ? $AccountDetail['RAWRESPONSE']['products'][0]['name'] : ''; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Return Message</td>
+                                                <td class="text-primary"><?php echo isset($_REQUEST['returnMessage']) ? $_REQUEST['returnMessage'] : '';  ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td> Payments Receivable</td>
+                                                <td class="text-primary"><?php echo isset($AccountDetail['RAWRESPONSE']['payments_receivable']) ? $AccountDetail['RAWRESPONSE']['payments_receivable'] : ''; ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <?php
+                            } else {
+                                echo "<pre>";
+                                print_r($AccountDetail);
+                                echo "</pre>";
+                            }
                         }
-                        ?>
-                    </div>                    
+                    }
+                    ?>                                        
                 </div>
             </div>
         </div>
