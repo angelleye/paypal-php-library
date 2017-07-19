@@ -33,8 +33,8 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
  */
 $SECFields = array(
 					'maxamt' => round($_SESSION['shopping_cart']['grand_total'] * 2,2), 					// The expected maximum total amount the order will be, including S&H and sales tax.
-					'returnurl' => $domain . 'demo/do-express-checkout-recurring-payments/GetExpressCheckoutDetails.php', 							    // Required.  URL to which the customer will be returned after returning from PayPal.  2048 char max.
-					'cancelurl' => $domain . 'demo/do-express-checkout-recurring-payments/', 							    // Required.  URL to which the customer will be returned if they cancel payment on PayPal's site.
+					'returnurl' => $domain . 'demo/express-checkout-shipped-items-recurring-payments/GetExpressCheckoutDetails.php', 							    // Required.  URL to which the customer will be returned after returning from PayPal.  2048 char max.
+					'cancelurl' => $domain . 'demo/express-checkout-shipped-items-recurring-payments/', 							    // Required.  URL to which the customer will be returned if they cancel payment on PayPal's site.
                     'L_BILLINGTYPE0' => 'RecurringPayments',
                     'L_BILLINGAGREEMENTDESCRIPTION0' => $_SESSION['shopping_cart']['subscription']['name'],
 					'hdrimg' => 'https://www.angelleye.com/images/angelleye-paypal-header-750x90.jpg', 			// URL for the image displayed as the header during checkout.  Max size of 750x90.  Should be stored on an https:// server or you'll get a warning message in the browser.
