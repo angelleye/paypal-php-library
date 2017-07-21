@@ -10,7 +10,7 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
-$planId = 'P-3P439474RB082731BA3QJ56I';                     // Required. Billing plan id that will be used to create a billing agreement.
+$planId = 'PD-66959149NS297950EMTWN2XA';                     // Required. Billing plan id that will be used to create a billing agreement.
 
 $agreement = array(
     "State" => '',                                          // State of the agreement.

@@ -47,11 +47,16 @@ class PaymentExperianceAPI {
             $requestArray = clone $webProfile;
             $createProfileResponse = $webProfile->create($this->_api_context);
             $returnArray=$createProfileResponse->toArray();
+            $returnArray['REQUESTDATA']=$requestArray->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$createProfileResponse->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
+            $errorReturnArray['REQUESTDATA']=$requestArray->toArray();
+            $errorReturnArray['RAWREQUEST']=$requestArray->toJSON();
+            $errorReturnArray['RAWRESPONSE']='';
+            return $errorReturnArray;
         }
     }
     
@@ -59,11 +64,16 @@ class PaymentExperianceAPI {
         try {
             $webProfile = WebProfile::get($profileId,$this->_api_context);
             $returnArray=$webProfile->toArray();
+            $returnArray['REQUESTDATA'] =array('id' => $profileId);
             $returnArray['RAWREQUEST']='{id:'.$profileId.'}';
             $returnArray['RAWRESPONSE']=$webProfile->toJSON();
             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
+            $errorReturnArray['REQUESTDATA']=array('id' => $profileId);
+            $errorReturnArray['RAWREQUEST']='{id:'.$profileId.'}';
+            $errorReturnArray['RAWRESPONSE']='';
+            return $errorReturnArray;
         }
     }
 
@@ -105,12 +115,17 @@ class PaymentExperianceAPI {
             if ($webProfile->partial_update($patches, $this->_api_context)) {                
                 $webProfile = WebProfile::get($webProfile->getId(), $this->_api_context);
                 $returnArray=$webProfile->toArray();
+                $returnArray['REQUESTDATA']=$requestArray;
                 $returnArray['RAWREQUEST']=$patches;
                 $returnArray['RAWRESPONSE']=$webProfile->toJSON();
                 return $returnArray;                
             }
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+                $errorReturnArray['ERRORS']=  json_decode($ex->getData());
+                $errorReturnArray['REQUESTDATA']=$requestArray;
+                $errorReturnArray['RAWREQUEST']=$requestArray;
+                $errorReturnArray['RAWRESPONSE']='';
+                return $errorReturnArray;
         }
     }
 
@@ -144,11 +159,16 @@ class PaymentExperianceAPI {
             $webProfile->update($this->_api_context);
             $updatedWebProfile = WebProfile::get($profileID, $this->_api_context);
             $returnArray=$updatedWebProfile->toArray();
+            $returnArray['REQUESTDATA']=$requestArray->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$updatedWebProfile->toJSON();
             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
+            $errorReturnArray['REQUESTDATA']=$requestArray->toArray();
+            $errorReturnArray['RAWREQUEST']=$requestArray->toJSON();
+            $errorReturnArray['RAWRESPONSE']='';
+            return $errorReturnArray;
         }        
     }
 

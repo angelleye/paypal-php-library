@@ -41,11 +41,16 @@ class PayoutsAPI {
             $requestArray = clone $payouts;
             $output = $payouts->createSynchronous($this->_api_context);
             $returnArray=$output->toArray();
+            $returnArray['REQUESTDATA']=$requestArray->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
+            $errorReturnArray['REQUESTDATA']=$requestArray->toArray();
+            $errorReturnArray['RAWREQUEST']=$requestArray->toJSON();
+            $errorReturnArray['RAWRESPONSE']='';
+            return $errorReturnArray;
         }
     }
     
@@ -69,11 +74,16 @@ class PayoutsAPI {
            $requestArray = clone $payouts; 
            $output = $payouts->create(null,$this->_api_context);
            $returnArray=$output->toArray();
+           $returnArray['REQUESTDATA']=$requestArray->toArray();
            $returnArray['RAWREQUEST']=$requestArray->toJSON();
            $returnArray['RAWRESPONSE']=$output->toJSON();            
            return $returnArray;                      
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
+            $errorReturnArray['REQUESTDATA']=$requestArray->toArray();
+            $errorReturnArray['RAWREQUEST']=$requestArray->toJSON();
+            $errorReturnArray['RAWRESPONSE']='';
+            return $errorReturnArray;
         }
     }
 
@@ -81,11 +91,16 @@ class PayoutsAPI {
         try {
             $output = Payout::get($payoutBatchId, $this->_api_context);
             $returnArray=$output->toArray();
+            $returnArray['REQUESTDATA'] =array('id' => $payoutBatchId);
             $returnArray['RAWREQUEST']='{id:'.$payoutBatchId.'}';
             $returnArray['RAWRESPONSE']=$output->toJSON();            
            return $returnArray;              
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
+            $errorReturnArray['REQUESTDATA']=array('id' => $payoutBatchId);
+            $errorReturnArray['RAWREQUEST']='{id:'.$payoutBatchId.'}';
+            $errorReturnArray['RAWRESPONSE']='';
+            return $errorReturnArray;
         }
     }
     
@@ -93,11 +108,16 @@ class PayoutsAPI {
         try {
             $output = PayoutItem::get($payoutItemId, $this->_api_context);
             $returnArray=$output->toArray();
+            $returnArray['REQUESTDATA'] =array('id' => $payoutItemId);
             $returnArray['RAWREQUEST']='{id:'.$payoutItemId.'}';
             $returnArray['RAWRESPONSE']=$output->toJSON();     
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
+            $errorReturnArray['REQUESTDATA']=array('id' => $payoutItemId);
+            $errorReturnArray['RAWREQUEST']='{id:'.$payoutItemId.'}';
+            $errorReturnArray['RAWRESPONSE']='';
+            return $errorReturnArray;
         }
     }
 
@@ -107,6 +127,7 @@ class PayoutsAPI {
             if($PayoutItem->transaction_status == 'UNCLAIMED'){
                  $output = PayoutItem::cancel($payoutItemId, $this->_api_context);
                  $returnArray=$output->toArray();
+                 $returnArray['REQUESTDATA'] =array('id' => $payoutItemId);
                  $returnArray['RAWREQUEST']='{id:'.$payoutItemId.'}';
                  $returnArray['RAWRESPONSE']=$output->toJSON();
                  return $returnArray;                                      
@@ -115,7 +136,11 @@ class PayoutsAPI {
                 return "Payout Item Status is not UNCLAIMED";
             }           
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
+            $errorReturnArray['REQUESTDATA']=array('id' => $payoutItemId);
+            $errorReturnArray['RAWREQUEST']='{id:'.$payoutItemId.'}';
+            $errorReturnArray['RAWRESPONSE']='';
+            return $errorReturnArray;
         }
     }
 
