@@ -979,8 +979,12 @@ class PayPal_IntegratedSignup {
     public function IntegratedSignup($requestData) {
             
             $AuthToken = $this->get_auth_token();
-            $this->_bearer_string =  $AuthToken;
-            
+            if(is_array($AuthToken)){
+                return $AuthToken;
+            }
+            else{
+                $this->_bearer_string =  $AuthToken;
+            }
             $TrimmedArray = $this->array_trim($requestData);
             $RequestPayload = json_encode($TrimmedArray, 0 | 64);
             $CPheaders = array(
