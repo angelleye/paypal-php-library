@@ -10,7 +10,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\paymentexperience\PaymentExperianceAPI($configArray);
 
-$profileID = 'TXP-41X66969DC476211J';                   // Required. The ID of the profile to update.
+$profileID = '38NR9NKNPMAJ6';                   // Required. The ID of the profile to update.
 
 $patchArray = array();
 
@@ -27,8 +27,9 @@ $array2 = array(
     'Value'   => '',                                      // New value to apply based on the operation.
 );
 array_push($patchArray,$array2);
-
-$returnArray = $PayPal->partially_update_webprofile($patchArray,$profileID);
+// Pass data into class for processing with PayPal and load the response array into $PayPalResult
+$PayPalResult = $PayPal->partially_update_webprofile($patchArray,$profileID);
+// Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";
-var_dump($returnArray);
+print_r($PayPalResult);
 

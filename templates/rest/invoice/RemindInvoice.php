@@ -21,4 +21,4 @@ $InvoiceID = '';                             // Required. Specify the ID of the 
 
 $returnArray = $PayPal->remind_invoice($remindNotification,$InvoiceID);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);

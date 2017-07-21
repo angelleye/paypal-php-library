@@ -74,9 +74,13 @@ class BillingAPI {
             }
             if($this->checkEmptyObject((array)$merchantPreferences)){
                 $plan->setMerchantPreferences($merchantPreferences);
-            }            
+            }      
+            $requestArray= clone $plan;
             $output = $plan->create($this->_api_context);
-            return $output;
+            $returnArray=$output->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$output->toJSON();
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -84,8 +88,11 @@ class BillingAPI {
 
     public function get_plan($planId){
         try {
-            $plan = Plan::get($planId, $this->_api_context);
-            return $plan;
+            $plan = Plan::get($planId, $this->_api_context);            
+            $returnArray=$plan->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$planId.'}';
+            $returnArray['RAWRESPONSE']=$plan->toJSON();
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -94,7 +101,10 @@ class BillingAPI {
     public function list_plan($parameters){
             try {
                 $planList = Plan::all(array_filter($parameters), $this->_api_context);
-                return $planList;
+                $returnArray=$planList->toArray();
+                $returnArray['RAWREQUEST']=  json_encode($parameters);
+                $returnArray['RAWRESPONSE']=$planList->toJSON();
+                return $returnArray;                
             } catch (\PayPal\Exception\PayPalConnectionException $ex) {
                 return $ex->getData();
             }        
@@ -115,9 +125,14 @@ class BillingAPI {
             
             $patchRequest = new PatchRequest();
             $patchRequest->addPatch($patch);
+            $requestArray = clone $createdPlan;
             $createdPlan->update($patchRequest, $this->_api_context);
             $plan = Plan::get($planId, $this->_api_context);
-            return $plan;
+            
+            $returnArray=$plan->toArray();
+            $returnArray['RAWREQUEST'] =$requestArray;
+            $returnArray['RAWRESPONSE']=$plan->toJSON();
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -127,8 +142,11 @@ class BillingAPI {
         try {
              $createdPlan = new Plan();
              $createdPlan->setId($planId);
-             $result = $createdPlan->delete($this->_api_context);
-             return $result;
+             $result = $createdPlan->delete($this->_api_context);             
+             $returnArray=$result->toArray();
+             $returnArray['RAWREQUEST']='{id:'.$planId.'}';
+             $returnArray['RAWRESPONSE']=$result->toJSON();
+             return $returnArray;             
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -182,8 +200,12 @@ class BillingAPI {
         // ### Create Agreement
         try {
             // Please note that as the agreement has not yet activated, we wont be receiving the ID just yet.
-            $agreement = $agreement->create($this->_api_context);
-            return $agreement;
+             $requestArray= clone $agreement;
+             $agreement = $agreement->create($this->_api_context);
+             $returnArray=$agreement->toArray();
+             $returnArray['RAWREQUEST']=$requestArray;
+             $returnArray['RAWRESPONSE']=$agreement->toJSON();
+             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
            return $ex->getData();
         }
@@ -222,10 +244,13 @@ class BillingAPI {
         // ### Create Agreement
         try {
             // Please note that as the agreement has not yet activated, we wont be receiving the ID just yet.
+            $requestArray = clone $agreement;
             $result = $agreement->create($this->_api_context);            
-            $approvalUrl = $agreement->getApprovalLink();
-            return array('result'=>$result,'Approval URL' => $approvalUrl);
-            
+            $approvalUrl = $agreement->getApprovalLink();            
+            $returnArray=array('result'=>$result->toArray(),'Approval URL' => $approvalUrl);;
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$agreement->toJSON();
+            return $returnArray;                                
         }  catch (\PayPal\Exception\PayPalConnectionException $ex) {
            return $ex->getData();
         }
@@ -234,7 +259,10 @@ class BillingAPI {
     public function get_billing_agreement($agreementId){
         try {
             $agreement = Agreement::get($agreementId, $this->_api_context);
-            return $agreement;
+            $returnArray=$agreement->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
+            $returnArray['RAWRESPONSE']=$agreement->toJSON();
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -251,7 +279,10 @@ class BillingAPI {
             $createdAgreement->setId($agreementId);
             $createdAgreement->suspend($agreementStateDescriptor, $this->_api_context);            
             $agreement = Agreement::get($agreementId, $this->_api_context);
-            return $agreement;
+            $returnArray=$agreement->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
+            $returnArray['RAWRESPONSE']=$agreement->toJSON();
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -268,18 +299,22 @@ class BillingAPI {
             $suspendedAgreement->setId($agreementId);
             $suspendedAgreement->reActivate($agreementStateDescriptor, $this->_api_context);            
             $agreement = Agreement::get($agreementId, $this->_api_context);
-            
-            return $agreement;
+            $returnArray=$agreement->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
+            $returnArray['RAWRESPONSE']=$agreement->toJSON();
+            return $returnArray;             
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
-        }
-        return $agreement;
+        }        
     }
 
     public function search_billing_transactions($agreementId,$params){                
         try {
             $result = Agreement::searchTransactions($agreementId, $params, $this->_api_context);
-            return $result;
+            $returnArray=$result->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
+            $returnArray['RAWRESPONSE']=$result->toJSON();
+            return $returnArray;             
         }  catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }                
@@ -302,10 +337,13 @@ class BillingAPI {
 
             $createdAgreement = new Agreement();
             $createdAgreement->setId($agreementId);
-            
+            $requestArray= clone $createdAgreement;
             $createdAgreement->update($patchRequest, $this->_api_context);            
-            $agreement = Agreement::get($agreementId, $this->_api_context);
-            return $agreement;
+            $agreement = Agreement::get($agreementId, $this->_api_context);            
+            $returnArray=$agreement->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$agreement->toJSON();
+            return $returnArray;            
             
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
@@ -321,14 +359,16 @@ class BillingAPI {
             }
             $calcelAgreement = new Agreement();
             $calcelAgreement->setId($agreementId);
+            $requestArray = clone $calcelAgreement;
             $calcelAgreement->cancel($agreementStateDescriptor, $this->_api_context);            
             $agreement = Agreement::get($agreementId, $this->_api_context);
-            
-            return $agreement;
+            $returnArray=$agreement->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$agreement->toJSON();
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
-        }
-        return $agreement;
+        }        
     }
 
     public function setArrayToMethods($array, $object) {

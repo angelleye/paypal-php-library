@@ -22,7 +22,8 @@ $requestData=array(
                 'external_customer_id'=>'',             //Filters the vaulted credit cards in the response to those associated with this externally-provided customer ID.
                 'total_required'=>''                    //Default true.Indicates whether the response returns the total_items and total_pages values.
             );
-
-$returnArray = $PayPal->listAllCards($requestData);
+// Pass data into class for processing with PayPal and load the response array into $PayPalResult
+$PayPalResult = $PayPal->listAllCards($requestData);
+// Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";
-var_dump($returnArray);
+print_r($PayPalResult);

@@ -40,7 +40,8 @@ $requestData=array(
     "amount"      => $amount,
     "PayoutItem"  => $PayoutItem
 );
-
-$returnArray = $PayPal->create_single_payout($requestData);
+// Pass data into class for processing with PayPal and load the response array into $PayPalResult
+$PayPalResult = $PayPal->create_single_payout($requestData);
+// Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";
-var_dump($returnArray);
+print_r($PayPalResult);

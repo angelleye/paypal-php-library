@@ -78,4 +78,4 @@ $requestData = array(
 );
 $returnArray = $PayPal->UpdateCreditCard($requestData,$credit_card_id);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);

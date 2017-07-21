@@ -11,4 +11,4 @@ $templateId = '';    // Required. The ID of the invoice template for which to sh
 
 $returnArray = $PayPal->get_invoice_template($templateId);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);

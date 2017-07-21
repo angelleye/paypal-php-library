@@ -19,4 +19,4 @@ $items = array(
 
 $returnArray = $PayPal->update_plan($planid,$items,$state);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);

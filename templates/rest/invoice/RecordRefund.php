@@ -29,4 +29,4 @@ $requestData = array(
 );
 $returnArray = $PayPal->record_refund($requestData);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);

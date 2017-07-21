@@ -128,14 +128,21 @@ class PaymentAPI {
             }            
             // ### Create Payment
             // Create a payment by calling the payment->create() method with a valid ApiContext. The return object contains the state.
+            $requestArray = clone $payment;
             $payment->create($this->_api_context);           
             if ($requestData['intent'] == 'authorize') {
                 $transactions = $payment->getTransactions();
                 $relatedResources = $transactions[0]->getRelatedResources();
-                $authorization = $relatedResources[0]->getAuthorization();
-                return array('Authorization' => $authorization, 'Payment' => $payment);
+                $authorization = $relatedResources[0]->getAuthorization();                
+                $returnArray=array('Authorization' => $authorization->toArray(), 'Payment' => $payment->toArray());
+                $returnArray['RAWREQUEST']=$requestArray->toJSON();
+                $returnArray['RAWRESPONSE']=$payment->toJSON();
+                return $returnArray;
             } else {
-                return $payment;
+                $returnArray=$payment->toArray();
+                $returnArray['RAWREQUEST']=$requestArray->toJSON();
+                $returnArray['RAWRESPONSE']=$payment->toJSON();            
+                return $returnArray;
             }
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
@@ -238,6 +245,7 @@ class PaymentAPI {
             
             // ### Create Payment
             // Create a payment by calling the payment->create() method with a valid ApiContext. The return object contains the state.
+            $requestArray = clone $payment;
             $payment->create($this->_api_context);
 
             // ### Get redirect url
@@ -245,7 +253,10 @@ class PaymentAPI {
             // the buyer to. Retrieve the url from the $payment->getApprovalLink()
             // method
             $approvalUrl = $payment->getApprovalLink();
-            return array('approvalUrl' => $approvalUrl, 'payment' => $payment);
+            $returnArray=array('approvalUrl' => $approvalUrl, 'payment' => $payment->toArray());
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$payment->toJSON();            
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -340,9 +351,12 @@ class PaymentAPI {
             if($this->checkEmptyObject((array)$transaction)){
                 $payment->setTransactions(array($transaction));
             }
-            
+            $requestArray = clone $payment;
             $payment->create($this->_api_context);
-            return $payment;
+            $returnArray=$payment->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$payment->toJSON();            
+            return $returnArray;              
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -351,7 +365,10 @@ class PaymentAPI {
     public function get_authorization($authorizationId) {
         try {
             $result = Authorization::get($authorizationId, $this->_api_context);
-            return $result;
+            $returnArray=$result->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$authorizationId.'}';
+            $returnArray['RAWRESPONSE']=$result->toJSON();
+            return $returnArray;                        
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -360,7 +377,10 @@ class PaymentAPI {
     public function show_payment_details($PaymentID) {
         try {
             $payment = Payment::get($PaymentID, $this->_api_context);
-            return $payment;
+            $returnArray=$payment->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$PaymentID.'}';
+            $returnArray['RAWRESPONSE']=$payment->toJSON();
+            return $returnArray;                                    
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -369,7 +389,7 @@ class PaymentAPI {
     public function list_payments($params) {
         try {
             $payments = Payment::all(array_filter($params), $this->_api_context);
-            return $payments;
+            return $payments->toArray();
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -389,8 +409,12 @@ class PaymentAPI {
             $capture = new Capture();
             $capture->setAmount($amt);
             // Perform a capture
+            $requestArray = clone $authorization;
             $getCapture = $authorization->capture($capture, $this->_api_context);
-            return $getCapture;
+            $returnArray=$getCapture->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$getCapture->toJSON();  
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -402,8 +426,12 @@ class PaymentAPI {
             // Lookup the authorization
             $authorization = Authorization::get($authorizationId, $this->_api_context);
             // Void the authorization
+            $requestArray = clone  $authorization;
             $voidedAuth = $authorization->void($this->_api_context);
-            return $voidedAuth;
+            $returnArray=$voidedAuth->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$voidedAuth->toJSON();  
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -413,7 +441,10 @@ class PaymentAPI {
         // # GetCapture       
         try {
             $capture = Capture::get($authorizationCaptureId, $this->_api_context);
-            return $capture;
+            $returnArray=$capture->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$authorizationCaptureId.'}';
+            $returnArray['RAWRESPONSE']=$capture->toJSON();
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -423,7 +454,10 @@ class PaymentAPI {
         // #Get Order Sample        
         try {
             $result = Order::get($orderId, $this->_api_context);
-            return $result;
+            $returnArray=$result->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$orderId.'}';
+            $returnArray['RAWRESPONSE']=$result->toJSON();
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -437,9 +471,13 @@ class PaymentAPI {
             $amount = new Amount();
             $this->setArrayToMethods($amountArray, $amount);
             $authorization->setAmount($amount);
+            $requestArray = clone $order;
             $result = $order->authorize($authorization,$this->_api_context);
             $authorizationId=$result->id;           
-            return array("Order Authorize"=>$result,'Authorization Id'=>$authorizationId);
+            $returnArray=array("Order Authorize"=>$result->toArray(),'Authorization Id'=>$authorizationId);
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$result->toJSON();            
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -456,9 +494,12 @@ class PaymentAPI {
             $capture = new Capture();
             $capture->setIsFinalCapture(true);
             $capture->setAmount($amount);            
-            
+            $requestArray = clone $order;
             $result = $order->capture($capture, $this->_api_context);
-            return $result;
+            $returnArray= $result->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$result->toJSON();            
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }
@@ -469,8 +510,12 @@ class PaymentAPI {
             
             $order= new Order();
             $order->setId($orderId);
+            $requestArray = clone $order;
             $result = $order->void($this->_api_context);
-            return $result;
+            $returnArray= $result->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$result->toJSON();            
+            return $returnArray;                       
             
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
@@ -492,9 +537,12 @@ class PaymentAPI {
             $refundRequest = new RefundRequest();
             $refundRequest->setAmount($amount);
             $this->setArrayToMethods(array_filter($refundParameters), $refundRequest);                        
-            
+            $requestArray = clone $capture;
             $captureRefund = $capture->refundCapturedPayment($refundRequest,$this->_api_context);
-            return $captureRefund;
+            $returnArray= $captureRefund->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$captureRefund->toJSON();            
+            return $returnArray;                                  
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }

@@ -11,9 +11,11 @@ $configArray = array(
 $PayPal = new \angelleye\PayPal\rest\vault\CreditCardAPI($configArray);
 
 $requestData=array(
-                'credit_card_id' => 'CARD-9DU91900183254120LA6BZUI'             //Required.The credit_card_id is the ID of the stored credit card. 
+                'credit_card_id' => 'CARD-621253386A999971ULCOF2AA'             //Required.The credit_card_id is the ID of the stored credit card. 
             );
-
-$returnArray = $PayPal->deleteByID($requestData);
+// Pass data into class for processing with PayPal and load the response array into $PayPalResult
+$PayPalResult = $PayPal->deleteByID($requestData);
+// Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";
-var_dump($returnArray);
+echo " <br> Return '1' on successfull delete, else it will show appropriate error message <br>";
+print_r($PayPalResult);

@@ -46,4 +46,4 @@ $requestData = array(
 
 $returnArray = $PayPal->create_billing_agreement_with_paypal($requestData);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);

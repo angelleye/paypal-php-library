@@ -30,10 +30,11 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
         $order = $relatedResource->getOrder();
         if(count(array_filter((array)$order)) > 0){
             $result = \PayPal\Api\Order::get($order->getId(), $_api_context);
-            var_dump($result,$payment);
+            print_r($result->toArray());
+            print_r($payment->toArray());
         }
         else{
-            var_dump($payment);
+            print_r($payment->toArray());
         }
         
     } catch (\PayPal\Exception\PayPalConnectionException  $ex) {

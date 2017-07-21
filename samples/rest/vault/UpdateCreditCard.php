@@ -1,7 +1,7 @@
 <?php
 
-require_once('../../autoload.php');
-require_once('../../includes/config.php');
+require_once('../../../autoload.php');
+require_once('../../../includes/config.php');
 
 $configArray = array(
                 'ClientID' => $rest_client_id,
@@ -9,7 +9,7 @@ $configArray = array(
                 );
 
 $PayPal = new \angelleye\PayPal\rest\vault\CreditCardAPI($configArray);
-$credit_card_id='CARD-9DU91900183254120LA6BZUI';             //Required.The credit_card_id is the ID of the stored credit card. 
+$credit_card_id='CARD-0RN52408SM961693DLCOBNXA';             //Required.The credit_card_id is the ID of the stored credit card. 
 
 $requestData = array(
     array(
@@ -55,7 +55,7 @@ $requestData = array(
     array(
         'operation' => 'add',                                //Valid Values: ["add", "remove", "replace","test"]
         'path'      => 'external_customer_id',               //The externally-provided ID of the customer for whom to list credit cards.
-        'value'     => '12345646545'                         //Value to add/remove/replace/move/copy/test
+        'value'     => ''                                    //Value to add/remove/replace/move/copy/test
     ),      
     array(
         'operation' => '',                                  //Valid Values: ["add", "remove", "replace","test"]
@@ -76,6 +76,8 @@ $requestData = array(
                         )                          
     )
 );
-$returnArray = $PayPal->UpdateCreditCard($requestData,$credit_card_id);
+// Pass data into class for processing with PayPal and load the response array into $PayPalResult
+$PayPalResult = $PayPal->UpdateCreditCard($requestData,$credit_card_id);
+// Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";
-var_dump($returnArray);
+print_r($PayPalResult);
