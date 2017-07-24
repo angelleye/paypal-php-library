@@ -27,17 +27,12 @@ class CreditCardAPI {
             $requestArray = clone $creditCard;
             $creditCard->create($this->_api_context);     
             $returnArray=$creditCard->toArray();
-            $returnArray['REQUESTDATA']=$requestArray->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$creditCard->toJSON();            
             return $returnArray;
         }
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
-            $errorReturnArray['REQUESTDATA']=$requestArray->toArray();
-            $errorReturnArray['RAWREQUEST']=$requestArray->toJSON();
-            $errorReturnArray['RAWRESPONSE']='';
-            return $errorReturnArray;        
+            return $ex->getData();        
         }        
     }
         
@@ -48,16 +43,11 @@ class CreditCardAPI {
             $requestArray = json_encode($params);
             $cards = $creditCard->all($params, $this->_api_context);
             $returnArray=$cards->toArray();
-            $returnArray['REQUESTDATA']=$requestArray;
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$cards->toJSON();            
             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
-            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
-            $errorReturnArray['REQUESTDATA']=$requestArray->toArray();
-            $errorReturnArray['RAWREQUEST']=$requestArray->toJSON();
-            $errorReturnArray['RAWRESPONSE']='';
-            return $errorReturnArray;                
+            return $ex->getData();                
         }
     }
     
@@ -67,21 +57,15 @@ class CreditCardAPI {
                 $requestArray = clone $creditCard->setId($requestData['credit_card_id']);;
                 $card = $creditCard->get($requestData['credit_card_id'], $this->_api_context);
                 $returnArray=$card->toArray();
-                $returnArray['REQUESTDATA']=$requestArray->toArray();
                 $returnArray['RAWREQUEST']=$requestArray->toJSON();
                 $returnArray['RAWRESPONSE']=$card->toJSON();
                 return $returnArray;
             } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
-                $errorReturnArray['ERRORS']=  json_decode($ex->getData());
-                $errorReturnArray['REQUESTDATA']=$requestArray->toArray();
-                $errorReturnArray['RAWREQUEST']=$requestArray->toJSON();
-                $errorReturnArray['RAWRESPONSE']='';
-                return $errorReturnArray;                
+                return $ex->getData();                
             }                    
     }
     
-    public function deleteByID($requestData){       
-       
+    public function deleteByID($requestData){        
         $creditCard = new \PayPal\Api\CreditCard();        
         try {
             $creditCard->setId($requestData['credit_card_id']);
@@ -125,7 +109,6 @@ class CreditCardAPI {
                
                 $card = $creditCard->update($pathRequest,$this->_api_context);
                 $returnArray=$card->toArray();
-                $returnArray['REQUESTDATA']=$requestArray;
                 $returnArray['RAWREQUEST']= $pathRequest->toJSON();
                 $returnArray['RAWRESPONSE']=$card->toJSON();
                 return $returnArray;                
@@ -134,11 +117,7 @@ class CreditCardAPI {
                 return "Fill Atleast One Array Field/Element";
             }
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
-            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
-            $errorReturnArray['REQUESTDATA']=$requestArray->toArray();
-            $errorReturnArray['RAWREQUEST']=$requestArray->toJSON();
-            $errorReturnArray['RAWRESPONSE']='';
-            return $errorReturnArray;                
+            return $ex->getData();                
         }
     }
     

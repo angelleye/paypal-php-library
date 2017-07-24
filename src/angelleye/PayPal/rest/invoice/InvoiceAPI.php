@@ -162,16 +162,11 @@ class InvoiceAPI {
                 $requestArray = clone $invoice;
                 $invoice->create($this->_api_context);
                 $returnArray=$invoice->toArray();
-                $returnArray['REQUESTDATA']=$requestArray->toArray();
                 $returnArray['RAWREQUEST']=$requestArray->toJSON();
                 $returnArray['RAWRESPONSE']=$invoice->toJSON();
                 return $returnArray;
             } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-                $errorReturnArray['ERRORS']=  json_decode($ex->getData());
-                $errorReturnArray['REQUESTDATA']=$returnArray->toArray();
-                $errorReturnArray['RAWREQUEST']=$returnArray->toJSON();
-                $errorReturnArray['RAWRESPONSE']='';
-                return $errorReturnArray;
+               return $ex->getData();
             }        
     }
     
@@ -189,17 +184,12 @@ class InvoiceAPI {
     public function get_invoice($invoiceId){
         try {
             $invoice = Invoice::get($invoiceId, $this->_api_context);
-            $returnArray = $invoice->toArray();
-            $returnArray['REQUESTDATA'] =array('id' => $invoiceId);
-            $returnArray['RAWREQUEST'] = '{id:' . $invoiceId . '}';
-            $returnArray['RAWRESPONSE'] = $invoice->toJSON();
+            $returnArray=$invoice->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
+            $returnArray['RAWRESPONSE']=$invoice->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            $errorReturnArray['ERRORS'] = json_decode($ex->getData());
-            $errorReturnArray['REQUESTDATA'] = array('id' => $invoiceId);
-            $errorReturnArray['RAWREQUEST'] = '{id:'.$invoiceId.'}';
-            $errorReturnArray['RAWRESPONSE'] = '';
-            return $errorReturnArray;
+            return $ex->getData();
         }
     }
     
@@ -215,17 +205,13 @@ class InvoiceAPI {
             
             $returnArray=$cancelStatus;
             $returnArray['RAWREQUEST']=$requestArray;
-            $returnArray['RAWRESPONSE'] = $cancelStatus;
-            return $returnArray;
+            $returnArray['RAWRESPONSE']=$cancelStatus;
+            return $returnArray;                   
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            $errorReturnArray['ERRORS'] = json_decode($ex->getData());
-            $errorReturnArray['REQUESTDATA'] = $returnArray->toArray();
-            $errorReturnArray['RAWREQUEST'] = $returnArray->toJSON();
-            $errorReturnArray['RAWRESPONSE'] = '';
-            return $errorReturnArray;
-        }
+            return $ex->getData();
+        }        
     }
-
+    
     public function record_refund($requestData){
         try {
             $invoice  = new Invoice();
@@ -241,17 +227,12 @@ class InvoiceAPI {
             $requestArray = clone $invoice;
             $refundStatus = $invoice->recordRefund($refund, $this->_api_context);
             $invoice = Invoice::get($requestData['invoiceId'], $this->_api_context);
-            $returnArray = $invoice->toArray();
-            $returnArray['REQUESTDATA'] = $requestArray->toArray();
-            $returnArray['RAWREQUEST'] = $requestArray->toJSON();
-            $returnArray['RAWRESPONSE'] = $invoice->toJSON();
-            return $returnArray;
+            $returnArray=$invoice->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$invoice->toJSON();
+            return $returnArray;                                                
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            $errorReturnArray['ERRORS'] = json_decode($ex->getData());
-            $errorReturnArray['REQUESTDATA'] = $returnArray->toArray();
-            $errorReturnArray['RAWREQUEST'] = $returnArray->toJSON();
-            $errorReturnArray['RAWRESPONSE'] = '';
-            return $errorReturnArray;
+            return $ex->getData();
         }
     }
 
@@ -264,16 +245,11 @@ class InvoiceAPI {
             $requestArray = clone $invoice;
             $invoice = Invoice::get($InvoiceID, $this->_api_context);
             $returnArray=$invoice->toArray();
-            $returnArray['REQUESTDATA']=$requestArray;
             $returnArray['RAWREQUEST']=$requestArray;
-            $returnArray['RAWRESPONSE'] = $invoice->toJSON();
+            $returnArray['RAWRESPONSE']=$invoice->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            $errorReturnArray['ERRORS'] = json_decode($ex->getData());
-            $errorReturnArray['REQUESTDATA'] = $returnArray->toArray();
-            $errorReturnArray['RAWREQUEST'] = $returnArray->toJSON();
-            $errorReturnArray['RAWRESPONSE'] = '';
-            return $errorReturnArray;
+            return $ex->getData();
         }        
     }
     
@@ -294,18 +270,14 @@ class InvoiceAPI {
             $search = new Search(json_encode(array_filter($parameters)));
             
             $invoices = Invoice::search($search, $this->_api_context);
-            $returnArray = $invoices->toArray();
-            $returnArray['RAWREQUEST'] = $parameters;
-            $returnArray['RAWREQUEST'] = json_encode(array_filter($parameters));
-            $returnArray['RAWRESPONSE'] = $invoices->toJSON();
+            $returnArray=$invoices->toArray();
+            $returnArray['RAWREQUEST']=json_encode(array_filter($parameters));
+            $returnArray['RAWRESPONSE']=$invoices->toJSON();
             return $returnArray;
+            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            $errorReturnArray['ERRORS'] = json_decode($ex->getData());
-            $errorReturnArray['REQUESTDATA'] = $returnArray->toArray();
-            $errorReturnArray['RAWREQUEST'] = $returnArray->toJSON();
-            $errorReturnArray['RAWRESPONSE'] = '';
-            return $errorReturnArray;
-        }
+            return $ex->getData();
+        }        
     }
     
     public function update_invoice($requestData){
@@ -442,16 +414,11 @@ class InvoiceAPI {
             $Getinvoice = Invoice::get($invoice->getId(), $this->_api_context);
             
             $returnArray=array('SendStatus' => $sendStatus , 'Invoice' => $Getinvoice->toArray());
-            $returnArray['REQUESTDATA']=array('id' => $invoiceId);
             $returnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
             $returnArray['RAWRESPONSE']=$Getinvoice->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
-            $errorReturnArray['REQUESTDATA']=array('id' => $invoiceId);
-            $errorReturnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
-            $errorReturnArray['RAWRESPONSE']='';
-            return $errorReturnArray;
+            return $ex->getData();
         }
     }
 
@@ -462,17 +429,12 @@ class InvoiceAPI {
             $invoice->setId($invoiceId);
             $deleteStatus = $invoice->delete($this->_api_context);
             $returnArray=$deleteStatus;
-            $returnArray['REQUESTDATA']=array('id' => $invoiceId);
             $returnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
             $returnArray['RAWRESPONSE']=$deleteStatus;
             return $returnArray;            
         }
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
-            $errorReturnArray['REQUESTDATA']=array('id' => $invoiceId);
-            $errorReturnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
-            $errorReturnArray['RAWRESPONSE']='';
-            return $errorReturnArray;
+            return $ex->getData();
         }
     }
 
@@ -685,16 +647,11 @@ class InvoiceAPI {
             $requestArray = clone $invoiceTemplate;
             $invoiceTemplate->create($this->_api_context);
             $returnArray=$invoiceTemplate->toArray();
-            $returnArray['REQUESTDATA']=$requestArray->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$invoiceTemplate->toJSON();
             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
-            $errorReturnArray['REQUESTDATA']=$requestArray->toArray();
-            $errorReturnArray['RAWREQUEST']=$requestArray->toJSON();
-            $errorReturnArray['RAWRESPONSE']='';
-            return $errorReturnArray;
+            return $ex->getData();
         }
     }
     
@@ -704,16 +661,11 @@ class InvoiceAPI {
             $template->setTemplateId($template_id);
             $deleteStatus = $template->delete($this->_api_context);            
             $returnArray=$deleteStatus;
-            $returnArray['REQUESTDATA'] =array('id' => $template_id);
             $returnArray['RAWREQUEST']='{id:'.$template_id.'}';
             $returnArray['RAWRESPONSE']=$deleteStatus;
             return $returnArray;                                                     
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
-            $errorReturnArray['REQUESTDATA']=array('id' => $template_id);
-            $errorReturnArray['RAWREQUEST']='{id:'.$template_id.'}';
-            $errorReturnArray['RAWRESPONSE']='';
-            return $errorReturnArray;
+            return $ex->getData();
         }
     }
     
@@ -731,16 +683,11 @@ class InvoiceAPI {
         try {
             $template = Template::get($templateId, $this->_api_context);
             $returnArray=$template->toArray();
-            $returnArray['REQUESTDATA'] =array('id' => $templateId);
             $returnArray['RAWREQUEST']='{id:'.$templateId.'}';
             $returnArray['RAWRESPONSE']=$template->toJSON();
             return $returnArray;                                                     
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
-            $errorReturnArray['REQUESTDATA']=array('id' => $templateId);
-            $errorReturnArray['RAWREQUEST']='{id:'.$templateId.'}';
-            $errorReturnArray['RAWRESPONSE']='';
-            return $errorReturnArray;
+            return $ex->getData();
         }
     }
 
@@ -921,16 +868,11 @@ class InvoiceAPI {
             $requestArray = clone $invoiceTemplate;
             $invoiceTemplate->update($this->_api_context);
             $returnArray=$invoiceTemplate->toArray();
-            $returnArray['REQUESTDATA']=$requestArray->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$invoiceTemplate->toJSON();  
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            $errorReturnArray['ERRORS']=  json_decode($ex->getData());
-            $errorReturnArray['REQUESTDATA']=$requestArray;
-            $errorReturnArray['RAWREQUEST']=$requestArray;
-            $errorReturnArray['RAWRESPONSE']='';
-            return $errorReturnArray;
+            return $ex->getData();
         }
     }
 
