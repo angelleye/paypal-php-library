@@ -27,6 +27,7 @@ class BillingAPI {
         $this->_api_context = new \PayPal\Rest\ApiContext(
                 new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'], $configArray['ClientSecret'])
         );
+        $this->_api_context->setConfig(array('http.headers.PayPal-Partner-Attribution-Id' => 'AngellEYE_PHPClass'));
     }
     
     public function create_plan($requestData){

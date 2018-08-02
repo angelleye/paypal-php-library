@@ -18,7 +18,7 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 // Prepare request arrays
 $GRPPDFields = array(
-				   'profileid' => 'I-3WEY3EAYCV0R'			// Profile ID of the profile you want to get details for.
+				   'profileid' => 'I-YMGN1WN4YY9E'			// Profile ID of the profile you want to get details for.
 				   );
 				   
 $PayPalRequestData = array('GRPPDFields'=>$GRPPDFields);

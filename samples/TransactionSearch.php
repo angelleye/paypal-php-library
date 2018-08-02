@@ -15,7 +15,7 @@ $PayPalConfig = array(
 
 $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
-$StartDate = gmdate("Y-m-d\\TH:i:sZ",strtotime('now - 1 day'));
+$StartDate = gmdate("Y-m-d\\TH:i:sZ",strtotime('now - 10 day'));
 
 $TSFields = array(
 					'startdate' => $StartDate, 					// Required.  The earliest transaction date you want returned.  Must be in UTC/GMT format.  2008-08-30T05:00:00.00Z

@@ -18,13 +18,13 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 // Prepare request arrays
 $URPPFields = array(
-				   'profileid' => '', 							// Required.  Recurring payments ID.
+				   'profileid' => 'I-54Y4CNH8T196', 							// Required.  Recurring payments ID.
 				   'note' => '', 								// Note about the reason for the update to the profile.  Included in EC profile notification emails and in details pages.
 				   'desc' => '', 								// Description of the recurring payment profile.
 				   'subscribername' => '', 						// Full name of the person receiving the product or service paid for by the recurring payment profile.
 				   'profilereference' => '', 					// The merchant's own unique reference or invoice number.
 				   'additionalbillingcycles' => '', 			// The number of additional billing cycles to add to this profile.
-				   'amt' => '', 								// Billing amount for each cycle in the subscription, not including shipping and tax.  Express Checkout profiles can only be updated by 20% every 180 days.
+				   'amt' => '1.2', 								// Billing amount for each cycle in the subscription, not including shipping and tax.  Express Checkout profiles can only be updated by 20% every 180 days.
 				   'shippingamt' => '', 						// Shipping amount for each billing cycle during the payment period.
 				   'taxamt' => '', 								// Tax amount for each billing cycle during the payment period.
 				   'outstandingamt' => '', 						// The current past-due or outstanding amount.  You can only decrease this amount.  

@@ -18,7 +18,7 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 // Prepare request arrays
 $GTDFields = array(
-					'transactionid' => '3WN902700D272342K'							// PayPal transaction ID of the order you want to get details for.
+					'transactionid' => '8E5247294N726032G'							// PayPal transaction ID of the order you want to get details for.
 				);
 				
 $PayPalRequestData = array('GTDFields'=>$GTDFields);
