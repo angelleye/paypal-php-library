@@ -80,6 +80,17 @@ class InvoiceAPI {
                     
                     // ### End
                     
+                    // ### Setting Minimum Amount Due
+                    // ### Start                            
+                        $MinAmountCurrency = new Currency();
+                        if(isset($requestData['MinimumAmountDue']) && $this->checkEmptyObject($requestData['MinimumAmountDue'])){
+                            $this->setArrayToMethods(array_filter($requestData['MinimumAmountDue']), $MinAmountCurrency);
+                        }
+                        if ($this->checkEmptyObject((array)$MinAmountCurrency)) {                        
+                            $invoice->setMinimumAmountDue($MinAmountCurrency);
+                        }
+                    // ### End
+                    
                     // ### Setting Billing Info to invoice object. 
                     // ### Start
                     $BillingInfo = new BillingInfo();
@@ -173,14 +184,14 @@ class InvoiceAPI {
                         $this->setArrayToMethods(array_filter($requestData['invoiceData']), $invoice);
                     }
                     
-                    $ShippingCost = new ShippingCost();
-                    if (isset($requestData['shippingCost']) && $this->checkEmptyObject($requestData['shippingCost'])) {
-                        $this->setArrayToMethods(array_filter($requestData['shippingCost']), $ShippingCost);
+                    if(isset($requestData['shippingCost']['type']) && $requestData['shippingCost']['type'] == 'Amount'){
+                        $shippingCurrency = Currency();
+                        $this->setArrayToMethods(array_filter($requestData['shippingCost']['Currency']), $shippingCurrency);
+                        $ShippingCost = new ShippingCost();
+                        $ShippingCost->setAmount($shippingCurrency);
+                        $invoice->setShippingCost($ShippingCost);       
                     }
-                    if ($this->checkEmptyObject((array)$ShippingCost)) {
-                        $invoice->setShippingCost($ShippingCost);                        
-                    }
-                                        
+                                                                                
                 // ### Create Invoice
                 // Create an invoice by calling the invoice->create() method
                 $requestArray = clone $invoice;
