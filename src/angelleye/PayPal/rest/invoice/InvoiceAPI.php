@@ -74,6 +74,9 @@ class InvoiceAPI {
                     if(isset($requestData['ccInfo']) && $this->checkEmptyObject($requestData['ccInfo'])){
                        $this->setArrayToMethods(array_filter($requestData['ccInfo']), $Participant);
                     }
+                    if ($this->checkEmptyObject((array)$Participant)) {                        
+                        $invoice->setCcInfo(array($Participant));
+                    }
                     
                     // ### End
                     
@@ -171,7 +174,13 @@ class InvoiceAPI {
                     }
                     
                     $ShippingCost = new ShippingCost();
-                    
+                    if (isset($requestData['shippingCost']) && $this->checkEmptyObject($requestData['shippingCost'])) {
+                        $this->setArrayToMethods(array_filter($requestData['shippingCost']), $ShippingCost);
+                    }
+                    if ($this->checkEmptyObject((array)$ShippingCost)) {
+                        $invoice->setShippingCost($ShippingCost);                        
+                    }
+                                        
                 // ### Create Invoice
                 // Create an invoice by calling the invoice->create() method
                 $requestArray = clone $invoice;
