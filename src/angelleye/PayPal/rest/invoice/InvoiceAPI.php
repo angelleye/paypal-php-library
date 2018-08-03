@@ -151,7 +151,7 @@ class InvoiceAPI {
                     
                     if(isset($requestData['finalDiscountForInvoice']) && count(array_filter($requestData['finalDiscountForInvoice'])) > 0){
                         $FinalDiscountCost = new Cost();
-                        $FinalDiscountCost->setPercent($requestData['finalDiscountForInvoice']['Percent']);
+                        $FinalDiscountCost->setArrayToMethods(array_filter($requestData['finalDiscountForInvoice']),$FinalDiscountCost);
                         $invoice->setDiscount($FinalDiscountCost);   
                     }
                     
