@@ -149,10 +149,18 @@ class InvoiceAPI {
                     // #### Final Discount
                     // You can add final discount to the invoice as shown below. You could either use "percent" or "value" when providing the discount
                     
-                    if(isset($requestData['finalDiscountForInvoice']) && count(array_filter($requestData['finalDiscountForInvoice'])) > 0){
+                    if(isset($requestData['finalDiscountForInvoice']) && $requestData['finalDiscountForInvoice']['type']  == 'Percent'){
                         $FinalDiscountCost = new Cost();
-                        $FinalDiscountCost->setArrayToMethods(array_filter($requestData['finalDiscountForInvoice']),$FinalDiscountCost);
+                        $FinalDiscountCost->setPercent($requestData['finalDiscountForInvoice']['Percent']);                        
                         $invoice->setDiscount($FinalDiscountCost);   
+                    }
+                    if(isset($requestData['finalDiscountForInvoice']) && $requestData['finalDiscountForInvoice']['type']  == 'Amount'){
+                        $FinalDiscountCost = new Cost();
+                        $discountCurrency = new Currency();
+                        $discountCurrency->setCurrency($requestData['finalDiscountForInvoice']['Amount']['Currency']);
+                        $discountCurrency->setValue($requestData['finalDiscountForInvoice']['Amount']['Value']);
+                        $FinalDiscountCost->setAmount($discountCurrency);
+                        $invoice->setDiscount($FinalDiscountCost);
                     }
                     
                     if(isset($requestData['paymentTerm']) && count(array_filter($requestData['paymentTerm'])) > 0){
