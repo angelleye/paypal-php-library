@@ -193,7 +193,7 @@ class InvoiceAPI {
                     }
                     
                     if(isset($requestData['shippingCost']['type']) && $requestData['shippingCost']['type'] == 'Amount'){
-                        $shippingCurrency = Currency();
+                        $shippingCurrency = new Currency();
                         $this->setArrayToMethods(array_filter($requestData['shippingCost']['Currency']), $shippingCurrency);
                         $ShippingCost = new ShippingCost();
                         $ShippingCost->setAmount($shippingCurrency);
@@ -204,13 +204,26 @@ class InvoiceAPI {
                 // Create an invoice by calling the invoice->create() method
                 $requestArray = clone $invoice;
                 $invoice->create($this->_api_context);
-                $returnArray=$invoice->toArray();
+                $returnArray['INVOICE']=$invoice->toArray();
+                $returnArray['RESULT'] = 'Success';
                 $returnArray['RAWREQUEST']=$requestArray->toJSON();
                 $returnArray['RAWRESPONSE']=$invoice->toJSON();
                 return $returnArray;
             } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-               return $ex->getData();
+                $returnArray['RESULT'] = 'Error';
+                if($this->isJson($ex->getData())){
+                    $returnArray['errors'] =json_decode($ex->getData(),true);
+                }
+                else{
+                    $returnArray['errors'] = $ex->getData();
+                }               
+               return $returnArray;
             }        
+    }
+    
+    public function isJson($string) {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
     }
     
     public function list_invoice($params){
@@ -457,11 +470,19 @@ class InvoiceAPI {
             $Getinvoice = Invoice::get($invoice->getId(), $this->_api_context);
             
             $returnArray=array('SendStatus' => $sendStatus , 'Invoice' => $Getinvoice->toArray());
+            $returnArray['RESULT'] = 'Success';
             $returnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
             $returnArray['RAWRESPONSE']=$Getinvoice->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            $returnArray['RESULT'] = 'Error';
+            if($this->isJson($ex->getData())){
+                $returnArray['errors'] =json_decode($ex->getData(),true);
+            }
+            else{
+                $returnArray['errors'] = $ex->getData();
+            }               
+           return $returnArray;
         }
     }
 
