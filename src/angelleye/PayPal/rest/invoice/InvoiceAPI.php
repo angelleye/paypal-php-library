@@ -199,6 +199,15 @@ class InvoiceAPI {
                         $ShippingCost->setAmount($shippingCurrency);
                         $invoice->setShippingCost($ShippingCost);       
                     }
+                    
+                    if(count(array_filter($requestData['attachments'])) > 0){
+                        foreach ($requestData['attachments'] as $value) {
+                            $attachment = new FileAttachment();
+                            $attachment->setName($value['Name']);
+                            $attachment->setUrl($value['url']);
+                            $invoice->setAttachments(array($attachment));
+                        }                        
+                    }
                                                                                 
                 // ### Create Invoice
                 // Create an invoice by calling the invoice->create() method
