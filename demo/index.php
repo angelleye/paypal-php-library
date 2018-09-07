@@ -210,9 +210,20 @@
                             <h3>Website Payments Pro 30 Basic</h3>
                             <h4>Website Payments Pro 30 Basic</h4>
                             <p>Learn how to implement Website Payments Pro 30 Basic. This includes the option for
-                                embedded payments.</p>
-                            <p align="center"><a class="btn btn-primary" href="website-payments-pro-30-basic/">Launch
-                                    Demo</a></p>
+                                embedded payments.</p>                            
+                            <?php
+                                $DIR = '\website-payments-pro-30-basic';
+                                $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
+                            ?>
+                            <p align="center">
+                                <?php if ($DIR_exists) : ?>
+                                    <a class="btn btn-primary" href="ewebsite-payments-pro-30-basic/">Launch Demo</a>
+                                <?php else: ?>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/website-payments-pro-30-basic-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
+                                <?php endif; ?>
+                            </p>
                         </div>
                     </div>
                 </div>
