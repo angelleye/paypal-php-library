@@ -19,9 +19,7 @@ use PayPal\Common\PayPalModel;
 use PayPal\Api\ShippingAddress;
 use \angelleye\PayPal\RestClass;
 
-class BillingAPI extends RestClass {
-
-    public $partner_attribution_id='';
+class BillingAPI extends RestClass {    
 
     public function __construct($configArray) {        
         parent::__construct($configArray);

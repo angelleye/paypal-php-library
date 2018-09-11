@@ -32,8 +32,6 @@ use \angelleye\PayPal\RestClass;
 
 class InvoiceAPI extends RestClass {
 
-    public $partner_attribution_id='';
-
     public function __construct($configArray) {        
         parent::__construct($configArray);
     }

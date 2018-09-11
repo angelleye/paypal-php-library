@@ -8,9 +8,7 @@ use \PayPal\Api\Presentation;
 use \PayPal\Api\WebProfile;
 use \angelleye\PayPal\RestClass;
 
-class PaymentExperianceAPI extends RestClass {
-    
-    public $partner_attribution_id='';
+class PaymentExperianceAPI extends RestClass {   
 
     public function __construct($configArray) {        
         parent::__construct($configArray);

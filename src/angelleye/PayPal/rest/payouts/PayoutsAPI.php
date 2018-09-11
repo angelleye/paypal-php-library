@@ -10,8 +10,6 @@ use \angelleye\PayPal\RestClass;
 
 class PayoutsAPI extends RestClass {
 
-    public $partner_attribution_id='';
-
     public function __construct($configArray) {        
         parent::__construct($configArray);
     }
