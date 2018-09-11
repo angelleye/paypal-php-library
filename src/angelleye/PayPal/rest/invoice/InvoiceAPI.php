@@ -233,7 +233,7 @@ class InvoiceAPI extends RestClass {
     public function list_invoice($params){
         try {
             
-            $invoices = Invoice::getAll(array_filter($params), $this->_api_context);
+            $invoices = Invoice::getAll(array_filter($params), $this->get_api_context());
             return $invoices->toArray();
             
         }  catch (\PayPal\Exception\PayPalConnectionException $ex) {
@@ -243,7 +243,7 @@ class InvoiceAPI extends RestClass {
 
     public function get_invoice($invoiceId){
         try {
-            $invoice = Invoice::get($invoiceId, $this->_api_context);
+            $invoice = Invoice::get($invoiceId, $this->get_api_context());
             $returnArray=$invoice->toArray();
             $returnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
             $returnArray['RAWRESPONSE']=$invoice->toJSON();
@@ -261,7 +261,7 @@ class InvoiceAPI extends RestClass {
             $invoice = new Invoice();
             $invoice->setId($InvoiceID);
             $requestArray = clone $invoice;
-            $cancelStatus = $invoice->cancel($notify, $this->_api_context);
+            $cancelStatus = $invoice->cancel($notify, $this->get_api_context());
             
             $returnArray=$cancelStatus;
             $returnArray['RAWREQUEST']=$requestArray;
@@ -285,8 +285,8 @@ class InvoiceAPI extends RestClass {
                 $refund->setAmount($amt);
             }
             $requestArray = clone $invoice;
-            $refundStatus = $invoice->recordRefund($refund, $this->_api_context);
-            $invoice = Invoice::get($requestData['invoiceId'], $this->_api_context);
+            $refundStatus = $invoice->recordRefund($refund, $this->get_api_context());
+            $invoice = Invoice::get($requestData['invoiceId'], $this->get_api_context());
             $returnArray=$invoice->toArray();
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$invoice->toJSON();
@@ -301,9 +301,9 @@ class InvoiceAPI extends RestClass {
             $invoice  = new Invoice();
             $notify = new Notification();
             $this->setArrayToMethods(array_filter($remindNotification), $notify);
-            $remindStatus = $invoice->remind($notify, $this->_api_context);
+            $remindStatus = $invoice->remind($notify, $this->get_api_context());
             $requestArray = clone $invoice;
-            $invoice = Invoice::get($InvoiceID, $this->_api_context);
+            $invoice = Invoice::get($InvoiceID, $this->get_api_context());
             $returnArray=$invoice->toArray();
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$invoice->toJSON();
@@ -316,7 +316,7 @@ class InvoiceAPI extends RestClass {
     public function retrieve_QR_code($parameters,$InvoiceID,$path){
         
         try{
-            $image = Invoice::qrCode($InvoiceID, array_filter($parameters), $this->_api_context);
+            $image = Invoice::qrCode($InvoiceID, array_filter($parameters), $this->get_api_context());
             $path = $image->saveToFile($path);
             return array('Image' => $image->getImage());
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
@@ -329,7 +329,7 @@ class InvoiceAPI extends RestClass {
         try{ 
             $search = new Search(json_encode(array_filter($parameters)));
             
-            $invoices = Invoice::search($search, $this->_api_context);
+            $invoices = Invoice::search($search, $this->get_api_context());
             $returnArray=$invoices->toArray();
             $returnArray['RAWREQUEST']=json_encode(array_filter($parameters));
             $returnArray['RAWRESPONSE']=$invoices->toJSON();
@@ -455,8 +455,8 @@ class InvoiceAPI extends RestClass {
                 $invoice->setAttachments(array($attachment));
             }
             $requestArray = clone $invoice;
-            $invoice->update($this->_api_context);
-            $invoice = Invoice::get($invoice->getId(), $this->_api_context);
+            $invoice->update($this->get_api_context());
+            $invoice = Invoice::get($invoice->getId(), $this->get_api_context());
             $returnArray=$invoice->toArray();
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$invoice->toJSON();
@@ -470,8 +470,8 @@ class InvoiceAPI extends RestClass {
         try {
             $invoice = new Invoice();
             $invoice->setId($invoiceId);
-            $sendStatus = $invoice->send($this->_api_context);
-            $Getinvoice = Invoice::get($invoice->getId(), $this->_api_context);
+            $sendStatus = $invoice->send($this->get_api_context());
+            $Getinvoice = Invoice::get($invoice->getId(), $this->get_api_context());
             
             $returnArray=array('SendStatus' => $sendStatus , 'Invoice' => $Getinvoice->toArray());
             $returnArray['RESULT'] = 'Success';
@@ -495,7 +495,7 @@ class InvoiceAPI extends RestClass {
         try{
             $invoice = new Invoice();
             $invoice->setId($invoiceId);
-            $deleteStatus = $invoice->delete($this->_api_context);
+            $deleteStatus = $invoice->delete($this->get_api_context());
             $returnArray=$deleteStatus;
             $returnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
             $returnArray['RAWRESPONSE']=$deleteStatus;
@@ -508,7 +508,7 @@ class InvoiceAPI extends RestClass {
 
     public function get_next_invoice_number(){
         try {
-            $number = Invoice::generateNumber($this->_api_context);
+            $number = Invoice::generateNumber($this->get_api_context());
             return $number->toArray();
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
            return $ex->getData();
@@ -528,9 +528,9 @@ class InvoiceAPI extends RestClass {
                 $PaymentDetail->setAmount($amt);
             }
             
-            $recordStatus = $invoice->recordPayment($PaymentDetail, $this->_api_context);
+            $recordStatus = $invoice->recordPayment($PaymentDetail, $this->get_api_context());
             
-            $returnInvoice = Invoice::get($invoiceId, $this->_api_context);
+            $returnInvoice = Invoice::get($invoiceId, $this->get_api_context());
             return array('Record Status' => $recordStatus,'Invoice' => $returnInvoice->toArray());
         }
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
@@ -713,7 +713,7 @@ class InvoiceAPI extends RestClass {
                 $invoiceTemplate->addSetting($settingDate);
             }                           
             $requestArray = clone $invoiceTemplate;
-            $invoiceTemplate->create($this->_api_context);
+            $invoiceTemplate->create($this->get_api_context());
             $returnArray=$invoiceTemplate->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$invoiceTemplate->toJSON();
@@ -727,7 +727,7 @@ class InvoiceAPI extends RestClass {
         try {
             $template = new Template();
             $template->setTemplateId($template_id);
-            $deleteStatus = $template->delete($this->_api_context);            
+            $deleteStatus = $template->delete($this->get_api_context());            
             $returnArray=$deleteStatus;
             $returnArray['RAWREQUEST']='{id:'.$template_id.'}';
             $returnArray['RAWRESPONSE']=$deleteStatus;
@@ -740,7 +740,7 @@ class InvoiceAPI extends RestClass {
     public function get_all_invoice_templates($fields){
         
         try {
-            $templates = Templates::getAll($fields, $this->_api_context);
+            $templates = Templates::getAll($fields, $this->get_api_context());
             return $templates->toArray();
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
@@ -749,7 +749,7 @@ class InvoiceAPI extends RestClass {
     
     public function get_invoice_template($templateId){
         try {
-            $template = Template::get($templateId, $this->_api_context);
+            $template = Template::get($templateId, $this->get_api_context());
             $returnArray=$template->toArray();
             $returnArray['RAWREQUEST']='{id:'.$templateId.'}';
             $returnArray['RAWRESPONSE']=$template->toJSON();
@@ -934,7 +934,7 @@ class InvoiceAPI extends RestClass {
                 $invoiceTemplate->addSetting($settingDate);
             }
             $requestArray = clone $invoiceTemplate;
-            $invoiceTemplate->update($this->_api_context);
+            $invoiceTemplate->update($this->get_api_context());
             $returnArray=$invoiceTemplate->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$invoiceTemplate->toJSON();  
