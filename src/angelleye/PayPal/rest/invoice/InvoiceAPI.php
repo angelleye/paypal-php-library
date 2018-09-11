@@ -28,18 +28,15 @@ use PayPal\Api\Templates;
 use PayPal\Api\TemplateData;
 use PayPal\Api\TemplateSettings;
 use PayPal\Api\TemplateSettingsMetadata;
+use \angelleye\PayPal\RestClass;
 
-class InvoiceAPI {
+class InvoiceAPI extends RestClass {
 
-    private $_api_context;
+    public $partner_attribution_id='';
 
-    public function __construct($configArray) {
-        // setup PayPal api context 
-        $this->_api_context = new \PayPal\Rest\ApiContext(
-                new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'], $configArray['ClientSecret'])
-        );        
-        $this->_api_context->setConfig(array('http.headers.PayPal-Partner-Attribution-Id' => 'AngellEYE_PHPClass'));
-    }    
+    public function __construct($configArray) {        
+        parent::__construct($configArray);
+    }
     
     public function create_invoice($requestData){
             try {
@@ -200,7 +197,7 @@ class InvoiceAPI {
                         $invoice->setShippingCost($ShippingCost);       
                     }
                     
-                    if(count(array_filter($requestData['attachments'])) > 0){
+                    if(isset($requestData['attachments']) && count(array_filter($requestData['attachments'])) > 0){
                         foreach ($requestData['attachments'] as $value) {
                             $attachment = new FileAttachment();
                             $attachment->setName($value['Name']);
@@ -212,7 +209,7 @@ class InvoiceAPI {
                 // ### Create Invoice
                 // Create an invoice by calling the invoice->create() method
                 $requestArray = clone $invoice;
-                $invoice->create($this->_api_context);
+                $invoice->create($this->get_api_context());
                 $returnArray['INVOICE']=$invoice->toArray();
                 $returnArray['RESULT'] = 'Success';
                 $returnArray['RAWREQUEST']=$requestArray->toJSON();
@@ -946,27 +943,6 @@ class InvoiceAPI {
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
-        }
-    }
-
-    public function setArrayToMethods($array, $object) {
-        foreach ($array as $key => $val) {
-            $method = 'set' . $key;
-            if (!empty($val)) {
-                if (method_exists($object, $method)) {
-                    $object->$method($val);
-                }
-            }
-        }
-        return TRUE;
-    }    
-    
-    public function checkEmptyObject($array){
-        if(count(array_filter($array)) > 0){
-            return TRUE;
-        }
-        else {
-            return FALSE;
         }
     }
 }

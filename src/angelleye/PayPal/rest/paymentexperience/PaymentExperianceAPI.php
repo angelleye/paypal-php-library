@@ -6,16 +6,14 @@ use \PayPal\Api\InputFields;
 use \PayPal\Api\Patch;
 use \PayPal\Api\Presentation;
 use \PayPal\Api\WebProfile;
+use \angelleye\PayPal\RestClass;
 
-class PaymentExperianceAPI {
+class PaymentExperianceAPI extends RestClass {
     
-    private $_api_context;
-    public function __construct($configArray)
-    {   // setup PayPal api context 
-        $this->_api_context = new \PayPal\Rest\ApiContext(
-                new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'],$configArray['ClientSecret'])
-            );
-        $this->_api_context->setConfig(array('http.headers.PayPal-Partner-Attribution-Id' => 'AngellEYE_PHPClass'));
+    public $partner_attribution_id='';
+
+    public function __construct($configArray) {        
+        parent::__construct($configArray);
     }
     
     public function create_web_profile($requestData){
@@ -151,27 +149,5 @@ class PaymentExperianceAPI {
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
         }        
-    }
-
-    public function checkEmptyObject($array){
-        if(count(array_filter($array)) > 0){
-            return TRUE;
-        }
-        else {
-            return FALSE;
-        }
-    }
-    
-    public function setArrayToMethods($array,$object){
-        foreach ($array as $key => $val){
-            $method = 'set'.$key;
-            if(!empty($val)){
-                if (method_exists($object, $method))
-                {                   
-                     $object->$method($val);
-                }            
-            }
-        }
-        return TRUE;
     }
 }

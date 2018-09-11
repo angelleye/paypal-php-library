@@ -1,14 +1,14 @@
 <?php namespace angelleye\PayPal\rest\vault;
 
-class CreditCardAPI {
-    private $_api_context;
-    public function __construct($configArray)
-    {   // setup PayPal api context 
-        $this->_api_context = new \PayPal\Rest\ApiContext(
-                new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'],$configArray['ClientSecret'])
-            );
-        $this->_api_context->setConfig(array('http.headers.PayPal-Partner-Attribution-Id' => 'AngellEYE_PHPClass'));
-    }
+use \angelleye\PayPal\RestClass;
+
+class CreditCardAPI extends RestClass {
+
+    public $partner_attribution_id='';
+
+    public function __construct($configArray) {        
+        parent::__construct($configArray);
+    }    
     
     public function StoreCreditCard($requestData){
         $creditCard = new \PayPal\Api\CreditCard();
@@ -120,27 +120,5 @@ class CreditCardAPI {
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
             return $ex->getData();                
         }
-    }
-    
-    public function setArrayToMethods($array,$object){
-        foreach ($array as $key => $val){
-            $method = 'set'.$key;
-            if(!empty($val)){
-                if (method_exists($object, $method))
-                {                   
-                     $object->$method($val);
-                }            
-            }
-        }
-        return TRUE;
-    }
-    
-    public function checkEmptyObject($array){
-        if(count(array_filter($array)) > 0){
-            return TRUE;
-        }
-        else {
-            return FALSE;
-        }
-    }
+    }    
 }

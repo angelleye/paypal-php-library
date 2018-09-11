@@ -17,17 +17,14 @@ use PayPal\Api\Patch;
 use PayPal\Api\PatchRequest;
 use PayPal\Common\PayPalModel;
 use PayPal\Api\ShippingAddress;
+use \angelleye\PayPal\RestClass;
 
-class BillingAPI {
+class BillingAPI extends RestClass {
 
-    private $_api_context;
+    public $partner_attribution_id='';
 
-    public function __construct($configArray) {
-        // setup PayPal api context 
-        $this->_api_context = new \PayPal\Rest\ApiContext(
-                new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'], $configArray['ClientSecret'])
-        );
-        $this->_api_context->setConfig(array('http.headers.PayPal-Partner-Attribution-Id' => 'AngellEYE_PHPClass'));
+    public function __construct($configArray) {        
+        parent::__construct($configArray);
     }
     
     public function create_plan($requestData){
@@ -371,26 +368,4 @@ class BillingAPI {
             return $ex->getData();
         }        
     }
-
-    public function setArrayToMethods($array, $object) {
-        foreach ($array as $key => $val) {
-            $method = 'set' . $key;
-            if (!empty($val)) {
-                if (method_exists($object, $method)) {
-                    $object->$method($val);
-                }
-            }
-        }
-        return TRUE;
-    }
-    
-    public function checkEmptyObject($array){
-        if(count(array_filter($array)) > 0){
-            return TRUE;
-        }
-        else {
-            return FALSE;
-        }
-    }
-
 }

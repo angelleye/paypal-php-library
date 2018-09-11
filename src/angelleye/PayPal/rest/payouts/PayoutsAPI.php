@@ -6,17 +6,14 @@ use PayPal\Api\Currency;
 use PayPal\Api\Payout;
 use PayPal\Api\PayoutItem;
 use PayPal\Api\PayoutSenderBatchHeader;
+use \angelleye\PayPal\RestClass;
 
-class PayoutsAPI {
+class PayoutsAPI extends RestClass {
 
-    private $_api_context;
+    public $partner_attribution_id='';
 
-    public function __construct($configArray) {
-        // setup PayPal api context 
-        $this->_api_context = new \PayPal\Rest\ApiContext(
-                new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'], $configArray['ClientSecret'])
-        );
-        $this->_api_context->setConfig(array('http.headers.PayPal-Partner-Attribution-Id' => 'AngellEYE_PHPClass'));
+    public function __construct($configArray) {        
+        parent::__construct($configArray);
     }
 
     public function create_single_payout($requestData) {        
@@ -117,27 +114,6 @@ class PayoutsAPI {
             }           
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $ex->getData();
-        }
-    }
-
-    public function setArrayToMethods($array, $object) {
-        foreach ($array as $key => $val) {
-            $method = 'set' . $key;
-            if (!empty($val)) {
-                if (method_exists($object, $method)) {
-                    $object->$method($val);
-                }
-            }
-        }
-        return TRUE;
-    }
-    
-    public function checkEmptyObject($array){
-        if(count(array_filter($array)) > 0){
-            return TRUE;
-        }
-        else {
-            return FALSE;
         }
     }   
 }
