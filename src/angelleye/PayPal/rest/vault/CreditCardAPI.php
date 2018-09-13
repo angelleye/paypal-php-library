@@ -4,8 +4,10 @@ use \angelleye\PayPal\RestClass;
 
 class CreditCardAPI extends RestClass {
 
+    private $_api_context;
     public function __construct($configArray) {        
         parent::__construct($configArray);
+        $this->_api_context = $this->get_api_context();
     }    
     
     public function StoreCreditCard($requestData){

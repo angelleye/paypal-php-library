@@ -20,9 +20,11 @@ use PayPal\Api\ShippingAddress;
 use \angelleye\PayPal\RestClass;
 
 class BillingAPI extends RestClass {    
-
+    
+    private $_api_context;
     public function __construct($configArray) {        
         parent::__construct($configArray);
+        $this->_api_context = $this->get_api_context();
     }
     
     public function create_plan($requestData){

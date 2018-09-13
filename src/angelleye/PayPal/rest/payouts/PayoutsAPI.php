@@ -10,8 +10,10 @@ use \angelleye\PayPal\RestClass;
 
 class PayoutsAPI extends RestClass {
 
+    private $_api_context;
     public function __construct($configArray) {        
         parent::__construct($configArray);
+        $this->_api_context = $this->get_api_context();
     }
 
     public function create_single_payout($requestData) {        
