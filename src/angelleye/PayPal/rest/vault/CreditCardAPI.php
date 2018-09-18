@@ -12,17 +12,20 @@ class CreditCardAPI extends RestClass {
     
     public function StoreCreditCard($requestData){
         $creditCard = new \PayPal\Api\CreditCard();
-        if ($this->checkEmptyObject($requestData['creditCard'])) {
-            $this->setArrayToMethods(array_filter($requestData['creditCard']), $creditCard);
+        
+        if (isset($requestData['creditCard'])) {
+            $this->setArrayToMethods($this->checkEmptyObject($requestData['creditCard']), $creditCard);
         }
-        if ($this->checkEmptyObject($requestData['payerInfo'])) {
-            $this->setArrayToMethods(array_filter($requestData['payerInfo']), $creditCard);    
+        
+        if (isset($requestData['payerInfo'])) {
+            $this->setArrayToMethods($this->checkEmptyObject($requestData['payerInfo']), $creditCard);
         }
-        if ($this->checkEmptyObject($requestData['billingAddress'])) {
-            $this->setArrayToMethods(array("BillingAddress"=>array_filter($requestData['billingAddress'])), $creditCard); 
+        
+        if (isset($requestData['billingAddress'])) {
+            $this->setArrayToMethods(array("BillingAddress"=>$this->checkEmptyObject($requestData['billingAddress'])), $creditCard); 
         }
-        if ($this->checkEmptyObject($requestData['optionalArray'])) {
-            $this->setArrayToMethods($requestData['optionalArray'], $creditCard);                     
+        if (isset($requestData['optionalArray'])) {
+            $this->setArrayToMethods($this->checkEmptyObject($requestData['optionalArray']), $creditCard);                     
         }
         try {
             $requestArray = clone $creditCard;

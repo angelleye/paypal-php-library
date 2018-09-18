@@ -21,23 +21,27 @@ class RestClass
     }
         
     public function checkEmptyObject($array){
-        if(count(array_filter($array)) > 0){
-            return TRUE;
+        $filter_array = array_filter($array);
+        if(count($filter_array) > 0){
+            return $filter_array;
         }
         else {
-            return FALSE;
+            return array();
         }
     }
     
     public function setArrayToMethods($array, $object) {
-        foreach ($array as $key => $val) {
-            $method = 'set' . $key;
-            if (!empty($val)) {
-                if (method_exists($object, $method)) {
-                    $object->$method($val);
+        if(!empty($array)){
+            foreach ($array as $key => $val) {                
+                if (!empty($val)) {
+                    $method = 'set' . $key;
+                    if (method_exists($object, $method)) {
+                        $object->$method($val);
+                    }
                 }
             }
+            return TRUE;
         }
-        return TRUE;
+        return;
     }
 }
