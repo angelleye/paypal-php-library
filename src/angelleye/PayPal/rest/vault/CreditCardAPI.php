@@ -29,14 +29,15 @@ class CreditCardAPI extends RestClass {
         }
         try {
             $requestArray = clone $creditCard;
-            $creditCard->create($this->_api_context);     
-            $returnArray=$creditCard->toArray();
+            $creditCard->create($this->_api_context);                 
+            $returnArray['CREDITCARD']=$creditCard->toArray();
+            $returnArray['RESULT'] = 'Success';
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$creditCard->toJSON();            
             return $returnArray;
         }
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();        
+           return $this->createErrorResponse($ex);
         }        
     }
         
@@ -51,7 +52,7 @@ class CreditCardAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$cards->toJSON();            
             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
-            return $ex->getData();                
+            return $this->createErrorResponse($ex);         
         }
     }
     
@@ -65,7 +66,7 @@ class CreditCardAPI extends RestClass {
                 $returnArray['RAWRESPONSE']=$card->toJSON();
                 return $returnArray;
             } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
-                return $ex->getData();                
+                return $this->createErrorResponse($ex);
             }                    
     }
     
@@ -75,7 +76,7 @@ class CreditCardAPI extends RestClass {
             $creditCard->setId($requestData['credit_card_id']);
             return $creditCard->delete($this->_api_context);                
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
-            return $ex->getData();                
+            return $this->createErrorResponse($ex);
         }
     }
         
@@ -121,7 +122,7 @@ class CreditCardAPI extends RestClass {
                 return "Fill Atleast One Array Field/Element";
             }
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
-            return $ex->getData();                
+            return $this->createErrorResponse($ex);
         }
     }    
 }

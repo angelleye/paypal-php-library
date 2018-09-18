@@ -50,7 +50,7 @@ class PaymentExperianceAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$createProfileResponse->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -62,7 +62,7 @@ class PaymentExperianceAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$webProfile->toJSON();
             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -70,7 +70,7 @@ class PaymentExperianceAPI extends RestClass {
         try {
             return WebProfile::get_list($this->_api_context);
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -80,7 +80,7 @@ class PaymentExperianceAPI extends RestClass {
             $webProfile->setId($profileId);
             return $webProfile->delete($this->_api_context);
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -109,7 +109,7 @@ class PaymentExperianceAPI extends RestClass {
                 return $returnArray;                
             }
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -147,7 +147,7 @@ class PaymentExperianceAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$updatedWebProfile->toJSON();
             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }        
     }
 }

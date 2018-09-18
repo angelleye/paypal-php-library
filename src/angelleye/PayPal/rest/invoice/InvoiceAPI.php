@@ -216,21 +216,9 @@ class InvoiceAPI extends RestClass {
                 $returnArray['RAWRESPONSE']=$invoice->toJSON();
                 return $returnArray;
             } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-                $returnArray['RESULT'] = 'Error';
-                if($this->isJson($ex->getData())){
-                    $returnArray['errors'] =json_decode($ex->getData(),true);
-                }
-                else{
-                    $returnArray['errors'] = $ex->getData();
-                }               
-               return $returnArray;
+                return $this->createErrorResponse($ex);
             }        
-    }
-    
-    public function isJson($string) {
-        json_decode($string);
-        return (json_last_error() == JSON_ERROR_NONE);
-    }
+    }        
     
     public function list_invoice($params){
         try {
@@ -239,7 +227,7 @@ class InvoiceAPI extends RestClass {
             return $invoices->toArray();
             
         }  catch (\PayPal\Exception\PayPalConnectionException $ex) {
-               return $ex->getData();
+               return $this->createErrorResponse($ex);
         }
     }
 
@@ -251,7 +239,7 @@ class InvoiceAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$invoice->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -270,7 +258,7 @@ class InvoiceAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$cancelStatus;
             return $returnArray;                   
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }        
     }
     
@@ -294,7 +282,7 @@ class InvoiceAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$invoice->toJSON();
             return $returnArray;                                                
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -311,7 +299,7 @@ class InvoiceAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$invoice->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }        
     }
     
@@ -322,7 +310,7 @@ class InvoiceAPI extends RestClass {
             $path = $image->saveToFile($path);
             return array('Image' => $image->getImage());
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }                
     }
     
@@ -338,7 +326,7 @@ class InvoiceAPI extends RestClass {
             return $returnArray;
             
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }        
     }
     
@@ -464,7 +452,7 @@ class InvoiceAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$invoice->toJSON();
             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-          return $ex->getData();
+          return $this->createErrorResponse($ex);
         }
     }
 
@@ -481,14 +469,7 @@ class InvoiceAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$Getinvoice->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            $returnArray['RESULT'] = 'Error';
-            if($this->isJson($ex->getData())){
-                $returnArray['errors'] =json_decode($ex->getData(),true);
-            }
-            else{
-                $returnArray['errors'] = $ex->getData();
-            }               
-           return $returnArray;
+           return $this->createErrorResponse($ex);
         }
     }
 
@@ -504,7 +485,7 @@ class InvoiceAPI extends RestClass {
             return $returnArray;            
         }
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -513,7 +494,7 @@ class InvoiceAPI extends RestClass {
             $number = Invoice::generateNumber($this->_api_context);
             return $number->toArray();
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-           return $ex->getData();
+           return $this->createErrorResponse($ex);
         }
     }
     
@@ -536,7 +517,7 @@ class InvoiceAPI extends RestClass {
             return array('Record Status' => $recordStatus,'Invoice' => $returnInvoice->toArray());
         }
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }        
     }
     
@@ -721,7 +702,7 @@ class InvoiceAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$invoiceTemplate->toJSON();
             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+           return $this->createErrorResponse($ex);
         }
     }
     
@@ -735,7 +716,7 @@ class InvoiceAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$deleteStatus;
             return $returnArray;                                                     
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -745,7 +726,7 @@ class InvoiceAPI extends RestClass {
             $templates = Templates::getAll($fields, $this->_api_context);
             return $templates->toArray();
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -757,7 +738,7 @@ class InvoiceAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$template->toJSON();
             return $returnArray;                                                     
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -942,7 +923,7 @@ class InvoiceAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$invoiceTemplate->toJSON();  
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 }

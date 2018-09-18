@@ -43,7 +43,7 @@ class PayoutsAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -71,7 +71,7 @@ class PayoutsAPI extends RestClass {
            $returnArray['RAWRESPONSE']=$output->toJSON();            
            return $returnArray;                      
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -83,7 +83,7 @@ class PayoutsAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$output->toJSON();            
            return $returnArray;              
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -95,7 +95,7 @@ class PayoutsAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$output->toJSON();     
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -113,7 +113,7 @@ class PayoutsAPI extends RestClass {
                 return "Payout Item Status is not UNCLAIMED";
             }           
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }   
 }

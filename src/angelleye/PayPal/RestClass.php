@@ -1,7 +1,7 @@
 <?php 
 namespace angelleye\PayPal;
-
-class RestClass
+use PayPal\Common\PayPalModel;
+class RestClass extends PayPalModel
 {
     private $_api_context;
     
@@ -43,5 +43,21 @@ class RestClass
             return TRUE;
         }
         return;
+    }
+    
+    public function createErrorResponse($ex){
+        $returnArray['RESULT'] = 'Error';
+        if($this->isJson($ex->getData())){
+            $returnArray['errors'] =json_decode($ex->getData(),true);
+        }
+        else{
+            $returnArray['errors'] = $ex->getData();
+        }
+        return $returnArray;
+    }
+    
+    public function isJson($string) {
+        json_decode($string);
+        return (json_last_error() == JSON_ERROR_NONE);
     }
 }

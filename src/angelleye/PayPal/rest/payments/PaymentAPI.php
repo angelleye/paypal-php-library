@@ -143,7 +143,7 @@ class PaymentAPI extends RestClass {
                 return $returnArray;
             }
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -256,7 +256,7 @@ class PaymentAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$payment->toJSON();            
             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -356,7 +356,7 @@ class PaymentAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$payment->toJSON();            
             return $returnArray;              
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -368,7 +368,7 @@ class PaymentAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$result->toJSON();
             return $returnArray;                        
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -380,7 +380,7 @@ class PaymentAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$payment->toJSON();
             return $returnArray;                                    
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -389,7 +389,7 @@ class PaymentAPI extends RestClass {
             $payments = Payment::all(array_filter($params), $this->_api_context);
             return $payments->toArray();
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -414,7 +414,7 @@ class PaymentAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$getCapture->toJSON();  
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -431,7 +431,7 @@ class PaymentAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$voidedAuth->toJSON();  
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -444,7 +444,7 @@ class PaymentAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$capture->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -457,7 +457,7 @@ class PaymentAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$result->toJSON();
             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -477,7 +477,7 @@ class PaymentAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$result->toJSON();            
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -499,7 +499,7 @@ class PaymentAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$result->toJSON();            
             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -516,7 +516,7 @@ class PaymentAPI extends RestClass {
             return $returnArray;                       
             
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }        
     }
     
@@ -542,7 +542,7 @@ class PaymentAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$captureRefund->toJSON();            
             return $returnArray;                                  
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 }
