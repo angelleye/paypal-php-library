@@ -21,24 +21,25 @@ class PayoutsAPI extends RestClass {
         try {
             $payouts = new Payout();
             $senderBatchHeader = new PayoutSenderBatchHeader();
-            if ($this->checkEmptyObject($requestData['batchHeader'])) {
-                $this->setArrayToMethods(array_filter($requestData['batchHeader']), $senderBatchHeader);
+            if (isset($requestData['batchHeader'])) {
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['batchHeader']), $senderBatchHeader);
             }
             $senderItem = new PayoutItem();
-            if ($this->checkEmptyObject($requestData['PayoutItem'])) {
-                $this->setArrayToMethods($requestData['PayoutItem'], $senderItem);
+            if (isset($requestData['PayoutItem'])) {
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['PayoutItem']), $senderItem);
             }
             $senderItem->setAmount(new Currency(json_encode($requestData['amount'])));
             
-            if ($this->checkEmptyObject((array)$senderBatchHeader)) {
+            if (!empty($this->checkEmptyObject((array)$senderBatchHeader))) {
                 $payouts->setSenderBatchHeader($senderBatchHeader);    
             }
-            if ($this->checkEmptyObject((array)$senderItem)) {
+            if (!empty($this->checkEmptyObject((array)$senderItem))) {
                 $payouts->addItem($senderItem);
             }   
             $requestArray = clone $payouts;
-            $output = $payouts->createSynchronous($this->_api_context);
-            $returnArray=$output->toArray();
+            $output = $payouts->createSynchronous($this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['PAYOUT'] = $output->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;
@@ -65,8 +66,9 @@ class PayoutsAPI extends RestClass {
             }
                                 
            $requestArray = clone $payouts; 
-           $output = $payouts->create(null,$this->_api_context);
-           $returnArray=$output->toArray();
+           $output = $payouts->create(null,$this->_api_context);           
+           $returnArray['RESULT'] = 'Success';
+           $returnArray['BATCH_PAYOUT'] = $output->toArray();
            $returnArray['RAWREQUEST']=$requestArray->toJSON();
            $returnArray['RAWRESPONSE']=$output->toJSON();            
            return $returnArray;                      
@@ -77,8 +79,9 @@ class PayoutsAPI extends RestClass {
 
     public function get_payout_batch_status($payoutBatchId){
         try {
-            $output = Payout::get($payoutBatchId, $this->_api_context);
-            $returnArray=$output->toArray();
+            $output = Payout::get($payoutBatchId, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['BATCH_STATUS'] = $output->toArray();
             $returnArray['RAWREQUEST']='{id:'.$payoutBatchId.'}';
             $returnArray['RAWRESPONSE']=$output->toJSON();            
            return $returnArray;              
@@ -89,8 +92,9 @@ class PayoutsAPI extends RestClass {
     
     public function get_payout_item_status($payoutItemId){
         try {
-            $output = PayoutItem::get($payoutItemId, $this->_api_context);
-            $returnArray=$output->toArray();
+            $output = PayoutItem::get($payoutItemId, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['PAYOUT_ITEM'] = $output->toArray();
             $returnArray['RAWREQUEST']='{id:'.$payoutItemId.'}';
             $returnArray['RAWRESPONSE']=$output->toJSON();     
             return $returnArray;
@@ -103,8 +107,9 @@ class PayoutsAPI extends RestClass {
         try {
             $PayoutItem = PayoutItem::get($payoutItemId, $this->_api_context);
             if($PayoutItem->transaction_status == 'UNCLAIMED'){
-                 $output = PayoutItem::cancel($payoutItemId, $this->_api_context);
-                 $returnArray=$output->toArray();
+                 $output = PayoutItem::cancel($payoutItemId, $this->_api_context);                 
+                 $returnArray['RESULT'] = 'Success';
+                 $returnArray['CANCEL_PAYOUT_ITEM'] = $output->toArray();
                  $returnArray['RAWREQUEST']='{id:'.$payoutItemId.'}';
                  $returnArray['RAWRESPONSE']=$output->toJSON();
                  return $returnArray;                                      
