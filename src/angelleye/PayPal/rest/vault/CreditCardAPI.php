@@ -1,6 +1,7 @@
 <?php namespace angelleye\PayPal\rest\vault;
 
 use \angelleye\PayPal\RestClass;
+use PayPal\Api\CreditCard;
 
 class CreditCardAPI extends RestClass {
 
@@ -11,7 +12,7 @@ class CreditCardAPI extends RestClass {
     }    
     
     public function StoreCreditCard($requestData){
-        $creditCard = new \PayPal\Api\CreditCard();
+        $creditCard = new CreditCard();
         
         if (isset($requestData['creditCard'])) {
             $this->setArrayToMethods($this->checkEmptyObject($requestData['creditCard']), $creditCard);
@@ -22,18 +23,18 @@ class CreditCardAPI extends RestClass {
         }
         
         if (isset($requestData['billingAddress'])) {
-            $this->setArrayToMethods(array("BillingAddress"=>$this->checkEmptyObject($requestData['billingAddress'])), $creditCard); 
+            $this->setArrayToMethods(array("BillingAddress"=>$this->checkEmptyObject($requestData['billingAddress'])), $creditCard);
         }
         if (isset($requestData['optionalArray'])) {
-            $this->setArrayToMethods($this->checkEmptyObject($requestData['optionalArray']), $creditCard);                     
+            $this->setArrayToMethods($this->checkEmptyObject($requestData['optionalArray']), $creditCard);
         }
         try {
             $requestArray = clone $creditCard;
-            $creditCard->create($this->_api_context);                 
-            $returnArray['CREDITCARD']=$creditCard->toArray();
+            $creditCard->create($this->_api_context);
             $returnArray['RESULT'] = 'Success';
+            $returnArray['CREDITCARD']=$creditCard->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
-            $returnArray['RAWRESPONSE']=$creditCard->toJSON();            
+            $returnArray['RAWRESPONSE']=$creditCard->toJSON();
             return $returnArray;
         }
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
@@ -46,10 +47,11 @@ class CreditCardAPI extends RestClass {
         try {            
             $params = array_filter($requestData);
             $requestArray = json_encode($params);
-            $cards = $creditCard->all($params, $this->_api_context);
-            $returnArray=$cards->toArray();
+            $cards = $creditCard->all($params, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['cards'] = $cards->toArray();
             $returnArray['RAWREQUEST']=$requestArray;
-            $returnArray['RAWRESPONSE']=$cards->toJSON();            
+            $returnArray['RAWRESPONSE']=$cards->toJSON();
             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
             return $this->createErrorResponse($ex);         
@@ -57,11 +59,12 @@ class CreditCardAPI extends RestClass {
     }
     
     public function showByID($requestData){        
-        $creditCard = new \PayPal\Api\CreditCard();
+        $creditCard = new CreditCard();
             try {
                 $requestArray = clone $creditCard->setId($requestData['credit_card_id']);;
-                $card = $creditCard->get($requestData['credit_card_id'], $this->_api_context);
-                $returnArray=$card->toArray();
+                $card = $creditCard->get($requestData['credit_card_id'], $this->_api_context);                
+                $returnArray['RESULT'] = 'Success';
+                $returnArray['CREDITCARD']=$card->toArray();                
                 $returnArray['RAWREQUEST']=$requestArray->toJSON();
                 $returnArray['RAWRESPONSE']=$card->toJSON();
                 return $returnArray;
@@ -73,8 +76,13 @@ class CreditCardAPI extends RestClass {
     public function deleteByID($requestData){        
         $creditCard = new \PayPal\Api\CreditCard();        
         try {
-            $creditCard->setId($requestData['credit_card_id']);
-            return $creditCard->delete($this->_api_context);                
+            $creditCard->setId($requestData['credit_card_id']);            
+            $result = $creditCard->delete($this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['response']=$result;
+            $returnArray['RAWREQUEST']=$creditCard->toJSON();
+            $returnArray['RAWRESPONSE']=$result;
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
             return $this->createErrorResponse($ex);
         }
@@ -113,7 +121,8 @@ class CreditCardAPI extends RestClass {
             if($i>0) {
                
                 $card = $creditCard->update($pathRequest,$this->_api_context);
-                $returnArray=$card->toArray();
+                $returnArray['RESULT'] = 'Success';
+                $returnArray['CREDITCARD']=$card->toArray();         
                 $returnArray['RAWREQUEST']= $pathRequest->toJSON();
                 $returnArray['RAWRESPONSE']=$card->toJSON();
                 return $returnArray;                
