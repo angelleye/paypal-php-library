@@ -525,7 +525,7 @@ class PaymentAPI extends RestClass {
         }
     }
     
-    public function order_void(){
+    public function order_void($orderId){
         try {            
             
             $order= new Order();
