@@ -33,15 +33,15 @@ class BillingAPI extends RestClass {
         try {
             // Create a new instance of Plan object
             $plan = new Plan();
-            if($this->checkEmptyObject($requestData['plan'])){
-               $this->setArrayToMethods(array_filter($requestData['plan']), $plan);
+            if(isset($requestData['plan'])){
+               $this->setArrayToMethods($this->checkEmptyObject($requestData['plan']), $plan);
             }            
             // # Payment definitions for this billing plan.
             $paymentDefinition = new PaymentDefinition();           
             $paymentDefinition
                 ->setAmount(new Currency($requestData['paymentDefinition']['Amount']));
             array_pop($requestData['paymentDefinition']);
-            if($this->checkEmptyObject((array)$paymentDefinition)){
+            if(!empty($this->checkEmptyObject((array)$paymentDefinition))){
                 $this->setArrayToMethods(array_filter($requestData['paymentDefinition']), $paymentDefinition); 
             }
             
@@ -49,7 +49,7 @@ class BillingAPI extends RestClass {
             $chargeModel = new ChargeModel();
             $chargeModel->setAmount(new Currency($requestData['chargeModel']['Amount']));
             array_pop($requestData['chargeModel']);
-            if($this->checkEmptyObject((array)$chargeModel)){
+            if(!empty($this->checkEmptyObject((array)$chargeModel))){
                 $this->setArrayToMethods(array_filter($requestData['chargeModel']), $chargeModel); 
                 $paymentDefinition->setChargeModels(array($chargeModel));
             }
@@ -59,23 +59,24 @@ class BillingAPI extends RestClass {
 
             $merchantPreferences->setReturnUrl($baseUrl.$requestData['ReturnUrl'])
                 ->setCancelUrl($baseUrl.$requestData['CancelUrl']);
-            if($this->checkEmptyObject($requestData['merchant_preferences']['SetupFee'])){
+            if(!empty($this->checkEmptyObject($requestData['merchant_preferences']['SetupFee']))){
                 $merchantPreferences->setSetupFee(new Currency($requestData['merchant_preferences']['SetupFee']));
             }
             array_pop($requestData['merchant_preferences']);
             
-            if($this->checkEmptyObject($requestData['merchant_preferences'])){
-                $this->setArrayToMethods(array_filter($requestData['merchant_preferences']), $merchantPreferences);
+            if(isset($requestData['merchant_preferences'])){
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['merchant_preferences']), $merchantPreferences);
             }
-            if($this->checkEmptyObject((array)$paymentDefinition)){
+            if(!empty($this->checkEmptyObject((array)$paymentDefinition))){
                 $plan->setPaymentDefinitions(array($paymentDefinition));
             }
-            if($this->checkEmptyObject((array)$merchantPreferences)){
+            if(!empty($this->checkEmptyObject((array)$merchantPreferences))){
                 $plan->setMerchantPreferences($merchantPreferences);
             }      
             $requestArray= clone $plan;
-            $output = $plan->create($this->_api_context);
-            $returnArray=$output->toArray();
+            $output = $plan->create($this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['PLAN'] = $output->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;            
@@ -86,8 +87,9 @@ class BillingAPI extends RestClass {
 
     public function get_plan($planId){
         try {
-            $plan = Plan::get($planId, $this->_api_context);            
-            $returnArray=$plan->toArray();
+            $plan = Plan::get($planId, $this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['PLAN'] = $plan->toArray();
             $returnArray['RAWREQUEST']='{id:'.$planId.'}';
             $returnArray['RAWRESPONSE']=$plan->toJSON();
             return $returnArray;
@@ -98,8 +100,9 @@ class BillingAPI extends RestClass {
     
     public function list_plan($parameters){
             try {
-                $planList = Plan::all(array_filter($parameters), $this->_api_context);
-                $returnArray=$planList->toArray();
+                $planList = Plan::all(array_filter($parameters), $this->_api_context);                
+                $returnArray['RESULT'] = 'Success';
+                $returnArray['PLANS'] = $planList->toArray();
                 $returnArray['RAWREQUEST']=  json_encode($parameters);
                 $returnArray['RAWRESPONSE']=$planList->toJSON();
                 return $returnArray;                
@@ -126,8 +129,9 @@ class BillingAPI extends RestClass {
             $requestArray = clone $createdPlan;
             $createdPlan->update($patchRequest, $this->_api_context);
             $plan = Plan::get($planId, $this->_api_context);
-            
-            $returnArray=$plan->toArray();
+                        
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['PLAN'] = $plan->toArray();
             $returnArray['RAWREQUEST'] =$requestArray;
             $returnArray['RAWRESPONSE']=$plan->toJSON();
             return $returnArray;            
@@ -140,8 +144,9 @@ class BillingAPI extends RestClass {
         try {
              $createdPlan = new Plan();
              $createdPlan->setId($planId);
-             $result = $createdPlan->delete($this->_api_context);             
-             $returnArray=$result->toArray();
+             $result = $createdPlan->delete($this->_api_context);
+             $returnArray['RESULT'] = 'Success';
+             $returnArray['DELETE_PLAN'] = $result->toArray();
              $returnArray['RAWREQUEST']='{id:'.$planId.'}';
              $returnArray['RAWRESPONSE']=$result->toJSON();
              return $returnArray;             
@@ -201,6 +206,7 @@ class BillingAPI extends RestClass {
              $requestArray= clone $agreement;
              $agreement = $agreement->create($this->_api_context);
              $returnArray=$agreement->toArray();
+             $returnArray['RESULT'] = 'Success';             
              $returnArray['RAWREQUEST']=$requestArray;
              $returnArray['RAWRESPONSE']=$agreement->toJSON();
              return $returnArray;            
@@ -245,7 +251,8 @@ class BillingAPI extends RestClass {
             $requestArray = clone $agreement;
             $result = $agreement->create($this->_api_context);            
             $approvalUrl = $agreement->getApprovalLink();            
-            $returnArray=array('result'=>$result->toArray(),'Approval URL' => $approvalUrl);;
+            $returnArray=array('result'=>$result->toArray(),'Approval URL' => $approvalUrl);
+            $returnArray['RESULT'] = 'Success';            
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
             return $returnArray;                                
@@ -258,6 +265,7 @@ class BillingAPI extends RestClass {
         try {
             $agreement = Agreement::get($agreementId, $this->_api_context);
             $returnArray=$agreement->toArray();
+            $returnArray['RESULT'] = 'Success';            
             $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
             return $returnArray;
@@ -278,6 +286,7 @@ class BillingAPI extends RestClass {
             $createdAgreement->suspend($agreementStateDescriptor, $this->_api_context);            
             $agreement = Agreement::get($agreementId, $this->_api_context);
             $returnArray=$agreement->toArray();
+            $returnArray['RESULT'] = 'Success';            
             $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
             return $returnArray;            
@@ -298,6 +307,7 @@ class BillingAPI extends RestClass {
             $suspendedAgreement->reActivate($agreementStateDescriptor, $this->_api_context);            
             $agreement = Agreement::get($agreementId, $this->_api_context);
             $returnArray=$agreement->toArray();
+            $returnArray['RESULT'] = 'Success';            
             $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
             return $returnArray;             
@@ -310,6 +320,7 @@ class BillingAPI extends RestClass {
         try {
             $result = Agreement::searchTransactions($agreementId, $params, $this->_api_context);
             $returnArray=$result->toArray();
+            $returnArray['RESULT'] = 'Success';            
             $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
             $returnArray['RAWRESPONSE']=$result->toJSON();
             return $returnArray;             
@@ -339,6 +350,7 @@ class BillingAPI extends RestClass {
             $createdAgreement->update($patchRequest, $this->_api_context);            
             $agreement = Agreement::get($agreementId, $this->_api_context);            
             $returnArray=$agreement->toArray();
+            $returnArray['RESULT'] = 'Success';            
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
             return $returnArray;            
@@ -361,6 +373,7 @@ class BillingAPI extends RestClass {
             $calcelAgreement->cancel($agreementStateDescriptor, $this->_api_context);            
             $agreement = Agreement::get($agreementId, $this->_api_context);
             $returnArray=$agreement->toArray();
+            $returnArray['RESULT'] = 'Success';            
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
             return $returnArray;            
