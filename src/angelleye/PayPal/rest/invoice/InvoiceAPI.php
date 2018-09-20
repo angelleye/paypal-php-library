@@ -45,21 +45,21 @@ class InvoiceAPI extends RestClass {
                     // ### Setting Merchant info to invoice object.
                     // ### Start
                     $MerchantInfo = new MerchantInfo();
-                    if( isset($requestData['merchantInfo']) && $this->checkEmptyObject($requestData['merchantInfo'])){
-                        $this->setArrayToMethods(array_filter($requestData['merchantInfo']), $MerchantInfo);    
+                    if( isset($requestData['merchantInfo'])){
+                        $this->setArrayToMethods($this->checkEmptyObject($requestData['merchantInfo']), $MerchantInfo);
                     }
-                    if( isset($requestData['merchantPhone']) && $this->checkEmptyObject($requestData['merchantPhone'])){
+                    if( isset($requestData['merchantPhone'])){
                         $merchantPhone = new Phone();
-                        $this->setArrayToMethods(array_filter($requestData['merchantPhone']), $merchantPhone);
+                        $this->setArrayToMethods($this->checkEmptyObject($requestData['merchantPhone']), $merchantPhone);
                         $MerchantInfo->setPhone($merchantPhone);
                     }
-                    if(isset($requestData['merchantAddress']) && $this->checkEmptyObject($requestData['merchantAddress'])){
+                    if(isset($requestData['merchantAddress'])){
                         $merchantAddress = new Address();
-                        $this->setArrayToMethods(array_filter($requestData['merchantAddress']), $merchantAddress);
+                        $this->setArrayToMethods($this->checkEmptyObject($requestData['merchantAddress']), $merchantAddress);
                         $MerchantInfo->setAddress($merchantAddress);                        
                     }
 
-                    if($this->checkEmptyObject((array)$MerchantInfo)){
+                    if(!empty($this->checkEmptyObject((array)$MerchantInfo))){
                         $invoice->setMerchantInfo($MerchantInfo);
                     }
                     // ### End
@@ -68,10 +68,10 @@ class InvoiceAPI extends RestClass {
                     // ### Start
                     
                     $Participant = new Participant();
-                    if(isset($requestData['ccInfo']) && $this->checkEmptyObject($requestData['ccInfo'])){
-                       $this->setArrayToMethods(array_filter($requestData['ccInfo']), $Participant);
+                    if(isset($requestData['ccInfo'])){
+                       $this->setArrayToMethods($this->checkEmptyObject($requestData['ccInfo']), $Participant);
                     }
-                    if ($this->checkEmptyObject((array)$Participant)) {                        
+                    if (!empty($this->checkEmptyObject((array)$Participant))) {
                         $invoice->setCcInfo(array($Participant));
                     }
                     
@@ -80,10 +80,10 @@ class InvoiceAPI extends RestClass {
                     // ### Setting Minimum Amount Due
                     // ### Start                            
                         $MinAmountCurrency = new Currency();
-                        if(isset($requestData['MinimumAmountDue']) && $this->checkEmptyObject($requestData['MinimumAmountDue'])){
-                            $this->setArrayToMethods(array_filter($requestData['MinimumAmountDue']), $MinAmountCurrency);
+                        if(isset($requestData['MinimumAmountDue'])){
+                            $this->setArrayToMethods($this->checkEmptyObject($requestData['MinimumAmountDue']), $MinAmountCurrency);
                         }
-                        if ($this->checkEmptyObject((array)$MinAmountCurrency)) {                        
+                        if (!empty($this->checkEmptyObject((array)$MinAmountCurrency))) {
                             $invoice->setMinimumAmountDue($MinAmountCurrency);
                         }
                     // ### End
@@ -91,20 +91,20 @@ class InvoiceAPI extends RestClass {
                     // ### Setting Billing Info to invoice object. 
                     // ### Start
                     $BillingInfo = new BillingInfo();
-                    if(isset($requestData['billingInfo']) && $this->checkEmptyObject($requestData['billingInfo'])){
-                        $this->setArrayToMethods(array_filter($requestData['billingInfo']), $BillingInfo);
+                    if(isset($requestData['billingInfo'])){
+                        $this->setArrayToMethods($this->checkEmptyObject($requestData['billingInfo']), $BillingInfo);
                     }
-                    if (isset($requestData['billingInfoAddress']) && $this->checkEmptyObject($requestData['billingInfoAddress'])) {
+                    if (isset($requestData['billingInfoAddress'])) {
                         $InvoiceAddress = new InvoiceAddress();
-                        $this->setArrayToMethods(array_filter($requestData['billingInfoAddress']), $InvoiceAddress);
+                        $this->setArrayToMethods($this->checkEmptyObject($requestData['billingInfoAddress']), $InvoiceAddress);
                         $BillingInfo->setAddress($InvoiceAddress);
                     }
-                    if (isset($requestData['billingInfoPhone']) && $this->checkEmptyObject($requestData['billingInfoPhone'])) {
+                    if (isset($requestData['billingInfoPhone'])) {
                         $billingPhone = new Phone();
-                        $this->setArrayToMethods(array_filter($requestData['billingInfoPhone']), $billingPhone);
+                        $this->setArrayToMethods($this->checkEmptyObject($requestData['billingInfoPhone']), $billingPhone);
                         $BillingInfo->setPhone($billingPhone);
                     }
-                    if ($this->checkEmptyObject((array)$BillingInfo)) {
+                    if (!empty($this->checkEmptyObject((array)$BillingInfo))) {
                         $invoice->setBillingInfo(array($BillingInfo));                        
                     }   
                     //End
@@ -138,7 +138,7 @@ class InvoiceAPI extends RestClass {
                         $this->setArrayToMethods(array_filter($item), $InvoiceItem);
                         array_push($itemArray, $InvoiceItem);
                     }
-                    if ($this->checkEmptyObject($itemArray)) {
+                    if (!empty($this->checkEmptyObject($itemArray))) {
                         $invoice->setItems($itemArray);    
                     }                    
                     // ### END
@@ -169,24 +169,24 @@ class InvoiceAPI extends RestClass {
                     // ### Shipping Information
                     // ### Start
                     $ShippingInfo = new ShippingInfo();
-                    if (isset($requestData['shippingInfo']) && $this->checkEmptyObject($requestData['shippingInfo'])) {
-                        $this->setArrayToMethods(array_filter($requestData['shippingInfo']), $ShippingInfo);
+                    if (isset($requestData['shippingInfo'])) {
+                        $this->setArrayToMethods($this->checkEmptyObject($requestData['shippingInfo']), $ShippingInfo);
                     }
-                    if (isset($requestData['shippingInfoPhone']) && $this->checkEmptyObject($requestData['shippingInfoPhone'])) {
+                    if (isset($requestData['shippingInfoPhone'])) {
                         $ShippingInfoPhone = new Phone();
-                        $this->setArrayToMethods(array_filter($requestData['shippingInfoPhone']), $ShippingInfoPhone);
+                        $this->setArrayToMethods($this->checkEmptyObject($requestData['shippingInfoPhone']), $ShippingInfoPhone);
                         $ShippingInfo->setPhone($ShippingInfoPhone);
                     }                    
-                    if (isset($requestData['shippingInfoAddress']) && $this->checkEmptyObject($requestData['shippingInfoAddress'])) {
+                    if (isset($requestData['shippingInfoAddress'])) {
                         $ShippingInfoInvoiceAddress = new InvoiceAddress();
-                        $this->setArrayToMethods(array_filter($requestData['shippingInfoAddress']), $ShippingInfoInvoiceAddress);
+                        $this->setArrayToMethods($this->checkEmptyObject($requestData['shippingInfoAddress']), $ShippingInfoInvoiceAddress);
                         $ShippingInfo->setAddress($ShippingInfoInvoiceAddress);
                     }
-                    if ($this->checkEmptyObject((array)$ShippingInfo)) {
+                    if (!empty($this->checkEmptyObject((array)$ShippingInfo))) {
                         $invoice->setShippingInfo($ShippingInfo);
                     }
-                    if (isset($requestData['invoiceData']) && $this->checkEmptyObject($requestData['invoiceData'])) {
-                        $this->setArrayToMethods(array_filter($requestData['invoiceData']), $invoice);
+                    if (isset($requestData['invoiceData'])) {
+                        $this->setArrayToMethods($this->checkEmptyObject($requestData['invoiceData']), $invoice);
                     }
                     
                     if(isset($requestData['shippingCost']['type']) && $requestData['shippingCost']['type'] == 'Amount'){
@@ -224,7 +224,9 @@ class InvoiceAPI extends RestClass {
         try {
             
             $invoices = Invoice::getAll(array_filter($params), $this->_api_context);
-            return $invoices->toArray();
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['INVOICES'] = $invoices->toArray();
+            return $returnArray;
             
         }  catch (\PayPal\Exception\PayPalConnectionException $ex) {
                return $this->createErrorResponse($ex);
@@ -233,8 +235,9 @@ class InvoiceAPI extends RestClass {
 
     public function get_invoice($invoiceId){
         try {
-            $invoice = Invoice::get($invoiceId, $this->_api_context);
-            $returnArray=$invoice->toArray();
+            $invoice = Invoice::get($invoiceId, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['INVOICE'] = $invoice->toArray();
             $returnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
             $returnArray['RAWRESPONSE']=$invoice->toJSON();
             return $returnArray;
@@ -252,8 +255,9 @@ class InvoiceAPI extends RestClass {
             $invoice->setId($InvoiceID);
             $requestArray = clone $invoice;
             $cancelStatus = $invoice->cancel($notify, $this->_api_context);
-            
-            $returnArray=$cancelStatus;
+                        
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['CANCEL_STATUS'] = $cancelStatus;
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$cancelStatus;
             return $returnArray;                   
@@ -276,8 +280,9 @@ class InvoiceAPI extends RestClass {
             }
             $requestArray = clone $invoice;
             $refundStatus = $invoice->recordRefund($refund, $this->_api_context);
-            $invoice = Invoice::get($requestData['invoiceId'], $this->_api_context);
-            $returnArray=$invoice->toArray();
+            $invoice = Invoice::get($requestData['invoiceId'], $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['INVOICE'] = $invoice->toArray();
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$invoice->toJSON();
             return $returnArray;                                                
@@ -293,8 +298,9 @@ class InvoiceAPI extends RestClass {
             $this->setArrayToMethods(array_filter($remindNotification), $notify);
             $remindStatus = $invoice->remind($notify, $this->_api_context);
             $requestArray = clone $invoice;
-            $invoice = Invoice::get($InvoiceID, $this->_api_context);
-            $returnArray=$invoice->toArray();
+            $invoice = Invoice::get($InvoiceID, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['REMIND_INVOICE'] = $invoice->toArray();
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$invoice->toJSON();
             return $returnArray;
@@ -308,6 +314,7 @@ class InvoiceAPI extends RestClass {
         try{
             $image = Invoice::qrCode($InvoiceID, array_filter($parameters), $this->_api_context);
             $path = $image->saveToFile($path);
+            $returnArray['RESULT'] = 'Success';
             return array('Image' => $image->getImage());
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);
@@ -317,10 +324,10 @@ class InvoiceAPI extends RestClass {
     public function search_invoices($parameters){
         
         try{ 
-            $search = new Search(json_encode(array_filter($parameters)));
-            
-            $invoices = Invoice::search($search, $this->_api_context);
-            $returnArray=$invoices->toArray();
+            $search = new Search(json_encode(array_filter($parameters)));            
+            $invoices = Invoice::search($search, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['INVOICES'] = $invoices->toArray();
             $returnArray['RAWREQUEST']=json_encode(array_filter($parameters));
             $returnArray['RAWRESPONSE']=$invoices->toJSON();
             return $returnArray;
@@ -446,8 +453,9 @@ class InvoiceAPI extends RestClass {
             }
             $requestArray = clone $invoice;
             $invoice->update($this->_api_context);
-            $invoice = Invoice::get($invoice->getId(), $this->_api_context);
-            $returnArray=$invoice->toArray();
+            $invoice = Invoice::get($invoice->getId(), $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['INVOICE'] = $invoice->toArray();
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$invoice->toJSON();
             return $returnArray;            
@@ -462,9 +470,10 @@ class InvoiceAPI extends RestClass {
             $invoice->setId($invoiceId);
             $sendStatus = $invoice->send($this->_api_context);
             $Getinvoice = Invoice::get($invoice->getId(), $this->_api_context);
-            
-            $returnArray=array('SendStatus' => $sendStatus , 'Invoice' => $Getinvoice->toArray());
+                        
             $returnArray['RESULT'] = 'Success';
+            $returnArray['SEND_STATUS'] = $sendStatus;
+            $returnArray['INVOICE'] = $Getinvoice->toArray();
             $returnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
             $returnArray['RAWRESPONSE']=$Getinvoice->toJSON();
             return $returnArray;
@@ -478,8 +487,9 @@ class InvoiceAPI extends RestClass {
         try{
             $invoice = new Invoice();
             $invoice->setId($invoiceId);
-            $deleteStatus = $invoice->delete($this->_api_context);
-            $returnArray=$deleteStatus;
+            $deleteStatus = $invoice->delete($this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['DELETE_STATUS'] = $deleteStatus;
             $returnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
             $returnArray['RAWRESPONSE']=$deleteStatus;
             return $returnArray;            
@@ -492,7 +502,11 @@ class InvoiceAPI extends RestClass {
     public function get_next_invoice_number(){
         try {
             $number = Invoice::generateNumber($this->_api_context);
-            return $number->toArray();
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['INVOICE_NUMBER'] = $number->toArray();
+            $returnArray['RAWREQUEST']='';
+            $returnArray['RAWRESPONSE']=$number->toJSON();
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
            return $this->createErrorResponse($ex);
         }
@@ -514,7 +528,12 @@ class InvoiceAPI extends RestClass {
             $recordStatus = $invoice->recordPayment($PaymentDetail, $this->_api_context);
             
             $returnInvoice = Invoice::get($invoiceId, $this->_api_context);
-            return array('Record Status' => $recordStatus,'Invoice' => $returnInvoice->toArray());
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['RECORD_STATUS'] = $recordStatus;
+            $returnArray['INVOICE'] = $returnInvoice->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
+            $returnArray['RAWRESPONSE']=$returnInvoice->toJSON();
+            return $returnArray;
         }
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);
@@ -696,8 +715,9 @@ class InvoiceAPI extends RestClass {
                 $invoiceTemplate->addSetting($settingDate);
             }                           
             $requestArray = clone $invoiceTemplate;
-            $invoiceTemplate->create($this->_api_context);
-            $returnArray=$invoiceTemplate->toArray();
+            $invoiceTemplate->create($this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['TEMPLATE'] = $invoiceTemplate->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$invoiceTemplate->toJSON();
             return $returnArray;            
@@ -710,8 +730,9 @@ class InvoiceAPI extends RestClass {
         try {
             $template = new Template();
             $template->setTemplateId($template_id);
-            $deleteStatus = $template->delete($this->_api_context);            
-            $returnArray=$deleteStatus;
+            $deleteStatus = $template->delete($this->_api_context);                        
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['DELETE_STATUS'] = $deleteStatus;
             $returnArray['RAWREQUEST']='{id:'.$template_id.'}';
             $returnArray['RAWRESPONSE']=$deleteStatus;
             return $returnArray;                                                     
@@ -724,7 +745,11 @@ class InvoiceAPI extends RestClass {
         
         try {
             $templates = Templates::getAll($fields, $this->_api_context);
-            return $templates->toArray();
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['INVOICE_TEMPLATES'] = $templates->toArray();
+            $returnArray['RAWREQUEST']= json_encode($fields);
+            $returnArray['RAWRESPONSE']=$templates->toJSON();
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);
         }
@@ -732,11 +757,12 @@ class InvoiceAPI extends RestClass {
     
     public function get_invoice_template($templateId){
         try {
-            $template = Template::get($templateId, $this->_api_context);
-            $returnArray=$template->toArray();
+            $template = Template::get($templateId, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['TEMPLATE'] = $template->toArray();
             $returnArray['RAWREQUEST']='{id:'.$templateId.'}';
             $returnArray['RAWRESPONSE']=$template->toJSON();
-            return $returnArray;                                                     
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);
         }
@@ -917,8 +943,9 @@ class InvoiceAPI extends RestClass {
                 $invoiceTemplate->addSetting($settingDate);
             }
             $requestArray = clone $invoiceTemplate;
-            $invoiceTemplate->update($this->_api_context);
-            $returnArray=$invoiceTemplate->toArray();
+            $invoiceTemplate->update($this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['INVOICE_TEMPLATE'] = $invoiceTemplate->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$invoiceTemplate->toJSON();  
             return $returnArray;
