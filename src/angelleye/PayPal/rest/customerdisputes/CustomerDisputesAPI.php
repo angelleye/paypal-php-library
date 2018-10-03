@@ -29,5 +29,19 @@ class CustomerDisputesAPI extends RestClass {
            return createErrorResponse($ex);
         }
     }
+    
+    public function showByID($dispute_id){
+        $disputeObject = new CustomerDisputesClass();
+        try {
+            $dispute = $disputeObject->get($dispute_id,$this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['DISPUTE']=$dispute->toArray();
+            $returnArray['RAWREQUEST']='{dispute_id:'.$dispute_id.'}';
+            $returnArray['RAWRESPONSE']=$dispute->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
 
 }

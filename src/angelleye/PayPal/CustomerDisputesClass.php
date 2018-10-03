@@ -35,5 +35,22 @@ class CustomerDisputesClass extends PayPalResourceModel {
         $object = new CustomerDisputesClass();        
         return $object->fromJson($json);
     }
+    
+    
+    public static function get($dispute_id, $apiContext = null, $restCall = null){
+        
+        ArgumentValidator::validate($dispute_id, 'dispute_id');
+        $payLoad = "";
+        $json = self::executeCall(
+            "/v1/customer/disputes/".$dispute_id,
+            "GET",
+            $payLoad,
+            null,
+            $apiContext,
+            $restCall
+        );
+        $ret = new CustomerDisputesClass();        
+        return $ret->fromJson($json);
+    }
 
 }
