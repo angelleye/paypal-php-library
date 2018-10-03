@@ -24,13 +24,9 @@ class CustomerDisputesAPI extends RestClass {
             $returnArray['DISPUTES'] = $disputes->toArray();            
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$disputes->toJSON();
-            return $returnArray;
-            // need to add here some code for the json to array and need proper request and response too
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            $t = $this->createErrorResponse($ex);
-            echo "<pre>";
-            var_dump($t);
-            exit;
+           return createErrorResponse($ex);
         }
     }
 
