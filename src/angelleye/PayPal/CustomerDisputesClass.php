@@ -37,7 +37,7 @@ class CustomerDisputesClass extends PayPalResourceModel {
     }
     
     
-    public static function get($dispute_id, $apiContext = null, $restCall = null){
+    public function get($dispute_id, $apiContext = null, $restCall = null){
         
         ArgumentValidator::validate($dispute_id, 'dispute_id');
         $payLoad = "";
@@ -52,5 +52,25 @@ class CustomerDisputesClass extends PayPalResourceModel {
         $ret = new CustomerDisputesClass();        
         return $ret->fromJson($json);
     }
+    
+    
+    public function dispute_accept_claim($dispute_id,$params,$apiContext = null, $restCall = null){
+        if (is_null($params)) {
+            $params = array();
+        }
+        ArgumentValidator::validate($params, 'params');       
+        $payLoad = json_encode($params);    
+        $json = self::executeCall(
+            "/v1/customer/disputes/".$dispute_id."/accept-claim",
+            "POST",
+            $payLoad,
+            null,
+            $apiContext,
+            $restCall
+        );
+        $ret = new CustomerDisputesClass();        
+        return $ret->fromJson($json);
+    }
+    
 
 }
