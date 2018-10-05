@@ -76,5 +76,24 @@ class CustomerDisputesAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }        
     }
+    
+    public function dispute_appeal($dispute_id,$parameters){
+        $disputeObject = new CustomerDisputesClass();
+        try {
+            $params = array_map('array_filter', $parameters);
+            $params = array_filter($params);
+            $requestArray = json_encode($params);
+            $dispute = $disputeObject->appeal($dispute_id,$params,$this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['DISPUTE']=$dispute->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$dispute->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $this->createErrorResponse($ex);
+        }  
+    }
+    
+        
 
 }
