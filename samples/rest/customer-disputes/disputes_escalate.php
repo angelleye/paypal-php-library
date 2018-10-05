@@ -1,0 +1,23 @@
+<?php
+
+require_once('../../../autoload.php');
+require_once('../../../includes/config.php');
+
+$configArray = array(
+    'ClientID' => $rest_client_id,
+    'ClientSecret' => $rest_client_secret
+);
+
+$PayPal = new \angelleye\PayPal\rest\customerdisputes\CustomerDisputesAPI($configArray);
+
+$dispute_id  = 'PP-D-5617';   // The ID of the dispute for which to accept a claim.
+
+$parameters = array(
+    'note' => 'Escalating to PayPal claim for resolution.',     // The merchant's notes about the claim. PayPal can, but the customer cannot, view these notes. Minimum length: 1. Maximum length: 2000.   
+);
+
+$response = $PayPal->disputes_escalate($dispute_id,$parameters);  
+
+echo "<pre>";
+print_r($response);
+exit;
