@@ -1,13 +1,19 @@
 <?php
 
-/*
- *  Note : To appeal a dispute, use the appeal link in the HATEOAS links from the show dispute details response. 
- *  If this link does not appear, you cannot appeal the dispute. 
- *  Submit new evidence as a document or notes in the JSON request body.
- */
-
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
+
+/*
+ *  Note : Provides evidence for a dispute, by ID. 
+ *  A merchant can provide evidence for disputes with the WAITING_FOR_SELLER_RESPONSE status while customers can
+ *  provide evidence for disputes with the WAITING_FOR_BUYER_RESPONSE status. 
+ *  Evidence can be a proof of delivery or proof of refund document or notes, which can include logs. 
+ *  A proof of delivery document includes a tracking number while a proof of refund document includes a refund ID.
+ *  The following rules apply to document file types and sizes:
+        The merchant can upload up to 10 MB of files for a case.
+        Individual files must be smaller than 5 MB.
+        The supported file formats are JPG, GIF, PNG, and PDF.
+ */
 
 $configArray = array(
     'ClientID' => $rest_client_id,
@@ -20,7 +26,7 @@ $dispute_id  = 'PP-D-5617';   // The ID of the dispute for which to accept a cla
 
 
 //  carrier_name enum The name of the carrier for the shipment of the transaction for this dispute. The possible values are:
-// | UPS | USPS | FEDEX | AIRBORNE_EXPRESS | DHL | AIRSURE | ROYAL_MAIL | PARCELFORCE | SWIFTAIR | OTHER | UK_PARCELFORCE 
+// | UPS | USPS | FEDEX | AIRBORNE_EXPRESS | DHL     | AIRSURE | ROYAL_MAIL | PARCELFORCE | SWIFTAIR | OTHER | UK_PARCELFORCE 
 // | UK_ROYALMAIL_SPECIAL UK_ROYALMAIL_RECORDED | UK_ROYALMAIL_INT_SIGNED | UK_ROYALMAIL_AIRSURE | UK_UPS | UK_FEDEX 
 // | UK_AIRBORNE_EXPRESS | UK_DHL UK_OTHER | UK_CANNOT_PROV_TRACK | CA_CANADA_POST | CA_PUROLATOR | CA_CANPAR | CA_LOOMIS  
 // | CA_TNT | CA_OTHER | CA_CANNOT_PROV_TRACK DE_DP_DHL_WITHIN_EUROPE | DE_DP_DHL_T_AND_T_EXPRESS | DE_DHL_DP_INTL_SHIPMENTS | DE_GLS | DE_DPD_DELISTACK | DE_HERMES
@@ -56,20 +62,19 @@ $documents = array(
     'size' => ''         // The document size.
 );
 
-
 $evidences = array(
     'evidence_type' => 'PROOF_OF_FULFILLMENT',  // PROOF_OF_FULFILLMENT | PROOF_OF_REFUND | PROOF_OF_DELIVERY_SIGNATURE | PROOF_OF_RECEIPT_COPY | RETURN_POLICY | BILLING_AGREEMENT | PROOF_OF_RESHIPMENT | ITEM_DESCRIPTION | POLICE_REPORT | AFFIDAVIT | PAID_WITH_OTHER_METHOD | COPY_OF_CONTRACT | TERMINAL_ATM_RECEIPT | PRICE_DIFFERENCE_REASON | SOURCE_CONVERSION_RATE | BANK_STATEMENT | CREDIT_DUE_REASON | REQUEST_CREDIT_RECEIPT | PROOF_OF_RETURN | CREATE | CHANGE_REASON | OTHER
     'evidence_info' => $evidence_info,          // The evidence-related information.
     'documents' => $documents,                  // An array of evidence documents.
     'notes' => '',                              // Any evidence-related notes. Maximum length: 2000.
-    'item_id' => ''                             // The item ID. If the merchant provides multiple pieces of evidence and the transaction has multiple item IDs, the merchant can use this value to associate a piece of evidence with an item ID.    
+    'item_id' => ''                             // The item ID. If the merchant provides multiple pieces of evidence and the transaction has multiple item IDs, the merchant can use this value to associate a piece of evidence with an item ID.
 );
 
 $parameters = array(
     'evidences' => $evidences,   // An array of evidences for the dispute.
 );
 
-$response = $PayPal->dispute_appeal($dispute_id,$parameters);  
+$response = $PayPal->disputes_provide_evidence($dispute_id,$parameters);  
 
 echo "<pre>";
 print_r($response);
