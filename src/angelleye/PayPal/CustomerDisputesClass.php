@@ -162,4 +162,22 @@ class CustomerDisputesClass extends PayPalResourceModel {
         return $ret->fromJson($json); 
     }
     
+    public function require_evidence($dispute_id,$params,$apiContext = null, $restCall = null){
+        if (is_null($params)) {
+            $params = array();
+        }
+        ArgumentValidator::validate($params, 'params');       
+        $payLoad = json_encode($params);    
+        $json = self::executeCall(
+            "/v1/customer/disputes/".$dispute_id."/require-evidence",
+            "POST",
+            $payLoad,
+            null,
+            $apiContext,
+            $restCall
+        );
+        $ret = new CustomerDisputesClass();        
+        return $ret->fromJson($json); 
+    }
+    
 }
