@@ -69,4 +69,20 @@ class NotificationsAPI extends RestClass {
         }
     }
     
+    public function delete_webhook($webhook_id){
+        $webhook = new Webhook();
+        $webhook->setId($webhook_id);
+        try {
+            $output = $webhook->delete($this->_api_context);           
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['WEBHOOK_DELETE']=$output;
+            $returnArray['RAWREQUEST']= '{webhook_id : '.$webhook_id.'}';
+            $returnArray['RAWRESPONSE']=$output;
+            return $returnArray;
+        } catch (Exception $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+    
+    
 }
