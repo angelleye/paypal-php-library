@@ -84,5 +84,55 @@ class NotificationsAPI extends RestClass {
         }
     }
     
+    public function update_webhook($webhook_id,$requestData){
+            $webhook = new Webhook();        
+            $pathRequest = new \PayPal\Api\PatchRequest();
+        try {
+            $webhook->setId($webhook_id);            
+            $i=0;
+            foreach ($requestData as $value) {  
+                if(is_array($value['Value'])){
+                    if(!empty($value['Op']) && !empty($value['Path']) && count($value['Value'])>3){
+                        $ob=(object)  array_filter($value['Value']);
+                        $pathOperation = new \PayPal\Api\Patch();
+                        $pathOperation->setOp($value['Op'])
+                                         ->setPath($value['Path'])
+                                         ->setValue($ob);
+                        $pathRequest->addPatch($pathOperation);
+                        $i++;
+                    }
+                }
+                else{
+                    if(!empty($value['Op']) && !empty($value['Path']) && !empty($value['Value'])){
+                        $pathOperation = new \PayPal\Api\Patch();
+                        $pathOperation->setOp($value['Op'])
+                                         ->setPath($value['Path']);
+                        if($value['Path'] == '/event_types'){
+                            $pathOperation->setValue(json_decode('[{"name":"'.$value['Value'].'"}]'));
+                        }
+                        else{
+                            $pathOperation->setValue($value['Value']);
+                        }
+                        $pathRequest->addPatch($pathOperation);
+                        $i++;
+                    }
+                }               
+            } 
+           
+            if($i>0) {               
+                $output = $webhook->update($pathRequest,$this->_api_context);
+                $returnArray['RESULT'] = 'Success';
+                $returnArray['WEBHOOK']=$output->toArray();         
+                $returnArray['RAWREQUEST']= $pathRequest->toJSON();
+                $returnArray['RAWRESPONSE']=$output->toJSON();
+                return $returnArray;                
+            }
+            else{
+                return "Fill Atleast One Array Field/Element";
+            }
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
     
 }
