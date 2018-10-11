@@ -24,5 +24,22 @@ class EventTypesClass extends PayPalResourceModel {
         $ret = new EventTypesClass();
         return $ret->fromJson($json);
     }
+    
+     public function get_by_id($webhook_id,$apiContext = null, $restCall = null) {
+        
+        ArgumentValidator::validate($webhook_id, 'webhook_id');
+         
+        $payLoad = "";
+        $json = self::executeCall(
+                "/v1/notifications/webhooks/".$webhook_id."/event-types",
+                "GET",
+                $payLoad,
+                null,
+                $apiContext,
+                $restCall
+        );
+        $ret = new EventTypesClass();
+        return $ret->fromJson($json);
+    }
 
 }
