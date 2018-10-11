@@ -41,5 +41,23 @@ class EventTypesClass extends PayPalResourceModel {
         $ret = new EventTypesClass();
         return $ret->fromJson($json);
     }
+    
+    public function verify_webhook_signature_api($params,$apiContext = null, $restCall = null) {
+        if (is_null($params)) {
+            $params = array();
+        }
+        ArgumentValidator::validate($params, 'params');        
+        $payLoad = json_encode($params);      
+        $json = self::executeCall(
+            "/v1/notifications/verify-webhook-signature", 
+            "GET", 
+            $payLoad,
+            null,
+            $apiContext,
+            $restCall
+        );        
+        $object = new EventTypesClass();
+        return $object->fromJson($json);
+    }
 
 }
