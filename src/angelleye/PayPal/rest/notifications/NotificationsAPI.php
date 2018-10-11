@@ -150,4 +150,17 @@ class NotificationsAPI extends RestClass {
     }
     
     
+    public function get_event_details($event_id){        
+        try {
+            $output = \PayPal\Api\WebhookEvent::get($event_id, $this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['EVENTS']=$output->toArray();         
+            $returnArray['RAWREQUEST']= '{event_id : '.$event_id.'}';
+            $returnArray['RAWRESPONSE']=$output->toJSON();
+            return $returnArray;
+        } catch (Exception $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+    
 }
