@@ -3,7 +3,7 @@
 use \angelleye\PayPal\RestClass;
 use PayPal\Api\Webhook;
 use PayPal\Api\WebhookEventType;
-
+use PayPal\Api\WebhookEvent;
 
 class NotificationsAPI extends RestClass {
 
@@ -150,9 +150,24 @@ class NotificationsAPI extends RestClass {
     }
     
     
-    public function get_event_details($event_id){        
+    public function get_event_details($event_id){
         try {
             $output = \PayPal\Api\WebhookEvent::get($event_id, $this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['EVENTS']=$output->toArray();         
+            $returnArray['RAWREQUEST']= '{event_id : '.$event_id.'}';
+            $returnArray['RAWRESPONSE']=$output->toJSON();
+            return $returnArray;
+        } catch (Exception $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+    
+    public function resend_event_notification($event_id){
+        $WebhookEvent = new WebhookEvent();
+        $WebhookEvent->setId($event_id);
+        try {
+            $output = $WebhookEvent->resend($this->_api_context);
             $returnArray['RESULT'] = 'Success';
             $returnArray['EVENTS']=$output->toArray();         
             $returnArray['RAWREQUEST']= '{event_id : '.$event_id.'}';
