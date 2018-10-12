@@ -34,5 +34,4 @@ $refundParameters = array(
 
 $returnArray = $PayPal->refund_capture($captureId,$amount,$refundParameters);
 echo "<pre>";
-var_dump($returnArray);
-?>
+print_r($returnArray);

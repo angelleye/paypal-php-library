@@ -21,5 +21,4 @@ $InvoiceID = 'INV2-GASZ-DB7C-NSRC-S9V6';    // Required. Specify the ID of the i
 
 $returnArray = $PayPal->remind_invoice($remindNotification,$InvoiceID);
 echo "<pre>";
-var_dump($returnArray);
-?>
+print_r($returnArray);

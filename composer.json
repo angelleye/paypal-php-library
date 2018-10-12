@@ -15,7 +15,8 @@
 	"require": {
 		"php": ">=5.3.0",
 		"ext-curl": "*",
-		"paypal/rest-api-sdk-php":"*"
+		"paypal/rest-api-sdk-php":"*",
+        "twbs/bootstrap": "^3.3"
 	},
     "autoload": {
         "psr-0": {

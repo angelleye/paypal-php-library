@@ -15,5 +15,4 @@ $parameters = array(
 
 $returnArray = $PayPal->list_invoice($parameters);
 echo "<pre>";
-var_dump($returnArray);
-?>
+print_r($returnArray);

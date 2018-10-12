@@ -43,5 +43,4 @@ $requestData=array(
 
 $returnArray = $PayPal->create_single_payout($requestData);
 echo "<pre>";
-var_dump($returnArray);
-?>
+print_r($returnArray);

@@ -20,16 +20,14 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\Refund;
 use PayPal\Api\RefundRequest;
 use PayPal\Api\Transaction;
+use \angelleye\PayPal\RestClass;
 
-class PaymentAPI {
+class PaymentAPI extends RestClass {
 
     private $_api_context;
-
-    public function __construct($configArray) {
-        // setup PayPal api context 
-        $this->_api_context = new \PayPal\Rest\ApiContext(
-                new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'], $configArray['ClientSecret'])
-        );
+    public function __construct($configArray) {        
+        parent::__construct($configArray);
+        $this->_api_context = $this->get_api_context();
     }
 
     public function payment_create($requestData) {
@@ -37,17 +35,18 @@ class PaymentAPI {
             // ### PaymentCard
             // A resource representing a payment card that can be used to fund a payment.
             $card = new PaymentCard();
-            if($this->checkEmptyObject($requestData['paymentCard'])){
-                $this->setArrayToMethods(array_filter($requestData['paymentCard']), $card);
+            if(isset($requestData['paymentCard'])){
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['paymentCard']), $card);
             }
-            if($this->checkEmptyObject($requestData['billingAddress'])){
-                $this->setArrayToMethods(array("BillingAddress" => array_filter($requestData['billingAddress'])), $card);
+            $ba = $this->checkEmptyObject($requestData['billingAddress']);
+            if(!empty($ba)){
+                $this->setArrayToMethods(array("BillingAddress" => $ba), $card);
             }            
             
             // ### FundingInstrument
             // A resource representing a Payer's funding instrument.
             $fi = new FundingInstrument();
-            if($this->checkEmptyObject((array)$card)){
+            if(!empty($this->checkEmptyObject((array)$card))){
                 $fi->setPaymentCard($card);           
             }
                        
@@ -55,14 +54,14 @@ class PaymentAPI {
             // A resource representing a Payer that funds a payment
             $payer = new Payer();
             $payer->setPaymentMethod("credit_card");
-            if($this->checkEmptyObject((array)$fi)){
+            if(!empty($this->checkEmptyObject((array)$fi))){
                 $payer->setFundingInstruments(array($fi));
             }
              
             // ### Itemized information
             // (Optional) Lets you specify item wise information
             $itemListArray = array();
-            if($this->checkEmptyObject($requestData['orderItems'])){
+            if(!empty($this->checkEmptyObject($requestData['orderItems']))){
                 foreach ($requestData['orderItems'] as $value) {
                    $item = new Item();
                    $array = array_filter($value);
@@ -74,71 +73,80 @@ class PaymentAPI {
             }
             
             $itemList = new ItemList();
-            if($this->checkEmptyObject($itemListArray)){
+            if(!empty($this->checkEmptyObject($itemListArray))){
                 $itemList->setItems($itemListArray);
             }            
             
             // ### Additional payment details
             // Use this optional field to set additional payment information such as tax, shipping charges etc.
             $details = new Details();
-            if ($this->checkEmptyObject($requestData['paymentDetails'])) {                
-                $this->setArrayToMethods(array_filter($requestData['paymentDetails']), $details);
+            if (isset($requestData['paymentDetails'])) {                
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['paymentDetails']), $details);
             }            
             // ### Amount
             // Lets you specify a payment amount. You can also specify additional details such as shipping, tax.
             $amount = new Amount();
-            if ($this->checkEmptyObject($requestData['amount'])) {
-                $this->setArrayToMethods(array_filter($requestData['amount']), $amount);
+            if (isset($requestData['amount'])) {
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['amount']), $amount);
             }
-            if ($this->checkEmptyObject((array)$details)) {
+            if (!empty($this->checkEmptyObject((array)$details))) {
                 $amount->setDetails($details);
             }
 
             // ### Transaction
             // A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
             $transaction = new Transaction();
-            if($this->checkEmptyObject((array)$amount)){
+            if(!empty($this->checkEmptyObject((array)$amount))){
                 $transaction->setAmount($amount);
             }
             
-            if ($this->checkEmptyObject((array)$itemList)) {
+            if (!empty($this->checkEmptyObject((array)$itemList))) {
                 $transaction->setItemList($itemList);
             }
             
-            if ($this->checkEmptyObject($requestData['transaction'])) {
-                $this->setArrayToMethods(array_filter($requestData['transaction']), $transaction);
+            if (isset($requestData['transaction'])) {
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['transaction']), $transaction);
             }
 
             // ### Payment
             // A Payment Resource; create one using the above types and intent set to sale 'sale'
             $payment = new Payment();
-            if(!empty(trim($requestData['ExperienceProfileId']))){
+            if(isset($requestData['ExperienceProfileId']) && !empty(trim($requestData['ExperienceProfileId']))){
                 $payment->setExperienceProfileId($requestData['ExperienceProfileId']);
             }
-            if(!empty(trim($requestData['NoteToPayer']))){
+            if(isset($requestData['NoteToPayer']) && !empty(trim($requestData['NoteToPayer']))){
                 $payment->setNoteToPayer($requestData['NoteToPayer']);
             }
             
             $payment->setIntent(trim($requestData['intent']));
-            if($this->checkEmptyObject((array)$payer)){
+            if(!empty($this->checkEmptyObject((array)$payer))){
                 $payment->setPayer($payer);
             }
-            if($this->checkEmptyObject((array)$transaction)){
+            if(!empty($this->checkEmptyObject((array)$transaction))){
                 $payment->setTransactions(array($transaction));
             }            
             // ### Create Payment
             // Create a payment by calling the payment->create() method with a valid ApiContext. The return object contains the state.
-            $payment->create($this->_api_context);           
+            $requestArray = clone $payment;
+            $payment->create($this->_api_context);
             if ($requestData['intent'] == 'authorize') {
                 $transactions = $payment->getTransactions();
                 $relatedResources = $transactions[0]->getRelatedResources();
                 $authorization = $relatedResources[0]->getAuthorization();
-                return array('Authorization' => $authorization, 'Payment' => $payment);
+                $returnArray['RESULT'] = 'Success';
+                $returnArray['AUTHORIZATION'] = $authorization->toArray();
+                $returnArray['PAYMENT'] = $payment->toArray();
+                $returnArray['RAWREQUEST']=$requestArray->toJSON();
+                $returnArray['RAWRESPONSE']=$payment->toJSON();
+                return $returnArray;
             } else {
-                return $payment;
+                $returnArray=$payment->toArray();
+                $returnArray['RAWREQUEST']=$requestArray->toJSON();
+                $returnArray['RAWRESPONSE']=$payment->toJSON();
+                return $returnArray;
             }
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -155,8 +163,8 @@ class PaymentAPI {
             // ### Itemized information
             // (Optional) Lets you specify item wise information
             $itemListArray = array();
-            if($this->checkEmptyObject($requestData['orderItems'])){
-                foreach ($requestData['orderItems'] as $value) {
+            if (isset($requestData['orderItems'])) {                                        
+                foreach ($this->checkEmptyObject($requestData['orderItems']) as $value) {
                     $item = new Item();
                     $array = array_filter($value);
                     if (count($array) > 0) {
@@ -166,88 +174,99 @@ class PaymentAPI {
                 }
             }
             $itemList = new ItemList();
-            if($this->checkEmptyObject($itemListArray)){
+            if(!empty($itemListArray)){
                 $itemList->setItems($itemListArray);
             }
             
             // ### Additional payment details
             // Use this optional field to set additional payment information such as tax, shipping charges etc.
-
-            if ($this->checkEmptyObject($requestData['paymentDetails'])) {
-                $details = new Details();
-                $this->setArrayToMethods(array_filter($requestData['paymentDetails']), $details);
+            $details = new Details();
+            if (isset($requestData['paymentDetails'])) {                
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['paymentDetails']), $details);
             }
 
             // ### Amount
             // Lets you specify a payment amount. You can also specify additional details such as shipping, tax.
             $amount = new Amount();
-            if ($this->checkEmptyObject($requestData['amount'])) {
-                $this->setArrayToMethods(array_filter($requestData['amount']), $amount);
+            if (isset($requestData['amount'])) {
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['amount']), $amount);
             }
-            if ($this->checkEmptyObject((array)$details)) {
+            
+            $detailArray = $this->checkEmptyObject((array)$details); 
+            if ( !empty($detailArray) ) {
                 $amount->setDetails($details);
             }
 
             // ### Transaction
             // A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
             $transaction = new Transaction();
-            if ($this->checkEmptyObject((array)$amount)) {
+            if (!empty($this->checkEmptyObject((array)$amount))) {
                 $transaction->setAmount($amount);
             }
             
-            if ($this->checkEmptyObject((array)$itemList)) {
+            if (!empty($this->checkEmptyObject((array)$itemList))) {
                 $transaction->setItemList($itemList);
             }
-            if ($this->checkEmptyObject($requestData['transaction'])) {
-                $this->setArrayToMethods(array_filter($requestData['transaction']), $transaction);
+            if (isset($requestData['transaction'])){
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['transaction']), $transaction);
             }
-            if(!empty(trim($requestData['invoiceNumber']))){
+            if(isset($requestData['invoiceNumber']) && !empty(trim($requestData['invoiceNumber']))){
                 $transaction->setInvoiceNumber($requestData['invoiceNumber']);
             }
 
             // ### Redirect urls
             // Set the urls that the buyer must be redirected to after 
             // payment approval/ cancellation.
-            $baseUrl = $requestData['urls']['BaseUrl'];
+            $baseUrl = isset($requestData['urls']['BaseUrl']) ? $requestData['urls']['BaseUrl'] : '';
+            
             $redirectUrls = new RedirectUrls();
-            $redirectUrls->setReturnUrl($baseUrl . $requestData['urls']['ReturnUrl'])
-                    ->setCancelUrl($baseUrl . $requestData['urls']['CancelUrl']);
-
+            if(isset($requestData['urls']['ReturnUrl'])){
+                $redirectUrls->setReturnUrl($baseUrl . $requestData['urls']['ReturnUrl']);
+            }
+            if(isset($requestData['urls']['CancelUrl'])){
+                $redirectUrls->setCancelUrl($baseUrl . $requestData['urls']['CancelUrl']);
+            }
+            
             // ### Payment
             // A Payment Resource; create one using the above types and intent set to sale 'sale'
             $payment = new Payment();
             
-            if(!empty(trim($requestData['intent']))){
+            if(isset($requestData['intent']) && !empty(trim($requestData['intent']))){
                 $payment->setIntent($requestData['intent']);
             }
-            if($this->checkEmptyObject((array)$payer)){
+            if(!empty($this->checkEmptyObject((array)$payer))){
                 $payment->setPayer($payer);
             }
-            if($this->checkEmptyObject((array)$redirectUrls)){
+            if(!empty($this->checkEmptyObject((array)$redirectUrls))){
                 $payment->setRedirectUrls($redirectUrls);
             }
-            if($this->checkEmptyObject((array)$transaction)){
+            if(!empty($this->checkEmptyObject((array)$transaction))){
                 $payment->setTransactions(array($transaction));
             }
-            if(!empty(trim($requestData['ExperienceProfileId']))){
+            if(isset($requestData['ExperienceProfileId']) && !empty(trim($requestData['ExperienceProfileId']))){
                 $payment->setExperienceProfileId(trim($requestData['ExperienceProfileId']));
             }
-            if(!empty(trim($requestData['NoteToPayer']))){
+            if(isset($requestData['NoteToPayer']) && !empty(trim($requestData['NoteToPayer']))){
                 $payment->setNoteToPayer(trim($requestData['NoteToPayer']));
             }
             
             // ### Create Payment
             // Create a payment by calling the payment->create() method with a valid ApiContext. The return object contains the state.
+            $requestArray = clone $payment;
             $payment->create($this->_api_context);
 
             // ### Get redirect url
             // The API response provides the url that you must redirect
             // the buyer to. Retrieve the url from the $payment->getApprovalLink()
             // method
-            $approvalUrl = $payment->getApprovalLink();
-            return array('approvalUrl' => $approvalUrl, 'payment' => $payment);
+            $approvalUrl = $payment->getApprovalLink();            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['PAYMENT'] = array('approvalUrl' => $approvalUrl, 'payment' => $payment->toArray());
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$payment->toJSON();            
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -265,7 +284,7 @@ class PaymentAPI {
             // For stored credit card payments, set the CreditCardToken
             // field on this object.
             $fi = new FundingInstrument();
-            if($this->checkEmptyObject((array)$creditCardToken)){
+            if(!empty($this->checkEmptyObject((array)$creditCardToken))){
                 $fi->setCreditCardToken($creditCardToken);
             }
 
@@ -275,15 +294,15 @@ class PaymentAPI {
             // to 'credit_card'.
             $payer = new Payer();
             $payer->setPaymentMethod("credit_card");
-            if($this->checkEmptyObject((array)$fi)){
+            if(!empty($this->checkEmptyObject((array)$fi))){
                 $payer->setFundingInstruments(array($fi));
             }                                        
 
             // ### Itemized information
             // (Optional) Lets you specify item wise information
             $itemListArray = array();
-            if($this->checkEmptyObject($requestData['orderItems'])){
-                foreach ($requestData['orderItems'] as $value) {
+            if(isset($requestData['orderItems'])){
+                foreach ($this->checkEmptyObject($requestData['orderItems']) as $value) {
                     $item = new Item();
                     $array = array_filter($value);
                     if (count($array) > 0) {
@@ -294,39 +313,39 @@ class PaymentAPI {
             }
             
             $itemList = new ItemList();
-            if($this->checkEmptyObject($itemListArray)){
+            if(!empty($this->checkEmptyObject($itemListArray))){
                 $itemList->setItems($itemListArray);
             }
             // ### Additional payment details
             // Use this optional field to set additional payment information such as tax, shipping charges etc.
 
-            if ($this->checkEmptyObject($requestData['paymentDetails'])) {
+            if (isset($requestData['paymentDetails'])) {
                 $details = new Details();
-                $this->setArrayToMethods(array_filter($requestData['paymentDetails']), $details);
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['paymentDetails']), $details);
             }
 
             // ### Amount
             // Lets you specify a payment amount. You can also specify additional details such as shipping, tax.
             $amount = new Amount();
-            if ($this->checkEmptyObject($requestData['amount'])) {
-                $this->setArrayToMethods(array_filter($requestData['amount']), $amount);
+            if (isset($requestData['amount'])) {
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['amount']), $amount);
             }
-            if ($this->checkEmptyObject((array)$details)) {
+            if (!empty($this->checkEmptyObject((array)$details))) {
                 $amount->setDetails($details);
             }
 
             // ### Transaction
             // A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
             $transaction = new Transaction();
-            if($this->checkEmptyObject((array)$amount)){
+            if(!empty($this->checkEmptyObject((array)$amount))){
                 $transaction->setAmount($amount);
             }
             
-            if ($this->checkEmptyObject((array)$itemList)) {
+            if (!empty($this->checkEmptyObject((array)$itemList))) {
                 $transaction->setItemList($itemList);
             }
-            if ($this->checkEmptyObject($requestData['transaction'])) {
-                $this->setArrayToMethods(array_filter($requestData['transaction']), $transaction);
+            if ($requestData['transaction']) {
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['transaction']), $transaction);
             }
 
             // ### Payment
@@ -334,44 +353,58 @@ class PaymentAPI {
             $payment = new Payment();
             $payment->setIntent($requestData['intent']);
             
-            if($this->checkEmptyObject((array)$payer)){
+            if(!empty($this->checkEmptyObject((array)$payer))){
                 $payment->setPayer($payer);
             }
-            if($this->checkEmptyObject((array)$transaction)){
+            if(!empty($this->checkEmptyObject((array)$transaction))){
                 $payment->setTransactions(array($transaction));
             }
-            
-            $payment->create($this->_api_context);
-            return $payment;
-        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            $requestArray = clone $payment;
+            $payment->create($this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['PAYMENT'] = $payment->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$payment->toJSON();            
+            return $returnArray;              
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {            
+            return $this->createErrorResponse($ex);
         }
     }
 
     public function get_authorization($authorizationId) {
         try {
-            $result = Authorization::get($authorizationId, $this->_api_context);
-            return $result;
+            $result = Authorization::get($authorizationId, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['AUTHORIZATION'] = $result->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$authorizationId.'}';
+            $returnArray['RAWRESPONSE']=$result->toJSON();
+            return $returnArray;                        
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
     public function show_payment_details($PaymentID) {
         try {
-            $payment = Payment::get($PaymentID, $this->_api_context);
-            return $payment;
+            $payment = Payment::get($PaymentID, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['PAYMENT'] = $payment->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$PaymentID.'}';
+            $returnArray['RAWRESPONSE']=$payment->toJSON();
+            return $returnArray;                                    
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
     public function list_payments($params) {
         try {
             $payments = Payment::all(array_filter($params), $this->_api_context);
-            return $payments;
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['PAYMENTS'] = $payments->toArray();
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -389,10 +422,15 @@ class PaymentAPI {
             $capture = new Capture();
             $capture->setAmount($amt);
             // Perform a capture
-            $getCapture = $authorization->capture($capture, $this->_api_context);
-            return $getCapture;
+            $requestArray = clone $authorization;
+            $getCapture = $authorization->capture($capture, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['CAPTURE'] = $getCapture->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$getCapture->toJSON();  
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -402,30 +440,43 @@ class PaymentAPI {
             // Lookup the authorization
             $authorization = Authorization::get($authorizationId, $this->_api_context);
             // Void the authorization
-            $voidedAuth = $authorization->void($this->_api_context);
-            return $voidedAuth;
+            $requestArray = clone  $authorization;
+            $voidedAuth = $authorization->void($this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['AUTH_VOID'] = $voidedAuth->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$voidedAuth->toJSON();  
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
     public function get_capture($authorizationCaptureId) {
         // # GetCapture       
         try {
-            $capture = Capture::get($authorizationCaptureId, $this->_api_context);
-            return $capture;
+            $capture = Capture::get($authorizationCaptureId, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['CAPTURE'] = $capture->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$authorizationCaptureId.'}';
+            $returnArray['RAWRESPONSE']=$capture->toJSON();
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
     public function get_order($orderId){        
         // #Get Order Sample        
         try {
-            $result = Order::get($orderId, $this->_api_context);
-            return $result;
+            $result = Order::get($orderId, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['ORDER'] = $result->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$orderId.'}';
+            $returnArray['RAWRESPONSE']=$result->toJSON();
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -437,11 +488,17 @@ class PaymentAPI {
             $amount = new Amount();
             $this->setArrayToMethods($amountArray, $amount);
             $authorization->setAmount($amount);
+            $requestArray = clone $order;
             $result = $order->authorize($authorization,$this->_api_context);
-            $authorizationId=$result->id;           
-            return array("Order Authorize"=>$result,'Authorization Id'=>$authorizationId);
+            $authorizationId=$result->id;
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['ORDER_AUTH'] = $result->toArray();
+            $returnArray['AUTH_Id'] = $authorizationId;
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$result->toJSON();            
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -456,24 +513,33 @@ class PaymentAPI {
             $capture = new Capture();
             $capture->setIsFinalCapture(true);
             $capture->setAmount($amount);            
-            
-            $result = $order->capture($capture, $this->_api_context);
-            return $result;
+            $requestArray = clone $order;
+            $result = $order->capture($capture, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['ORDER_CAPTURE'] = $result->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$result->toJSON();            
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
-    public function order_void(){
+    public function order_void($orderId){
         try {            
             
             $order= new Order();
             $order->setId($orderId);
-            $result = $order->void($this->_api_context);
-            return $result;
+            $requestArray = clone $order;
+            $result = $order->void($this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['ORDER_VOID'] = $result->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$result->toJSON();            
+            return $returnArray;                       
             
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }        
     }
     
@@ -492,34 +558,15 @@ class PaymentAPI {
             $refundRequest = new RefundRequest();
             $refundRequest->setAmount($amount);
             $this->setArrayToMethods(array_filter($refundParameters), $refundRequest);                        
-            
-            $captureRefund = $capture->refundCapturedPayment($refundRequest,$this->_api_context);
-            return $captureRefund;
+            $requestArray = clone $capture;
+            $captureRefund = $capture->refundCapturedPayment($refundRequest,$this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['REFUND_CAPTURE'] = $captureRefund->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$captureRefund->toJSON();            
+            return $returnArray;                                  
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
-
-    public function setArrayToMethods($array, $object) {
-        foreach ($array as $key => $val) {
-            $method = 'set' . $key;
-            if (!empty($val)) {
-                if (method_exists($object, $method)) {
-                    $object->$method($val);
-                }
-            }
-        }
-        return TRUE;
-    }
-    
-    public function checkEmptyObject($array){
-        if(count(array_filter($array)) > 0){
-            return TRUE;
-        }
-        else {
-            return FALSE;
-        }
-    }
-
 }
-?>

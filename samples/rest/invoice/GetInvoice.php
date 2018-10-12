@@ -11,5 +11,4 @@ $InvoiceID = 'INV2-GALN-A78F-EFUB-YT74';    //Required. The ID of the invoice fo
 
 $returnArray = $PayPal->get_invoice($InvoiceID);
 echo "<pre>";
-var_dump($returnArray);
-?>
+print_r($returnArray);

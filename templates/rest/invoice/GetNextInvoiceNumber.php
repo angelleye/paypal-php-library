@@ -9,5 +9,4 @@ $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
 $returnArray = $PayPal->get_next_invoice_number();
 echo "<pre>";
-var_dump($returnArray);
-?>
+print_r($returnArray);

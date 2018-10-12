@@ -11,7 +11,7 @@ $configArray = array(
 $PayPal = new \angelleye\PayPal\rest\paymentexperience\PaymentExperianceAPI($configArray);
 
 
-$profileID = 'TXP-6R370526ET894714C';                                                //Required. The ID of the profile to update.
+$profileID = 'TXP-0Y6000321B436213T';                                                //Required. The ID of the profile to update.
 
 $FlowConfig = array(
     'LandingPageType'     => 'Billing',                                             // The type of landing page to display on the PayPal site for user checkout. Set to `Billing` to use the non-PayPal account landing page. Set to `Login` to use the PayPal account login landing page.
@@ -45,9 +45,9 @@ $requestData = array(
     'InputFields'  => $InputFields,
     'WebProfile'   => $WebProfile
 );
-
-$returnArray = $PayPal->update_web_profile($requestData,$profileID);
+// Pass data into class for processing with PayPal and load the response array into $PayPalResult
+$PayPalResult = $PayPal->update_web_profile($requestData,$profileID);
+// Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";
-var_dump($returnArray);
+var_dump($PayPalResult);
 
-?>

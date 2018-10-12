@@ -173,4 +173,3 @@ $PayPalResult = $PayPal->SetExpressCheckout($PayPalRequestData);
 echo '<a href="' . $PayPalResult['REDIRECTURL'] . '">Click here to continue.</a><br /><br />';
 echo '<pre />';
 print_r($PayPalResult);
-?>

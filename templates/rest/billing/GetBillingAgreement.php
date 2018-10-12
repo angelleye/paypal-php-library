@@ -11,5 +11,4 @@ $agreementId = '';                       // Required. The ID of the Billing Agre
 
 $returnArray = $PayPal->get_billing_agreement($agreementId);
 echo "<pre>";
-var_dump($returnArray);
-?>
+print_r($returnArray);

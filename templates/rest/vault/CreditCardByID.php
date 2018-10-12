@@ -16,5 +16,4 @@ $requestData=array(
 
 $returnArray = $PayPal->showByID($requestData);
 echo "<pre>";
-var_dump($returnArray);
-?>
+print_r($returnArray);

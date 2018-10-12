@@ -11,5 +11,4 @@ $InvoiceID = '';    // Required. The ID of the invoice for which to show details
 
 $returnArray = $PayPal->get_invoice($InvoiceID);
 echo "<pre>";
-var_dump($returnArray);
-?>
+print_r($returnArray);

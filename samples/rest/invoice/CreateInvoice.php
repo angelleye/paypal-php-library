@@ -12,16 +12,24 @@ $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
 // Merchant informations is Required for creating new Invoice. 
 $merchantInfo = array(
-    'Email' => 'tejasm-merchant@itpathsolutions.co.in',                                           // The merchant email address. Maximum length is 260 characters.
-    'FirstName' => 'TJ',                                       // The merchant first name. Maximum length is 30 characters.
-    'LastName'  => 'Mehta',                                       // The merchant last name. Maximum length is 30 characters.        
-    'BusinessName' => 'Tj Mehta\'s Test Store',                                    // The merchant company business name. Maximum length is 100 characters.
+    'Email' => 'tejasm-merchant@itpathsolutions.co.in',             // The merchant email address. Maximum length is 260 characters.
+    'FirstName' => 'TJ',                                            // The merchant first name. Maximum length is 30 characters.
+    'LastName'  => 'Mehta',                                         // The merchant last name. Maximum length is 30 characters.        
+    'BusinessName' => 'Tj Mehta\'s Test Store',                     // The merchant company business name. Maximum length is 100 characters.
+    'Website' => 'https://www.angelleye.com/',                      // The merchant website. Maximum length is 2048 characters.
+    'TaxId' => 'P87904347',                                         // The merchant tax ID. Maximum length is 100 characters. 
+    'AdditionalInfoLabel' => 'Business hours 10:00 AM to 7:30 PM.'  // Any additional information, such as business hours. 40 characters max. 
 );
 
 $merchantPhone = array(
     'CountryCode' => '001',                                     // Country code (from in E.164 format).
     'NationalNumber' => '5032141716',                                  // In-country phone number (from in E.164 format).
     'Extension' => '',                                       // Phone extension.
+);
+
+$merchantFax = array(
+    'CountryCode' => '001',                                     // Country code (from in E.164 format).
+    'NationalNumber' => '5032141717',                                  // In-country phone number (from in E.164 format).    
 );
 
 $merchantAddress = array(
@@ -58,7 +66,30 @@ $billingInfoAddress = array(
     'PostalCode'  => '97217',                                      // Zip code or equivalent is usually required for countries that have them. For list of countries that do not have postal codes please refer to http://en.wikipedia.org/wiki/Postal_code. 
     'State'       => 'OR',                                      // 2 letter code for US states, and the equivalent for other countries.         
 );
-  
+
+$shippingInfo = array(
+    'FirstName' => 'Sally',                                      // The invoice recipient first name. Maximum length is 30 characters. 
+    'LastName'  => 'Patient',                                      // The invoice recipient last name. Maximum length is 30 characters.
+    'BusinessName' => 'Not applicable',                                   // The invoice recipient company business name. Maximum length is 100 characters.     
+);
+
+$shippingInfoPhone = array(
+    'CountryCode' => '001',                                     // Country code (from in E.164 format).
+    'NationalNumber' => '5039871234',                                  // In-country phone number (from in E.164 format).
+    'Extension' => '',                                       // Phone extension.
+);
+
+$shippingInfoAddress = array(
+    'Line1' => '1234 Main St.',                                            // Line 1 of the Address (eg. number, street, etc).
+    'Line2' => '',                                            // Optional line 2 of the Address (eg. suite, apt #, etc.).
+    'City'  => 'Portland',                                            // City name.
+    'CountryCode' => 'US',                                      // 2 letter country code.    
+    'PostalCode'  => '97217',                                      // Zip code or equivalent is usually required for countries that have them. For list of countries that do not have postal codes please refer to http://en.wikipedia.org/wiki/Postal_code. 
+    'State'       => 'OR',                                      // 2 letter code for US states, and the equivalent for other countries.     
+);
+
+$CCDetails['Email'] = 'test.firstname@gmail.com';             // The participant email address.  
+
 $itemArray = array();
 
 $item1 = array(
@@ -103,53 +134,53 @@ $item2 = array(
 
 array_push($itemArray,$item2);
 
-$finalDiscountForInvoice = array(
-    'Percent' => '2'                                         // The rate of the specified Discount. Valid range is from 0.001 to 99.999.                         
-);
-
-$shippingInfo = array(
-    'FirstName' => 'Sally',                                      // The invoice recipient first name. Maximum length is 30 characters. 
-    'LastName'  => 'Patient',                                      // The invoice recipient last name. Maximum length is 30 characters.
-    'BusinessName' => 'Not applicable',                                   // The invoice recipient company business name. Maximum length is 100 characters.     
-);
-
-$shippingInfoPhone = array(
-    'CountryCode' => '001',                                     // Country code (from in E.164 format).
-    'NationalNumber' => '5039871234',                                  // In-country phone number (from in E.164 format).
-    'Extension' => '',                                       // Phone extension.
-);
-
-$shippingInfoAddress = array(
-    'Line1' => '1234 Main St.',                                            // Line 1 of the Address (eg. number, street, etc).
-    'Line2' => '',                                            // Optional line 2 of the Address (eg. suite, apt #, etc.).
-    'City'  => 'Portland',                                            // City name.
-    'CountryCode' => 'US',                                      // 2 letter country code.    
-    'PostalCode'  => '97217',                                      // Zip code or equivalent is usually required for countries that have them. For list of countries that do not have postal codes please refer to http://en.wikipedia.org/wiki/Postal_code. 
-    'State'       => 'OR',                                      // 2 letter code for US states, and the equivalent for other countries.     
-);
-
 $paymentTerm = array(
     'TermType' => 'NET_45',                                         // Valid Values: ["DUE_ON_RECEIPT", "DUE_ON_DATE_SPECIFIED", "NET_10", "NET_15", "NET_30", "NET_45", "NET_60", "NET_90", "NO_DUE_DATE"]. The terms by which the invoice payment is due.
     'DueDate'  => ''                                          // The date when the invoice payment is due. This date must be a future date. Date format is *yyyy*-*MM*-*dd* *z*, as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).   
 );
 
+/*   Note : For Invoice discount 
+ *   we have to add types like percent and Amount 
+ *   and based on that discount will be calculated
+ *   In Sample code we have added Percent type
+ *   To add Amount type use this code
+ *   $finalDiscountForInvoice = array(
+        'type' => 'Amount',
+        'Amount' => array (
+                    'Currency' => 'USD',
+                    'Value' => 20.00
+        ));
+ * 
+ */
+$finalDiscountForInvoice = array(
+        'type' => 'Percent', 
+        'Percent' => 10
+    );
+
+$today_date = date('Y-m-d Z', time());  
 $invoiceData = array(
-    'Note' => 'Medical Invoice 12 sep, 2016 PST',                                             // Note to the payer. 4000 characters max.
+    'InvoiceDate' => $today_date,                             // The date when the invoice was enabled. The date format is *yyyy*-*MM*-*dd* *z* as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
+    'Note' => 'Medical Invoice 12 sep, 2016 PST',             // Note to the payer. 4000 characters max.
     'Number' => '',                                           // Unique number that appears on the invoice. If left blank will be auto-incremented from the last number. 25 characters max.
     'TemplateId' => '',                                       // The template ID used for the invoice. Useful for copy functionality.   
     'Uri' => '',                                              // URI of the invoice resource.
     'MerchantMemo' => '',                                     // A private bookkeeping memo for the merchant. Maximum length is 150 characters.
     'LogoUrl'      => 'https://www.paypalobjects.com/webstatic/i/logo/rebrand/ppcom.svg',                                     // Full URL of an external image to use as the logo. Maximum length is 4000 characters.    
+    'Reference' => '',                                        // Reference data, such as PO number, to add to the invoice. Maximum length is 60 characters.  
+    'Terms' => '',    
+    'AllowPartialPayment' => '',    
 );
 
 
 $requestData =array(
     'merchantInfo'            => $merchantInfo,
     'merchantPhone'           => $merchantPhone,
+    'merchantFax'             => $merchantFax,
     'merchantAddress'         => $merchantAddress,
     'billingInfo'             => $billingInfo,
     'billingInfoPhone'        => $billingInfoPhone,
     'billingInfoAddress'      => $billingInfoAddress,
+    'ccInfo'                  => $CCDetails,
     'itemArray'               => $itemArray,
     'finalDiscountForInvoice' => $finalDiscountForInvoice,
     'shippingInfo'            => $shippingInfo,
@@ -161,6 +192,5 @@ $requestData =array(
 
 $returnArray = $PayPal->create_invoice($requestData);
 echo "<pre>";
-var_dump($returnArray);
+print_r($returnArray);
 
-?>

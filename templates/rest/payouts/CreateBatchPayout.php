@@ -64,5 +64,4 @@ $requestData=array(
 
 $returnArray = $PayPal->create_batch_payout($requestData);
 echo "<pre>";
-var_dump($returnArray);
-?>
+print_r($returnArray);

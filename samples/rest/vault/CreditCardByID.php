@@ -11,10 +11,10 @@ $configArray = array(
 $PayPal = new \angelleye\PayPal\rest\vault\CreditCardAPI($configArray);
 
 $requestData=array(
-                'credit_card_id' => 'CARD-4A879407XM268533VLA55MMQ'             // Required. The credit_card_id is the ID of the stored credit card. 
+                'credit_card_id' => 'CARD-42R75882CU076915WLOQMBHQ'             // Required. The credit_card_id is the ID of the stored credit card. 
             );
-
-$returnArray = $PayPal->showByID($requestData);
+// Pass data into class for processing with PayPal and load the response array into $PayPalResult
+$PayPalResult = $PayPal->showByID($requestData);
+// Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";
-var_dump($returnArray);
-?>
+print_r($PayPalResult);

@@ -6,15 +6,14 @@ use \PayPal\Api\InputFields;
 use \PayPal\Api\Patch;
 use \PayPal\Api\Presentation;
 use \PayPal\Api\WebProfile;
+use \angelleye\PayPal\RestClass;
 
-class PaymentExperianceAPI {
-    
+class PaymentExperianceAPI extends RestClass {   
+
     private $_api_context;
-    public function __construct($configArray)
-    {   // setup PayPal api context 
-        $this->_api_context = new \PayPal\Rest\ApiContext(
-                new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'],$configArray['ClientSecret'])
-            );
+    public function __construct($configArray) {        
+        parent::__construct($configArray);
+        $this->_api_context = $this->get_api_context();
     }
     
     public function create_web_profile($requestData){
@@ -24,48 +23,58 @@ class PaymentExperianceAPI {
             // #### Payment Web experience profile resource
             $webProfile = new WebProfile();
 
-            if($this->checkEmptyObject($requestData['FlowConfig'])){
+            if(isset($requestData['FlowConfig'])){
                 $flowConfig = new FlowConfig();
-                $this->setArrayToMethods(array_filter($requestData['FlowConfig']), $flowConfig);
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['FlowConfig']), $flowConfig);
                 $webProfile->setFlowConfig($flowConfig);
             }
 
-            if($this->checkEmptyObject($requestData['presentation'])){
+            if(isset($requestData['presentation'])){
                 $presentation = new Presentation();
-                $this->setArrayToMethods(array_filter($requestData['presentation']), $presentation);
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['presentation']), $presentation);
                 $webProfile->setPresentation($presentation);
             }
 
-            if($this->checkEmptyObject($requestData['InputFields'])){
+            if(isset($requestData['InputFields'])){
                 $inputFields = new InputFields();
-                $this->setArrayToMethods(array_filter($requestData['InputFields']), $inputFields);
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['InputFields']), $inputFields);
                 $webProfile->setInputFields($inputFields);
             }
-            if($this->checkEmptyObject($requestData['WebProfile'])){
-                $this->setArrayToMethods(array_filter($requestData['WebProfile']), $webProfile);
+            if(isset($requestData['WebProfile'])){
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['WebProfile']), $webProfile);
             }
-            
-            $createProfileResponse = $webProfile->create($this->_api_context);
-            return $createProfileResponse;
+            $requestArray = clone $webProfile;
+            $createProfileResponse = $webProfile->create($this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['WEBPROFILE'] = $createProfileResponse->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$createProfileResponse->toJSON();
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
     public function get_web_profile($profileId){
         try {
-            $webProfile = WebProfile::get($profileId,$this->_api_context);
-            return $webProfile;
+            $webProfile = WebProfile::get($profileId,$this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['WEBPROFILE'] = $webProfile->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$profileId.'}';
+            $returnArray['RAWRESPONSE']=$webProfile->toJSON();
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
     public function list_web_profiles(){ 
         try {
-            return WebProfile::get_list($this->_api_context);             
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['LIST'] = WebProfile::get_list($this->_api_context);
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -73,9 +82,11 @@ class PaymentExperianceAPI {
         try {
             $webProfile = new WebProfile();
             $webProfile->setId($profileId);
-            return $webProfile->delete($this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['DELETE_RESPONSE'] = $webProfile->delete($this->_api_context);
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -96,12 +107,16 @@ class PaymentExperianceAPI {
         }              
         try {
             // Execute the partial update, to carry out these two operations on a given web profile object
-            if ($webProfile->partial_update($patches, $this->_api_context)) {
-                $webProfile = WebProfile::get($webProfile->getId(), $this->_api_context);
-                return $webProfile;
+            if ($webProfile->partial_update($patches, $this->_api_context)) {                
+                $webProfile = WebProfile::get($webProfile->getId(), $this->_api_context);                
+                $returnArray['RESULT'] = 'Success';
+                $returnArray['WEBPROFILE'] = $webProfile->toArray();
+                $returnArray['RAWREQUEST']=$patches;
+                $returnArray['RAWRESPONSE']=$webProfile->toJSON();
+                return $returnArray;                
             }
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -109,57 +124,39 @@ class PaymentExperianceAPI {
         
         try {            
             // #### Payment Web experience profile resource
-            $webProfile = $this->get_web_profile($profileID);
+            $webProfile = WebProfile::get($profileID, $this->_api_context);
             
-            if($this->checkEmptyObject($requestData['FlowConfig'])){
+            if(isset($requestData['FlowConfig'])){
                 $flowConfig = $webProfile->getFlowConfig();
-                $this->setArrayToMethods(array_filter($requestData['FlowConfig']), $flowConfig);
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['FlowConfig']), $flowConfig);
                 $webProfile->setFlowConfig($flowConfig);
             }
 
-            if($this->checkEmptyObject($requestData['presentation'])){
+            if(isset($requestData['presentation'])){
                 $presentation = $webProfile->getPresentation();
-                $this->setArrayToMethods(array_filter($requestData['presentation']), $presentation);
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['presentation']), $presentation);
                 $webProfile->setPresentation($presentation);
             }
 
-            if($this->checkEmptyObject($requestData['InputFields'])){
+            if(isset($requestData['InputFields'])){
                 $inputFields = $webProfile->getInputFields();
-                $this->setArrayToMethods(array_filter($requestData['InputFields']), $inputFields);
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['InputFields']), $inputFields);
                 $webProfile->setInputFields($inputFields);
             }
-            if($this->checkEmptyObject($requestData['WebProfile'])){
-                $this->setArrayToMethods(array_filter($requestData['WebProfile']), $webProfile);
-            }
             
+            if(isset($requestData['WebProfile'])){
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['WebProfile']), $webProfile);
+            }
+            $requestArray = clone $webProfile;
             $webProfile->update($this->_api_context);
-            $updatedWebProfile = WebProfile::get($profileID, $this->_api_context);
-            return $updatedWebProfile;
+            $updatedWebProfile = WebProfile::get($profileID, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['WEBPROFILE'] = $updatedWebProfile->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$updatedWebProfile->toJSON();
+            return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }        
     }
-
-    public function checkEmptyObject($array){
-        if(count(array_filter($array)) > 0){
-            return TRUE;
-        }
-        else {
-            return FALSE;
-        }
-    }
-    
-    public function setArrayToMethods($array,$object){
-        foreach ($array as $key => $val){
-            $method = 'set'.$key;
-            if(!empty($val)){
-                if (method_exists($object, $method))
-                {                   
-                     $object->$method($val);
-                }            
-            }
-        }
-        return TRUE;
-    }
 }
-?>

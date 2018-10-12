@@ -6,16 +6,14 @@ use PayPal\Api\Currency;
 use PayPal\Api\Payout;
 use PayPal\Api\PayoutItem;
 use PayPal\Api\PayoutSenderBatchHeader;
+use \angelleye\PayPal\RestClass;
 
-class PayoutsAPI {
+class PayoutsAPI extends RestClass {
 
     private $_api_context;
-
-    public function __construct($configArray) {
-        // setup PayPal api context 
-        $this->_api_context = new \PayPal\Rest\ApiContext(
-                new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'], $configArray['ClientSecret'])
-        );
+    public function __construct($configArray) {        
+        parent::__construct($configArray);
+        $this->_api_context = $this->get_api_context();
     }
 
     public function create_single_payout($requestData) {        
@@ -23,25 +21,30 @@ class PayoutsAPI {
         try {
             $payouts = new Payout();
             $senderBatchHeader = new PayoutSenderBatchHeader();
-            if ($this->checkEmptyObject($requestData['batchHeader'])) {
-                $this->setArrayToMethods(array_filter($requestData['batchHeader']), $senderBatchHeader);
+            if (isset($requestData['batchHeader'])) {
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['batchHeader']), $senderBatchHeader);
             }
             $senderItem = new PayoutItem();
-            if ($this->checkEmptyObject($requestData['PayoutItem'])) {
-                $this->setArrayToMethods($requestData['PayoutItem'], $senderItem);
+            if (isset($requestData['PayoutItem'])) {
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['PayoutItem']), $senderItem);
             }
             $senderItem->setAmount(new Currency(json_encode($requestData['amount'])));
             
-            if ($this->checkEmptyObject((array)$senderBatchHeader)) {
+            if (!empty($this->checkEmptyObject((array)$senderBatchHeader))) {
                 $payouts->setSenderBatchHeader($senderBatchHeader);    
             }
-            if ($this->checkEmptyObject((array)$senderItem)) {
+            if (!empty($this->checkEmptyObject((array)$senderItem))) {
                 $payouts->addItem($senderItem);
-            }                                
-            $output = $payouts->createSynchronous($this->_api_context);
-            return $output;
+            }   
+            $requestArray = clone $payouts;
+            $output = $payouts->createSynchronous($this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['PAYOUT'] = $output->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$output->toJSON();
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -62,28 +65,41 @@ class PayoutsAPI {
                 $payouts->setSenderBatchHeader($senderBatchHeader);
             }
                                 
-            $output = $payouts->create(null,$this->_api_context);
-            return $output;            
+           $requestArray = clone $payouts; 
+           $output = $payouts->create(null,$this->_api_context);           
+           $returnArray['RESULT'] = 'Success';
+           $returnArray['BATCH_PAYOUT'] = $output->toArray();
+           $returnArray['RAWREQUEST']=$requestArray->toJSON();
+           $returnArray['RAWRESPONSE']=$output->toJSON();            
+           return $returnArray;                      
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
     public function get_payout_batch_status($payoutBatchId){
         try {
-            $output = Payout::get($payoutBatchId, $this->_api_context);
-            return $output;
+            $output = Payout::get($payoutBatchId, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['BATCH_STATUS'] = $output->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$payoutBatchId.'}';
+            $returnArray['RAWRESPONSE']=$output->toJSON();            
+           return $returnArray;              
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
     
     public function get_payout_item_status($payoutItemId){
         try {
-            $output = PayoutItem::get($payoutItemId, $this->_api_context);
-            return $output;
+            $output = PayoutItem::get($payoutItemId, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['PAYOUT_ITEM'] = $output->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$payoutItemId.'}';
+            $returnArray['RAWRESPONSE']=$output->toJSON();     
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
+            return $this->createErrorResponse($ex);
         }
     }
 
@@ -91,36 +107,18 @@ class PayoutsAPI {
         try {
             $PayoutItem = PayoutItem::get($payoutItemId, $this->_api_context);
             if($PayoutItem->transaction_status == 'UNCLAIMED'){
-                $output = PayoutItem::cancel($payoutItemId, $this->_api_context);
-                return $output;
+                 $output = PayoutItem::cancel($payoutItemId, $this->_api_context);                 
+                 $returnArray['RESULT'] = 'Success';
+                 $returnArray['CANCEL_PAYOUT_ITEM'] = $output->toArray();
+                 $returnArray['RAWREQUEST']='{id:'.$payoutItemId.'}';
+                 $returnArray['RAWRESPONSE']=$output->toJSON();
+                 return $returnArray;                                      
             }
             else{
                 return "Payout Item Status is not UNCLAIMED";
             }           
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-            return $ex->getData();
-        }
-    }
-
-    public function setArrayToMethods($array, $object) {
-        foreach ($array as $key => $val) {
-            $method = 'set' . $key;
-            if (!empty($val)) {
-                if (method_exists($object, $method)) {
-                    $object->$method($val);
-                }
-            }
-        }
-        return TRUE;
-    }
-    
-    public function checkEmptyObject($array){
-        if(count(array_filter($array)) > 0){
-            return TRUE;
-        }
-        else {
-            return FALSE;
+            return $this->createErrorResponse($ex);
         }
     }   
 }
-?>
