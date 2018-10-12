@@ -59,5 +59,23 @@ class EventTypesClass extends PayPalResourceModel {
         $object = new EventTypesClass();
         return $object->fromJson($json);
     }
+    
+    public function simulate_webhook_event_api($params,$apiContext = null, $restCall = null){
+        if (is_null($params)) {
+            $params = array();
+        }
+        ArgumentValidator::validate($params, 'params');        
+        $payLoad = json_encode($params);      
+        $json = self::executeCall(
+            "/v1/notifications/simulate-event", 
+            "POST", 
+            $payLoad,
+            null,
+            $apiContext,
+            $restCall
+        );        
+        $object = new EventTypesClass();
+        return $object->fromJson($json);
+    }
 
 }

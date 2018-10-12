@@ -220,4 +220,19 @@ class NotificationsAPI extends RestClass {
         }
     }
     
+    public function simulate_webhook_event($params){
+        $object = new \angelleye\PayPal\EventTypesClass();
+        try {
+            $params = array_filter($params);
+            $output = $object->simulate_webhook_event_api($params,$this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['EVENTS']=$output->toArray();
+            $returnArray['RAWREQUEST']= json_encode($params);
+            $returnArray['RAWRESPONSE']=$output->toJSON();
+            return $returnArray;
+        } catch (Exception $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+    
 }
