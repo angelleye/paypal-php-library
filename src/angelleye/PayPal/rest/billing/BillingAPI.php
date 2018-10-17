@@ -293,6 +293,28 @@ class BillingAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }
     }
+    
+    public function set_agreement_balance($agreementId,$amountArray){
+        try {            
+            
+            $Currency = new Currency();
+            $Currency->setCurrency($amountArray['Currency']);
+            $Currency->setValue($amountArray['value']);            
+            
+            $agreement = new Agreement();
+            $agreement->setId($agreementId);
+            
+            $output = $agreement->setBalance($Currency,$this->_api_context);
+            
+            $returnArray['RESULT'] = 'Success';  
+            $returnArray['AGREEMENT']= $output;
+            $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
+            $returnArray['RAWRESPONSE']=$agreement->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
 
     public function suspend_billing_agreement($agreementId,$note){       
         try {
