@@ -38,7 +38,7 @@ $chargeModel = array (
                     )
 );
 
-$baseUrl   = "http://localhost/paypal-php-library/samples/rest/billing/";
+$baseUrl   = $domain."billing_agreements/";
 $CancelUrl = '/ExecuteAgreement.php?success=false';          // Redirect URL on cancellation of agreement request. 1000 characters max.
 $ReturnUrl = '/ExecuteAgreement.php?success=true';           // Redirect URL on creation of agreement request. 1000 characters max.
 // Merchant Preferences are optional for creating plan.

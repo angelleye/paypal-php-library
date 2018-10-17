@@ -204,9 +204,9 @@ class BillingAPI extends RestClass {
         try {
             // Please note that as the agreement has not yet activated, we wont be receiving the ID just yet.
              $requestArray= clone $agreement;
-             $agreement = $agreement->create($this->_api_context);
-             $returnArray=$agreement->toArray();
-             $returnArray['RESULT'] = 'Success';             
+             $agreement = $agreement->create($this->_api_context);             
+             $returnArray['RESULT'] = 'Success';
+             $returnArray['AGREEMENT'] = $agreement->toArray();
              $returnArray['RAWREQUEST']=$requestArray;
              $returnArray['RAWRESPONSE']=$agreement->toJSON();
              return $returnArray;            
@@ -251,9 +251,10 @@ class BillingAPI extends RestClass {
             $requestArray = clone $agreement;
             $result = $agreement->create($this->_api_context);            
             $approvalUrl = $agreement->getApprovalLink();            
-            $returnArray=array('result'=>$result->toArray(),'Approval URL' => $approvalUrl);
-            $returnArray['RESULT'] = 'Success';            
-            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['ApprovalURL'] = $approvalUrl;                        
+            $returnArray['AGREEMENT'] =$result->toArray();            
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
             return $returnArray;                                
         }  catch (\PayPal\Exception\PayPalConnectionException $ex) {
@@ -263,9 +264,28 @@ class BillingAPI extends RestClass {
 
     public function get_billing_agreement($agreementId){
         try {
-            $agreement = Agreement::get($agreementId, $this->_api_context);
-            $returnArray=$agreement->toArray();
-            $returnArray['RESULT'] = 'Success';            
+            $agreement = Agreement::get($agreementId, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';        
+            $returnArray['AGREEMENT']= $agreement->toArray();            
+            $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
+            $returnArray['RAWRESPONSE']=$agreement->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+    
+    public function bill_agreement_balance($agreementId,$note){
+        try {            
+            $agreementStateDescriptor = new AgreementStateDescriptor();
+            if(!empty(trim($note))){
+                $agreementStateDescriptor->setNote($note);
+            }
+            $agreement = new Agreement();
+            $agreement->setId($agreementId);
+            $output = $agreement->billBalance($agreementStateDescriptor, $this->_api_context);
+            $returnArray['RESULT'] = 'Success';  
+            $returnArray['AGREEMENT']= $output;
             $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
             return $returnArray;
@@ -284,9 +304,9 @@ class BillingAPI extends RestClass {
             $createdAgreement = new Agreement();
             $createdAgreement->setId($agreementId);
             $createdAgreement->suspend($agreementStateDescriptor, $this->_api_context);            
-            $agreement = Agreement::get($agreementId, $this->_api_context);
-            $returnArray=$agreement->toArray();
-            $returnArray['RESULT'] = 'Success';            
+            $agreement = Agreement::get($agreementId, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';    
+            $returnArray['AGREEMENT']= $agreement->toArray();
             $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
             return $returnArray;            
@@ -305,9 +325,9 @@ class BillingAPI extends RestClass {
             $suspendedAgreement = new Agreement();
             $suspendedAgreement->setId($agreementId);
             $suspendedAgreement->reActivate($agreementStateDescriptor, $this->_api_context);            
-            $agreement = Agreement::get($agreementId, $this->_api_context);
-            $returnArray=$agreement->toArray();
-            $returnArray['RESULT'] = 'Success';            
+            $agreement = Agreement::get($agreementId, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';         
+            $returnArray['AGREEMENT']= $agreement->toArray();
             $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
             return $returnArray;             
@@ -318,9 +338,9 @@ class BillingAPI extends RestClass {
 
     public function search_billing_transactions($agreementId,$params){                
         try {
-            $result = Agreement::searchTransactions($agreementId, $params, $this->_api_context);
-            $returnArray=$result->toArray();
+            $result = Agreement::searchTransactions($agreementId, $params, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';            
+            $returnArray['TRANSACTIONS'] = $result->toArray();
             $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
             $returnArray['RAWRESPONSE']=$result->toJSON();
             return $returnArray;             
@@ -348,9 +368,9 @@ class BillingAPI extends RestClass {
             $createdAgreement->setId($agreementId);
             $requestArray= clone $createdAgreement;
             $createdAgreement->update($patchRequest, $this->_api_context);            
-            $agreement = Agreement::get($agreementId, $this->_api_context);            
-            $returnArray=$agreement->toArray();
-            $returnArray['RESULT'] = 'Success';            
+            $agreement = Agreement::get($agreementId, $this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['AGREEMENT']= $agreement->toArray();            
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
             return $returnArray;            
@@ -371,9 +391,9 @@ class BillingAPI extends RestClass {
             $calcelAgreement->setId($agreementId);
             $requestArray = clone $calcelAgreement;
             $calcelAgreement->cancel($agreementStateDescriptor, $this->_api_context);            
-            $agreement = Agreement::get($agreementId, $this->_api_context);
-            $returnArray=$agreement->toArray();
+            $agreement = Agreement::get($agreementId, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';            
+            $returnArray['AGREEMENT']=$agreement->toArray();
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
             return $returnArray;            
