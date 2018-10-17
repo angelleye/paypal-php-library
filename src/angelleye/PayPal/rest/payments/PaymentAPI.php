@@ -270,7 +270,137 @@ class PaymentAPI extends RestClass {
         }
     }
 
-    public function create_payment_using_saved_card($requestData, $credit_card_id) {
+    public function create_payment_with_paypal_third_party($requestData){
+        
+        try {
+            // ### Payer
+            // A resource representing a Payer that funds a payment
+            // For paypal account payments, set payment method
+            // to 'paypal'.
+            $payer = new Payer();
+            $payer->setPaymentMethod("paypal");
+
+            // ### Itemized information
+            // (Optional) Lets you specify item wise information
+            $itemListArray = array();
+            if (isset($requestData['orderItems'])) {                                        
+                foreach ($this->checkEmptyObject($requestData['orderItems']) as $value) {
+                    $item = new Item();
+                    $array = array_filter($value);
+                    if (count($array) > 0) {
+                        $this->setArrayToMethods($array, $item);
+                        array_push($itemListArray, $item);
+                    }
+                }
+            }
+            $itemList = new ItemList();
+            if(!empty($itemListArray)){
+                $itemList->setItems($itemListArray);
+            }
+            
+            // ### Additional payment details
+            // Use this optional field to set additional payment information such as tax, shipping charges etc.
+            $details = new Details();
+            if (isset($requestData['paymentDetails'])) {                
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['paymentDetails']), $details);
+            }
+
+            // ### Amount
+            // Lets you specify a payment amount. You can also specify additional details such as shipping, tax.
+            $amount = new Amount();
+            if (isset($requestData['amount'])) {
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['amount']), $amount);
+            }
+            
+            $detailArray = $this->checkEmptyObject((array)$details); 
+            if ( !empty($detailArray) ) {
+                $amount->setDetails($details);
+            }
+
+            // ### Transaction
+            // A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
+            $transaction = new Transaction();
+            if (!empty($this->checkEmptyObject((array)$amount))) {
+                $transaction->setAmount($amount);
+            }
+            
+            if (!empty($this->checkEmptyObject((array)$itemList))) {
+                $transaction->setItemList($itemList);
+            }
+            if (isset($requestData['transaction'])){
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['transaction']), $transaction);
+            }
+                        
+            if(isset($requestData['Payee']) && !empty($requestData['Payee'])){
+                // Specify a payee with that user's email or merchant id
+                // Merchant Id can be found at https://www.paypal.com/businessprofile/settings/                
+                $payee = new Payee();
+                $payee->setEmail($requestData['Payee']);
+                $transaction->setPayee($payee);
+            }
+            
+            
+            if(isset($requestData['invoiceNumber']) && !empty(trim($requestData['invoiceNumber']))){
+                $transaction->setInvoiceNumber($requestData['invoiceNumber']);
+            }
+
+            // ### Redirect urls
+            // Set the urls that the buyer must be redirected to after 
+            // payment approval/ cancellation.
+            $baseUrl = isset($requestData['urls']['BaseUrl']) ? $requestData['urls']['BaseUrl'] : '';
+            
+            $redirectUrls = new RedirectUrls();
+            if(isset($requestData['urls']['ReturnUrl'])){
+                $redirectUrls->setReturnUrl($baseUrl . $requestData['urls']['ReturnUrl']);
+            }
+            if(isset($requestData['urls']['CancelUrl'])){
+                $redirectUrls->setCancelUrl($baseUrl . $requestData['urls']['CancelUrl']);
+            }
+            
+            // ### Payment
+            // A Payment Resource; create one using the above types and intent set to sale 'sale'
+            $payment = new Payment();
+            
+            if(isset($requestData['intent']) && !empty(trim($requestData['intent']))){
+                $payment->setIntent($requestData['intent']);
+            }
+            if(!empty($this->checkEmptyObject((array)$payer))){
+                $payment->setPayer($payer);
+            }
+            if(!empty($this->checkEmptyObject((array)$redirectUrls))){
+                $payment->setRedirectUrls($redirectUrls);
+            }
+            if(!empty($this->checkEmptyObject((array)$transaction))){
+                $payment->setTransactions(array($transaction));
+            }
+            if(isset($requestData['ExperienceProfileId']) && !empty(trim($requestData['ExperienceProfileId']))){
+                $payment->setExperienceProfileId(trim($requestData['ExperienceProfileId']));
+            }
+            if(isset($requestData['NoteToPayer']) && !empty(trim($requestData['NoteToPayer']))){
+                $payment->setNoteToPayer(trim($requestData['NoteToPayer']));
+            }
+            
+            // ### Create Payment
+            // Create a payment by calling the payment->create() method with a valid ApiContext. The return object contains the state.
+            $requestArray = clone $payment;
+            $payment->create($this->_api_context);
+
+            // ### Get redirect url
+            // The API response provides the url that you must redirect
+            // the buyer to. Retrieve the url from the $payment->getApprovalLink()
+            // method
+            $approvalUrl = $payment->getApprovalLink();            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['PAYMENT'] = array('approvalUrl' => $approvalUrl, 'payment' => $payment->toArray());
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$payment->toJSON();            
+            return $returnArray;            
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+
+        public function create_payment_using_saved_card($requestData, $credit_card_id) {
 
         try {
             ///$card = new CreditCard();
