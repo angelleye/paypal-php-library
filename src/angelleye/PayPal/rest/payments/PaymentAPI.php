@@ -2,6 +2,35 @@
 
 namespace angelleye\PayPal\rest\payments;
 
+/**
+ *	An open source PHP library written to easily work with PayPal's API's
+ *	
+ *	Email:  service@angelleye.com
+ *  Facebook: angelleyeconsulting
+ *  Twitter: angelleye
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *
+ * @package			paypal-php-library
+ * @author			Andrew Angell <service@angelleye.com>
+ * @link			https://github.com/angelleye/paypal-php-library/
+ * @website			http://www.angelleye.com
+ * @support         http://www.angelleye.com/product/premium-support/
+ * @version			v2.0.4
+ * @filesource
+*/
+
 use PayPal\Api\Amount;
 use PayPal\Api\Address;
 use PayPal\Api\Authorization;
@@ -22,14 +51,40 @@ use PayPal\Api\RefundRequest;
 use PayPal\Api\Transaction;
 use \angelleye\PayPal\RestClass;
 
+/**
+ * PaymentAPI.
+ * This class is responsible for Payment APIs & bridge class between the REST API class and Angelleye PayPal Library.
+ *
+ * @package 		paypal-php-library
+ * @author			Andrew Angell <service@angelleye.com>
+ */
 class PaymentAPI extends RestClass {
 
+    /**
+     * Private vairable to fetch and return @PayPal\Rest\ApiContext object.
+     *
+     * @var \PayPal\Rest\ApiContext $_api_context 
+     */
     private $_api_context;
+
+    /**
+	 * Constructor
+	 *
+	 * @access	public
+	 * @param	mixed[]	$configArray Array structure providing config data
+	 * @return	void
+	 */
     public function __construct($configArray) {        
         parent::__construct($configArray);
         $this->_api_context = $this->get_api_context();
     }
 
+    /**
+     * Creates a sale, an authorized payment to be captured later, or an order. 
+     *
+     * @param array $requestData
+     * @return array|object
+     */
     public function payment_create($requestData) {
         try {
             // ### PaymentCard
@@ -150,6 +205,12 @@ class PaymentAPI extends RestClass {
         }
     }
 
+    /**
+     *  Creates a sale, an authorized payment to be captured later, or an order. 
+     *
+     * @param array $requestData
+     * @return array|object
+     */
     public function create_payment_with_paypal($requestData) {
 
         try {
@@ -270,6 +331,12 @@ class PaymentAPI extends RestClass {
         }
     }
 
+    /**
+     * Creates a sale, an authorized payment to be captured later, or an order with third party payment.
+     *
+     * @param array $requestData
+     * @return array|object
+     */
     public function create_payment_with_paypal_third_party($requestData){
         
         try {
@@ -400,7 +467,14 @@ class PaymentAPI extends RestClass {
         }
     }
 
-        public function create_payment_using_saved_card($requestData, $credit_card_id) {
+    /**
+     * Creates a sale, an authorized payment to be captured later, or an order with saved card details.
+     *
+     * @param array $requestData
+     * @param string $credit_card_id
+     * @return array|object
+     */
+    public function create_payment_using_saved_card($requestData, $credit_card_id) {
 
         try {
             ///$card = new CreditCard();
@@ -501,6 +575,12 @@ class PaymentAPI extends RestClass {
         }
     }
 
+    /**
+     * Shows details for an authorization, by ID.
+     *
+     * @param string $authorizationId
+     * @return array|object
+     */
     public function get_authorization($authorizationId) {
         try {
             $result = Authorization::get($authorizationId, $this->_api_context);            
@@ -514,6 +594,12 @@ class PaymentAPI extends RestClass {
         }
     }
 
+    /**
+     * Shows details for a payment, by ID.
+     *
+     * @param string $PaymentID
+     * @return array|object
+     */
     public function show_payment_details($PaymentID) {
         try {
             $payment = Payment::get($PaymentID, $this->_api_context);            
@@ -527,6 +613,12 @@ class PaymentAPI extends RestClass {
         }
     }
 
+    /**
+     * Lists payments that are completed.
+     *
+     * @param array $params
+     * @return array|object
+     */
     public function list_payments($params) {
         try {
             $payments = Payment::all(array_filter($params), $this->_api_context);
@@ -538,6 +630,13 @@ class PaymentAPI extends RestClass {
         }
     }
 
+    /**
+     * Captures and processes an authorization, by ID. 
+     *
+     * @param string $authorizationId
+     * @param array $amountArray
+     * @return array|object
+     */
     public function authorization_capture($authorizationId, $amountArray) {
         // # AuthorizationCapture
 
@@ -564,6 +663,12 @@ class PaymentAPI extends RestClass {
         }
     }
 
+    /**
+     * Voids, or cancels, an authorization, by ID. You cannot void a fully captured authorization.
+     *
+     * @param string $authorizationId
+     * @return array|object
+     */
     public function authorization_void($authorizationId) {
         // # VoidAuthorization
         try {
@@ -582,6 +687,12 @@ class PaymentAPI extends RestClass {
         }
     }
 
+    /**
+     * Captures and processes an authorization, by ID. 
+     *
+     * @param string $authorizationCaptureId
+     * @return array|object
+     */
     public function get_capture($authorizationCaptureId) {
         // # GetCapture       
         try {
@@ -596,6 +707,12 @@ class PaymentAPI extends RestClass {
         }
     }
 
+    /**
+     * Shows details for an order, by ID.
+     *
+     * @param string $orderId
+     * @return array|object
+     */
     public function get_order($orderId){        
         // #Get Order Sample        
         try {
@@ -610,6 +727,13 @@ class PaymentAPI extends RestClass {
         }
     }
 
+    /**
+     * Authorizes an order, by ID.
+     *
+     * @param string  $orderId
+     * @param array $amountArray
+     * @return array|object
+     */
     public function order_authorize($orderId,$amountArray){
         try {
             $order= new Order();
@@ -632,6 +756,13 @@ class PaymentAPI extends RestClass {
         }
     }
     
+    /**
+     * Captures a payment for an order, by ID. 
+     *
+     * @param string $orderId
+     * @param array $amountArray
+     * @return array|object
+     */
     public function order_capture($orderId,$amountArray){
         try {
             $order= new Order();
@@ -655,6 +786,12 @@ class PaymentAPI extends RestClass {
         }
     }
     
+    /**
+     * Voids, or cancels, an order, by ID. 
+     *
+     * @param string $orderId
+     * @return array|object
+     */
     public function order_void($orderId){
         try {            
             
@@ -673,6 +810,14 @@ class PaymentAPI extends RestClass {
         }        
     }
     
+    /**
+     * Refunds a captured payment, by ID.
+     *
+     * @param string $capture_id
+     * @param array $amountArray
+     * @param array $refundParameters
+     * @return array|object
+     */
     public function refund_capture($capture_id,$amountArray,$refundParameters){
         try {            
             
