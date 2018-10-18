@@ -31,6 +31,8 @@ namespace angelleye\PayPal;
  * @filesource
 */
 
+use PayPal\Common\PayPalModel;
+
 /**
  * RestClass
  * This class includes the common configuration functions for the REST APIs bridge classes.
@@ -39,8 +41,6 @@ namespace angelleye\PayPal;
  * @author			Andrew Angell <service@angelleye.com>
  */
 
-
-use PayPal\Common\PayPalModel;
 class RestClass extends PayPalModel
 {
     /**
