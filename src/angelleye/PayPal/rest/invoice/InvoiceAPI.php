@@ -2,6 +2,35 @@
 
 namespace angelleye\PayPal\rest\invoice;
 
+/**
+ *	An open source PHP library written to easily work with PayPal's API's
+ *	
+ *	Email:  service@angelleye.com
+ *  Facebook: angelleyeconsulting
+ *  Twitter: angelleye
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *
+ * @package			paypal-php-library
+ * @author			Andrew Angell <service@angelleye.com>
+ * @link			https://github.com/angelleye/paypal-php-library/
+ * @website			http://www.angelleye.com
+ * @support         http://www.angelleye.com/product/premium-support/
+ * @version			v2.0.4
+ * @filesource
+*/
+
 use PayPal\Api\Address;
 use PayPal\Api\Amount;
 use PayPal\Api\BillingInfo;
@@ -30,14 +59,40 @@ use PayPal\Api\TemplateSettings;
 use PayPal\Api\TemplateSettingsMetadata;
 use \angelleye\PayPal\RestClass;
 
+/**
+ * InvoiceAPI.
+ * This class is responsible for Invoice APIs & bridge class between the REST API class and Angelleye PayPal Library.
+ *
+ * @package 		paypal-php-library
+ * @author			Andrew Angell <service@angelleye.com>
+ */
 class InvoiceAPI extends RestClass {
 
+    /**
+     * Private vairable to fetch and return @PayPal\Rest\ApiContext object.
+     *
+     * @var \PayPal\Rest\ApiContext $_api_context 
+     */ 
     private $_api_context;
+
+    /**
+	 * Constructor
+	 *
+	 * @access	public
+	 * @param	mixed[]	$configArray Array structure providing config data
+	 * @return	void
+	 */
     public function __construct($configArray) {        
         parent::__construct($configArray);
         $this->_api_context = $this->get_api_context();
     }
     
+    /**
+     *  Creates an invoice. Include invoice details including merchant information in the request.
+     *
+     * @param Array $requestData
+     * @return Array|Object
+     */
     public function create_invoice($requestData){
             try {
                     $invoice = new Invoice();
@@ -220,6 +275,12 @@ class InvoiceAPI extends RestClass {
             }        
     }        
     
+    /**
+     * Lists some or all merchant invoices. Filters the response by any specified optional query string parameters.
+     *
+     * @param Array $params
+     * @return Array|Object
+     */
     public function list_invoice($params){
         try {
             
@@ -233,6 +294,12 @@ class InvoiceAPI extends RestClass {
         }
     }
 
+    /**
+     * Gets the details for a specified invoice, by ID.
+     *
+     * @param string $invoiceId
+     * @return Array|Object
+     */
     public function get_invoice($invoiceId){
         try {
             $invoice = Invoice::get($invoiceId, $this->_api_context);            
@@ -246,6 +313,14 @@ class InvoiceAPI extends RestClass {
         }
     }
     
+    /**
+     * Creates third party invoice on someone else's behalf.
+     * This requires using `Obtain User's Consent` to fetch the refresh token of the third party merchant.     
+     *  
+     * @param string $invoiceId
+     * @param string $refreshToken
+     * @return Array|Object
+     */
     public function get_third_party_invoice($invoiceId,$refreshToken){
         try {          
             $apiContext = $this->_api_context;
@@ -260,7 +335,14 @@ class InvoiceAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }
     }
-    
+
+    /**
+     * Cancels an invoice, by ID.
+     *
+     * @param Array $cancelNotification
+     * @param string $InvoiceID
+     * @return boolean
+     */
     public function cancel_invoice($cancelNotification,$InvoiceID){
         try {
             $notify = new CancelNotification();
@@ -281,6 +363,12 @@ class InvoiceAPI extends RestClass {
         }        
     }
     
+    /**
+     * Marks the status of a specified invoice, by ID, as refunded.
+     *
+     * @param Array $requestData
+     * @return Array|Object
+     */
     public function record_refund($requestData){
         try {
             $invoice  = new Invoice();
@@ -306,6 +394,13 @@ class InvoiceAPI extends RestClass {
         }
     }
 
+    /**
+     * Sends a reminder to the payer about an invoice, by ID.
+     *
+     * @param Array $remindNotification
+     * @param string $InvoiceID
+     * @return Array|Object
+     */
     public function remind_invoice($remindNotification,$InvoiceID){
         try {
             $invoice  = new Invoice();
@@ -324,6 +419,14 @@ class InvoiceAPI extends RestClass {
         }        
     }
     
+    /**
+     * Generate a QR code for an invoice by passing the invoice ID.
+     *
+     * @param Array $parameters
+     * @param string $InvoiceID
+     * @param string $path
+     * @return Array|Object
+     */
     public function retrieve_QR_code($parameters,$InvoiceID,$path){
         
         try{
@@ -336,6 +439,12 @@ class InvoiceAPI extends RestClass {
         }                
     }
     
+    /**
+     * Searches for an invoice or invoices. Include a search object that specifies your search criteria in the request.
+     *
+     * @param Array $parameters
+     * @return Array|Object
+     */
     public function search_invoices($parameters){
         
         try{ 
@@ -352,6 +461,12 @@ class InvoiceAPI extends RestClass {
         }        
     }
     
+    /**
+     * Fully updates an invoice, by ID.
+     *
+     * @param Array|Object $requestData
+     * @return Array|Object
+     */
     public function update_invoice($requestData){
         
         try {       
@@ -479,6 +594,12 @@ class InvoiceAPI extends RestClass {
         }
     }
 
+    /**
+     * Sends an invoice, by ID, to a customer. 
+     *
+     * @param string $invoiceId
+     * @return Array|Object
+     */
     public function send_invoice($invoiceId){
         try {
             $invoice = new Invoice();
@@ -497,6 +618,12 @@ class InvoiceAPI extends RestClass {
         }
     }
 
+    /**
+     * Deletes invoices in the DRAFT or SCHEDULED state, by ID. 
+     *
+     * @param string $invoiceId
+     * @return Array|Object
+     */
     public function delete_invoice($invoiceId){
         
         try{
@@ -514,6 +641,12 @@ class InvoiceAPI extends RestClass {
         }
     }
 
+    /**
+     * Generates the next invoice number that is available to the merchant.
+     * The next invoice number uses the prefix and suffix from the last invoice number and increments the number by one.
+     *
+     * @return Array|Object
+     */
     public function get_next_invoice_number(){
         try {
             $number = Invoice::generateNumber($this->_api_context);
@@ -527,6 +660,14 @@ class InvoiceAPI extends RestClass {
         }
     }
     
+    /**
+     *Marks the status of a specified invoice, by ID, as paid.
+     *
+     * @param string $invoiceId
+     * @param Array $record
+     * @param Array $amount
+     * @return Array|Object
+     */
     public function record_payment($invoiceId,$record,$amount){
         try{
             $invoice = new Invoice();
@@ -555,7 +696,12 @@ class InvoiceAPI extends RestClass {
         }        
     }
     
-    
+    /**
+     * Creates an invoice template.
+     *
+     * @param Array $requestData
+     * @return Array|Object
+     */
     public function create_invoice_template($requestData){
         
         try {
@@ -741,6 +887,12 @@ class InvoiceAPI extends RestClass {
         }
     }
     
+    /**
+     * Deletes a template, by ID.
+     *
+     * @param string $template_id
+     * @return Array|Object
+     */
     public function delete_invoice_template($template_id){
         try {
             $template = new Template();
@@ -756,6 +908,12 @@ class InvoiceAPI extends RestClass {
         }
     }
     
+    /**
+     * Lists merchant-created templates with associated details
+     *
+     * @param Array $fields
+     * @return Array|Object
+     */
     public function get_all_invoice_templates($fields){
         
         try {
@@ -770,6 +928,12 @@ class InvoiceAPI extends RestClass {
         }
     }
     
+    /**
+     * Shows details for a template, by ID.
+     *
+     * @param string $templateId
+     * @return Array|Object
+     */
     public function get_invoice_template($templateId){
         try {
             $template = Template::get($templateId, $this->_api_context);            
@@ -783,6 +947,13 @@ class InvoiceAPI extends RestClass {
         }
     }
 
+    /**
+     * Updates a template, by ID.
+     *
+     * @param string  $templateId
+     * @param Array $requestData
+     * @return Array|Object
+     */
     public function update_invoice_template($templateId,$requestData){
         try {
             $invoiceTemplateData = new TemplateData();    
@@ -969,6 +1140,12 @@ class InvoiceAPI extends RestClass {
         }
     }
     
+    /**
+     * Creates third party invoice on someone else's behalf.
+     *
+     * @param Array $requestData
+     * @return Array|Object
+     */
     public function create_thirdparty_invoice($requestData){
         try {
                     $invoice = new Invoice();
