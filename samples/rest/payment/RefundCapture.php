@@ -1,11 +1,5 @@
 <?php
-// #GetPaymentList
-// This sample code demonstrate how you can
-// retrieve a list of all Payment resources
-// you've created using the Payments API.
-// Note various query parameters that you can
-// use to filter, and paginate through the
-// payments list.
+// Refunds a captured payment, by ID. In the JSON request body, include an amount object.
 
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
