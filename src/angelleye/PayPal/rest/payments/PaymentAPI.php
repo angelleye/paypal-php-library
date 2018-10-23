@@ -845,6 +845,45 @@ class PaymentAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }
     }
+
+    /**
+     * Reauthorizes a PayPal account payment, by authorization ID. To ensure that funds are still available, reauthorize a payment after the initial three-day honor period. Supports only the `amount` request parameter.
+     * @param string $authorizationId
+     * @param array $amount
+     * @return array|object
+     */
+    public function reauthorization($authorizationId,$amount){
+        try {
+            $authorization = Authorization::get($authorizationId, $this->_api_context);
+            
+            $amt = new Amount();
+            $amt->setCurrency($amount['Currency'])
+                ->setTotal($amount['Total']);
+            if(isset($amount['Details'])){
+                $details = new Details();
+                $detailArray = $this->checkEmptyObject($amount['Details']);
+                if(!empty($detailArray)){
+                    $this->setArrayToMethods($detailArray, $details);
+                    $amt->setDetails($details);
+                }
+
+
+            }
+            
+            // ### Reauthorize with amount being reauthorized
+            $authorization->setAmount($amt);
+            $reAuthorization = $authorization->reauthorize($this->_api_context);
+            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['REAUTHORIZATION'] = $reAuthorization->toArray();
+            $returnArray['RAWREQUEST']=$authorization->toJSON();
+            $returnArray['RAWRESPONSE']=$reAuthorization->toJSON();
+            return $returnArray;
+            
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }        
+    }
     
     /**
      * Shows details for a sale, by ID. Returns only sales that were created through the REST API.
@@ -915,6 +954,7 @@ class PaymentAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }
     }
+       
     /**
      * Partially updates a payment, by ID. 
      * You can update the amount, shipping address, invoice ID, and custom data.
@@ -956,6 +996,4 @@ class PaymentAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }
     }
-    
-    
 }
