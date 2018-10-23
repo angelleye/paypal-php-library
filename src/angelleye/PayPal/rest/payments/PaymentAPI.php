@@ -844,4 +844,18 @@ class PaymentAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }
     }
+    
+    public function show_refund_details($refund_id){
+        try {
+            $refund = Refund::get($refund_id, $this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['REFUND'] = $refund->toArray();
+            $returnArray['RAWREQUEST']='{refund_id :'.$refund_id.'}';
+            $returnArray['RAWRESPONSE']=$refund->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+    
 }
