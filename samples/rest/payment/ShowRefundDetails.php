@@ -14,7 +14,7 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
-$refund_id ='8U6965136S7813607';  //The ID of the payment for which to show details.
+$refund_id ='8U6965136S7813607';  // The ID of the refund for which to show details.
 
 $returnArray = $PayPal->show_refund_details($refund_id);
 echo "<pre>";

@@ -845,6 +845,11 @@ class PaymentAPI extends RestClass {
         }
     }
     
+    /**
+     * 
+     * @param string $refund_id
+     * @return array|object
+     */
     public function show_refund_details($refund_id){
         try {
             $refund = Refund::get($refund_id, $this->_api_context);
