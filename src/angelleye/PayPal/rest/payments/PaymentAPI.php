@@ -865,6 +865,13 @@ class PaymentAPI extends RestClass {
         }
     }
     
+    /**
+     * 
+     * @param string $sale_id
+     * @param array $amount
+     * @param array $refundParameters
+     * @return array|object
+     */
     public function refund_sale($sale_id,$amount,$refundParameters){
         // Refund Sale       
         try {
