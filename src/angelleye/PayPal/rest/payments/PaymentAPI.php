@@ -48,6 +48,7 @@ use PayPal\Api\PaymentCard;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Refund;
 use PayPal\Api\RefundRequest;
+use PayPal\Api\Sale;
 use PayPal\Api\Transaction;
 use \angelleye\PayPal\RestClass;
 
@@ -846,6 +847,75 @@ class PaymentAPI extends RestClass {
     }
     
     /**
+     * Shows details for a sale, by ID. Returns only sales that were created through the REST API.
+     * @param string $sale_id
+     * @return array|object
+     */
+    public function get_sale($sale_id){
+        // # GetSale       
+        try {
+            $sale = Sale::get($sale_id, $this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['SALE'] = $sale->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$sale_id.'}';
+            $returnArray['RAWRESPONSE']=$sale->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+    
+    /**
+     * 
+     * @param string $sale_id
+     * @param array $amount
+     * @param array $refundParameters
+     * @return array|object
+     */
+    public function refund_sale($sale_id,$amount,$refundParameters){
+        // Refund Sale       
+        try {
+            
+            // ### Refund amount
+            // Includes both the refunded amount (to Payer) 
+            // and refunded fee (to Payee).
+            
+            $amt = new Amount();            
+            $amt->setCurrency($amount['Currency'])
+                ->setTotal($amount['Total']);
+            if(isset($amount['Details'])){
+                $details = new Details();
+                $detailArray = $this->checkEmptyObject($amount['Details']);
+                if(!empty($detailArray)){
+                    $this->setArrayToMethods($detailArray, $details);
+                    $amt->setDetails($details);
+                }
+            }
+            
+            // ### Refund object
+            $refundRequest = new RefundRequest();
+            $refundRequest->setAmount($amt);
+            
+            $requestArray = $this->checkEmptyObject($refundParameters);
+            if(!empty($requestArray)){
+                $this->setArrayToMethods($requestArray, $refundRequest);                
+            }
+                
+            $sale = new Sale();
+            $sale->setId($sale_id);
+            
+            $refundedSale = $sale->refundSale($refundRequest, $this->_api_context);
+
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['SALE'] = $refundedSale->toArray();
+            $returnArray['RAWREQUEST']=$refundRequest->toJSON();
+            $returnArray['RAWRESPONSE']=$sale->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+    /**
      * Partially updates a payment, by ID. 
      * You can update the amount, shipping address, invoice ID, and custom data.
      * You cannot update a payment after the payment executes.
@@ -886,5 +956,6 @@ class PaymentAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }
     }
+    
     
 }
