@@ -844,4 +844,36 @@ class PaymentAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }
     }
+    
+    public function reauthorization($authorizationId,$amount){
+        try {
+            $authorization = Authorization::get($authorizationId, $this->_api_context);
+            
+            $amt = new Amount();
+            $amt->setCurrency($amount['Currency'])
+                ->setTotal($amount['Total']);
+            if(isset($amount['Details'])){
+                $details = new Details();
+                $detailArray = $this->checkEmptyObject($amount['Details']);
+                if(!empty($detailArray)){
+                    $this->setArrayToMethods($detailArray, $details);
+                    $amt->setDetails($details);
+                }
+            }
+            
+            // ### Reauthorize with amount being reauthorized
+            $authorization->setAmount($amt);
+            $reAuthorization = $authorization->reauthorize($this->_api_context);
+            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['REAUTHORIZATION'] = $reAuthorization->toArray();
+            $returnArray['RAWREQUEST']=$authorization->toJSON();
+            $returnArray['RAWRESPONSE']=$reAuthorization->toJSON();
+            return $returnArray;
+            
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }        
+    }
+    
 }
