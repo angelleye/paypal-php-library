@@ -48,6 +48,7 @@ use PayPal\Api\PaymentCard;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Refund;
 use PayPal\Api\RefundRequest;
+use PayPal\Api\Sale;
 use PayPal\Api\Transaction;
 use \angelleye\PayPal\RestClass;
 
@@ -844,4 +845,24 @@ class PaymentAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }
     }
+    
+    /**
+     * Shows details for a sale, by ID. Returns only sales that were created through the REST API.
+     * @param string $sale_id
+     * @return array|object
+     */
+    public function get_sale($sale_id){
+        // # GetCapture       
+        try {
+            $sale = Sale::get($sale_id, $this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['SALE'] = $sale->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$sale_id.'}';
+            $returnArray['RAWRESPONSE']=$sale->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+    
 }
