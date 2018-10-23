@@ -845,6 +845,14 @@ class PaymentAPI extends RestClass {
         }
     }
     
+    /**
+     * Partially updates a payment, by ID. 
+     * You can update the amount, shipping address, invoice ID, and custom data.
+     * You cannot update a payment after the payment executes.
+     * @param string $paymentId
+     * @param array $patchArray
+     * @return array|object
+     */
     public function update_payment($paymentId,$patchArray){
         try {            
             $patchRequest = new \PayPal\Api\PatchRequest();

@@ -26,7 +26,8 @@ $patches = array();
 $array1 = array(
     "operation" => "replace",      // The operation to complete. Possible values: add, remove, replace, move, copy, test.
     "path" => "/transactions/0/amount",     // The JSON pointer to the target document location at which to complete the operation.
-    "value" => array(
+    "value" => array(                       // number,integer,string,boolean,null,array,object. The value to apply. The remove operation does not require a value.
+
         'total' => '33.00',
         'currency' => 'USD',
         'details' => array(
@@ -42,7 +43,7 @@ array_push($patches, $array1);
 $array2 = array(
     "operation" => "add",      // The operation to complete. Possible values: add, remove, replace, move, copy, test.
     "path" => "/transactions/0/item_list/shipping_address",     // The JSON pointer to the target document location at which to complete the operation.
-    "value" => array(
+    "value" => array(                               // number,integer,string,boolean,null,array,object. The value to apply. The remove operation does not require a value.
         'recipient_name' => 'Gruneberg, Anna',
         'line1' => '52 N Main St',
         'city' => 'San Jose',
