@@ -845,6 +845,12 @@ class PaymentAPI extends RestClass {
         }
     }
     
+    /**
+     * Reauthorizes a PayPal account payment, by authorization ID. To ensure that funds are still available, reauthorize a payment after the initial three-day honor period. Supports only the `amount` request parameter.
+     * @param string $authorizationId
+     * @param array $amount
+     * @return array|object
+     */
     public function reauthorization($authorizationId,$amount){
         try {
             $authorization = Authorization::get($authorizationId, $this->_api_context);
