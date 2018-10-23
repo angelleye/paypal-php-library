@@ -847,6 +847,24 @@ class PaymentAPI extends RestClass {
     }
 
     /**
+     * 
+     * @param string $refund_id
+     * @return array|object
+     */
+    public function show_refund_details($refund_id){
+        try {
+            $refund = Refund::get($refund_id, $this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['REFUND'] = $refund->toArray();
+            $returnArray['RAWREQUEST']='{refund_id :'.$refund_id.'}';
+            $returnArray['RAWRESPONSE']=$refund->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+    
+    /**
      * Reauthorizes a PayPal account payment, by authorization ID. To ensure that funds are still available, reauthorize a payment after the initial three-day honor period. Supports only the `amount` request parameter.
      * @param string $authorizationId
      * @param array $amount
