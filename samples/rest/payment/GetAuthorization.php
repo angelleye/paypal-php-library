@@ -12,7 +12,7 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
-$authorizationId='58B53376HV961062K';                  //The Authorization ID of the payment for which to show details.
+$authorizationId='37F85749FN9121741';                  //The Authorization ID of the payment for which to show details.
 
 $returnArray = $PayPal->get_authorization($authorizationId);
 echo "<pre>";

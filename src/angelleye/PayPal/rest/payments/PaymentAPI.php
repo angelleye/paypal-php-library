@@ -844,4 +844,47 @@ class PaymentAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }
     }
+    
+    /**
+     * Partially updates a payment, by ID. 
+     * You can update the amount, shipping address, invoice ID, and custom data.
+     * You cannot update a payment after the payment executes.
+     * @param string $paymentId
+     * @param array $patchArray
+     * @return array|object
+     */
+    public function update_payment($paymentId,$patchArray){
+        try {            
+            $patchRequest = new \PayPal\Api\PatchRequest();
+            $payment = new Payment();
+            $payment->setId($paymentId);            
+                   
+            $array1 = array();
+            foreach ($patchArray as $value){
+                $pathOperation = new \PayPal\Api\Patch();
+                $ob=json_decode(json_encode($value['value']));
+                $pathOperation->setOp($value['operation'])
+                                 ->setPath($value['path'])
+                                 ->setValue($ob);                
+                $array1[] = $pathOperation;
+            }            
+            $patchRequest->setPatches($array1);                         
+            $output = $payment->update($patchRequest, $this->_api_context);     
+            if($output == true){
+                $result = Payment::get($payment->getId(), $this->_api_context);
+                $returnArray['RESULT'] = 'Success';
+                $returnArray['PAYMENT'] = $result->toArray();
+                $returnArray['RAWREQUEST']=$patchRequest->toJSON();
+                $returnArray['RAWRESPONSE']=$output;
+            }
+            else{
+                $returnArray['RESULT'] = 'Failed';
+                $returnArray['RETURN'] = $output;
+            }
+            return $returnArray;                                  
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+    
 }

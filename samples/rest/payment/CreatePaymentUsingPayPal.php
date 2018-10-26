@@ -95,4 +95,5 @@ $requestData = array(
 );
 
 $returnArray = $PayPal->create_payment_with_paypal($requestData);
+echo "<pre>";
 print_r($returnArray);
