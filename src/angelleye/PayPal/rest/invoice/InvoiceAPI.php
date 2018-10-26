@@ -246,6 +246,21 @@ class InvoiceAPI extends RestClass {
         }
     }
     
+    public function get_third_party_invoice($invoiceId,$refreshToken){
+        try {          
+            $apiContext = $this->_api_context;
+            $apiContext->getCredential()->updateAccessToken($apiContext->getConfig(), $refreshToken);
+            $invoice = Invoice::get($invoiceId, $this->_api_context);            
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['INVOICE'] = $invoice->toArray();
+            $returnArray['RAWREQUEST']='{id:'.$invoiceId.'}';
+            $returnArray['RAWRESPONSE']=$invoice->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+    
     public function cancel_invoice($cancelNotification,$InvoiceID){
         try {
             $notify = new CancelNotification();
