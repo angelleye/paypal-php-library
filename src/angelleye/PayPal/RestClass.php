@@ -26,7 +26,24 @@ class RestClass extends PayPalModel
                 )
         );
     }
-        
+    
+    public function set_paypal_request_id($source){
+        $this->_api_context->setConfig(array('http.headers.PayPal-Request-Id' => $source));
+    }    
+    
+    /*
+     *  Method set_prefer
+     *  Indicates how the client expects the server to process this request.
+     *  To process the request asynchronously, set this header to respond-async.
+     *  If you omit this header, the API processes the request synchronously.
+     *  For synchronous processing the application may levy additional checks on the number of supported items
+     *  in the request and may fail the request if those limits are breached.
+     */
+    
+    public function set_prefer($source){
+        $this->_api_context->setConfig(array('http.headers.Prefer' => $source));
+    }
+
     public function checkEmptyObject($array){
         $filter_array = array_filter($array);
         if(count($filter_array) > 0){
