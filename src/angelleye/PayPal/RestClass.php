@@ -18,6 +18,13 @@ class RestClass extends PayPalModel
     
     public function set_partner_attribution_id($source){
         $this->_api_context->setConfig(array('http.headers.PayPal-Partner-Attribution-Id' => $source));
+        $this->_api_context->setConfig(
+                array(
+                  'log.LogEnabled' => true,
+                  'log.FileName' => 'F:\xampp\htdocs\PayPal.log',
+                  'log.LogLevel' => 'DEBUG'
+                )
+        );
     }
         
     public function checkEmptyObject($array){
