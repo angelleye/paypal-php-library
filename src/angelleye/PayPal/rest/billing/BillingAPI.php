@@ -2,6 +2,35 @@
 
 namespace angelleye\PayPal\rest\billing;
 
+/**
+ *	An open source PHP library written to easily work with PayPal's API's
+ *	
+ *	Email:  service@angelleye.com
+ *  Facebook: angelleyeconsulting
+ *  Twitter: angelleye
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *
+ * @package			paypal-php-library
+ * @author			Andrew Angell <service@angelleye.com>
+ * @link			https://github.com/angelleye/paypal-php-library/
+ * @website			http://www.angelleye.com
+ * @support         http://www.angelleye.com/product/premium-support/
+ * @version			v2.0.4
+ * @filesource
+*/
+
 use PayPal\Api\Agreement;
 use PayPal\Api\AgreementStateDescriptor;
 use PayPal\Api\ChargeModel;
@@ -19,14 +48,40 @@ use PayPal\Common\PayPalModel;
 use PayPal\Api\ShippingAddress;
 use \angelleye\PayPal\RestClass;
 
+/**
+ * BillingAPI.
+ * This class is responsible for Billing agreement and plan APIs & bridge class between the REST API class and Angelleye PayPal Library.
+ *
+ * @package 		paypal-php-library
+ * @author			Andrew Angell <service@angelleye.com>
+ */
 class BillingAPI extends RestClass {    
-    
+        
+    /**
+     * Private vairable to fetch and return @PayPal\Rest\ApiContext object.
+     *
+     * @var \PayPal\Rest\ApiContext $_api_context 
+     */
     private $_api_context;
+
+    /**
+	 * Constructor
+	 *
+	 * @access	public
+	 * @param	mixed[]	$configArray Array structure providing config data
+	 * @return	void
+	 */
     public function __construct($configArray) {        
         parent::__construct($configArray);
         $this->_api_context = $this->get_api_context();
     }
     
+    /**
+     * Creates a billing plan.
+     *
+     * @param Array $requestData
+     * @return Array|Object
+     */
     public function create_plan($requestData){
         
         // ### Create Plan
@@ -85,6 +140,12 @@ class BillingAPI extends RestClass {
         }
     }
 
+    /**
+     * Shows details for a billing plan, by ID.
+     *
+     * @param string $planId
+     * @return Array|Object
+     */
     public function get_plan($planId){
         try {
             $plan = Plan::get($planId, $this->_api_context);
@@ -98,6 +159,13 @@ class BillingAPI extends RestClass {
         }
     }
     
+    /**
+     * Lists billing plans.
+     * To filter the plans that appear in the response, specify one or more optional query and pagination parameters.
+     *
+     * @param Array $parameters
+     * @return Array|Object
+     */
     public function list_plan($parameters){
             try {
                 $planList = Plan::all(array_filter($parameters), $this->_api_context);                
@@ -111,6 +179,14 @@ class BillingAPI extends RestClass {
             }        
     }
     
+    /**
+     * Updates fields in a billing plan, by ID.
+     *
+     * @param string $planId
+     * @param Array $items
+     * @param string $state
+     * @return Array|Object
+     */
     public function update_plan($planId,$items,$state){       
         try {
             
@@ -140,6 +216,12 @@ class BillingAPI extends RestClass {
         }
     }
     
+    /**
+     * Deletes a plan by ID.
+     *
+     * @param string $planId
+     * @return Array|Object
+     */
     public function delete_plan($planId){
         try {
              $createdPlan = new Plan();
@@ -155,6 +237,12 @@ class BillingAPI extends RestClass {
         }
     }
 
+    /**
+     * Creates billing agreement with creditcard.
+     *
+     * @param Array $requestData
+     * @return Array|Object
+     */
     public function create_billing_agreement_with_creditcard($requestData){
         
         $agreement = new Agreement();
@@ -215,6 +303,12 @@ class BillingAPI extends RestClass {
         }
     }
 
+    /**
+     * Creates billing agreement with PayPal.
+     *
+     * @param Array $requestData
+     * @return Array|Object
+     */
     public function create_billing_agreement_with_paypal($requestData){
         
         $agreement = new Agreement();
@@ -262,6 +356,12 @@ class BillingAPI extends RestClass {
         }
     }
 
+    /**
+     * Shows details for a billing agreement, by ID.
+     *
+     * @param string $agreementId
+     * @return Array|Object
+     */
     public function get_billing_agreement($agreementId){
         try {
             $agreement = Agreement::get($agreementId, $this->_api_context);            
@@ -275,6 +375,13 @@ class BillingAPI extends RestClass {
         }
     }
     
+    /**
+     * Bills the balance for an agreement, by ID
+     *
+     * @param string $agreementId
+     * @param string $note
+     * @return Array|Object
+     */
     public function bill_agreement_balance($agreementId,$note){
         try {            
             $agreementStateDescriptor = new AgreementStateDescriptor();
@@ -294,6 +401,13 @@ class BillingAPI extends RestClass {
         }
     }
     
+    /**
+     * Sets the balance for an agreement, by ID.
+     *
+     * @param string $agreementId
+     * @param Array $amountArray
+     * @return Array|Object
+     */
     public function set_agreement_balance($agreementId,$amountArray){
         try {            
             
@@ -316,7 +430,14 @@ class BillingAPI extends RestClass {
         }
     }
 
-    public function suspend_billing_agreement($agreementId,$note){       
+    /**
+     * Suspends a billing agreement, by ID.
+     *
+     * @param string $agreementId
+     * @param string $note
+     * @return Array|Object
+     */
+    public function suspend_billing_agreement($agreementId,$note){
         try {
             //Create an Agreement State Descriptor, explaining the reason to suspend.
             $agreementStateDescriptor = new AgreementStateDescriptor();
@@ -337,6 +458,13 @@ class BillingAPI extends RestClass {
         }
     }
     
+    /**
+     * Reactivates a suspended billing agreement, by ID.
+     *
+     * @param string $agreementId
+     * @param string $note
+     * @return Array|Object
+     */
     public function reactivate_billing_agreement($agreementId,$note){
         try {
             
@@ -358,6 +486,13 @@ class BillingAPI extends RestClass {
         }        
     }
 
+    /**
+     * List transactions for a billing agreement by passing the ID of the agreement, as well as the start and end dates of the range of transactions to list, to the request URI.
+     *
+     * @param [type] $agreementId
+     * @param [type] $params  Parameters for search string.
+     * @return Array|Object
+     */
     public function search_billing_transactions($agreementId,$params){                
         try {
             $result = Agreement::searchTransactions($agreementId, $params, $this->_api_context);            
@@ -371,6 +506,13 @@ class BillingAPI extends RestClass {
         }                
     }
     
+    /**
+     * Updates details of a billing agreement, by ID.
+     *
+     * @param string $agreementId
+     * @param Array $agreement
+     * @return void
+     */
     public function update_billing_agreement($agreementId,$agreement){
 
         if(count(array_filter($agreement['shipping_address'])) == 0){
@@ -402,6 +544,13 @@ class BillingAPI extends RestClass {
         }
     }
 
+    /**
+     * Cancels a billing agreement, by ID.
+     *
+     * @param string $agreementId
+     * @param string $note
+     * @return boolean
+     */
     public function cancel_billing_agreement($agreementId,$note){
         try {
             
