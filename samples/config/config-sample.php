@@ -144,3 +144,4 @@ $print_headers = false;
  */
 $log_results = false;
 $log_path = $_SERVER['DOCUMENT_ROOT'].'/logs/';
+$log_level = 'DEBUG';        // Sandbox Mode : DEBUG, INFO, WARNING, ERROR. ||  Live Mode : INFO, WARNING, ERROR
