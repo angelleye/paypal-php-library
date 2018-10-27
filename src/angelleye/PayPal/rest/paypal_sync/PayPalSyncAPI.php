@@ -74,7 +74,7 @@ class PayPalSyncAPI extends RestClass {
             $requestArray = json_encode($params);
             $disputes = PayPalSyncClass::transactions($params, $this->_api_context);
             $returnArray['RESULT'] = 'Success';
-            $returnArray['DISPUTES'] = $disputes->toArray();
+            $returnArray['TRANSACTIONS'] = $disputes->toArray();
             $returnArray['RAWREQUEST'] = $requestArray;
             $returnArray['RAWRESPONSE'] = $disputes->toJSON();
             return $returnArray;
