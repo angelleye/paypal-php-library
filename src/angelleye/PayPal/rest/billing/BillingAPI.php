@@ -392,7 +392,7 @@ class BillingAPI extends RestClass {
             $agreement->setId($agreementId);
             $output = $agreement->billBalance($agreementStateDescriptor, $this->_api_context);
             $returnArray['RESULT'] = 'Success';  
-            $returnArray['AGREEMENT']= $output;
+            $returnArray['BILL_AGREEMENT_BALANCE']= $output;
             $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
             return $returnArray;
@@ -421,7 +421,7 @@ class BillingAPI extends RestClass {
             $output = $agreement->setBalance($Currency,$this->_api_context);
             
             $returnArray['RESULT'] = 'Success';  
-            $returnArray['AGREEMENT']= $output;
+            $returnArray['AGREEMENT_BALANCE']= $output;
             $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
             return $returnArray;
@@ -497,7 +497,7 @@ class BillingAPI extends RestClass {
         try {
             $result = Agreement::searchTransactions($agreementId, $params, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';            
-            $returnArray['TRANSACTIONS'] = $result->toArray();
+            $returnArray['BILLING_TRANSACTIONS'] = $result->toArray();
             $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';
             $returnArray['RAWRESPONSE']=$result->toJSON();
             return $returnArray;             

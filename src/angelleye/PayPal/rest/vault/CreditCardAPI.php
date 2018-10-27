@@ -113,7 +113,7 @@ class CreditCardAPI extends RestClass {
             $requestArray = json_encode($params);
             $cards = $creditCard->all($params, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';
-            $returnArray['cards'] = $cards->toArray();
+            $returnArray['CARDS'] = $cards->toArray();
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$cards->toJSON();
             return $returnArray;            
@@ -155,7 +155,7 @@ class CreditCardAPI extends RestClass {
             $creditCard->setId($requestData['credit_card_id']);            
             $result = $creditCard->delete($this->_api_context);
             $returnArray['RESULT'] = 'Success';
-            $returnArray['response']=$result;
+            $returnArray['DELETE']=$result;
             $returnArray['RAWREQUEST']=$creditCard->toJSON();
             $returnArray['RAWRESPONSE']=$result;
             return $returnArray;
