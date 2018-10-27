@@ -1,5 +1,5 @@
 <?php
-
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 
@@ -41,11 +41,11 @@ $return_shipping_address = array(
 );
 
 $parameters = array(
-    'note' => 'Offer refund with replacement item.',     // The merchant's notes about the claim. PayPal can, but the customer cannot, view these notes. Minimum length: 1. Maximum length: 2000.   
-    'offer_amount' => array_filter($offer_amount),                     // The amount proposed to resolve the dispute.
-    'offer_type' => 'REFUND_WITH_REPLACEMENT',           // The type of offer that the merchant proposes for the dispute. The allowed values are: REFUND | REFUND_WITH_RETURN | REFUND_WITH_REPLACEMENT
-    'invoice_id' => '',                                  // The merchant-provided ID of the invoice for the refund. This optional value maps the refund to an invoice ID in the merchant's system.
-    'return_shipping_address' => array_filter($return_shipping_address)  // The return address for the item. Required when the customer must return an item to the merchant for the MERCHANDISE_OR_SERVICE_NOT_AS_DESCRIBED dispute reason, especially if the refund amount is less than the dispute amount.
+    'note' => 'Offer refund with replacement item.',                    // The merchant's notes about the claim. PayPal can, but the customer cannot, view these notes. Minimum length: 1. Maximum length: 2000.   
+    'offer_amount' => array_filter($offer_amount),                      // The amount proposed to resolve the dispute.
+    'offer_type' => 'REFUND_WITH_REPLACEMENT',                          // The type of offer that the merchant proposes for the dispute. The allowed values are: REFUND | REFUND_WITH_RETURN | REFUND_WITH_REPLACEMENT
+    'invoice_id' => '',                                                 // The merchant-provided ID of the invoice for the refund. This optional value maps the refund to an invoice ID in the merchant's system.
+    'return_shipping_address' => array_filter($return_shipping_address) // The return address for the item. Required when the customer must return an item to the merchant for the MERCHANDISE_OR_SERVICE_NOT_AS_DESCRIBED dispute reason, especially if the refund amount is less than the dispute amount.
 );
 
 $response = $PayPal->disputes_make_offer($dispute_id,$parameters);  

@@ -1,4 +1,5 @@
 <?php
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 
@@ -24,8 +25,6 @@ $agreement = array(
         "state" => 'CA',                                            // 2 letter code for US states, and the equivalent for other countries.        
     )
 );
-
-
 
 $returnArray = $PayPal->update_billing_agreement($agreement_id,$agreement);
 echo "<pre>";

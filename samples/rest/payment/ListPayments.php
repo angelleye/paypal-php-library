@@ -7,6 +7,7 @@
 // use to filter, and paginate through the
 // payments list.
 
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 

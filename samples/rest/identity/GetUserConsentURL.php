@@ -1,5 +1,5 @@
 <?php
-
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 
@@ -30,13 +30,14 @@ $requestData = array(
 );
         
 $returnArray = $PayPal->GetUserConsentURL($requestData);
+
 echo "<pre>";
 print_r($returnArray);
 echo "</pre>";
+
 if($sandbox){
 echo '<a href="https://www.sandbox.paypal.com'.$returnArray['AuthorizationUrl'].'" >Click Here to Obtain User Consent</a>';
 }
 else{
     echo '<a href="https://www.paypal.com'.$returnArray['AuthorizationUrl'].'" >Click Here to Obtain User Consent</a>';
 }
-?>

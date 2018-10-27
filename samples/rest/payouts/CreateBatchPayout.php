@@ -1,15 +1,15 @@
 <?php
-
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 
 $configArray = array(
-                'ClientID' => $rest_client_id,
-                'ClientSecret' => $rest_client_secret,
-                'LogResults' => $log_results, 
-                'LogPath' => $log_path,
-                'LogLevel' => $log_level  
-                );
+    'ClientID' => $rest_client_id,
+    'ClientSecret' => $rest_client_secret,
+    'LogResults' => $log_results,
+    'LogPath' => $log_path,
+    'LogLevel' => $log_level
+);
 
 $PayPal = new \angelleye\PayPal\rest\payouts\PayoutsAPI($configArray);
 
@@ -19,8 +19,8 @@ $batchHeader = array(
 );
 
 $amount = array(
-    'currency' => 'USD',                                    // Required. 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/). PayPal does not support all currencies. 
-    'value'    => '4',                                      // Required. Total amount charged from the payer to the payee. In case of a refund, this is the refunded amount to the original payer from the payee. 10 characters max with support for 2 decimal places. 
+    'currency' => 'USD',                                            // Required. 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/). PayPal does not support all currencies. 
+    'value'    => '4',                                              // Required. Total amount charged from the payer to the payee. In case of a refund, this is the refunded amount to the original payer from the payee. 10 characters max with support for 2 decimal places. 
 );
 
 $PayoutItem = array();
@@ -34,10 +34,10 @@ $PayoutItem1 = array(
     //  Note: The PayPal sandbox does not support the PHONE recipient type.
     //  PAYPAL_ID Encrypted PayPal account number.
     
-    'RecipientType' => 'EMAIL',                                 // Valid values: EMAIL | PHONE | PAYPAL_ID.      
+    'RecipientType' => 'EMAIL',                                    // Valid values: EMAIL | PHONE | PAYPAL_ID.      
     'Note'          => 'Thanks for your patronage! TJ',            // Optional. A sender-specified note for notifications. Value is any string value. Maximum length: 4000.
-    'Receiver'      => 'tejasm-buyer@itpathsolutions.co.in',    // The receiver of the payment. Corresponds to the recipient_type value in the request. Maximum length: 127.
-    'SenderItemId'  => uniqid(),                         // A sender-specified ID number. Tracks the batch payout in an accounting system. Maximum length: 30.    
+    'Receiver'      => 'tejasm-buyer@itpathsolutions.co.in',       // The receiver of the payment. Corresponds to the recipient_type value in the request. Maximum length: 127.
+    'SenderItemId'  => uniqid(),                                   // A sender-specified ID number. Tracks the batch payout in an accounting system. Maximum length: 30.    
 );
 
 array_push($PayoutItem, $PayoutItem1);
@@ -52,9 +52,9 @@ $PayoutItem2 = array(
     //  PAYPAL_ID Encrypted PayPal account number.
     
     'RecipientType' => 'EMAIL',                                 // Valid values: EMAIL | PHONE | PAYPAL_ID.      
-    'Note'          => 'Thanks for your patronage! TJ',            // Optional. A sender-specified note for notifications. Value is any string value. Maximum length: 4000.
-    'Receiver'      => 'kiritpatel571989-buyer@ymail.com',    // The receiver of the payment. Corresponds to the recipient_type value in the request. Maximum length: 127.
-    'SenderItemId'  => uniqid(),                         // A sender-specified ID number. Tracks the batch payout in an accounting system. Maximum length: 30.    
+    'Note'          => 'Thanks for your patronage! TJ',         // Optional. A sender-specified note for notifications. Value is any string value. Maximum length: 4000.
+    'Receiver'      => 'kiritpatel571989-buyer@ymail.com',      // The receiver of the payment. Corresponds to the recipient_type value in the request. Maximum length: 127.
+    'SenderItemId'  => uniqid(),                                // A sender-specified ID number. Tracks the batch payout in an accounting system. Maximum length: 30.    
 );
 
 array_push($PayoutItem, $PayoutItem2);
@@ -64,8 +64,10 @@ $requestData=array(
     "amount"      => $amount,
     "PayoutItem"  => $PayoutItem
 );
+
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
 $PayPalResult = $PayPal->create_batch_payout($requestData);
+
 // Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";
 print_r($PayPalResult);

@@ -1,9 +1,9 @@
 <?php
 
-/*
+/**
  *  Note : To make this call, the dispute status must be UNDER_REVIEW.   
  */
-
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 
@@ -26,7 +26,6 @@ $dispute_id  = 'PP-D-5615';   // The ID of the dispute for which to accept a cla
 $parameters = array(
     'adjudication_outcome' => 'SELLER_FAVOR',   // The allowed values are: BUYER_FAVOR and SELLER_FAVOR The outcome of the adjudication. 
 );
-
 
 $response = $PayPal->settle_dispute($dispute_id,$parameters);  
 

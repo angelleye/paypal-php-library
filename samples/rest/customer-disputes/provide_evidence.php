@@ -1,5 +1,5 @@
 <?php
-
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 
@@ -45,24 +45,24 @@ $dispute_id  = 'PP-D-5617';   // The ID of the dispute for which to accept a cla
 
 
 $tracking_info = array(
-    'carrier_name' => 'FEDEX',       // The name of the carrier for the shipment of the transaction for this dispute.
-    'carrier_name_other' => '', // This field capture the name of carrier in free form text for unavailable carriers from existing list.
-    'tracking_url' => '',       // The URL to track the dispute-related transaction shipment.
-    'tracking_number' => '122533485'     // The number to track the dispute-related transaction shipment.
+    'carrier_name' => 'FEDEX',                  // The name of the carrier for the shipment of the transaction for this dispute.
+    'carrier_name_other' => '',                 // This field capture the name of carrier in free form text for unavailable carriers from existing list.
+    'tracking_url' => '',                       // The URL to track the dispute-related transaction shipment.
+    'tracking_number' => '122533485'            // The number to track the dispute-related transaction shipment.
 );
 
 $refund_ids =array(
-    'refund_id' => ''           // The ID of the refunded transaction.
+    'refund_id' => ''                           // The ID of the refunded transaction.
 );
 
 $evidence_info = array(
-    'tracking_info' => $tracking_info,       // An array of relevant tracking information for the transaction involved in this dispute.
-    'refund_ids' => $refund_ids              // An array of refund IDs for the transaction involved in this dispute.    
+    'tracking_info' => $tracking_info,          // An array of relevant tracking information for the transaction involved in this dispute.
+    'refund_ids' => $refund_ids                 // An array of refund IDs for the transaction involved in this dispute.    
 );
 
 $documents = array(
-    'name' => '',        // The document name.
-    'size' => ''         // The document size.
+    'name' => '',                               // The document name.
+    'size' => ''                                // The document size.
 );
 
 $evidences = array(
@@ -74,7 +74,7 @@ $evidences = array(
 );
 
 $parameters = array(
-    'evidences' => $evidences,   // An array of evidences for the dispute.
+    'evidences' => $evidences,                  // An array of evidences for the dispute.
 );
 
 $response = $PayPal->disputes_provide_evidence($dispute_id,$parameters);  

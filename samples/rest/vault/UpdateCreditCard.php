@@ -1,15 +1,15 @@
 <?php
-
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 
 $configArray = array(
-                'ClientID' => $rest_client_id,
-                'ClientSecret' => $rest_client_secret,
-                'LogResults' => $log_results, 
-                'LogPath' => $log_path,
-                'LogLevel' => $log_level  
-                );
+    'ClientID' => $rest_client_id,
+    'ClientSecret' => $rest_client_secret,
+    'LogResults' => $log_results,
+    'LogPath' => $log_path,
+    'LogLevel' => $log_level
+);
 
 $PayPal = new \angelleye\PayPal\rest\vault\CreditCardAPI($configArray);
 $credit_card_id='CARD-0RN52408SM961693DLCOBNXA';             //Required.The credit_card_id is the ID of the stored credit card. 
@@ -81,6 +81,7 @@ $requestData = array(
 );
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
 $PayPalResult = $PayPal->UpdateCreditCard($requestData,$credit_card_id);
+
 // Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";
 print_r($PayPalResult);

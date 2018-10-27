@@ -1,7 +1,8 @@
 <?php
-
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
+
 $configArray = array(
     'ClientID' => $rest_client_id,
     'ClientSecret' => $rest_client_secret,
@@ -12,7 +13,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\customerdisputes\CustomerDisputesAPI($configArray);
 
-/*
+/**
  *  Note for parameter : You can specify either but not both 
  *  the start_time and disputed_transaction_id query parameter. 
  *  If you omit the start time, default is the current date and time.

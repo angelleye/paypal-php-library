@@ -1,18 +1,17 @@
 <?php
-
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 
 $configArray = array(
-                'ClientID' => $rest_client_id,
-                'ClientSecret' => $rest_client_secret,
-                'LogResults' => $log_results, 
-                'LogPath' => $log_path,
-                'LogLevel' => $log_level  
-                );
+    'ClientID' => $rest_client_id,
+    'ClientSecret' => $rest_client_secret,
+    'LogResults' => $log_results, 
+    'LogPath' => $log_path,
+    'LogLevel' => $log_level  
+);
 
 $PayPal = new \angelleye\PayPal\rest\notifications\NotificationsAPI($configArray);
-
 
 $params =array(
     'auth_algo' => '',          // The algorithm that PayPal uses to generate the signature and that you can use to verify the signature. Extract this value from the PAYPAL-AUTH-ALGO response header, which is received with the webhook notification.

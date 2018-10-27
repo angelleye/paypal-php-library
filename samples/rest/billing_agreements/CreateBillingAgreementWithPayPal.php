@@ -1,5 +1,5 @@
 <?php
-
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 
@@ -23,10 +23,9 @@ $agreement = array(
 );
 
 // Payerinfo is Required.
-
 $payer =array(
     "PaymentMethod" => 'paypal',                         // Valid Values: ["credit_card", "bank", "paypal", "pay_upon_invoice", "carrier", "alternate_payment"]. Payment method being used - PayPal Wallet payment, Bank Direct Debit  or Direct Credit card.    
-    "AccountType" => ''                                       // Valid Values: ["BUSINESS", "PERSONAL", "PREMIER"]. Type of account relationship payer has with PayPal. 
+    "AccountType" => ''                                  // Valid Values: ["BUSINESS", "PERSONAL", "PREMIER"]. Type of account relationship payer has with PayPal. 
 );
 
 $shippingAddress = array(
@@ -38,7 +37,6 @@ $shippingAddress = array(
     "State" => 'CA',                                            // 2 letter code for US states, and the equivalent for other countries.
     "NormalizationStatus" => ''                                 // Valid Values: ["UNKNOWN", "UNNORMALIZED_USER_PREFERRED", "NORMALIZED", "UNNORMALIZED"]. Address normalization status    
 );
-
 
 $requestData = array(
         "planId"          => $planId,
