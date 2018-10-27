@@ -1,9 +1,14 @@
 <?php
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
+
 $configArray = array(
     'ClientID' => $rest_client_id,
-    'ClientSecret' => $rest_client_secret
+    'ClientSecret' => $rest_client_secret,
+    'LogResults' => $log_results, 
+    'LogPath' => $log_path,
+    'LogLevel' => $log_level  
 );
 $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
@@ -18,6 +23,7 @@ $InvoiceID = '';                                // Required. Specify the ID of t
 $path = '';                                     // Path to save Image.
 
 $returnArray = $PayPal->retrieve_QR_code($parameters,$InvoiceID,$path);
+
 echo "<pre>";
 print_r($returnArray);
 echo '<img src="data:image/png;base64,'. $returnArray['Image']. '" alt="Invoice QR Code" />';

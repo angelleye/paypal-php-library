@@ -1,9 +1,14 @@
 <?php
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
+
 $configArray = array(
     'ClientID' => $rest_client_id,
-    'ClientSecret' => $rest_client_secret
+    'ClientSecret' => $rest_client_secret,
+    'LogResults' => $log_results, 
+    'LogPath' => $log_path,
+    'LogLevel' => $log_level  
 );
 $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
@@ -26,7 +31,6 @@ $parameters = array(
     'total_count_required'    => '',             // Indicates whether the total count appears in the response. Default is `false`.    
     'archived'                => '',             // A flag indicating whether search is on invoices archived by merchant. true - returns archived / false returns unarchived / null returns all.    
 );
-
 
 $returnArray = $PayPal->search_invoices($parameters);
 echo "<pre>";
