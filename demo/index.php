@@ -284,7 +284,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="Express Checkout Shipped Items + Recurring Payment"
-                                                src="assets/images/express-checkout-shipped-items-recurring-payments.png">
+                                                src="assets/images/express-checkout-shipped-items-recurring-payments.jpg">
                         <?php
                         $DIR = '\express-checkout-shipped-items-recurring-payments';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
