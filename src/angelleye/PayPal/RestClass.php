@@ -64,10 +64,18 @@ class RestClass extends PayPalModel
             new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'], $configArray['ClientSecret'])
         );
         $this->set_partner_attribution_id('AngellEYE_PHPClass');
+        $path = '';
+        if (isset($configArray['LogPath'])){
+            $path = $configArray['LogPath'].'/PayPal.log';
+            if (!file_exists($path)) {
+                fopen($path, 'w');
+            }
+        }
+
         $this->_api_context->setConfig(
                 array(
                   'log.LogEnabled' => isset($configArray['LogResults']) ? $configArray['LogResults'] : false,
-                  'log.FileName' => isset($configArray['LogPath']) ? $configArray['LogPath'] : '/logs',
+                  'log.FileName' => $path,
                   'log.LogLevel' => isset($configArray['LogLevel']) ? $configArray['LogPath'] : 'INFO'
                 )
         );
