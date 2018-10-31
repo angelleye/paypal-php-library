@@ -209,11 +209,11 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="thumbnail"><img alt="Website Payments Pro 30 Basic"
+                    <div class="thumbnail"><img alt="Website Payments Pro 3.0 Basic"
                                                 src="assets/images/paypal-express-website-payments-pro-3-0.jpg">
                         <div class="caption">
-                            <h3>Website Payments Pro 30 Basic</h3>
-                            <h4>Website Payments Pro 30 Basic</h4>
+                            <h3>Website Payments Pro 3.0 Basic</h3>
+                            <h4>Website Payments Pro 3.0 Basic</h4>
                             <p>Learn how to implement Website Payments Pro 30 Basic. This includes the option for
                                 embedded payments.</p>
                             <?php
