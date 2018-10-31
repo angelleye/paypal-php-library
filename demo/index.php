@@ -47,19 +47,24 @@
             <div class="jumbotron well">
                 <h2> PayPal PHP Class Library Demo Kits</h2>
                 <p>Fully functional API calls built into an HTML experience for demonstration / training purposes.</p>
-                <p><a class="btn btn-primary btn-large" href="https://www.angelleye.com/product-category/php-class-libraries/demo-kits/"
+                <p><a class="btn btn-primary btn-large"
+                      href="https://www.angelleye.com/product-category/php-class-libraries/demo-kits/"
                       target="_blank">Browse Our Demo Kits</a></p>
             </div>
             <p class="bg-info"><strong>What is This?</strong><br>
-                The class library comes with FREE, fully functional /samples and empty /templates ready for you to work with.  The demo kits
+                The class library comes with FREE, fully functional /samples and empty /templates ready for you to work
+                with. The demo kits
                 available here are more complete and tie together a number of APIs within a basic shopping cart
                 interface so that you can see how to tie everything together.</p>
             <p class="bg-info"><strong>How Does This Work?</strong><br>
-                Any installed demo kits (some are included free) will display a Launch button.  Simply click this to launch the demo
-                and go through the experience to see how it works.  The HTML and code has lots of comments explaining what is going
-                on so that you can see it for yourself, and learn from it.<br /><br />Additional demo kits are available for purchase
+                Any installed demo kits (some are included free) will display a Launch button. Simply click this to
+                launch the demo
+                and go through the experience to see how it works. The HTML and code has lots of comments explaining
+                what is going
+                on so that you can see it for yourself, and learn from it.<br/><br/>Additional demo kits are available
+                for purchase
                 and can be installed here to complete your collection.
-                </p>
+            </p>
             <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="PayPal Express Checkout Basic Integration"
@@ -210,10 +215,10 @@
                             <h3>Website Payments Pro 30 Basic</h3>
                             <h4>Website Payments Pro 30 Basic</h4>
                             <p>Learn how to implement Website Payments Pro 30 Basic. This includes the option for
-                                embedded payments.</p>                            
+                                embedded payments.</p>
                             <?php
-                                $DIR = '\website-payments-pro-30-basic';
-                                $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
+                            $DIR = '\website-payments-pro-30-basic';
+                            $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                             ?>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
@@ -304,7 +309,8 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="thumbnail"> <img alt="PayPal Payments Pro PayFlow Basic Integration" src="assets/images/paypal-payments-pro-payflow.jpg">
+                    <div class="thumbnail"><img alt="PayPal Payments Pro PayFlow Basic Integration"
+                                                src="assets/images/paypal-payments-pro-payflow.jpg">
                         <?php
                         $DIR = '\payflow-credit-card-checkout-basic';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
@@ -312,20 +318,25 @@
                         <div class="caption">
                             <h3> Payments Pro 2.0</h3>
                             <h4> PayFlow Basic </h4>
-                            <p>See how to integrate credit card processing directly on your site using PayPal's PayFlow gateway. This allows users to enter credit card details directly on your site without any redirect to PayPal at all.</p>
+                            <p>See how to integrate credit card processing directly on your site using PayPal's PayFlow
+                                gateway. This allows users to enter credit card details directly on your site without
+                                any redirect to PayPal at all.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                <a class="btn btn-primary" href="payflow-credit-card-checkout-basic/">Launch Demo</a>
+                                    <a class="btn btn-primary" href="payflow-credit-card-checkout-basic/">Launch
+                                        Demo</a>
                                 <?php else: ?>
-                                <a class="btn btn-success"
-                                   href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="thumbnail"> <img alt="PayPal Payments Pro PayFlow Recurring Billing Integration" src="assets/images/paypal-payments-pro-payflow-recurring-billing.jpg">
+                    <div class="thumbnail"><img alt="PayPal Payments Pro PayFlow Recurring Billing Integration"
+                                                src="assets/images/paypal-payments-pro-payflow-recurring-billing.jpg">
                         <?php
                         $DIR = '\payflow-credit-card-checkout-recurring-billing';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
@@ -333,13 +344,16 @@
                         <div class="caption">
                             <h3> Payments Pro 2.0 </h3>
                             <h4> PayFlow Recurring Billing </h4>
-                            <p>Here we use the PayFlow gateway to setup recurring billing / subscription profiles.  This is done using a credit card directly just like the Payments Pro basic demos.</p>
+                            <p>Here we use the PayFlow gateway to setup recurring billing / subscription profiles. This
+                                is done using a credit card directly just like the Payments Pro basic demos.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                <a class="btn btn-primary" href="payflow-credit-card-checkout-recurring-billing/">Launch Demo</a>
+                                    <a class="btn btn-primary" href="payflow-credit-card-checkout-recurring-billing/">Launch
+                                        Demo</a>
                                 <?php else: ?>
-                                <a class="btn btn-success"
-                                   href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
@@ -348,7 +362,8 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="thumbnail"> <img alt="Express Checkout JSv4 using REST Client Side" src="assets/images/paypal-express-checkout-jsv4-using-rest-client-side.jpg">
+                    <div class="thumbnail"><img alt="Express Checkout JSv4 using REST Client Side"
+                                                src="assets/images/paypal-express-checkout-jsv4-using-rest-client-side.jpg">
                         <?php
                         $DIR = '\express-checkout-js-using-rest';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
@@ -356,20 +371,24 @@
                         <div class="caption">
                             <h3> Express Checkout JSv4 using REST Client Side </h3>
                             <h4> Express Checkout JSv4 using REST Client Side</h4>
-                            <p>Learn how to integrate PayPal Checkout use the checkout.js JavaScript code. This code always keeps you current with the latest button styles and payment features.</p>
+                            <p>Learn how to integrate PayPal Checkout use the checkout.js JavaScript code. This code
+                                always keeps you current with the latest button styles and payment features.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                <a class="btn btn-primary" href="demo/express-checkout-js-using-rest/">Launch Demo</a>
+                                    <a class="btn btn-primary" href="demo/express-checkout-js-using-rest/">Launch
+                                        Demo</a>
                                 <?php else: ?>
-                                <a class="btn btn-success"
-                                   href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="thumbnail"> <img alt="Express Checkout JSv4 using REST Server side" src="assets/images/paypal-express-checkout-jsv4-using-rest-server-side.jpg">
+                    <div class="thumbnail"><img alt="Express Checkout JSv4 using REST Server side"
+                                                src="assets/images/paypal-express-checkout-jsv4-using-rest-server-side.jpg">
                         <?php
                         $DIR = '\express-checkout-js-using-server-side';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
@@ -377,20 +396,23 @@
                         <div class="caption">
                             <h3> Express Checkout JSv4 using REST Server side </h3>
                             <h4> Express Checkout JSv4 using REST Server side </h4>
-                            <p>Learn how to integrate PayPal Checkout use the checkout.js JavaScript code. This code always keeps you current with the latest button styles and payment features.</p>
+                            <p>Learn how to integrate PayPal Checkout use the checkout.js JavaScript code. This code
+                                always keeps you current with the latest button styles and payment features.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                <a class="btn btn-primary" href="demo/express-checkout-js-using-rest/">Launch Demo</a>
+                                    <a class="btn btn-primary" href="demo/express-checkout-js-using-rest/">Launch
+                                        Demo</a>
                                 <?php else: ?>
-                                <a class="btn btn-success"
-                                   href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="thumbnail"> <img alt="Login with Paypal" src="assets/images/login-with-paypal.png">
+                    <div class="thumbnail"><img alt="Login with Paypal" src="assets/images/login-with-paypal.png">
                         <?php
                         $DIR = '\login-with-paypal-basic';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
@@ -398,13 +420,16 @@
                         <div class="caption">
                             <h3> Login With PayPal </h3>
                             <h4> Login With PayPal with basic scope </h4>
-                            <p> Log In with PayPal (formerly PayPal Access) is a commerce identity solution that enables your customers to sign in to your web site quickly and securely by using their PayPal login credentials.</p>
+                            <p> Log In with PayPal (formerly PayPal Access) is a commerce identity solution that enables
+                                your customers to sign in to your web site quickly and securely by using their PayPal
+                                login credentials.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                <a class="btn btn-primary" href="demo/login-with-paypal-basic/">Launch Demo</a>
+                                    <a class="btn btn-primary" href="demo/login-with-paypal-basic/">Launch Demo</a>
                                 <?php else: ?>
-                                <a class="btn btn-success"
-                                   href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
@@ -413,7 +438,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="thumbnail"> <img alt="Login with Paypal" src="assets/images/login-with-paypal.png">
+                    <div class="thumbnail"><img alt="Login with Paypal" src="assets/images/login-with-paypal.png">
                         <?php
                         $DIR = '\login-with-paypal-permissions';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
@@ -421,13 +446,17 @@
                         <div class="caption">
                             <h3> Login With PayPal </h3>
                             <h4> Login With PayPal with Permission</h4>
-                            <p> Log In with PayPal (formerly PayPal Access) is a commerce identity solution that enables your customers to sign in to your web site quickly and securely by using their PayPal login credentials.</p>
+                            <p> Log In with PayPal (formerly PayPal Access) is a commerce identity solution that enables
+                                your customers to sign in to your web site quickly and securely by using their PayPal
+                                login credentials.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                <a class="btn btn-primary" href="demo/login-with-paypal-permissions/">Launch Demo</a>
+                                    <a class="btn btn-primary" href="demo/login-with-paypal-permissions/">Launch
+                                        Demo</a>
                                 <?php else: ?>
-                                <a class="btn btn-success"
-                                   href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
@@ -435,21 +464,26 @@
                 </div>
                 <div class="col-md-4">
                     <div class="thumbnail">
-                        <img alt="Express Checkout Billing Agreement" src="assets/images/paypal-dodirectpayment-credit-cart-checkout.jpg"/>
+                        <img alt="Express Checkout Billing Agreement"
+                             src="assets/images/paypal-dodirectpayment-credit-cart-checkout.jpg"/>
                         <?php
                         $DIR = '\dodirectpayment-credit-cart-checkout';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3>  Direct Payment Cart Checkout </h3>
-                            <h4>  DoDirectPayment </h4>
-                            <p>Use the Direct Payment API to accept direct credit card payments on your website from buyers who do not have a PayPal account. PayPal processes the payment in the background.</p>
+                            <h3> Direct Payment Cart Checkout </h3>
+                            <h4> DoDirectPayment </h4>
+                            <p>Use the Direct Payment API to accept direct credit card payments on your website from
+                                buyers who do not have a PayPal account. PayPal processes the payment in the
+                                background.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                <a class="btn btn-primary" href="demo/dodirectpayment-credit-cart-checkout/">Launch Demo</a>
+                                    <a class="btn btn-primary" href="demo/dodirectpayment-credit-cart-checkout/">Launch
+                                        Demo</a>
                                 <?php else: ?>
-                                <a class="btn btn-success"
-                                   href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits" target="_blank">Buy Now</a>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-shipped-items-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
