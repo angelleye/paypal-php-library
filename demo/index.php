@@ -45,11 +45,10 @@
                 </div>
             </div>
             <div class="jumbotron well">
-                <h2> PayPal PHP Class Library Demo / Sample Code</h2>
-                <p> This is a collection of small demo apps for a variety of PayPal checkout flows using our class
-                    library. </p>
-                <p><a class="btn btn-primary btn-large" href="https://github.com/angelleye/paypal-php-library"
-                      target="_blank">View PayPal Library on GitHub</a></p>
+                <h2> PayPal PHP Class Library Demo Kits</h2>
+                <p>Fully functional API calls built into an HTML experience for demonstration / training purposes.</p>
+                <p><a class="btn btn-primary btn-large" href="https://www.angelleye.com/product-category/php-class-libraries/demo-kits/"
+                      target="_blank">Browse Our Demo Kit Collection</a></p>
             </div>
             <p class="bg-info"><strong>Demo Kit Info</strong><br>
                 These demo kits offer a more complete demonstration of how the different checkout flows with PayPal
