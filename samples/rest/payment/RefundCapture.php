@@ -1,6 +1,7 @@
 <?php
 // Refunds a captured payment, by ID. In the JSON request body, include an amount object.
 
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 

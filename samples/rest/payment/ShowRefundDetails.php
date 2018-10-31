@@ -1,6 +1,7 @@
 <?php
 // Shows details for a refund, by ID.
 
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 

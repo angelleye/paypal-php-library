@@ -1,6 +1,8 @@
 <?php
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
+
 $configArray = array(
     'ClientID' => $rest_client_id,
     'ClientSecret' => $rest_client_secret,
@@ -10,23 +12,23 @@ $configArray = array(
 );
 $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
-$template_id = 'TEMP-3GK75625L7412105X';                                          // Required. The ID of the template to update.
+$template_id = 'TEMP-3GK75625L7412105X';                  // Required. The ID of the template to update.
 
 $InvoiceItemArray = array();
 
 $InvoiceItem = array(
-        'Name'          => '',                                    // Name of the item. 200 characters max.
-        'Description'   => '',                             // Description of the item. 1000 characters max.
-        'Quantity'      => '',                                // Quantity of the item. Range of -10000 to 10000.
-        'Date'          => '',                                // The date when the item or service was provided. The date format is *yyyy*-*MM*-*dd* *z* as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6). 
+        'Name'          => '',                            // Name of the item. 200 characters max.
+        'Description'   => '',                            // Description of the item. 1000 characters max.
+        'Quantity'      => '',                            // Quantity of the item. Range of -10000 to 10000.
+        'Date'          => '',                            // The date when the item or service was provided. The date format is *yyyy*-*MM*-*dd* *z* as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6). 
         'Discount'      => array(
-                                'Percent' => ''              // Cost in percent. Range of 0 to 100.
+                                'Percent' => ''           // Cost in percent. Range of 0 to 100.
                             ),
-        'UnitOfMeasure' => '',                               // Valid Values: ["QUANTITY", "HOURS", "AMOUNT"]. The unit of measure of the item being invoiced.        
+        'UnitOfMeasure' => '',                            // Valid Values: ["QUANTITY", "HOURS", "AMOUNT"]. The unit of measure of the item being invoiced.        
         'UnitPrice'     => array(
-                                'Currency' => '',                       // 3 letter currency code as defined by ISO 4217.
-                                'Value'    => ''                        // amount up to N digit after the decimals separator as defined in ISO 4217 for the appropriate currency code.
-                            ),                                 // Unit price of the item. Range of -1,000,000 to 1,000,000.
+                                'Currency' => '',         // 3 letter currency code as defined by ISO 4217.
+                                'Value'    => ''          // amount up to N digit after the decimals separator as defined in ISO 4217 for the appropriate currency code.
+                            ),                            // Unit price of the item. Range of -1,000,000 to 1,000,000.
         'Tax'           => array(
                                 'Name'    => '',
                                 'Percent' => '',    
@@ -135,25 +137,25 @@ $paymentTerm = array(
 );
 
 $attachments = array(
-    'Name' => '',                                           // Name of the file attached. 
+    'Name' => '',                                               // Name of the file attached. 
     'Url'  => ''                                                // URL of the attached file that can be downloaded.                                             // URL of the attached file that can be downloaded. 
 );
 
 
 $TemplateSettingsMetadata = array(
-    'Hidden' => ''                                          // Indicates whether this field should be hidden. default is false
+    'Hidden' => ''                                              // Indicates whether this field should be hidden. default is false
 );
 
 $TemplateSettings = array(
-    'FieldName'         => '' ,                          // The field name (for any field in template_data) for which the corresponding display preferences will be mapped to.    
+    'FieldName'         => '' ,                                 // The field name (for any field in template_data) for which the corresponding display preferences will be mapped to.    
 );
 
 $Template = array(
     'TemplateId'    => '',                                  // Unique identifier id of the template.    
     'Name'          => '',                                  // Name of the template.
     'Default'       => '',                                  // Indicates that this template is merchant's default. There can be only one template which can be a default.
-    'UnitOfMeasure' => 'HOURS',                                  // Unit of measure for the template, possible values are Quantity, Hours, Amount.
-    'Custom'        => null,                                  // Indicates whether this is a custom template created by the merchant. Non custom templates are system generated    
+    'UnitOfMeasure' => 'HOURS',                             // Unit of measure for the template, possible values are Quantity, Hours, Amount.
+    'Custom'        => null,                                // Indicates whether this is a custom template created by the merchant. Non custom templates are system generated    
 );
 
 $requestData = array(

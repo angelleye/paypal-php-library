@@ -1,15 +1,15 @@
 <?php
-
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 
 $configArray = array(
-                'ClientID' => $rest_client_id,
-                'ClientSecret' => $rest_client_secret,
-                'LogResults' => $log_results, 
-                'LogPath' => $log_path,
-                'LogLevel' => $log_level  
-                );
+    'ClientID' => $rest_client_id,
+    'ClientSecret' => $rest_client_secret,
+    'LogResults' => $log_results,
+    'LogPath' => $log_path,
+    'LogLevel' => $log_level
+);
 
 $PayPal = new \angelleye\PayPal\rest\payouts\PayoutsAPI($configArray);
 
@@ -33,7 +33,7 @@ $PayoutItem = array(
     //  PAYPAL_ID Encrypted PayPal account number.
     
     'RecipientType' => 'EMAIL',                                 // Valid values: EMAIL | PHONE | PAYPAL_ID.      
-    'Note'          => 'Thanks for your patronage! TJ',            // Optional. A sender-specified note for notifications. Value is any string value. Maximum length: 4000.
+    'Note'          => 'Thanks for your patronage! TJ',         // Optional. A sender-specified note for notifications. Value is any string value. Maximum length: 4000.
     'Receiver'      => 'tejasm-buyer@itpathsolutions.co.in',    // The receiver of the payment. Corresponds to the recipient_type value in the request. Maximum length: 127.
     'SenderItemId'  => '2014031400023',                         // A sender-specified ID number. Tracks the batch payout in an accounting system. Maximum length: 30.    
 );
@@ -43,8 +43,10 @@ $requestData=array(
     "amount"      => $amount,
     "PayoutItem"  => $PayoutItem
 );
+
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
 $PayPalResult = $PayPal->create_single_payout($requestData);
+
 // Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";
 print_r($PayPalResult);

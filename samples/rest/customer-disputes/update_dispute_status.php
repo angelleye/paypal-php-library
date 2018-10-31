@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  *  Updates the status of a dispute, by ID, from UNDER_REVIEW to either:
         WAITING_FOR_BUYER_RESPONSE
         WAITING_FOR_SELLER_RESPONSE
@@ -14,6 +14,7 @@
 
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
+
 $configArray = array(
     'ClientID' => $rest_client_id,
     'ClientSecret' => $rest_client_secret,
@@ -26,7 +27,7 @@ $PayPal = new \angelleye\PayPal\rest\customerdisputes\CustomerDisputesAPI($confi
 
 $dispute_id  = 'PP-D-5615';   // The ID of the dispute that requires evidence.
 
-/*
+/**
  *      If action is BUYER_EVIDENCE The status updates to WAITING_FOR_BUYER_RESPONSE      
  *      If action is SELLER_EVIDENCE The status updates to WAITING_FOR_SELLER_RESPONSE 
  *  */

@@ -5,8 +5,10 @@
  * Shows details for a sale, by ID. Returns only sales that were created through the REST API.
  */
 
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
+
 $configArray = array(
     'ClientID' => $rest_client_id,
     'ClientSecret' => $rest_client_secret,

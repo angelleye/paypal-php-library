@@ -10,6 +10,7 @@
  * up to 115% of the originally authorized amount, not to exceed an increase of $75 USD.
  */
 
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 

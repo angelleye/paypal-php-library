@@ -1,5 +1,5 @@
 <?php
-
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 
@@ -40,6 +40,7 @@ $payer =array(
     "PaymentMethod" => 'credit_card',                         // Valid Values: ["credit_card", "bank", "paypal", "pay_upon_invoice", "carrier", "alternate_payment"]. Payment method being used - PayPal Wallet payment, Bank Direct Debit  or Direct Credit card.    
     "AccountType" => ''                                       // Valid Values: ["BUSINESS", "PERSONAL", "PREMIER"]. Type of account relationship payer has with PayPal. 
 );
+
 // Payerinfo is Required. 
 $payerInfo = array(
     'email' => 'tejasm-facilitator@itpathsolutions.co.in',       // Email address representing the payer. 127 characters max.    
@@ -57,7 +58,6 @@ $shippingAddress = array(
     "NormalizationStatus" => ''                             // Valid Values: ["UNKNOWN", "UNNORMALIZED_USER_PREFERRED", "NORMALIZED", "UNNORMALIZED"]. Address normalization status    
 );
 
-
 $requestData = array(
         "planId"          => $planId,
         "agreement"       => $agreement,
@@ -68,5 +68,6 @@ $requestData = array(
 );
 
 $returnArray = $PayPal->create_billing_agreement_with_creditcard($requestData);
+
 echo "<pre>";
 print_r($returnArray);

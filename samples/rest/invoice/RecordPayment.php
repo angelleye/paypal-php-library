@@ -1,6 +1,8 @@
 <?php
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
+
 $configArray = array(
     'ClientID' => $rest_client_id,
     'ClientSecret' => $rest_client_secret,
@@ -17,13 +19,11 @@ $record = array(
 );
 
 $amount = array(
-    'currency' => 'USD',                                      // The three-letter ISO 4217 alphabetic currency code. 
-    'value'    => '19.51'                                       // The amount up to N digits after the decimal separator, as defined in ISO 4217 for the appropriate currency code. 
+    'currency' => 'USD',                                   // The three-letter ISO 4217 alphabetic currency code. 
+    'value'    => '19.51'                                  // The amount up to N digits after the decimal separator, as defined in ISO 4217 for the appropriate currency code. 
 );
 
 $invoiceId = 'INV2-GASZ-DB7C-NSRC-S9V6';                   // Required. The ID of the invoice to mark as paid. 
-
-
 
 $returnArray = $PayPal->record_payment($invoiceId,$record,$amount);
 echo "<pre>";

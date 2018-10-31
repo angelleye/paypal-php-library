@@ -1,5 +1,7 @@
 <?php
 //Shows details for a payment, by ID, that is yet completed. For example, a payment that was created, approved, or failed.
+
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 

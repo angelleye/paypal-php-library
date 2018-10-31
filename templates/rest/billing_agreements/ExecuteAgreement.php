@@ -2,6 +2,8 @@
 
 // #Execute Agreement
 // Use this call to execute an agreement after the buyer approves it
+
+// Include required library files.
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 
