@@ -247,7 +247,7 @@ class NotificationsAPI extends RestClass {
         try {
             $output = \PayPal\Api\WebhookEvent::get($event_id, $this->_api_context);
             $returnArray['RESULT'] = 'Success';
-            $returnArray['EVENTS']=$output->toArray();         
+            $returnArray['EVENT']=$output->toArray();         
             $returnArray['RAWREQUEST']= '{event_id : '.$event_id.'}';
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;
@@ -268,7 +268,7 @@ class NotificationsAPI extends RestClass {
         try {
             $output = $WebhookEvent->resend($this->_api_context);
             $returnArray['RESULT'] = 'Success';
-            $returnArray['EVENTS']=$output->toArray();         
+            $returnArray['EVENT']=$output->toArray();         
             $returnArray['RAWREQUEST']= '{event_id : '.$event_id.'}';
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;
@@ -287,7 +287,7 @@ class NotificationsAPI extends RestClass {
         try {
             $output = $object->get_all($this->_api_context);
             $returnArray['RESULT'] = 'Success';
-            $returnArray['EVENTS']=$output->toArray();         
+            $returnArray['EVENT_TYPES']=$output->toArray();         
             $returnArray['RAWREQUEST']= '';
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;
@@ -307,7 +307,7 @@ class NotificationsAPI extends RestClass {
         try {
             $output = $object->get_by_id($webhook_id,$this->_api_context);
             $returnArray['RESULT'] = 'Success';
-            $returnArray['EVENTS']=$output->toArray();         
+            $returnArray['EVENT']=$output->toArray();         
             $returnArray['RAWREQUEST']= '';
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;
@@ -327,7 +327,7 @@ class NotificationsAPI extends RestClass {
         try {
             $output = $object->verify_webhook_signature_api($params,$this->_api_context);
             $returnArray['RESULT'] = 'Success';
-            $returnArray['EVENTS']=$output->toArray();
+            $returnArray['EVENT']=$output->toArray();
             $returnArray['RAWREQUEST']= '';
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;
@@ -348,7 +348,7 @@ class NotificationsAPI extends RestClass {
             $params = array_filter($params);
             $output = $object->simulate_webhook_event_api($params,$this->_api_context);
             $returnArray['RESULT'] = 'Success';
-            $returnArray['EVENTS']=$output->toArray();
+            $returnArray['EVENT']=$output->toArray();
             $returnArray['RAWREQUEST']= json_encode($params);
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;

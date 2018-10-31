@@ -265,8 +265,8 @@ class InvoiceAPI extends RestClass {
                 // Create an invoice by calling the invoice->create() method
                 $requestArray = clone $invoice;
                 $invoice->create($this->_api_context);
-                $returnArray['INVOICE']=$invoice->toArray();
                 $returnArray['RESULT'] = 'Success';
+                $returnArray['INVOICE']=$invoice->toArray();                
                 $returnArray['RAWREQUEST']=$requestArray->toJSON();
                 $returnArray['RAWRESPONSE']=$invoice->toJSON();
                 return $returnArray;
@@ -432,7 +432,7 @@ class InvoiceAPI extends RestClass {
         try{
             $image = Invoice::qrCode($InvoiceID, array_filter($parameters), $this->_api_context);
             $path = $image->saveToFile($path);
-            $returnArray['RESULT'] = 'Success';
+            $returnArray['RESULT'] = 'Success';            
             return array('Image' => $image->getImage());
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);

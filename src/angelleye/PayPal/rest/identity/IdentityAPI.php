@@ -83,8 +83,8 @@ class IdentityAPI {
             null,
             $this->_api_context
         );
-        
-        $returnArray['AuthorizationUrl'] = $redirectUrl;
+        $returnArray['RESULT'] = 'SUCCESS';
+        $returnArray['AUTH_URL'] = $redirectUrl;
         $returnArray['RAWREQUEST'] = json_encode(array_filter($requestData));
         return $returnArray;
     }
@@ -100,8 +100,9 @@ class IdentityAPI {
             $tokenInfo = new OpenIdTokeninfo();
             $tokenInfo = $tokenInfo->createFromRefreshToken(array('refresh_token' => $requestData['refreshToken']), $this->_api_context);
             $params = array('access_token' => $tokenInfo->getAccessToken());
-            $userInfo = OpenIdUserinfo::getUserinfo($params, $this->_api_context);            
-            $returnArray['userInfo'] = $userInfo->toArray();
+            $userInfo = OpenIdUserinfo::getUserinfo($params, $this->_api_context);  
+            $returnArray['RESULT'] = 'SUCCESS';
+            $returnArray['USER_INFO'] = $userInfo->toArray();
             $returnArray['RAWREQUEST'] = json_encode($params);
             $returnArray['RAWRESPONSE'] = $userInfo->toJSON();
             return $returnArray;
