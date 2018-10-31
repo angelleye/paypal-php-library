@@ -48,17 +48,18 @@
                 <h2> PayPal PHP Class Library Demo Kits</h2>
                 <p>Fully functional API calls built into an HTML experience for demonstration / training purposes.</p>
                 <p><a class="btn btn-primary btn-large" href="https://www.angelleye.com/product-category/php-class-libraries/demo-kits/"
-                      target="_blank">Browse Our Demo Kit Collection</a></p>
+                      target="_blank">Browse Our Demo Kits</a></p>
             </div>
-            <p class="bg-info"><strong>Demo Kit Info</strong><br>
-                These demo kits offer a more complete demonstration of how the different checkout flows with PayPal
-                work.
-                Make sure to check /samples and /templates which are included free with the library and are often all
-                you need
-                to understand how things work. The samples are functional, but are only setup for one call at a time.
-            </p>
-            <p class="bg-info">The demo kits available here are more complete and tie together a number of APIs within a
-                basic shopping cart interface so that you can see how to tie everything together.</p>
+            <p class="bg-info"><strong>What is This?</strong><br>
+                The class library comes with FREE, fully functional /samples and empty /templates ready for you to work with.  The demo kits
+                available here are more complete and tie together a number of APIs within a basic shopping cart
+                interface so that you can see how to tie everything together.</p>
+            <p class="bg-info"><strong>How Does This Work?</strong><br>
+                Any installed demo kits (some are included free) will display a Launch button.  Simply click this to launch the demo
+                and go through the experience to see how it works.  The HTML and code has lots of comments explaining what is going
+                on so that you can see it for yourself, and learn from it.<br /><br />Additional demo kits are available for purchase
+                and can be installed here to complete your collection.
+                </p>
             <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="PayPal Express Checkout Basic Integration"
