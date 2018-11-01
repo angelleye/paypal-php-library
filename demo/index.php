@@ -293,7 +293,7 @@
                             <h3>Express Checkout</h3>
                             <h4>Shipped Items + Subscription</h4>
                             <p>Learn how to implement Express Checkout with shipped items and Subscription / Recurring
-                                Payments together on a single order.</p>
+                                Pay ments together on a single order.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
                                     <a class="btn btn-primary"
@@ -362,15 +362,14 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="thumbnail"><img alt="Express Checkout JSv4 using REST Client Side"
+                    <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Client Side"
                                                 src="assets/images/paypal-express-checkout-jsv4-using-rest-client-side.jpg">
                         <?php
                         $DIR = '\express-checkout-js-using-rest';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Express Checkout JSv4 using REST Client Side </h3>
-                            <h4> Express Checkout JSv4 using REST Client Side</h4>
+                            <h3> Express Checkout Smart Payment Buttons Client Side </h3>
                             <p>Learn how to integrate PayPal Checkout use the checkout.js JavaScript code. This code
                                 always keeps you current with the latest button styles and payment features.</p>
                             <p align="center">
@@ -387,15 +386,15 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="thumbnail"><img alt="Express Checkout JSv4 using REST Server side"
+                    <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Server Side"
                                                 src="assets/images/paypal-express-checkout-jsv4-using-rest-server-side.jpg">
                         <?php
                         $DIR = '\express-checkout-js-using-server-side';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Express Checkout JSv4 using REST Server side </h3>
-                            <h4> Express Checkout JSv4 using REST Server side </h4>
+                            <h3> Express Checkout Smart Payment Buttons Server Side </h3>
+                            <h4> Express Checkout Smart Payment Buttons Server Side </h4>
                             <p>Learn how to integrate PayPal Checkout use the checkout.js JavaScript code. This code
                                 always keeps you current with the latest button styles and payment features.</p>
                             <p align="center">
@@ -412,14 +411,14 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="thumbnail"><img alt="Login with Paypal" src="assets/images/login-with-paypal.png">
+                    <div class="thumbnail"><img alt="PayPal Identity (Log In with PayPal)" src="assets/images/login-with-paypal.png">
                         <?php
                         $DIR = '\login-with-paypal-basic';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Login With PayPal </h3>
-                            <h4> Login With PayPal with basic scope </h4>
+                            <h3> PayPal Identity (Log In with PayPal) </h3>
+                            <h4> Log In with PayPal with basic scope </h4>
                             <p> Log In with PayPal (formerly PayPal Access) is a commerce identity solution that enables
                                 your customers to sign in to your web site quickly and securely by using their PayPal
                                 login credentials.</p>
@@ -438,14 +437,14 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="thumbnail"><img alt="Login with Paypal" src="assets/images/login-with-paypal.png">
+                    <div class="thumbnail"><img alt="PayPal Identity + Grant API Permissions" src="assets/images/login-with-paypal.png">
                         <?php
                         $DIR = '\login-with-paypal-permissions';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Login With PayPal </h3>
-                            <h4> Login With PayPal with Permission</h4>
+                            <h3> PayPal Identity + Grant API Permissions </h3>
+                            <h4> PayPal Identity + Grant API Permissions</h4>
                             <p> Log In with PayPal (formerly PayPal Access) is a commerce identity solution that enables
                                 your customers to sign in to your web site quickly and securely by using their PayPal
                                 login credentials.</p>
