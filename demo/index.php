@@ -66,6 +66,12 @@
                 and can be installed here to complete your collection.
             </p>
             <div class="row">
+                <div class="col-lg-12">
+                    <h1>Classic API</h1>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="PayPal Express Checkout Basic Integration"
                                                 src="assets/images/paypal-express-checkout.jpg">
@@ -206,30 +212,6 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="thumbnail"><img alt="Website Payments Pro 3.0 Basic"
-                                                src="assets/images/paypal-express-website-payments-pro-3-0.jpg">
-                        <div class="caption">
-                            <h3>Website Payments Pro 3.0 Basic</h3>
-                            <h4>Website Payments Pro 3.0 Basic</h4>
-                            <p>Learn how to implement Website Payments Pro 30 Basic. This includes the option for
-                                embedded payments.</p>
-                            <?php
-                            $DIR = '\website-payments-pro-30-basic';
-                            $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
-                            ?>
-                            <p align="center">
-                                <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="ewebsite-payments-pro-30-basic/" target="_blank">Launch Demo</a>
-                                <?php else: ?>
-                                    <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-website-payments-pro-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
-                                       target="_blank">Buy Now</a>
-                                <?php endif; ?>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
                     <div class="thumbnail"><img alt="Express Checkout In-Context"
                                                 src="assets/images/paypal-express-checkout-in-context.jpg">
                         <?php
@@ -276,8 +258,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="Express Checkout Shipped Items + Recurring Payment"
                                                 src="assets/images/express-checkout-shipped-items-recurring-payments.jpg">
@@ -304,6 +284,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="PayPal Payments Pro PayFlow Basic Integration"
                                                 src="assets/images/paypal-payments-pro-payflow.jpg">
@@ -353,8 +335,65 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <img alt="Express Checkout Billing Agreement"
+                             src="assets/images/paypal-dodirectpayment-credit-cart-checkout.jpg"/>
+                        <?php
+                        $DIR = '\dodirectpayment-credit-cart-checkout';
+                        $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
+                        ?>
+                        <div class="caption">
+                            <h3> Direct Payment Cart Checkout </h3>
+                            <h4> DoDirectPayment </h4>
+                            <p>Use the Direct Payment API to accept direct credit card payments on your website from
+                                buyers who do not have a PayPal account. PayPal processes the payment in the
+                                background.</p>
+                            <p align="center">
+                                <?php if ($DIR_exists) : ?>
+                                    <a class="btn btn-primary" href="demo/dodirectpayment-credit-cart-checkout/" target="_blank">Launch Demo</a>
+                                <?php else: ?>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-website-payments-pro-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
+                <div class="col-lg-12">
+                    <hr>
+                    <h1>REST API</h1>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="thumbnail"><img alt="Website Payments Pro 3.0 Basic"
+                                                src="assets/images/paypal-express-website-payments-pro-3-0.jpg">
+                        <div class="caption">
+                            <h3>Website Payments Pro 3.0 Basic</h3>
+                            <h4>Website Payments Pro 3.0 Basic</h4>
+                            <p>Learn how to implement Website Payments Pro 30 Basic. This includes the option for
+                                embedded payments.</p>
+                            <?php
+                            $DIR = '\website-payments-pro-30-basic';
+                            $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
+                            ?>
+                            <p align="center">
+                                <?php if ($DIR_exists) : ?>
+                                    <a class="btn btn-primary" href="ewebsite-payments-pro-30-basic/" target="_blank">Launch Demo</a>
+                                <?php else: ?>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-website-payments-pro-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Client Side"
                                                 src="assets/images/paypal-express-checkout-jsv4-using-rest-client-side.jpg">
@@ -402,6 +441,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="PayPal Identity (Log In with PayPal)" src="assets/images/login-with-paypal.png">
                         <?php
@@ -426,8 +467,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="PayPal Identity + Grant API Permissions" src="assets/images/login-with-paypal.png">
                         <?php
@@ -446,32 +485,6 @@
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-identity-paypal-login-grant-api-permissions-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
-                                       target="_blank">Buy Now</a>
-                                <?php endif; ?>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="thumbnail">
-                        <img alt="Express Checkout Billing Agreement"
-                             src="assets/images/paypal-dodirectpayment-credit-cart-checkout.jpg"/>
-                        <?php
-                        $DIR = '\dodirectpayment-credit-cart-checkout';
-                        $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
-                        ?>
-                        <div class="caption">
-                            <h3> Direct Payment Cart Checkout </h3>
-                            <h4> DoDirectPayment </h4>
-                            <p>Use the Direct Payment API to accept direct credit card payments on your website from
-                                buyers who do not have a PayPal account. PayPal processes the payment in the
-                                background.</p>
-                            <p align="center">
-                                <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/dodirectpayment-credit-cart-checkout/" target="_blank">Launch Demo</a>
-                                <?php else: ?>
-                                    <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-website-payments-pro-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
