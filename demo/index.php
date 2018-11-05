@@ -113,7 +113,7 @@
                                     <a class="btn btn-primary" href="demo/express-checkout-js-using-rest/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-smart-payment-buttons-client-side-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-php-smart-payment-buttons-client-side-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -137,7 +137,7 @@
                                     <a class="btn btn-primary" href="demo/express-checkout-js-using-rest/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-smart-payment-buttons-server-side-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-php-smart-payment-buttons-server-side-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -163,7 +163,7 @@
                                     <a class="btn btn-primary" href="demo/login-with-paypal-basic/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-identity-paypal-login-basic-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-identity-paypal-login-php-basic-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -187,7 +187,7 @@
                                     <a class="btn btn-primary" href="demo/login-with-paypal-permissions/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-identity-paypal-login-grant-api-permissions-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-identity-paypal-login-php-grant-api-permissions-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -258,7 +258,7 @@
                                     <a class="btn btn-primary" href="express-checkout-digital-goods/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-digital-goods-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-php-digital-goods-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -284,7 +284,7 @@
                                     <a class="btn btn-primary" href="express-checkout-billing-agreement/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-billing-agreement-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-php-billing-agreement-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -308,7 +308,7 @@
                                     <a class="btn btn-primary" href="express-checkout-parallel-payments/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-parallel-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-php-parallel-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -332,7 +332,7 @@
                                     <a class="btn btn-primary" href="express-checkout-3rd-party-no-permissions/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-3rd-party-no-permissions-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-php-3rd-party-payments-no-permissions-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -358,7 +358,7 @@
                                     <a class="btn btn-primary" href="express-checkout-incontext/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-in-context-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-php-in-context-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -381,7 +381,7 @@
                                     <a class="btn btn-primary" href="express-checkout-recurring-payments/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-php-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -406,7 +406,7 @@
                                        href="express-checkout-shipped-items-recurring-payments/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-recurring-payments-shipped-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-php-recurring-payments-shipped-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -434,7 +434,7 @@
                                     <a class="btn btn-primary" href="payflow-credit-card-checkout-basic/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-payments-pro-payflow-basic-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-payments-pro-payflow-php-basic-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -458,7 +458,7 @@
                                     <a class="btn btn-primary" href="payflow-credit-card-checkout-recurring-billing/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-payments-pro-payflow-recurring-billing-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-payments-pro-payflow-php-recurring-billing-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -484,7 +484,7 @@
                                     <a class="btn btn-primary" href="demo/dodirectpayment-credit-cart-checkout/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-website-payments-pro-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-website-payments-pro-php-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
