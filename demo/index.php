@@ -74,23 +74,23 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="thumbnail"><img alt="Website Payments Pro 3.0 Basic"
-                                                src="assets/images/paypal-express-website-payments-pro-3-0.jpg">
+                    <div class="thumbnail"><img alt="Express Checkout Basic"
+                                                src="assets/images/paypal-express-checkout.jpg">
                         <div class="caption">
-                            <h3>Website Payments Pro 3.0 Basic</h3>
-                            <h4>Website Payments Pro 3.0 Basic</h4>
-                            <p>Learn how to implement Website Payments Pro 30 Basic. This includes the option for
+                            <h3>Express Checkout</h3>
+                            <h4>Basic</h4>
+                            <p>Learn how to integrate Express Checkout Basic. It allows to create and execute payment using REST API. This includes the option for
                                 embedded payments.</p>
                             <?php
-                            $DIR = '\website-payments-pro-30-basic';
+                            $DIR = '\create-and-execute-payment-using-paypal-rest-api';
                             $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                             ?>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="ewebsite-payments-pro-30-basic/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="create-and-execute-payment-using-paypal-rest-api" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-website-payments-pro-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-rest-basic-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -144,6 +144,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="row">
                 <div class="col-md-4">
@@ -482,6 +483,32 @@
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
                                     <a class="btn btn-primary" href="demo/dodirectpayment-credit-cart-checkout/" target="_blank">Launch Demo</a>
+                                <?php else: ?>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-website-payments-pro-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="thumbnail"><img alt="Website Payments Pro 3.0 Basic"
+                                                src="assets/images/paypal-express-website-payments-pro-3-0.jpg">
+                        <div class="caption">
+                            <h3>Website Payments Pro 3.0 Basic</h3>
+                            <h4>Website Payments Pro 3.0 Basic</h4>
+                            <p>Learn how to implement Website Payments Pro 30 Basic. This includes the option for
+                                embedded payments.</p>
+                            <?php
+                            $DIR = '\website-payments-pro-30-basic';
+                            $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
+                            ?>
+                            <p align="center">
+                                <?php if ($DIR_exists) : ?>
+                                    <a class="btn btn-primary" href="website-payments-pro-30-basic/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-website-payments-pro-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
