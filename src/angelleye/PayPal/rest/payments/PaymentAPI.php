@@ -196,7 +196,8 @@ class PaymentAPI extends RestClass {
                 $returnArray['RAWRESPONSE']=$payment->toJSON();
                 return $returnArray;
             } else {
-                $returnArray=$payment->toArray();
+                $returnArray['RESULT'] = 'Success';
+                $returnArray['PAYMENT']=$payment->toArray();
                 $returnArray['RAWREQUEST']=$requestArray->toJSON();
                 $returnArray['RAWRESPONSE']=$payment->toJSON();
                 return $returnArray;
