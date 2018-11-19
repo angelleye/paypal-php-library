@@ -222,6 +222,31 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-4">
+                    <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Server Side"
+                                                src="assets/images/paypal-dodirectpayment-credit-cart-checkout.jpg">
+                        <?php
+                        $DIR = '\create-and-execute-payment-using-credit-card-rest-api';
+                        $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
+                        ?>
+                        <div class="caption">
+                            <h3> Create Payment using CreditCard</h3>
+                            <h4> CreditCard Payment using REST API </h4>
+                            <p>Learn how to create payment using CreditCard payment method. Amount directly deducted from the CC and transfared to PayPal account of merchant.</p>
+                            <p align="center">
+                                <?php if ($DIR_exists) : ?>
+                                    <a class="btn btn-primary" href="demo/create-and-execute-payment-using-credit-card-rest-api/" target="_blank">Launch Demo</a>
+                                <?php else: ?>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-create-and-execute-payment-using-credit-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-12">
                     <h1>Classic API</h1>
                     <hr>
