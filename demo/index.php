@@ -147,6 +147,31 @@
 
             </div>
             <div class="row">
+
+                <div class="col-md-4">
+                    <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Server Side"
+                                                src="assets/images/paypal-express-checkout-billing-agreement.jpg">
+                        <?php
+                        $DIR = '\express-checkout-js-using-server-side';
+                        $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
+                        ?>
+                        <div class="caption">
+                            <h3> Express Checkout Billing Agreement</h3>
+                            <h4> Using PayPal payment</h4>
+                            <p>Learn how to Use billing plans and billing agreements to create an agreement for a recurring PayPal payment for goods or services.  This includes the option for embedded payments.</p>
+                            <p align="center">
+                                <?php if ($DIR_exists) : ?>
+                                    <a class="btn btn-primary" href="demo/create-billing-agreement-using-paypal-rest-api/" target="_blank">Launch Demo</a>
+                                <?php else: ?>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-php-billing-agreement-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="PayPal Identity (Log In with PayPal)" src="assets/images/login-with-paypal.png">
                         <?php
