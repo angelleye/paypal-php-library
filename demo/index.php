@@ -226,7 +226,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Server Side"
                                                 src="assets/images/paypal-dodirectpayment-credit-cart-checkout.jpg">
                         <?php
-                        $DIR = '\create-and-execute-payment-using-credit-card-rest-api';
+                        $DIR = '\create-payment-using-credit-card-rest-api';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -235,16 +235,65 @@
                             <p>Learn how to create payment using CreditCard payment method. Amount directly deducted from the CC and transfared to PayPal account of merchant.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/create-and-execute-payment-using-credit-card-rest-api/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="demo/create-payment-using-credit-card-rest-api/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-create-and-execute-payment-using-credit-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-create-payment-using-credit-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
                         </div>
                     </div>
                 </div>
+
+                <div class="col-md-4">
+                    <div class="thumbnail"><img alt="Store CreditCard in PayPal Vault"
+                                                src="assets/images/paypal-store-creditcard-in-paypal-vault.jpg">
+                        <?php
+                        $DIR = '\store-credit-card-in-paypal-vault';
+                        $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
+                        ?>
+                        <div class="caption">
+                            <h3> Store CreditCard in PayPal Vault</h3>
+                            <h4>  </h4>
+                            <p>Learn how to  use the Vault API to securely store customer credit cards in the PayPal vault rather than on your server. Demo includes pre filled form with the test card and integration with PayPal vault API. </p>
+                            <p align="center">
+                                <?php if ($DIR_exists) : ?>
+                                    <a class="btn btn-primary" href="demo/store-credit-card-in-paypal-vault/" target="_blank">Launch Demo</a>
+                                <?php else: ?>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-store-credit-card-in-vault-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="thumbnail"><img alt="Create Payment Using Saved Card - Vault"
+                                                src="assets/images/paypal-create-payment-using-savedcard-vault.jpg">
+                        <?php
+                        $DIR = '\create-payment-using-saved-card';
+                        $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
+                        ?>
+                        <div class="caption">
+                            <h3> Create Payment Using Saved Card - Vault</h3>
+                            <h4> Pay with vaulted card</h4>
+                            <p>Learn how to implement payment system using the saved card in PayPal. To pay with a vaulted card, include the id returned in the <a href="demo/store-credit-card-in-paypal-vault/">store credit card response</a> as the credit card ID in a create payment call.</p>
+                            <p align="center">
+                                <?php if ($DIR_exists) : ?>
+                                    <a class="btn btn-primary" href="demo/create-payment-using-saved-card/" target="_blank">Launch Demo</a>
+                                <?php else: ?>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-create-payment-using-credit-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="row">
                 <div class="col-lg-12">
