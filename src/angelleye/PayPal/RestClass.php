@@ -187,13 +187,85 @@ class RestClass extends PayPalModel
      */
 
     public function createErrorResponse($ex){
+        
         $returnArray['RESULT'] = 'Error';
-        if($this->isJson($ex->getData())){
-            $returnArray['errors'] =json_decode($ex->getData(),true);
+        $errorCode = $ex->getCode();
+
+        $errorArray = json_decode($ex->getData(),true);
+        if($errorCode == '401' && isset($errorArray['error']) && isset($errorArray['error_description'])){
+            $returnArray['error_type'] = 'AUTHENTICATION_FAILURE';
+            $returnArray['error_message'] = 'Authentication failed due to invalid authentication credentials.';
+            $returnArray['error_data'] = $errorArray['error'];
+            $returnArray['error_description'] = $errorArray['error_description'];
+            $returnArray['error_array'] = $errorArray;
+            return $returnArray;
+        }
+        elseif ($errorCode == '400'){
+            $returnArray['error_type'] = 'INVALID_REQUEST';
+            $returnArray['error_message'] = 'Request is not well-formed, syntactically incorrect, or violates schema.';
+            $returnArray['error_data'] = $errorArray['name'];
+            $returnArray['error_description'] = $errorArray['message'];
+            $returnArray['debug_id'] = $errorArray['debug_id'];
+            $returnArray['information_link'] = $errorArray['information_link'];
+            $details = '';
+            if (is_array($errorArray['details'])) {
+                foreach ($errorArray['details'] as $e) {
+                    $details .= $e['field'] . ": \t" . $e['issue'] . "\n\n";
+                }
+                $returnArray['details'] = $details;
+            }
+            $returnArray['error_array'] = $errorArray;
+            return $returnArray;
+        }
+        elseif ($errorCode == '404') {
+            $returnArray['error_type'] = 'RESOURCE_NOT_FOUND';
+            $returnArray['error_message'] = 'The specified resource does not exist.';
+        }
+        elseif ($errorCode == '403'){
+            $returnArray['error_type'] = 'NOT_AUTHORIZED';
+            $returnArray['error_message'] = 'Authorization failed due to insufficient permissions.';
+        }
+        elseif ($errorCode == '405'){
+            $returnArray['error_type'] = 'METHOD_NOT_SUPPORTED';
+            $returnArray['error_message'] = 'The server does not implement the requested HTTP method.';
+        }
+        elseif ($errorCode == '406'){
+            $returnArray['error_type'] = 'MEDIA_TYPE_NOT_ACCEPTABLE';
+            $returnArray['error_message'] = 'The server does not implement the media type that would be acceptable to the client.';
+        }
+        elseif ($errorCode == '415'){
+            $returnArray['error_type'] = 'UNSUPPORTED_MEDIA_TYPE';
+            $returnArray['error_message'] = 'The server does not support the request payload’s media type.';
+        }
+        elseif ($errorCode == '422'){
+            $returnArray['error_type'] = 'UNPROCCESSABLE_ENTITY';
+            $returnArray['error_message'] = 'The API cannot complete the requested action, or the request action is semantically incorrect or fails business validation.';
+        }
+        elseif ($errorCode == '429'){
+            $returnArray['error_type'] = 'RATE_LIMIT_REACHED';
+            $returnArray['error_message'] = 'Too many requests. Blocked due to rate limiting.';
+        }
+        elseif ($errorCode == '500'){
+            $returnArray['error_type'] = 'INTERNAL_SERVER_ERROR';
+            $returnArray['error_message'] = 'An internal server error has occurred.';
+        }
+        elseif ($errorCode == '503'){
+            $returnArray['error_type'] = 'SERVICE_UNAVAILABLE';
+            $returnArray['error_message'] = 'Service Unavailable.';
         }
         else{
+            $returnArray['error_type'] = 'NOT_SPECIFIED';
+            $returnArray['error_message'] = 'Error not specified.';
             $returnArray['errors'] = $ex->getData();
+            return $returnArray;
         }
+
+        $returnArray['error_data'] = isset($errorArray['name']) ? $errorArray['name'] : '';
+        $returnArray['error_description'] = isset($errorArray['message']) ? $errorArray['message'] : '';
+        $returnArray['debug_id'] = isset($errorArray['debug_id']) ? $errorArray['debug_id'] : '';
+        $returnArray['information_link'] = isset($errorArray['information_link']) ? $errorArray['information_link'] : '';
+        $returnArray['error_array'] = $errorArray;
+
         return $returnArray;
     }
     
