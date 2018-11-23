@@ -1,6 +1,6 @@
 <?php
 require_once('../includes/config.php');
-require_once('../autoload.php');
+require_once('../vendor/angelleye/paypal-php-library/autoload.php');
 
 $PayPalConfig = array(
     'Sandbox' => $sandbox,
@@ -23,7 +23,7 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 <!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
 <!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
-<!--script src="/assets/js/less-1.3.3.min.js"></script-->
+<!--script src="../assets/js/less-1.3.3.min.js"></script-->
 <!--append ‘#!watch’ to the browser URL, then refresh the page. -->
 
 <link href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
-    <script src="/assets/js/html5shiv.js"></script>
+    <script src="../assets/js/html5shiv.js"></script>
     <![endif]-->
 
 <!-- Fav and touch icons -->
@@ -59,7 +59,18 @@ $PayPal = new angelleye\PayPal\PayPal($PayPalConfig);
       </div>
       <div id="paypal_errors">
       <?php
-      $PayPal->DisplayErrors($_SESSION['paypal_errors']);
+      if(isset($_SESSION['rest_errors']) && $_SESSION['rest_errors'] == true){
+
+          $errors = array_filter($_SESSION['errors']);
+          unset($errors['error_array']);
+          foreach ($errors as $key => $value){
+            echo '<strong>'.ucwords(str_replace('_',' ',$key)).' : </strong>'. $value.'<br/>';
+          }
+          unset($_SESSION['rest_errors']);
+      }
+      else{
+          $PayPal->DisplayErrors($_SESSION['paypal_errors']);
+      }
 	  ?>
       </div>
     </div>
