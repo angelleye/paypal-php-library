@@ -598,15 +598,20 @@ class InvoiceAPI extends RestClass {
      * Sends an invoice, by ID, to a customer. 
      *
      * @param string $invoiceId
+     * @param boolean $third_party
+     * @param  string $refesh_token
      * @return Array|Object
      */
-    public function send_invoice($invoiceId){
+    public function send_invoice($invoiceId,$third_party=false,$refesh_token=''){
         try {
             $invoice = new Invoice();
             $invoice->setId($invoiceId);
+            if($third_party === true  && !empty($refesh_token)){
+                $invoice->updateAccessToken($refesh_token, $this->_api_context);
+            }
             $sendStatus = $invoice->send($this->_api_context);
             $Getinvoice = Invoice::get($invoice->getId(), $this->_api_context);
-                        
+
             $returnArray['RESULT'] = 'Success';
             $returnArray['SEND_STATUS'] = $sendStatus;
             $returnArray['INVOICE'] = $Getinvoice->toArray();
@@ -614,7 +619,7 @@ class InvoiceAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$Getinvoice->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-           return $this->createErrorResponse($ex);
+            return $this->createErrorResponse($ex);
         }
     }
 
