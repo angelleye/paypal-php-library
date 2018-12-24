@@ -10,37 +10,40 @@ require_once('../../includes/config.php');
 $currency = 'USD';
 $_SESSION['intent'] = 'sale';
 $_SESSION['invoiceNumber'] = 'AE-INVC-'.rand(0,100);
-$_SESSION['NoteToPayer'] = 'This is my Note to Payer.';                     //free-form field for the use of clients to pass in a message to the payer.
+$_SESSION['NoteToPayer'] = 'This is my Note to Payer.';     //free-form field for the use of clients to pass in a message to the payer.
 
 $_SESSION['items'][0] = array(
-    'Sku'         => '123123',                                                  // Stock keeping unit corresponding (SKU) to item.
-    'Name'        => 'Ground Coffee 40 oz',                                     // Item name. 127 characters max.
-    'Description' => 'Item1 description',                                       // Description of the item. Only supported when the `payment_method` is set to `paypal`.
-    'Quantity'    => '1',                                                       // Number of a particular item. 10 characters max
-    'Price'       => '7.5',                                                     // Item cost. 10 characters max.
-    'Currency'    => $currency,                                                     // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
-    'Tax'         => ''                                                         // Tax of the item. Only supported when the `payment_method` is set to `paypal`.
+    'Sku'         => '123123',                              // Stock keeping unit corresponding (SKU) to item.
+    'Name'        => 'Ground Coffee 40 oz',                 // Item name. 127 characters max.
+    'Description' => 'Item1 description',                   // Description of the item. Only supported when the `payment_method` is set to `paypal`.
+    'Quantity'    => '1',                                   // Number of a particular item. 10 characters max
+    'Price'       => '7.5',                                 // Item cost. 10 characters max.
+    'Currency'    => $currency,                             // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
+    'Tax'         => ''                                     // Tax of the item. Only supported when the `payment_method` is set to `paypal`.
 );
 
 $_SESSION['items'][1] = array(
-    'Sku'         => '321321',                               // Stock keeping unit corresponding (SKU) to item.
-    'Name'        => 'Granola bars',                         // Item name. 127 characters max.
-    'Description' => 'Item2 description',                    // Description of the item. Only supported when the `payment_method` is set to `paypal`.
-    'Quantity'    => '2',                                    // Number of a particular item. 10 characters max
-    'Price'       => '5',                                    // Item cost. 10 characters max.
-    'Currency'    => $currency,                                  // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
-    'Tax'         => ''                                      // Tax of the item. Only supported when the `payment_method` is set to `paypal`.
+    'Sku'         => '321321',                              // Stock keeping unit corresponding (SKU) to item.
+    'Name'        => 'Granola bars',                        // Item name. 127 characters max.
+    'Description' => 'Item2 description',                   // Description of the item. Only supported when the `payment_method` is set to `paypal`.
+    'Quantity'    => '2',                                   // Number of a particular item. 10 characters max
+    'Price'       => '5',                                   // Item cost. 10 characters max.
+    'Currency'    => $currency,                             // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
+    'Tax'         => ''                                     // Tax of the item. Only supported when the `payment_method` is set to `paypal`.
 );
 
 $_SESSION['orderItems'] = $_SESSION['items'];
 
 $_SESSION['paymentDetails'] = array(
-    'Subtotal' => '17.50',                                    // Amount of the subtotal of the items. **Required** if line items are specified. 10 characters max, with support for 2 decimal places.
-    'Shipping' => '1.2',                                      // Amount charged for shipping. 10 characters max with support for 2 decimal places.
-    'Tax'      => '1.3',                                      // Amount charged for tax. 10 characters max with support for 2 decimal places.
-    'GiftWrap' => '0.00'                                        // Amount being charged as gift wrap fee.
+    'Subtotal' => '17.50',                                   // Amount of the subtotal of the items. **Required** if line items are specified. 10 characters max, with support for 2 decimal places.
+    'Shipping' => '1.2',                                     // Amount charged for shipping. 10 characters max with support for 2 decimal places.
+    'Tax'      => '1.3',                                     // Amount charged for tax. 10 characters max with support for 2 decimal places.
+    'GiftWrap' => '0.00'                                     // Amount being charged as gift wrap fee.
 );
-// below code is for the grand total
+
+/**
+ * below code is for the grand total
+ */
 $_SESSION['amount']['Total'] = number_format($_SESSION['paymentDetails']['Subtotal'] + $_SESSION['paymentDetails']['Shipping'] + $_SESSION['paymentDetails']['Tax'] + $_SESSION['paymentDetails']['GiftWrap'],2);
 $_SESSION['amount']['Currency'] = $currency;
 ?>
@@ -89,10 +92,10 @@ $_SESSION['amount']['Currency'] = $currency;
         </div>
       </div>
       <h2 align="center">Shopping Cart</h2>
-      <p class="bg-info">Here we are using a basic shopping cart for display purposes, however, for this basic demo, all we are sending to PayPal is the order total without any line item details. We are assuming that we have not collected any 
+      <p class="bg-info">Here we are using a basic shopping cart for display purposes, however, for this basic demo, all we are sending to PayPal is the payment details,order items and order total. We are assuming that we have not collected any
       billing or shipping information from the buyer yet because we'll be obtaining those details from PayPal 
       after the user logs in and is returned back to the site.</p>
-      <p class="bg-info">To complete the demo, click the Checkout with PayPal button and use the following credentials to login to PayPal.<br /><br />
+      <p class="bg-info">To complete the demo, click the Pay with PayPal button and use the following credentials to login to PayPal.<br /><br />
       Email Address:  paypalphp@angelleye.com<br />
       Password:  paypalphp
       </p>

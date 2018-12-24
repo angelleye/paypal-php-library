@@ -5,7 +5,7 @@ require_once('../../includes/config.php');
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>PayPal Express Checkout Basic Demo | Order Complete | PHP Class Library | Angell EYE</title>
+<title>Create and Execute Payment using PayPal | Order Complete | PHP Class Library | Angell EYE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -48,8 +48,8 @@ require_once('../../includes/config.php');
       </div>
       <h2 align="center">Payment Complete!</h2>
       <p class="bg-info">
-      	We have now reached the final thank you / receipt page and the payment has been processed!  We have added the PayPal transaction ID 
-        to the Billing Information, which was provided in the DoExpressCheckoutPayment response.
+      	We have now reached the final thank you / receipt page and the payment has been processed!  We have added the PayPal payment ID
+        , payment state and  Sale transaction id to the Billing Information section.
       </p>
         <div class="row clearfix">
             <div class="col-md-4 column">
