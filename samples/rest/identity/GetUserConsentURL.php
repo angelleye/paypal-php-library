@@ -13,7 +13,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\identity\IdentityAPI($configArray);
 
-$redirectUri = 'http://localhost/paypal-php-library/samples/rest/identity/UserConsentRedirect.php?success=true';  // Uri on merchant website to where the user must be redirected to post paypal login
+$redirectUri = $domain.'samples/rest/identity/UserConsentRedirect.php?success=true';  // Uri on merchant website to where the user must be redirected to post paypal login
 
 // @param array $scope The access privilges that you are requesting for from the user. Pass empty array for all scopes.
 // If you want some basic information then you just need to include 'openid', 'profile', 'address', 'email', 'phone' in the scope.
