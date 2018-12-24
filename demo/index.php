@@ -296,6 +296,31 @@
 
             </div>
             <div class="row">
+                <div class="col-md-4">
+                    <div class="thumbnail"><img alt="Create & Send Third Party Invoice PayPal"
+                                                src="assets/images/paypal-create-send-third-party-invoice.jpg">
+                        <div class="caption">
+                            <h3>Create & Send Third Party Invoice PayPal </h3>
+                            <h4>Invoicing API</h4>
+                            <p>Learn how to create and send third party invoice in PayPal using  Invoicing API.</p>
+                            <?php
+                            $DIR = '\create-and-send-third-party-invoice-paypal';
+                            $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
+                            ?>
+                            <p align="center">
+                                <?php if ($DIR_exists) : ?>
+                                    <a class="btn btn-primary" href="create-and-send-third-party-invoice-paypal/" target="_blank">Launch Demo</a>
+                                <?php else: ?>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-create-and-send-third-party-invoice-paypal-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-lg-12">
                     <h1>Classic API</h1>
                     <hr>
@@ -617,31 +642,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-4">
-                    <div class="thumbnail"><img alt="Create & Send Third Party Invoice PayPal"
-                                                src="assets/images/paypal-create-send-third-party-invoice.jpg">
-                        <div class="caption">
-                            <h3>Create & Send Third Party Invoice PayPal </h3>
-                            <h4>Invoicing API</h4>
-                            <p>Learn how to create and send third party invoice in PayPal using  Invoicing API.</p>
-                            <?php
-                            $DIR = '\create-and-send-third-party-invoice-paypal';
-                            $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
-                            ?>
-                            <p align="center">
-                                <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="create-and-send-third-party-invoice-paypal/" target="_blank">Launch Demo</a>
-                                <?php else: ?>
-                                    <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-create-and-send-third-party-invoice-paypal-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
-                                       target="_blank">Buy Now</a>
-                                <?php endif; ?>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
 </body>
