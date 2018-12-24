@@ -36,10 +36,10 @@ $InvoiceItem = array(
 array_push($InvoiceItemArray, $InvoiceItem);
 
 $merchantInfo = array(
-    'Email' => 'tejasm-merchant@itpathsolutions.co.in',        // The merchant email address. Maximum length is 260 characters.
-    'FirstName' => 'TJ',                                       // The merchant first name. Maximum length is 30 characters.
-    'LastName'  => 'Mehta',                                    // The merchant last name. Maximum length is 30 characters.        
-    'BusinessName' => 'Tj Mehta\'s Test Store',                // The merchant company business name. Maximum length is 100 characters.
+    'Email' => 'paypal-facilitator@angelleye.com',              // The merchant email address. Maximum length is 260 characters.
+    'FirstName' => 'Test',                                      // The merchant first name. Maximum length is 30 characters.
+    'LastName'  => 'Testerson',                                 // The merchant last name. Maximum length is 30 characters.
+    'BusinessName' => 'Testerson\'s Test Store',                // The merchant company business name. Maximum length is 100 characters.
 );
 
 $merchantPhone = array(
@@ -58,12 +58,12 @@ $merchantAddress = array(
 );
 
 $billingInfo = array(
-    'Email' => 'tejasm@itpathsolutions.co.in',                  // The invoice recipient email address. Maximum length is 260 characters.
+    'Email' => 'paypal-facilitator@angelleye.com',              // The invoice recipient email address. Maximum length is 260 characters.
     'FirstName' => '',                                          // The invoice recipient first name. Maximum length is 30 characters.
     'LastName'  => '',                                          // The invoice recipient last name. Maximum length is 30 characters. 
-    'BusinessName' => 'TJ Inc',                                 // The invoice recipient company business name. Maximum length is 100 characters.
+    'BusinessName' => 'AngellEye',                              // The invoice recipient company business name. Maximum length is 100 characters.
     'Language' => '',                                           // The language in which the email was sent to the payer. Used only when the payer does not have a PayPal account. Valid Values: ["da_DK", "de_DE", "en_AU", "en_GB", "en_US", "es_ES", "es_XC", "fr_CA", "fr_FR", "fr_XC", "he_IL", "id_ID", "it_IT", "ja_JP", "nl_NL", "no_NO", "pl_PL", "pt_BR", "pt_PT", "ru_RU", "sv_SE", "th_TH", "tr_TR", "zh_CN", "zh_HK", "zh_TW", "zh_XC"]
-    'AdditionalInfo' => 'This is the billing Additional Info',  // Additional information, such as business hours. Maximum length is 40 characters.    
+    'AdditionalInfo' => 'Business hours 10:00 AM to 7:30 PM.',  // Additional information, such as business hours. Maximum length is 40 characters.
     'NotificationChannel' => '',                                // Valid Values: ["SMS", "EMAIL"]. Preferred notification channel of the payer. Email by default.    
 );
 
@@ -114,7 +114,7 @@ $templateData = array(
                             ),    
     'TaxCalculatedAfterDiscount'    => 'false',                  // Indicates whether tax is calculated before or after a discount. If set to `false`, the tax is calculated before a discount. If set to `true`, the tax is calculated after a discount. Default is `false`.
     'TaxInclusive' => 'false',                                   // Default is `false`. Indicates whether the unit price includes tax. 
-    'Note'  => 'Thank you for your business',                    // Note to the payer. 4000 characters max.
+    'Note'  => 'Thank you for your business.',                    // Note to the payer. 4000 characters max.
     'MerchantMemo'  => '',                                       // A private bookkeeping memo for the merchant. Maximum length is 150 characters.
     'LogoUrl'   => 'https://www.paypalobjects.com/webstatic/i/logo/rebrand/ppcom.svg',                                  // Full URL of an external image to use as the logo. Maximum length is 4000 characters.
     'TotalAmount' => array(
@@ -147,7 +147,7 @@ $TemplateSettings = array(
 
 $Template = array(
     'TemplateId'    => '',                                       // Unique identifier id of the template.    
-    'Name'          => "TJK  Template" . rand(),                 // Name of the template.
+    'Name'          => "AngellEye Template" . rand(),                 // Name of the template.
     'Default'       => 'true',                                   // Indicates that this template is merchant's default. There can be only one template which can be a default.
     'UnitOfMeasure' => 'HOURS',                                  // Unit of measure for the template, possible values are Quantity, Hours, Amount.
     'Custom'        => '',                                       // Indicates whether this is a custom template created by the merchant. Non custom templates are system generated    

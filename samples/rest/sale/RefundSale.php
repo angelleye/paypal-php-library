@@ -35,7 +35,7 @@ $amount = array(
 );
 
 $refundParameters = array(
-    'Description'   => 'this is desc for refund',              // The refund description. Value is a string of single-byte alphanumeric characters. Maximum length: 255.    
+    'Description'   => 'Refund for double charge.',            // The refund description. Value is a string of single-byte alphanumeric characters. Maximum length: 255.
     'Reason'        => '',                                     // The refund reason description. Maximum length: 30.
     'InvoiceNumber' => '',                                     // The invoice number that tracks this payment. Value is a string of single-byte alphanumeric characters. Maximum length: 127.
 );

@@ -15,10 +15,10 @@ $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
 // Merchant informations is Required for creating new Invoice. 
 $merchantInfo = array(
-    'Email' => 'tejasm-merchant@itpathsolutions.co.in',             // The merchant email address. Maximum length is 260 characters.
-    'FirstName' => 'TJ',                                            // The merchant first name. Maximum length is 30 characters.
-    'LastName'  => 'Mehta',                                         // The merchant last name. Maximum length is 30 characters.        
-    'BusinessName' => 'Tj Mehta\'s Test Store',                     // The merchant company business name. Maximum length is 100 characters.
+    'Email' => 'paypal-facilitator@angelleye.com',             // The merchant email address. Maximum length is 260 characters.
+    'FirstName' => 'paypal',                                            // The merchant first name. Maximum length is 30 characters.
+    'LastName'  => 'facilitator',                                         // The merchant last name. Maximum length is 30 characters.
+    'BusinessName' => 'facilitator \'s Test Store',                     // The merchant company business name. Maximum length is 100 characters.
     'Website' => 'https://www.angelleye.com/',                      // The merchant website. Maximum length is 2048 characters.
     'TaxId' => 'P87904347',                                         // The merchant tax ID. Maximum length is 100 characters. 
     'AdditionalInfoLabel' => 'Business hours 10:00 AM to 7:30 PM.'  // Any additional information, such as business hours. 40 characters max. 
@@ -45,12 +45,12 @@ $merchantAddress = array(
 );
 
 $billingInfo = array(
-    'Email' => 'tejasm@itpathsolutions.co.in',                      // The invoice recipient email address. Maximum length is 260 characters.
+    'Email' => 'paypal-facilitator@angelleye.com',                  // The invoice recipient email address. Maximum length is 260 characters.
     'FirstName' => '',                                              // The invoice recipient first name. Maximum length is 30 characters.
     'LastName'  => '',                                              // The invoice recipient last name. Maximum length is 30 characters. 
-    'BusinessName' => 'TJ Inc',                                     // The invoice recipient company business name. Maximum length is 100 characters.
+    'BusinessName' => 'AngellEYE',                                  // The invoice recipient company business name. Maximum length is 100 characters.
     'Language' => '',                                               // The language in which the email was sent to the payer. Used only when the payer does not have a PayPal account. Valid Values: ["da_DK", "de_DE", "en_AU", "en_GB", "en_US", "es_ES", "es_XC", "fr_CA", "fr_FR", "fr_XC", "he_IL", "id_ID", "it_IT", "ja_JP", "nl_NL", "no_NO", "pl_PL", "pt_BR", "pt_PT", "ru_RU", "sv_SE", "th_TH", "tr_TR", "zh_CN", "zh_HK", "zh_TW", "zh_XC"]
-    'AdditionalInfo' => 'This is the billing Additional Info',      // Additional information, such as business hours. Maximum length is 40 characters.    
+    'AdditionalInfo' => 'Business hours 10:00 AM to 7:30 PM.',      // Additional information, such as business hours. Maximum length is 40 characters.
     'NotificationChannel' => '',                                    // Valid Values: ["SMS", "EMAIL"]. Preferred notification channel of the payer. Email by default.    
 );
 
@@ -103,7 +103,7 @@ $item1 = array(
                         'Value'    => '5'                        // amount up to N digit after the decimals separator as defined in ISO 4217 for the appropriate currency code. 
                        ),                                        // Unit price of the item. Range of -1,000,000 to 1,000,000.
     'Tax' => array(
-                        'Name'    => 'Local Tax on Sutures',     // The tax name. Maximum length is 20 characters. 
+                        'Name'    => 'Local Tax on Sutures',     // The tax name. Maximum length is 20 characters.
                         'Percent' => '1',                        // The rate of the specified tax. Valid range is from 0.001 to 99.999.                        
                      ),                                          // Tax associated with the item.
     'Date' => '',                                                // The date when the item or service was provided. The date format is *yyyy*-*MM*-*dd* *z* as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
@@ -162,7 +162,7 @@ $finalDiscountForInvoice = array(
 $today_date = date('Y-m-d Z', time());  
 $invoiceData = array(
     'InvoiceDate' => $today_date,                             // The date when the invoice was enabled. The date format is *yyyy*-*MM*-*dd* *z* as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
-    'Note' => 'Medical Invoice 12 sep, 2016 PST',             // Note to the payer. 4000 characters max.
+    'Note' => 'Thank you for your business',                  // Note to the payer. 4000 characters max.
     'Number' => '',                                           // Unique number that appears on the invoice. If left blank will be auto-incremented from the last number. 25 characters max.
     'TemplateId' => '',                                       // The template ID used for the invoice. Useful for copy functionality.   
     'Uri' => '',                                              // URI of the invoice resource.
