@@ -201,11 +201,10 @@ $requestData =array(
     'shippingInfoPhone'       => $shippingInfoPhone,
     'shippingInfoAddress'     => $shippingInfoAddress,
     'paymentTerm'             => $paymentTerm,
-    'invoiceData'             => $invoiceData,
-    'refreshToken'            => $refreshToken  
+    'invoiceData'             => $invoiceData
 );
 
-$returnArray = $PayPal->create_thirdparty_invoice($requestData);
+$returnArray = $PayPal->create_invoice($requestData,true,$refreshToken);
 echo "<pre>";
 print_r($returnArray);
 
