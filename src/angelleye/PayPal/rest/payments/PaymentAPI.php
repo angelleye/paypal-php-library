@@ -38,6 +38,7 @@ use PayPal\Api\Capture;
 use PayPal\Api\CreditCard;
 use PayPal\Api\CreditCardToken;
 use PayPal\Api\Details;
+use PayPal\Api\ExecutePayment;
 use PayPal\Api\FundingInstrument;
 use PayPal\Api\Item;
 use PayPal\Api\ItemList;
@@ -45,6 +46,7 @@ use PayPal\Api\Order;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
 use PayPal\Api\PaymentCard;
+use PayPal\Api\PaymentExecution;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Refund;
 use PayPal\Api\RefundRequest;
@@ -1014,5 +1016,52 @@ class PaymentAPI extends RestClass {
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);
         }
+    }
+
+
+    public function execute_payment($paymentId,$payer_id,$amount=array()){
+
+        $payment = Payment::get($paymentId, $this->_api_context);
+
+        // ### Payment Execute
+        // PaymentExecution object includes information necessary
+        // to execute a PayPal account payment.
+        // The payer_id is added to the request query parameters
+        // when the user is redirected from paypal back to your site
+
+        $execution = new PaymentExecution();
+        $execution->setPayerId($payer_id);
+
+        if (isset($amount['Currency']) && !empty($amount['Currency']) && isset($amount['Total']) && !empty($amount['Total'])){
+
+            $transaction = new Transaction();
+
+            $amt = new Amount();
+            $amt->setCurrency($amount['Currency'])
+                ->setTotal($amount['Total']);
+
+            $details = new Details();
+            $detailArray = $this->checkEmptyObject($amount['Details']);
+            if(!empty($detailArray)){
+                $this->setArrayToMethods($detailArray, $details);
+                $amt->setDetails($details);
+            }
+            $transaction->setAmount($amt);
+            // Add the above transaction object inside our Execution object.
+            $execution->addTransaction($transaction);
+        }
+
+        try {
+            // Execute the payment
+            $result = $payment->execute($execution, $this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['PAYMENT'] = $result->toArray();
+            $returnArray['RAWREQUEST']=$execution->toJSON();
+            $returnArray['RAWRESPONSE']=$result->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $this->createErrorResponse($ex);
+        }
+
     }
 }
