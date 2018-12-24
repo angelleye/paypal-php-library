@@ -28,7 +28,7 @@ $paymentDefinition = array(
     'Frequency'         => 'MONTH',                        // Allowed values: `WEEK`, `DAY`, `YEAR`, `MONTH`. Frequency of the payment definition offered.
     'Cycles'            => '12',                           // Number of cycles in this payment definition.
     'Amount'            => array (
-                            'value'    => '100',           // Amount that will be charged at the end of each cycle for this payment definition.
+                            'value'    => '100.00',           // Amount that will be charged at the end of each cycle for this payment definition.
                             'currency' => 'USD'            // Three Letter Currency code.
                             )
     
@@ -37,7 +37,7 @@ $paymentDefinition = array(
 $chargeModel = array (
     'Type'   => 'SHIPPING',                                // Allowed values: `SHIPPING`, `TAX`. Type of charge model.
     'Amount' => array(
-                        'value'    => '10',                // Amount to charge.
+                        'value'    => '10.00',             // Amount to charge.
                         'currency' => 'USD'                // Three Letter Currency code.
                     )
 );
@@ -54,7 +54,7 @@ $merchant_preferences = array(
     "InitialFailAmountAction" => 'CONTINUE',               // Allowed values: `CONTINUE`, `CANCEL`. Default is continue. Action to take if a failure occurs during initial payment.
     "AcceptedPaymentType"     => '',                       // Payment types that are accepted for this plan.
     "SetupFee"                => array(
-                                  'value'    => '1',       // Setup fee amount. Default is 0.
+                                  'value'    => '1.00',    // Setup fee amount. Default is 0.
                                   'currency' => 'USD'      // Three Letter Currency code.
                                 )
 );

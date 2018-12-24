@@ -112,7 +112,7 @@ $item1 = array(
     'Quantity' => '100',                                            // Quantity of the item. Range of -10000 to 10000.
     'UnitPrice'  => array(
                         'Currency' => 'USD',                        // 3 letter currency code as defined by ISO 4217.     
-                        'Value'    => '5'                           // amount up to N digit after the decimals separator as defined in ISO 4217 for the appropriate currency code. 
+                        'Value'    => '5.00'                        // amount up to N digit after the decimals separator as defined in ISO 4217 for the appropriate currency code.
                        ),                                           // Unit price of the item. Range of -1,000,000 to 1,000,000.
     'Tax' => array(
                         'Name'    => 'Local Tax on Sutures',        // The tax name. Maximum length is 20 characters. 
@@ -133,7 +133,7 @@ $item2 = array(
     'Quantity' => '5',                                              // Quantity of the item. Range of -10000 to 10000.
     'UnitPrice'  => array(
                         'Currency' => 'USD',                        // 3 letter currency code as defined by ISO 4217.     
-                        'Value'    => '5'                           // amount up to N digit after the decimals separator as defined in ISO 4217 for the appropriate currency code. 
+                        'Value'    => '5.00'                        // amount up to N digit after the decimals separator as defined in ISO 4217 for the appropriate currency code.
                        ),                                           // Unit price of the item. Range of -1,000,000 to 1,000,000.
     'Tax' => array(
                         'Name'    => 'Local Tax on Injection',      // The tax name. Maximum length is 20 characters. 
