@@ -57,15 +57,15 @@ require_once('../../includes/config.php');
                     <tbody>
                     <tr>
                         <td><strong>Intent</strong></td>
-                        <td><?php echo $_SESSION['intent']; ?></td>
+                        <td><?php echo isset($_SESSION['intent']) ? $_SESSION['intent'] : '' ; ?></td>
                     </tr>
                     <tr>
                         <td><strong>Invoice Number</strong></td>
-                        <td><?php echo $_SESSION['invoiceNumber']; ?></td>
+                        <td><?php echo isset($_SESSION['invoiceNumber']) ? $_SESSION['invoiceNumber'] : ''; ?></td>
                     </tr>
                     <tr>
                         <td><strong>Note To Payer</strong></td>
-                        <td><?php echo $_SESSION['NoteToPayer']; ?></td>
+                        <td><?php echo isset($_SESSION['NoteToPayer']) ? $_SESSION['NoteToPayer'] : ''; ?></td>
                     </tr>
                     </tbody>
                 </table>
@@ -104,23 +104,38 @@ require_once('../../includes/config.php');
           <p><strong>Billing Information</strong></p>
           <p>
           	<?php
+            $first_name = isset($_SESSION['RESULT']['payer']['payer_info']['first_name']) ? $_SESSION['RESULT']['payer']['payer_info']['first_name'] : '';
+            $last_name = isset($_SESSION['RESULT']['payer']['payer_info']['last_name']) ? $_SESSION['RESULT']['payer']['payer_info']['last_name'] : '';
+            $payer_id = isset($_SESSION['RESULT']['payer']['payer_info']['payer_id']) ? $_SESSION['RESULT']['payer']['payer_info']['payer_id'] : '';
+            $email = isset($_SESSION['RESULT']['payer']['payer_info']['email']) ? $_SESSION['RESULT']['payer']['payer_info']['email'] : '';
+            $payment_id = isset($_SESSION['RESULT']['id']) ? $_SESSION['RESULT']['id'] : '';
+            $state = isset($_SESSION['RESULT']['state']) ? $_SESSION['RESULT']['state'] : '';
+
 			echo
-            'Name : '.$_SESSION['RESULT']['payer']['payer_info']['first_name'] . ' ' . $_SESSION['RESULT']['payer']['payer_info']['last_name'] . '<br />' .
-			'Payer ID : '.$_SESSION['RESULT']['payer']['payer_info']['payer_id'] . '<br />'.
-			'Email :' .$_SESSION['RESULT']['payer']['payer_info']['email'] . '<br />' .
-            'Payment ID : '.$_SESSION['RESULT']['id'] .'<br>'.
-            'Payment State : '. $_SESSION['RESULT']['state'].'';
+            'Name : '.$first_name . ' ' . $last_name . '<br />' .
+			'Payer ID : '.$payer_id . '<br />'.
+			'Email :' .$email . '<br />' .
+            'Payment ID : '.$payment_id.'<br>'.
+            'Payment State : '. $state.'';
 			?>
           </p>
         </div>
         <div class="col-md-4 column">
           <p><strong>Shipping Information</strong></p>
           <p>
-          	<?php 
-			echo $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['line1'] . '<br />' .
-                $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['line2'] . '<br />' .
-                $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['city'] . ', ' . $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['state'] . '  ' . $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['postal_code'] . '<br />' .
-                $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['country_code'];
+          	<?php
+
+            $line1 = isset($_SESSION['RESULT']['payer']['payer_info']['shipping_address']['line1']) ? $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['line1'] : '';
+            $line2 = isset($_SESSION['RESULT']['payer']['payer_info']['shipping_address']['line2']) ? $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['line2'] : '';
+            $city = isset($_SESSION['RESULT']['payer']['payer_info']['shipping_address']['city']) ? $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['city'] : '';
+            $state = isset($_SESSION['RESULT']['payer']['payer_info']['shipping_address']['state']) ? $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['state'] : '';
+            $postal_code = isset($_SESSION['RESULT']['payer']['payer_info']['shipping_address']['postal_code']) ? $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['postal_code'] : '';
+            $country_code = isset($_SESSION['RESULT']['payer']['payer_info']['shipping_address']['country_code']) ? $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['country_code'] : '';
+
+			echo $line1 . '<br/>' .
+                 $line2 . '<br/>' .
+                 $city . ', ' . $state . '  ' . $postal_code . '<br/>' .
+                 $country_code;
 			?>
           </p>
         </div>

@@ -10,12 +10,12 @@ require_once('../../includes/config.php');
 $currency = 'USD';
 $_SESSION['intent'] = 'sale';
 $_SESSION['invoiceNumber'] = 'AE-INVC-'.rand(0,100);
-$_SESSION['NoteToPayer'] = 'This is my Note to Payer.';     //free-form field for the use of clients to pass in a message to the payer.
+$_SESSION['NoteToPayer'] = 'Contact us for any questions on your order.';     //free-form field for the use of clients to pass in a message to the payer.
 
 $_SESSION['items'][0] = array(
     'Sku'         => '123123',                              // Stock keeping unit corresponding (SKU) to item.
-    'Name'        => 'Ground Coffee 40 oz',                 // Item name. 127 characters max.
-    'Description' => 'Item1 description',                   // Description of the item. Only supported when the `payment_method` is set to `paypal`.
+    'Name'        => 'hat',                                 // Item name. 127 characters max.
+    'Description' => 'Brown hat.',                          // Description of the item. Only supported when the `payment_method` is set to `paypal`.
     'Quantity'    => '1',                                   // Number of a particular item. 10 characters max
     'Price'       => '7.5',                                 // Item cost. 10 characters max.
     'Currency'    => $currency,                             // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
@@ -24,8 +24,8 @@ $_SESSION['items'][0] = array(
 
 $_SESSION['items'][1] = array(
     'Sku'         => '321321',                              // Stock keeping unit corresponding (SKU) to item.
-    'Name'        => 'Granola bars',                        // Item name. 127 characters max.
-    'Description' => 'Item2 description',                   // Description of the item. Only supported when the `payment_method` is set to `paypal`.
+    'Name'        => 'handbag',                             // Item name. 127 characters max.
+    'Description' => 'Black handbag.',                      // Description of the item. Only supported when the `payment_method` is set to `paypal`.
     'Quantity'    => '2',                                   // Number of a particular item. 10 characters max
     'Price'       => '5',                                   // Item cost. 10 characters max.
     'Currency'    => $currency,                             // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
