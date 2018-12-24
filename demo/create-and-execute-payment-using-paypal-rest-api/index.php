@@ -13,7 +13,7 @@ $_SESSION['invoiceNumber'] = 'AE-INVC-'.rand(0,100);
 $_SESSION['NoteToPayer'] = 'Contact us for any questions on your order.';     //free-form field for the use of clients to pass in a message to the payer.
 
 $_SESSION['items'][0] = array(
-    'Sku'         => '123123',                              // Stock keeping unit corresponding (SKU) to item.
+    'Sku'         => '123',                                 // Stock keeping unit corresponding (SKU) to item.
     'Name'        => 'hat',                                 // Item name. 127 characters max.
     'Description' => 'Brown hat.',                          // Description of the item. Only supported when the `payment_method` is set to `paypal`.
     'Quantity'    => '1',                                   // Number of a particular item. 10 characters max
@@ -23,7 +23,7 @@ $_SESSION['items'][0] = array(
 );
 
 $_SESSION['items'][1] = array(
-    'Sku'         => '321321',                              // Stock keeping unit corresponding (SKU) to item.
+    'Sku'         => 'product45',                           // Stock keeping unit corresponding (SKU) to item.
     'Name'        => 'handbag',                             // Item name. 127 characters max.
     'Description' => 'Black handbag.',                      // Description of the item. Only supported when the `payment_method` is set to `paypal`.
     'Quantity'    => '2',                                   // Number of a particular item. 10 characters max
@@ -106,15 +106,15 @@ $_SESSION['amount']['Currency'] = $currency;
                     <tbody>
                     <tr>
                         <td><strong>Intent</strong></td>
-                        <td><?php echo $_SESSION['intent']; ?></td>
+                        <td><?php echo isset($_SESSION['intent']) ? $_SESSION['intent'] : ''; ?></td>
                     </tr>
                     <tr>
                         <td><strong>Invoice Number</strong></td>
-                        <td><?php echo $_SESSION['invoiceNumber']; ?></td>
+                        <td><?php echo isset($_SESSION['invoiceNumber']) ? $_SESSION['invoiceNumber'] : ''; ?></td>
                     </tr>
                     <tr>
                         <td><strong>Note To Payer</strong></td>
-                        <td><?php echo $_SESSION['NoteToPayer']; ?></td>
+                        <td><?php echo isset($_SESSION['NoteToPayer']) ? $_SESSION['NoteToPayer'] : ''; ?></td>
                     </tr>
                     </tbody>
                 </table>
@@ -136,12 +136,12 @@ $_SESSION['amount']['Currency'] = $currency;
     foreach($_SESSION['orderItems'] as $cart_item) {
         ?>
           <tr>
-            <td><?php echo $cart_item['Sku']; ?></td>
-            <td><?php echo $cart_item['Name']; ?></td>
-            <td><?php echo $cart_item['Description']; ?></td>
-            <td class="center"> $<?php echo number_format($cart_item['Price'],2); ?></td>
-            <td class="center"><?php echo $cart_item['Quantity']; ?></td>
-            <td class="center"> $<?php echo round($cart_item['Quantity'] * $cart_item['Price'],2); ?></td>
+            <td><?php echo isset($cart_item['Sku']) ? $cart_item['Sku'] : ''; ?></td>
+            <td><?php echo isset($cart_item['Name']) ? $cart_item['Name'] : ''; ?></td>
+            <td><?php echo isset($cart_item['Description']) ? $cart_item['Description'] : '' ; ?></td>
+            <td class="center"> $<?php echo isset($cart_item['Price']) ? number_format($cart_item['Price'],2) : ''; ?></td>
+            <td class="center"><?php echo isset($cart_item['Quantity']) ? $cart_item['Quantity'] : ''; ?></td>
+            <td class="center"> $<?php echo number_format($cart_item['Quantity'] * $cart_item['Price'],2); ?></td>
           </tr>
           <?php
     }
@@ -156,23 +156,23 @@ $_SESSION['amount']['Currency'] = $currency;
             <tbody>
               <tr>
                 <td><strong> Subtotal</strong></td>
-                <td> $<?php echo number_format($_SESSION['paymentDetails']['Subtotal'],2); ?></td>
+                <td> $<?php echo isset($_SESSION['paymentDetails']['Subtotal']) ? number_format($_SESSION['paymentDetails']['Subtotal'],2) : ''; ?></td>
               </tr>
               <tr>
                 <td><strong>Shipping</strong></td>
-                <td>$<?php echo number_format($_SESSION['paymentDetails']['Shipping'],2); ?></td>
+                <td>$<?php echo isset($_SESSION['paymentDetails']['Shipping']) ? number_format($_SESSION['paymentDetails']['Shipping'],2) : ''; ?></td>
               </tr>
               <tr>
                 <td><strong>Tax</strong></td>
-                <td>$<?php echo number_format($_SESSION['paymentDetails']['Tax'],2); ?></td>
+                <td>$<?php echo isset($_SESSION['paymentDetails']['Tax']) ? number_format($_SESSION['paymentDetails']['Tax'],2) : ''; ?></td>
               </tr>
               <tr>
                   <td><strong>Gift Wrap</strong></td>
-                  <td>$<?php echo number_format($_SESSION['paymentDetails']['GiftWrap'],2); ?></td>
+                  <td>$<?php echo isset($_SESSION['paymentDetails']['GiftWrap']) ? number_format($_SESSION['paymentDetails']['GiftWrap'],2) : ''; ?></td>
               </tr>
               <tr>
                 <td><strong>Grand Total</strong></td>
-                <td>$<?php echo number_format($_SESSION['amount']['Total'],2); ?></td>
+                <td>$<?php echo isset($_SESSION['amount']['Total']) ? number_format($_SESSION['amount']['Total'],2) : ''; ?></td>
               </tr>
               <tr>
                   <td class="center" colspan="2"><a href="CreatePaymentUsingPayPal.php"><img src="https://www.paypalobjects.com/webstatic/en_AU/i/buttons/btn_paywith_primary_l.png"></a></td>

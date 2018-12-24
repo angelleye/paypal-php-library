@@ -87,12 +87,12 @@ require_once('../../includes/config.php');
             foreach($_SESSION['orderItems'] as $cart_item) {
                 ?>
                 <tr>
-                    <td><?php echo $cart_item['Sku']; ?></td>
-                    <td><?php echo $cart_item['Name']; ?></td>
-                    <td><?php echo $cart_item['Description']; ?></td>
-                    <td class="center"> $<?php echo number_format($cart_item['Price'],2); ?></td>
-                    <td class="center"><?php echo $cart_item['Quantity']; ?></td>
-                    <td class="center"> $<?php echo round($cart_item['Quantity'] * $cart_item['Price'],2); ?></td>
+                    <td><?php echo isset($cart_item['Sku']) ? $cart_item['Sku'] : ''; ?></td>
+                    <td><?php echo isset($cart_item['Name']) ? $cart_item['Name'] : ''; ?></td>
+                    <td><?php echo isset($cart_item['Description']) ? $cart_item['Description'] : ''; ?></td>
+                    <td class="center"> $<?php echo isset($cart_item['Price']) ? number_format($cart_item['Price'],2) : ''; ?></td>
+                    <td class="center"><?php echo isset($cart_item['Quantity']) ? $cart_item['Quantity'] : '' ; ?></td>
+                    <td class="center"> $<?php echo number_format($cart_item['Quantity'] * $cart_item['Price'],2); ?></td>
                 </tr>
                 <?php
             }
@@ -104,12 +104,12 @@ require_once('../../includes/config.php');
           <p><strong>Billing Information</strong></p>
           <p>
           	<?php
-            $first_name = isset($_SESSION['RESULT']['payer']['payer_info']['first_name']) ? $_SESSION['RESULT']['payer']['payer_info']['first_name'] : '';
-            $last_name = isset($_SESSION['RESULT']['payer']['payer_info']['last_name']) ? $_SESSION['RESULT']['payer']['payer_info']['last_name'] : '';
-            $payer_id = isset($_SESSION['RESULT']['payer']['payer_info']['payer_id']) ? $_SESSION['RESULT']['payer']['payer_info']['payer_id'] : '';
-            $email = isset($_SESSION['RESULT']['payer']['payer_info']['email']) ? $_SESSION['RESULT']['payer']['payer_info']['email'] : '';
-            $payment_id = isset($_SESSION['RESULT']['id']) ? $_SESSION['RESULT']['id'] : '';
-            $state = isset($_SESSION['RESULT']['state']) ? $_SESSION['RESULT']['state'] : '';
+            $first_name = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['first_name']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['first_name'] : '';
+            $last_name = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['last_name']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['last_name'] : '';
+            $payer_id = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['payer_id']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['payer_id'] : '';
+            $email = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['email']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['email'] : '';
+            $payment_id = isset($_SESSION['RESULT']['PAYMENT']['id']) ? $_SESSION['RESULT']['PAYMENT']['id'] : '';
+            $state = isset($_SESSION['RESULT']['PAYMENT']['state']) ? $_SESSION['RESULT']['PAYMENT']['state'] : '';
 
 			echo
             'Name : '.$first_name . ' ' . $last_name . '<br />' .
@@ -125,12 +125,12 @@ require_once('../../includes/config.php');
           <p>
           	<?php
 
-            $line1 = isset($_SESSION['RESULT']['payer']['payer_info']['shipping_address']['line1']) ? $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['line1'] : '';
-            $line2 = isset($_SESSION['RESULT']['payer']['payer_info']['shipping_address']['line2']) ? $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['line2'] : '';
-            $city = isset($_SESSION['RESULT']['payer']['payer_info']['shipping_address']['city']) ? $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['city'] : '';
-            $state = isset($_SESSION['RESULT']['payer']['payer_info']['shipping_address']['state']) ? $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['state'] : '';
-            $postal_code = isset($_SESSION['RESULT']['payer']['payer_info']['shipping_address']['postal_code']) ? $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['postal_code'] : '';
-            $country_code = isset($_SESSION['RESULT']['payer']['payer_info']['shipping_address']['country_code']) ? $_SESSION['RESULT']['payer']['payer_info']['shipping_address']['country_code'] : '';
+            $line1 = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['line1']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['line1'] : '';
+            $line2 = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['line2']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['line2'] : '';
+            $city = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['city']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['city'] : '';
+            $state = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['state']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['state'] : '';
+            $postal_code = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['postal_code']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['postal_code'] : '';
+            $country_code = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['country_code']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['country_code'] : '';
 
 			echo $line1 . '<br/>' .
                  $line2 . '<br/>' .
@@ -144,23 +144,23 @@ require_once('../../includes/config.php');
                   <tbody>
                   <tr>
                       <td><strong> Subtotal</strong></td>
-                      <td> $<?php echo number_format($_SESSION['paymentDetails']['Subtotal'],2); ?></td>
+                      <td> $<?php echo isset($_SESSION['paymentDetails']['Subtotal']) ? number_format($_SESSION['paymentDetails']['Subtotal'],2) : ''; ?></td>
                   </tr>
                   <tr>
                       <td><strong>Shipping</strong></td>
-                      <td>$<?php echo number_format($_SESSION['paymentDetails']['Shipping'],2); ?></td>
+                      <td>$<?php echo isset($_SESSION['paymentDetails']['Shipping']) ? number_format($_SESSION['paymentDetails']['Shipping'],2) : ''; ?></td>
                   </tr>
                   <tr>
                       <td><strong>Tax</strong></td>
-                      <td>$<?php echo number_format($_SESSION['paymentDetails']['Tax'],2); ?></td>
+                      <td>$<?php echo isset($_SESSION['paymentDetails']['Tax']) ? number_format($_SESSION['paymentDetails']['Tax'],2) : ''; ?></td>
                   </tr>
                   <tr>
                       <td><strong>Gift Wrap</strong></td>
-                      <td>$<?php echo number_format($_SESSION['paymentDetails']['GiftWrap'],2); ?></td>
+                      <td>$<?php echo isset($_SESSION['paymentDetails']['GiftWrap']) ? number_format($_SESSION['paymentDetails']['GiftWrap'],2) : ''; ?></td>
                   </tr>
                   <tr>
                       <td><strong>Grand Total</strong></td>
-                      <td>$<?php echo number_format($_SESSION['amount']['Total'],2); ?></td>
+                      <td>$<?php echo isset($_SESSION['amount']['Total']) ? number_format($_SESSION['amount']['Total'],2) : ''; ?></td>
                   </tr>
                   </tbody>
               </table>
