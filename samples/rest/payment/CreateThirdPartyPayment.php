@@ -30,7 +30,7 @@ $third_party_merchant_email = 'tejasm-merchant@itpathsolutions.co.in';          
 $urls= array(
     'ReturnUrl'   => 'ExecutePayment.php?success=true',                                     // Required when Pay using paypal. Example : ExecutePayment.php?success=true
     'CancelUrl'   => 'ExecutePayment.php?success=false',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=false
-    'BaseUrl'     => 'http://localhost/paypal-php-library/templates/rest/payment/'                                     // Required. 
+    'BaseUrl'     => $domain.'samples/rest/payment/'                                     // Required.
 );
 
 $invoiceNumber='INVC_'.rand(0,1000);
