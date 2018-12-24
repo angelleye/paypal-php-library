@@ -15,7 +15,7 @@ $PayPal = new \angelleye\PayPal\rest\payouts\PayoutsAPI($configArray);
 
 $batchHeader = array(
     'SenderBatchId' => uniqid(),                                   // A sender-specified ID number. Tracks the batch payout in an accounting system.Note: PayPal prevents duplicate batches from being processed. If you specify a `sender_batch_id` that was used in the last 30 days, the API rejects the request and returns an error message that indicates the duplicate `sender_batch_id` and includes a HATEOAS link to the original batch payout with the same `sender_batch_id`. If you receive a HTTP `5nn` status code, you can safely retry the request with the same `sender_batch_id`. In any case, the API completes a payment only once for a specific `sender_batch_id` that is used within 30 days.
-    'EmailSubject'  => 'TJ Subject : You have a Payout!',          // The subject line text for the email that PayPal sends when a payout item completes. The subject line is the same for all recipients. Value is an alphanumeric string with a maximum length of 255 single-byte characters.    
+    'EmailSubject'  => 'AngellEye : You have a Payout!',          // The subject line text for the email that PayPal sends when a payout item completes. The subject line is the same for all recipients. Value is an alphanumeric string with a maximum length of 255 single-byte characters.
 );
 
 $amount = array(
@@ -33,8 +33,8 @@ $PayoutItem = array(
     //  PAYPAL_ID Encrypted PayPal account number.
     
     'RecipientType' => 'EMAIL',                                 // Valid values: EMAIL | PHONE | PAYPAL_ID.      
-    'Note'          => 'Thanks for your patronage! TJ',         // Optional. A sender-specified note for notifications. Value is any string value. Maximum length: 4000.
-    'Receiver'      => 'tejasm-buyer@itpathsolutions.co.in',    // The receiver of the payment. Corresponds to the recipient_type value in the request. Maximum length: 127.
+    'Note'          => 'Thanks for your patronage!',            // Optional. A sender-specified note for notifications. Value is any string value. Maximum length: 4000.
+    'Receiver'      => 'paypal-buyer@angelleye.com',            // The receiver of the payment. Corresponds to the recipient_type value in the request. Maximum length: 127.
     'SenderItemId'  => '2014031400023',                         // A sender-specified ID number. Tracks the batch payout in an accounting system. Maximum length: 30.    
 );
 

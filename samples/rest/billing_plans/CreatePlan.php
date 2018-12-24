@@ -14,15 +14,15 @@ $configArray = array(
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
 $plan= array(
-  'Name'         => 'TJ T-Shirt of the Month Club Plan',   // Required. Name of the billing plan. 128 characters max.
-  'Description'  => 'TJ Template creation.',               // Required. Description of the billing plan. 128 characters max.
+  'Name'         => 'T-Shirt of the Month Club Plan',      // Required. Name of the billing plan. 128 characters max.
+  'Description'  => 'Template creation.',                  // Required. Description of the billing plan. 128 characters max.
   'Type'         => 'FIXED',                               // Required.  Type of the billing plan. Allowed values: `FIXED`, `INFINITE`.
   'CreateTime'   => '',                                    // Time when the billing plan was created. Format YYYY-MM-DDTimeTimezone, as defined in [ISO8601](http://tools.ietf.org/html/rfc3339#section-5.6).  
 );
 
 // Payment Defination is Required for creating Plan. 
 $paymentDefinition = array(
-    'Name'              => 'TJ Regular Payments',          // Name of the payment definition. 128 characters max.
+    'Name'              => 'Regular Payments',             // Name of the payment definition. 128 characters max.
     'Type'              => 'REGULAR',                      // Allowed values: `TRIAL`, `REGULAR`. Type of the payment definition.
     'FrequencyInterval' => '2',                            // How frequently the customer should be charged.
     'Frequency'         => 'MONTH',                        // Allowed values: `WEEK`, `DAY`, `YEAR`, `MONTH`. Frequency of the payment definition offered.

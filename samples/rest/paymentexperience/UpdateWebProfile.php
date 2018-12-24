@@ -23,7 +23,7 @@ $FlowConfig = array(
 );
 
 $presentation = array(
-    'BrandName'           => 'IPS TJ! Paypal',                               // A label that overrides the business name in the PayPal account on the PayPal pages. Character length and limitations: 127 single-byte alphanumeric characters.
+    'BrandName'           => 'AngellEye Paypal',                               // A label that overrides the business name in the PayPal account on the PayPal pages. Character length and limitations: 127 single-byte alphanumeric characters.
     'LogoImage'           => '',                                             // A URL to the logo image. A valid media type is `.gif`, `.jpg`, or `.png`. The maximum width of the image is 190 pixels. The maximum height of the image is 60 pixels. PayPal crops images that are larger. PayPal places your logo image at the top of the cart review area. PayPal recommends that you store the image on a secure (HTTPS) server. Otherwise, web browsers display a message that checkout pages contain non-secure items. Character length and limit: 127 single-byte alphanumeric characters.
     'LocaleCode'          => '',                                             // The locale of pages displayed by PayPal payment experience. A valid value is `AU`, `AT`, `BE`, `BR`, `CA`, `CH`, `CN`, `DE`, `ES`, `GB`, `FR`, `IT`, `NL`, `PL`, `PT`, `RU`, or `US`. A 5-character code is also valid for languages in specific countries: `da_DK`, `he_IL`, `id_ID`, `ja_JP`, `no_NO`, `pt_BR`, `ru_RU`, `sv_SE`, `th_TH`, `zh_CN`, `zh_HK`, or `zh_TW`.
     'ReturnUrlLabel'      => '',                                             // A label to use as hypertext for the return to merchant link.
@@ -37,7 +37,7 @@ $InputFields = array(
 );
 
 $WebProfile = array(
-    'Name'                => "IPS! T-Shirt Shop" . uniqid(),                 // Required. | The web experience profile name. Unique for a specified merchant's profiles.
+    'Name'                => "AngellEye T-Shirt Shop" . uniqid(),                 // Required. | The web experience profile name. Unique for a specified merchant's profiles.
     'Temporary'           => '',                                             // Indicates whether the profile persists for three hours or permanently. Set to `false` to persist the profile permanently. Set to `true` to persist the profile for three hours.    
 );
 
