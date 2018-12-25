@@ -82,15 +82,15 @@
                             <p>Learn how to integrate Express Checkout Basic. It allows to create and execute payment using REST API. This includes the option for
                                 embedded payments.</p>
                             <?php
-                            $DIR = '\create-and-execute-payment-using-paypal-rest-api';
+                            $DIR = '\rest-checkout-line-items';
                             $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                             ?>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="create-and-execute-payment-using-paypal-rest-api" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest-checkout-line-items" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-rest-basic-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-rest-checkout-line-items-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
