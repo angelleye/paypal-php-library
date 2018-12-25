@@ -75,10 +75,10 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="Express Checkout Basic"
-                                                src="assets/images/paypal-express-checkout.jpg">
+                                                src="assets/images/paypal-express-checkout-with-line-items.jpg">
                         <div class="caption">
                             <h3>Express Checkout</h3>
-                            <h4>Basic</h4>
+                            <h4>w/ Line Items</h4>
                             <p>Learn how to integrate Express Checkout Basic. It allows to create and execute payment using REST API. This includes the option for
                                 embedded payments.</p>
                             <?php
