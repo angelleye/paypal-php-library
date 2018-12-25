@@ -75,22 +75,22 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="Express Checkout Basic"
-                                                src="assets/images/paypal-express-checkout.jpg">
+                                                src="assets/images/paypal-express-checkout-with-line-items.jpg">
                         <div class="caption">
                             <h3>Express Checkout</h3>
-                            <h4>Basic</h4>
+                            <h4>w/ Line Items</h4>
                             <p>Learn how to integrate Express Checkout Basic. It allows to create and execute payment using REST API. This includes the option for
                                 embedded payments.</p>
                             <?php
-                            $DIR = '\create-and-execute-payment-using-paypal-rest-api';
+                            $DIR = '\rest-checkout-line-items';
                             $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                             ?>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="create-and-execute-payment-using-paypal-rest-api" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest-checkout-line-items" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-rest-basic-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-rest-checkout-line-items-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
@@ -294,6 +294,31 @@
                     </div>
                 </div>
 
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="thumbnail"><img alt="Create & Send Third Party Invoice PayPal"
+                                                src="assets/images/paypal-create-send-third-party-invoice.jpg">
+                        <div class="caption">
+                            <h3>Create & Send Third Party Invoice PayPal </h3>
+                            <h4>Invoicing API</h4>
+                            <p>Learn how to create and send third party invoice in PayPal using  Invoicing API.</p>
+                            <?php
+                            $DIR = '\create-and-send-third-party-invoice-paypal';
+                            $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
+                            ?>
+                            <p align="center">
+                                <?php if ($DIR_exists) : ?>
+                                    <a class="btn btn-primary" href="create-and-send-third-party-invoice-paypal/" target="_blank">Launch Demo</a>
+                                <?php else: ?>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-create-and-send-third-party-invoice-paypal-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -617,31 +642,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-4">
-                    <div class="thumbnail"><img alt="Create & Send Third Party Invoice PayPal"
-                                                src="assets/images/paypal-create-send-third-party-invoice.jpg">
-                        <div class="caption">
-                            <h3>Create & Send Third Party Invoice PayPal </h3>
-                            <h4>Invoicing API</h4>
-                            <p>Learn how to create and send third party invoice in PayPal using  Invoicing API.</p>
-                            <?php
-                            $DIR = '\create-and-send-third-party-invoice-paypal';
-                            $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
-                            ?>
-                            <p align="center">
-                                <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="create-and-send-third-party-invoice-paypal/" target="_blank">Launch Demo</a>
-                                <?php else: ?>
-                                    <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-create-and-send-third-party-invoice-paypal-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
-                                       target="_blank">Buy Now</a>
-                                <?php endif; ?>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
 </body>
