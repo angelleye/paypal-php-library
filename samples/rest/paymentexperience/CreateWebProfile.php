@@ -21,8 +21,8 @@ $FlowConfig = array(
 );
 
 $presentation = array(
-    'BrandName'           => 'IPS! Paypal',                      // A label that overrides the business name in the PayPal account on the PayPal pages. Character length and limitations: 127 single-byte alphanumeric characters.
-    'LogoImage'           => 'http://www.itpathsolutions.com/wp-content/themes/ips/images/logo1.png',                                             // A URL to the logo image. A valid media type is `.gif`, `.jpg`, or `.png`. The maximum width of the image is 190 pixels. The maximum height of the image is 60 pixels. PayPal crops images that are larger. PayPal places your logo image at the top of the cart review area. PayPal recommends that you store the image on a secure (HTTPS) server. Otherwise, web browsers display a message that checkout pages contain non-secure items. Character length and limit: 127 single-byte alphanumeric characters.
+    'BrandName'           => 'AngellEye',                      // A label that overrides the business name in the PayPal account on the PayPal pages. Character length and limitations: 127 single-byte alphanumeric characters.
+    'LogoImage'           => 'https://www.angelleye.com/wp-content/uploads/2015/06/angelleye-logo-159x43.png',                                             // A URL to the logo image. A valid media type is `.gif`, `.jpg`, or `.png`. The maximum width of the image is 190 pixels. The maximum height of the image is 60 pixels. PayPal crops images that are larger. PayPal places your logo image at the top of the cart review area. PayPal recommends that you store the image on a secure (HTTPS) server. Otherwise, web browsers display a message that checkout pages contain non-secure items. Character length and limit: 127 single-byte alphanumeric characters.
     'LocaleCode'          => 'US',                               // The locale of pages displayed by PayPal payment experience. A valid value is `AU`, `AT`, `BE`, `BR`, `CA`, `CH`, `CN`, `DE`, `ES`, `GB`, `FR`, `IT`, `NL`, `PL`, `PT`, `RU`, or `US`. A 5-character code is also valid for languages in specific countries: `da_DK`, `he_IL`, `id_ID`, `ja_JP`, `no_NO`, `pt_BR`, `ru_RU`, `sv_SE`, `th_TH`, `zh_CN`, `zh_HK`, or `zh_TW`.
     'ReturnUrlLabel'      => 'Return',                           // A label to use as hypertext for the return to merchant link.
     'NoteToSellerLabel'   => 'Thanks!',                          // A label to use as the title for the note to seller field. Used only when `allow_note` is `1`.    
@@ -35,7 +35,7 @@ $InputFields = array(
 );
 
 $WebProfile = array(
-    'Name'                => "IPS! T-Shirt Shop" . uniqid(),     // The web experience profile name. Unique for a specified merchant's profiles.
+    'Name'                => "T-Shirt Shop" . uniqid(),     // The web experience profile name. Unique for a specified merchant's profiles.
     'Temporary'           => true,                               // Indicates whether the profile persists for three hours or permanently. Set to `false` to persist the profile permanently. Set to `true` to persist the profile for three hours.    
 );
 

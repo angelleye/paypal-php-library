@@ -25,7 +25,7 @@ $intent='sale';                                             //Allowed values: sa
 //ReturnUrl=ExecutePayment.php?success=true
 //CancelUrl=ExecutePayment.php?success=false
 
-$third_party_merchant_email = 'tejasm-merchant@itpathsolutions.co.in';                      // Specify a payee with that user's email or merchant id Merchant Id can be found at https://www.paypal.com/businessprofile/settings/
+$third_party_merchant_email = 'paypal-facilitator@angelleye.com';                      // Specify a payee with that user's email or merchant id Merchant Id can be found at https://www.paypal.com/businessprofile/settings/
 
 $urls= array(
     'ReturnUrl'   => 'ExecutePayment.php?success=true',                                     // Required when Pay using paypal. Example : ExecutePayment.php?success=true
@@ -35,13 +35,13 @@ $urls= array(
 
 $invoiceNumber='INVC_'.rand(0,1000);
 $ExperienceProfileId = '';                                   // Optional. PayPal generated identifier for the merchant's payment experience profile. Refer to [this](https://developer.paypal.com/docs/api/#payment-experience) link to create experience profile ID.
-$NoteToPayer = 'This is my Note to Payer';                   // Optional. free-form field for the use of clients to pass in a message to the payer.
+$NoteToPayer = 'Contact us for any questions on your order.';                   // Optional. free-form field for the use of clients to pass in a message to the payer.
 
 $orderItems = array();
 $Item = array(
     'Sku'         => '123123',                               // Stock keeping unit corresponding (SKU) to item.
     'Name'        => 'Ground Coffee 40 oz',                  // Item name. 127 characters max.
-    'Description' => 'Item1 description',                    // Description of the item. Only supported when the `payment_method` is set to `paypal`.
+    'Description' => 'Medium Roast Single Origin',           // Description of the item. Only supported when the `payment_method` is set to `paypal`.
     'Quantity'    => '1',                                    // Number of a particular item. 10 characters max
     'Price'       => '7.50',                                 // Item cost. 10 characters max.
     'Currency'    => 'USD',                                  // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
@@ -52,7 +52,7 @@ array_push($orderItems, $Item);
 $Item = array(
     'Sku'         => '321321',                               // Stock keeping unit corresponding (SKU) to item.
     'Name'        => 'Granola bars',                         // Item name. 127 characters max.
-    'Description' => '',                                     // Description of the item. Only supported when the `payment_method` is set to `paypal`.
+    'Description' => 'Fruit filled chewy bars.',             // Description of the item. Only supported when the `payment_method` is set to `paypal`.
     'Quantity'    => '2',                                    // Number of a particular item. 10 characters max
     'Price'       => '5.00',                                 // Item cost. 10 characters max.
     'Currency'    => 'USD',                                  // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).

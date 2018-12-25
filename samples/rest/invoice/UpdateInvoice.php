@@ -16,10 +16,10 @@ $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 $InvoiceID = 'INV2-X62M-AZPE-MCSA-N3W6';                       // Required. The ID of the invoice to update.
 
 $merchantInfo = array(
-    'Email' => 'tejasm-merchant@itpathsolutions.co.in',        // The merchant email address. Maximum length is 260 characters.
-    'FirstName' => 'TJ',                                       // The merchant first name. Maximum length is 30 characters.
-    'LastName'  => 'Mehta',                                    // The merchant last name. Maximum length is 30 characters.        
-    'BusinessName' => 'Tj Mehta\'s Test Store',                // The merchant company business name. Maximum length is 100 characters.
+    'Email' => 'paypal-facilitator@angelleye.com',              // The merchant email address. Maximum length is 260 characters.
+    'FirstName' => 'Test',                                      // The merchant first name. Maximum length is 30 characters.
+    'LastName'  => 'Testerson',                                 // The merchant last name. Maximum length is 30 characters.
+    'BusinessName' => 'Testerson\'s store',                     // The merchant company business name. Maximum length is 100 characters.
 );
 
 $merchantPhone = array(
@@ -38,12 +38,12 @@ $merchantAddress = array(
 );
 
 $billingInfo = array(
-    'Email' => 'tejasm@itpathsolutions.co.in',                  // The invoice recipient email address. Maximum length is 260 characters.
+    'Email' => 'paypal-facilitator@angelleye.com',              // The invoice recipient email address. Maximum length is 260 characters.
     'FirstName' => '',                                          // The invoice recipient first name. Maximum length is 30 characters.
     'LastName'  => '',                                          // The invoice recipient last name. Maximum length is 30 characters. 
-    'BusinessName' => 'TJ Inc',                                 // The invoice recipient company business name. Maximum length is 100 characters.
+    'BusinessName' => 'AngellEye',                              // The invoice recipient company business name. Maximum length is 100 characters.
     'Language' => '',                                           // The language in which the email was sent to the payer. Used only when the payer does not have a PayPal account. Valid Values: ["da_DK", "de_DE", "en_AU", "en_GB", "en_US", "es_ES", "es_XC", "fr_CA", "fr_FR", "fr_XC", "he_IL", "id_ID", "it_IT", "ja_JP", "nl_NL", "no_NO", "pl_PL", "pt_BR", "pt_PT", "ru_RU", "sv_SE", "th_TH", "tr_TR", "zh_CN", "zh_HK", "zh_TW", "zh_XC"]
-    'AdditionalInfo' => 'This is the billing Additional Info',  // Additional information, such as business hours. Maximum length is 40 characters.    
+    'AdditionalInfo' => 'Business hours 10:00 AM to 7:30 PM.',  // Additional information, such as business hours. Maximum length is 40 characters.
     'NotificationChannel' => '',                                // Valid Values: ["SMS", "EMAIL"]. Preferred notification channel of the payer. Email by default.
     
 );
@@ -138,7 +138,7 @@ $paymentTerm = array(
 );
 
 $invoiceData = array(
-    'Note' => 'This is again Updated content note',                 // Note to the payer. 4000 characters max.
+    'Note' => 'Thank you for your Payment',                         // Note to the payer. 4000 characters max.
     'Number' => '',                                                 // Unique number that appears on the invoice. If left blank will be auto-incremented from the last number. 25 characters max.
     'TemplateId' => '',                                             // The template ID used for the invoice. Useful for copy functionality.   
     'Uri' => '',                                                    // URI of the invoice resource.
