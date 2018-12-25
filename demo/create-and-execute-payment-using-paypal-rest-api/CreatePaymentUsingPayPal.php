@@ -20,20 +20,20 @@ $configArray = array(
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
 /**
- * @var $intent
- * In this demo we have intent of the payment is "sale".
- * There are more intent that available in the PayPal but purpose of use them are different.
- *  sale : Must be set to sale for immediate payment
- *  authorize : To authorize a payment for capture later
- *  order : To create an order
+ * In this demo we are using Sale for the intent value.
+ *
+ * Possible values for intent include:
+ *
+ * sale - Immediate payment.
+ * authorize - Authorize a payment for future capture.
+ * order - Create an order for future capture, but without an authorization.
  */
-
 $intent= $_SESSION['intent'];
 
 /**
- * Here we are setting up the parameters for a basic Express Checkout flow.
+ * Here we are setting up the parameters for a basic Checkout flow.
  *
- * The template provided at ../../vendor/angelleye/paypal-php-library/templates/samples/rest/payment/CreatePaymentUsingPayPal.php
+ * The template provided at /vendor/angelleye/paypal-php-library/templates/rest/payment/CreatePaymentUsingPayPal.php
  * contains a lot more parameters that we aren't using here, so I've removed them to keep this clean.
  *
  * $domain used here is set in the config file.
@@ -52,7 +52,7 @@ $paymentDetails = $_SESSION['paymentDetails'];
 $amount = $_SESSION['amount'];
 
 /**
- * Now we gather all of the arrays above into a single array.
+ * Now we gather all of the data above into a single array.
  */
 
 $requestData = array(
