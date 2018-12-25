@@ -96,7 +96,7 @@ $_SESSION['amount']['Currency'] = $currency;
       billing or shipping information from the buyer yet because we'll be obtaining those details from PayPal 
       after the user logs in and is returned back to the site.</p>
       <p class="bg-info">To complete the demo, click the Pay with PayPal button and use the following credentials to login to PayPal.<br /><br />
-      Email Address:  paypalphp@angelleye.com<br />
+      Email Address: paypal-buyer@angelleye.com<br />
       Password:  paypalphp
       </p>
         <div style="padding-top: 50px"></div>
