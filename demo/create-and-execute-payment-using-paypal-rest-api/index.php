@@ -14,8 +14,8 @@ $_SESSION['NoteToPayer'] = 'Contact us for any questions on your order.';     //
 
 $_SESSION['items'][0] = array(
     'Sku'         => '123',                                 // Stock keeping unit corresponding (SKU) to item.
-    'Name'        => 'hat',                                 // Item name. 127 characters max.
-    'Description' => 'Brown hat.',                          // Description of the item. Only supported when the `payment_method` is set to `paypal`.
+    'Name'        => 'Hat',                                 // Item name. 127 characters max.
+    'Description' => 'Kansas City Chiefs Large Multi-Fit Hat',                          // Description of the item. Only supported when the `payment_method` is set to `paypal`.
     'Quantity'    => '1',                                   // Number of a particular item. 10 characters max
     'Price'       => '7.5',                                 // Item cost. 10 characters max.
     'Currency'    => $currency,                             // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
@@ -23,9 +23,9 @@ $_SESSION['items'][0] = array(
 );
 
 $_SESSION['items'][1] = array(
-    'Sku'         => 'product45',                           // Stock keeping unit corresponding (SKU) to item.
-    'Name'        => 'handbag',                             // Item name. 127 characters max.
-    'Description' => 'Black handbag.',                      // Description of the item. Only supported when the `payment_method` is set to `paypal`.
+    'Sku'         => '678',                           // Stock keeping unit corresponding (SKU) to item.
+    'Name'        => 'Handbag',                             // Item name. 127 characters max.
+    'Description' => 'Small, leather handbag.',                      // Description of the item. Only supported when the `payment_method` is set to `paypal`.
     'Quantity'    => '2',                                   // Number of a particular item. 10 characters max
     'Price'       => '5',                                   // Item cost. 10 characters max.
     'Currency'    => $currency,                             // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
