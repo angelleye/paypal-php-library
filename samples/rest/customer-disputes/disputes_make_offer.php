@@ -17,7 +17,7 @@ $dispute_id  = 'PP-D-5617';   // The ID of the dispute for which to make an offe
 
 $offer_amount = array(
     'currency_code' => 'USD',
-    'value' => '23'
+    'value' => '23.00'
 );
 $address_details = array(
     'street_number' => '',     // The street number. Maximum length: 300.

@@ -37,8 +37,8 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
     // do that by passing the transaction object with just `amount` field in it.
 
     $details = array(
-        'Shipping' => '2.2',
-        'Tax' => '1.3',
+        'Shipping' => '2.20',
+        'Tax' => '1.30',
         'HandlingFee' => '',
         'ShippingDiscount' => '',
         'Insurance' => '',
@@ -50,7 +50,7 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
 
     $amount = array(
         'Currency' => 'USD',
-        'Total' => '21',
+        'Total' => '21.00',
         'Details' => $details
     );
 

@@ -28,7 +28,7 @@ $authorizationId = "O-3E566053FX793851D";      // The ID of the authorization to
 
 $amount = array(
     'Currency' => 'USD',   //Required. 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/). PayPal does not support all currencies. 
-    'Total'    => '4',     //Required. The total amount charged to the payee by the payer. For refunds, represents the amount that the payee refunds to the original payer. Maximum length is 10 characters, which includes: 1) Seven digits before the decimal point. 2) The decimal point. 3) Two digits after the decimal point.
+    'Total'    => '4.00',  //Required. The total amount charged to the payee by the payer. For refunds, represents the amount that the payee refunds to the original payer. Maximum length is 10 characters, which includes: 1) Seven digits before the decimal point. 2) The decimal point. 3) Two digits after the decimal point.
     'Details'  => array(
         'Subtotal' => '',   // The subtotal amount for the items. If the request includes line items, this property is required. Maximum length is 10 characters, which includes: 1) Seven digits before the decimal point. 2) The decimal point. 3) Two digits after the decimal point. 
         'Shipping' => '',   // The shipping fee. Maximum length is 10 characters, which includes: 1) Seven digits before the decimal point. 2) The decimal point. 3) Two digits after the decimal point.
