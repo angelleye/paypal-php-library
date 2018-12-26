@@ -67,9 +67,6 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
 
     if($returnArray['RESULT'] == 'Success'){
         $_SESSION['RESULT'] = $returnArray;
-        echo "<pre>";
-        var_dump($_SESSION['RESULT']);
-        exit;
         header('Location: order-complete.php');
     }
     else{
