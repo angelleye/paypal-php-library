@@ -106,16 +106,16 @@ require_once('../../includes/config.php');
           	<?php
             $first_name = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['first_name']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['first_name'] : '';
             $last_name = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['last_name']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['last_name'] : '';
-            $payer_id = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['payer_id']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['payer_id'] : '';
-            $email = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['email']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['email'] : '';
-            $payment_id = isset($_SESSION['RESULT']['PAYMENT']['id']) ? $_SESSION['RESULT']['PAYMENT']['id'] : '';
-            $state = isset($_SESSION['RESULT']['PAYMENT']['state']) ? $_SESSION['RESULT']['PAYMENT']['state'] : '';
+            $payer_id = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['payer_id']) ? '<br/>'.$_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['payer_id'] : '';
+            $email = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['email']) ? '<br/>'.$_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['email'] : '';
+            $payment_id = isset($_SESSION['RESULT']['PAYMENT']['id']) ? '<br/>'.$_SESSION['RESULT']['PAYMENT']['id'] : '';
+            $state = isset($_SESSION['RESULT']['PAYMENT']['state']) ? '<br/>'.$_SESSION['RESULT']['PAYMENT']['state'] : '';
 
 			echo
-            'Name : '.$first_name . ' ' . $last_name . '<br />' .
-			'Payer ID : '.$payer_id . '<br />'.
-			'Email :' .$email . '<br />' .
-            'Payment ID : '.$payment_id.'<br>'.
+            'Name : '.$first_name . ' ' . $last_name.
+			'Payer ID : '.$payer_id.
+			'Email :' .$email.
+            'Payment ID : '.$payment_id.
             'Payment State : '. $state.'';
 			?>
           </p>
@@ -126,15 +126,15 @@ require_once('../../includes/config.php');
           	<?php
 
             $line1 = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['line1']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['line1'] : '';
-            $line2 = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['line2']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['line2'] : '';
-            $city = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['city']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['city'] : '';
+            $line2 = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['line2']) ? '<br/>'.$_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['line2'] : '';
+            $city = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['city']) ? '<br/>'.$_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['city'] : '';
             $state = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['state']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['state'] : '';
             $postal_code = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['postal_code']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['postal_code'] : '';
-            $country_code = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['country_code']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['country_code'] : '';
+            $country_code = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['country_code']) ? '<br/>'.$_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['country_code'] : '';
 
-			echo $line1 . '<br/>' .
-                 $line2 . '<br/>' .
-                 $city . ', ' . $state . '  ' . $postal_code . '<br/>' .
+			echo $line1 .
+                 $line2 .
+                 $city . ', ' . $state . '  ' . $postal_code .
                  $country_code;
 			?>
           </p>
