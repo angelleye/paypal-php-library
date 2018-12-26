@@ -36,8 +36,8 @@ $_SESSION['orderItems'] = $_SESSION['items'];
 
 $_SESSION['paymentDetails'] = array(
     'Subtotal' => '17.50',                                   // Amount of the subtotal of the items. **Required** if line items are specified. 10 characters max, with support for 2 decimal places.
-    'Shipping' => '1.2',                                     // Amount charged for shipping. 10 characters max with support for 2 decimal places.
-    'Tax'      => '1.3',                                     // Amount charged for tax. 10 characters max with support for 2 decimal places.
+    'Shipping' => '0.00',                                     // Amount charged for shipping. 10 characters max with support for 2 decimal places.
+    'Tax'      => '0.00',                                     // Amount charged for tax. 10 characters max with support for 2 decimal places.
     'GiftWrap' => '0.00'                                     // Amount being charged as gift wrap fee.
 );
 

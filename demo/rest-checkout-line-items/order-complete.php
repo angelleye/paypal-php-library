@@ -104,19 +104,13 @@ require_once('../../includes/config.php');
           <p><strong>Billing Information</strong></p>
           <p>
           	<?php
-            $first_name = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['first_name']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['first_name'] : '';
-            $last_name = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['last_name']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['last_name'] : '';
-            $payer_id = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['payer_id']) ? '<br/>'.$_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['payer_id'] : '';
-            $email = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['email']) ? '<br/>'.$_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['email'] : '';
-            $payment_id = isset($_SESSION['RESULT']['PAYMENT']['id']) ? '<br/>'.$_SESSION['RESULT']['PAYMENT']['id'] : '';
-            $state = isset($_SESSION['RESULT']['PAYMENT']['state']) ? '<br/>'.$_SESSION['RESULT']['PAYMENT']['state'] : '';
-
-			echo
-            'Name : '.$first_name . ' ' . $last_name.
-			'Payer ID : '.$payer_id.
-			'Email :' .$email.
-            'Payment ID : '.$payment_id.
-            'Payment State : '. $state.'';
+                echo (!empty($_SESSION['payer_info']['suffix'])) ? $_SESSION['payer_info']['suffix'].' ' : '';
+                echo (!empty($_SESSION['payer_info']['first_name'])) ? $_SESSION['payer_info']['first_name'].' ' : '';
+                echo (!empty($_SESSION['payer_info']['middle_name'])) ? $_SESSION['payer_info']['middle_name'].' ' : '';
+                echo (!empty($_SESSION['payer_info']['last_name'])) ? $_SESSION['payer_info']['last_name'].' ' : '';
+                echo (!empty($_SESSION['payer_info']['payer_id'])) ? '<br/><strong>Payer ID : </strong>'.$_SESSION['payer_info']['payer_id'] : '';
+                echo (!empty($_SESSION['payment_id'])) ? '<br/><strong>Payment ID : </strong>'. $_SESSION['payment_id'] : '';
+                echo (!empty($_SESSION['payment_id'])) ? '<br/><strong>Transaction ID : </strong>'. $_SESSION['Payment_transaction_id'] : '';
 			?>
           </p>
         </div>
@@ -124,18 +118,14 @@ require_once('../../includes/config.php');
           <p><strong>Shipping Information</strong></p>
           <p>
           	<?php
-
-            $line1 = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['line1']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['line1'] : '';
-            $line2 = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['line2']) ? '<br/>'.$_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['line2'] : '';
-            $city = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['city']) ? '<br/>'.$_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['city'] : '';
-            $state = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['state']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['state'] : '';
-            $postal_code = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['postal_code']) ? $_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['postal_code'] : '';
-            $country_code = isset($_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['country_code']) ? '<br/>'.$_SESSION['RESULT']['PAYMENT']['payer']['payer_info']['shipping_address']['country_code'] : '';
-
-			echo $line1 .
-                 $line2 .
-                 $city . ', ' . $state . '  ' . $postal_code .
-                 $country_code;
+                echo (!empty($_SESSION['shipping_address']['line1'])) ? $_SESSION['shipping_address']['line1'] : '';
+                echo (!empty($_SESSION['shipping_address']['line2'])) ? '<br/>'.$_SESSION['shipping_address']['line2'] : '';
+                echo (!empty($_SESSION['shipping_address']['city'])) ? '<br/>'.$_SESSION['shipping_address']['city'].', ' : '';
+                echo (!empty($_SESSION['shipping_address']['state'])) ? $_SESSION['shipping_address']['state'].', ' : '';
+                echo (!empty($_SESSION['shipping_address']['postal_code'])) ? $_SESSION['shipping_address']['postal_code'].', ' : '';
+                echo (!empty($_SESSION['shipping_address']['country_code'])) ? $_SESSION['shipping_address']['country_code'] : '';
+                echo (!empty($_SESSION['shipping_address']['phone'])) ? '<br/>'.$_SESSION['shipping_address']['phone'] : '';
+                echo (!empty($_SESSION['shipping_address']['type'])) ? '<br/> Address Type : '.$_SESSION['shipping_address']['type'] : '';
 			?>
           </p>
         </div>
@@ -156,7 +146,7 @@ require_once('../../includes/config.php');
                   </tr>
                   <tr>
                       <td><strong>Gift Wrap</strong></td>
-                      <td>$<?php echo isset($_SESSION['paymentDetails']['GiftWrap']) ? number_format($_SESSION['paymentDetails']['GiftWrap'],2) : ''; ?></td>
+                      <td>$<?php echo isset($_SESSION['paymentDetails']['GiftWrap']) ? number_format($_SESSION['paymentDetails']['GiftWrap'],2) : '0.00'; ?></td>
                   </tr>
                   <tr>
                       <td><strong>Grand Total</strong></td>
