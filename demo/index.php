@@ -79,7 +79,7 @@
                         <div class="caption">
                             <h3>Express Checkout</h3>
                             <h4>w/ Line Items</h4>
-                            <p>Learn how to integrate Express Checkout Basic. It allows to create and execute payment using REST API. This includes the option for
+                            <p>Learn how to integrate Express Checkout w/ Line Items using PayPal REST API. It allows to create and execute payment using REST API. This includes the option for
                                 embedded payments.</p>
                             <?php
                             $DIR = '\rest-checkout-line-items';
