@@ -572,4 +572,23 @@ class BillingAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }        
     }
+
+
+    public function execute_agreement($token){
+        $execute_agreement = new Agreement();
+        try {
+            // ## Execute Agreement
+            // Execute the agreement by passing in the token
+            $execute_agreement->execute($token, $this->_api_context);
+            $requestArray = clone $execute_agreement;
+            $agreement = Agreement::get($execute_agreement->getId(), $this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['AGREEMENT']=$agreement->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$agreement->toJSON();
+            return $returnArray;
+        } catch (Exception $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
 }
