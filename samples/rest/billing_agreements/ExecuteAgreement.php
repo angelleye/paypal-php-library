@@ -13,11 +13,12 @@ $configArray = array(
     'LogLevel' => $log_level
 );
 
-$PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
+$PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
 if (isset($_GET['success']) && $_GET['success'] == 'true') {
     $token = isset($_GET['token']) ? $_GET['token'] : '';
-    $result = $PayPal->execute_payment($token);
+    $result = $PayPal->execute_agreement($token);
+    echo "<pre>";
     print_r($result);
 }
 else{
