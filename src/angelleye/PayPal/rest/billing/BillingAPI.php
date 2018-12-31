@@ -573,7 +573,11 @@ class BillingAPI extends RestClass {
         }        
     }
 
-
+    /**
+     *  Execute a billing agreement after buyer approval by passing the payment token to the request URI.
+     * @param $token
+     * @return Array
+     */
     public function execute_agreement($token){
         $execute_agreement = new Agreement();
         try {
