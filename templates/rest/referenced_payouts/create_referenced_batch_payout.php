@@ -94,7 +94,7 @@ $parameters = array(
     'payout_directive' => array_filter($payout_directive) // The payout directive. Defines how the payout is made following the referenced payouts, if required. If you include this directive, all items in the request must be for the same original receiver. Otherwise, the request fails. You can override the payout directive at the item level to a different funding instrument, if required.
 );
 
-$response = $PayPal->create_referenced_batch_payout($parameters);
+$response = $PayPal->CreateReferencedBatchPayout($parameters);
 
 echo "<pre>";
 print_r($response);

@@ -35,7 +35,7 @@ $parameters = array(
     'page' => ''                                            // Minimum value: 1. Maximum value: 2147483647.                
 );
 
-$response = $PayPal->list_transactions($parameters);
+$response = $PayPal->PaypalSyncTransactions($parameters);
 
 echo "<pre>";
 print_r($response);

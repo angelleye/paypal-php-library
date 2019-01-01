@@ -20,6 +20,6 @@ $params = array(
                 'end_date'   => ''                      // Format : yyyy-mm-dd . The end date of the range of transactions to list. 
           );
 
-$returnArray = $PayPal->search_billing_transactions($agreementId,$params);
+$returnArray = $PayPal->SearchBillingTransactions($agreementId,$params);
 echo "<pre>";
 print_r($returnArray);

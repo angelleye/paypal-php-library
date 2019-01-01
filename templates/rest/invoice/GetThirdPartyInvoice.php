@@ -25,6 +25,6 @@ $refreshToken = "";
 
 $invoiceId = '';    //Required. The ID of the invoice for which to show details.
 
-$returnArray = $PayPal->get_third_party_invoice($invoiceId,$refreshToken);
+$returnArray = $PayPal->GetThirdPartyInvoice($invoiceId,$refreshToken);
 echo "<pre>";
 print_r($returnArray);

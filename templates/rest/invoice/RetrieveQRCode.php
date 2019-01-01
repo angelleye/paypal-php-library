@@ -22,7 +22,7 @@ $InvoiceID = '';                                // Required. Specify the ID of t
 
 $path = '';                                     // Path to save Image.
 
-$returnArray = $PayPal->retrieve_QR_code($parameters,$InvoiceID,$path);
+$returnArray = $PayPal->RetrieveQRCode($parameters,$InvoiceID,$path);
 
 echo "<pre>";
 print_r($returnArray);

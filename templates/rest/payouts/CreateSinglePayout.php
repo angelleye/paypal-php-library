@@ -41,6 +41,6 @@ $requestData=array(
     "PayoutItem"  => $PayoutItem
 );
 
-$returnArray = $PayPal->create_single_payout($requestData);
+$returnArray = $PayPal->CreateSinglePayout($requestData);
 echo "<pre>";
 print_r($returnArray);

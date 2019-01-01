@@ -49,7 +49,7 @@ $requestData = array(
     'WebProfile'   => $WebProfile
 );
 
-$returnArray = $PayPal->update_web_profile($requestData,$profileID);
+$returnArray = $PayPal->UpdateWebProfile($requestData,$profileID);
 echo "<pre>";
 print_r($returnArray);
 

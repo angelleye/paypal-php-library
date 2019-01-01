@@ -22,6 +22,6 @@ $items = array(
     'path'    => '',                           // A JSON pointer. References a location in the target document where the operation is performed.
 );
 
-$returnArray = $PayPal->update_plan($planid,$items,$state);
+$returnArray = $PayPal->UpdatePlan($planid,$items,$state);
 echo "<pre>";
 print_r($returnArray);

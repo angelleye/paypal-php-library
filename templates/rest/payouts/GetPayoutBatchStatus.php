@@ -14,6 +14,6 @@ $PayPal = new angelleye\PayPal\rest\payouts\PayoutsAPI($configArray);
 
 $payoutBatchId='';                  // Required. The ID of the payout batch for which to show details.
 
-$returnArray = $PayPal->get_payout_batch_status($payoutBatchId);
+$returnArray = $PayPal->GetPayoutBatchStatus($payoutBatchId);
 echo "<pre>";
 print_r($returnArray);

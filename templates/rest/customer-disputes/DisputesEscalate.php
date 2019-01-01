@@ -13,13 +13,13 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\customerdisputes\CustomerDisputesAPI($configArray);
 
-$dispute_id  = '';   // The ID of the dispute for which to send a message.
+$dispute_id  = '';                                              // The ID of the dispute to escalate to a claim.
 
 $parameters = array(
-    'message' => '',   // The message sent by the merchant to the other party.
+    'note' => '',                                               // The merchant's notes about the claim. PayPal can, but the customer cannot, view these notes. Minimum length: 1. Maximum length: 2000.   
 );
 
-$response = $PayPal->disputes_send_message($dispute_id,$parameters);
+$response = $PayPal->DisputesEscalate($dispute_id,$parameters);
 
 echo "<pre>";
 print_r($response);

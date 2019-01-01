@@ -21,6 +21,6 @@ $params = array(
     'end_time'    => '',            // The date and time when the resource was created. Indicates the end of a range of results. Format: date-time.
 );
 
-$returnArray = $PayPal->list_payments($params);
+$returnArray = $PayPal->ListPayments($params);
 echo "<pre>";
 print_r($returnArray);

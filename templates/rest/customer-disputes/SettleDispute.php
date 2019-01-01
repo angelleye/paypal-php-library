@@ -27,7 +27,7 @@ $parameters = array(
     'adjudication_outcome' => '',   // The allowed values are: BUYER_FAVOR and SELLER_FAVOR The outcome of the adjudication. 
 );
 
-$response = $PayPal->settle_dispute($dispute_id,$parameters);  
+$response = $PayPal->SettleDispute($dispute_id,$parameters);
 
 echo "<pre>";
 print_r($response);

@@ -32,6 +32,6 @@ $requestData = array(
     'refundDetail' => $refundDetail,
     'amount' => $amount
 );
-$returnArray = $PayPal->record_refund($requestData);
+$returnArray = $PayPal->RecordRefund($requestData);
 echo "<pre>";
 print_r($returnArray);

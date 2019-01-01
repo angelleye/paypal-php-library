@@ -15,7 +15,7 @@ $PayPal = new \angelleye\PayPal\rest\notifications\NotificationsAPI($configArray
 
 $event_id  = '';     // The ID of the webhook event notification for which to show details.
 
-$returnArray = $PayPal->get_event_details($event_id);
+$returnArray = $PayPal->EventNotificationDetails($event_id);
 
 echo "<pre>";
 print_r($returnArray);

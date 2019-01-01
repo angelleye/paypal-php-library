@@ -17,6 +17,6 @@ $requestData=array(
                 'credit_card_id' => ''             //Required.The credit_card_id is the ID of the stored credit card. 
             );
 
-$returnArray = $PayPal->deleteByID($requestData);
+$returnArray = $PayPal->DeleteCreditCard($requestData);
 echo "<pre>";
 print_r($returnArray);

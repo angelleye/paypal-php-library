@@ -26,6 +26,6 @@ $requestData=array(
                 'total_required'=>''                    //Default true.Indicates whether the response returns the total_items and total_pages values.
             );
 
-$returnArray = $PayPal->listAllCards($requestData);
+$returnArray = $PayPal->ListCreditCards($requestData);
 echo "<pre>";
 print_r($returnArray);

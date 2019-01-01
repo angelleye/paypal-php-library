@@ -14,6 +14,6 @@ $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
 $templateId = '';    // Required. The ID of the invoice template for which to show details.
 
-$returnArray = $PayPal->get_invoice_template($templateId);
+$returnArray = $PayPal->GetInvoiceTemplate($templateId);
 echo "<pre>";
 print_r($returnArray);

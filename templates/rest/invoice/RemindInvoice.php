@@ -22,6 +22,6 @@ $remindNotification = array(
 
 $InvoiceID = '';                             // Required. Specify the ID of the invoice to remind.
 
-$returnArray = $PayPal->remind_invoice($remindNotification,$InvoiceID);
+$returnArray = $PayPal->RemindInvoice($remindNotification,$InvoiceID);
 echo "<pre>";
 print_r($returnArray);

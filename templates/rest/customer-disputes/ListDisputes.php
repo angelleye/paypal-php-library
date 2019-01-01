@@ -26,7 +26,7 @@ $parameters = array(
     'next_page_token' => '',                          // The token that describes the next page of results to fetch. The list disputes call returns this token in the HATEOAS links in the response. If you omit this parameter, the API returns the first page of data.
     'dispute_state' => ''                             // REQUIRED_ACTION | REQUIRED_OTHER_PARTY_ACTION | UNDER_PAYPAL_REVIEW | RESOLVED | OPEN_INQUIRIES | Filters the disputes in the response by a state.   
 );
-$response = $PayPal->list_all($parameters);
+$response = $PayPal->ListDisputes($parameters);
 
 echo "<pre>";
 print_r($response);

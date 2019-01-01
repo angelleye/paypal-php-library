@@ -28,6 +28,6 @@ $agreement = array(
 
 
 
-$returnArray = $PayPal->update_billing_agreement($agreement_id,$agreement);
+$returnArray = $PayPal->UpdateBillingAgreement($agreement_id,$agreement);
 echo "<pre>";
 print_r($returnArray);

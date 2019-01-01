@@ -13,7 +13,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\notifications\NotificationsAPI($configArray);
 
-$returnArray = $PayPal->webhooks_event_types();
+$returnArray = $PayPal->WebhooksEventTypes();
 
 echo "<pre>";
 print_r($returnArray);

@@ -13,13 +13,9 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\customerdisputes\CustomerDisputesAPI($configArray);
 
-$dispute_id  = '';                                              // The ID of the dispute to escalate to a claim.
+$dispute_id  = '';   // The ID of the dispute for which to show details.
 
-$parameters = array(
-    'note' => '',                                               // The merchant's notes about the claim. PayPal can, but the customer cannot, view these notes. Minimum length: 1. Maximum length: 2000.   
-);
-
-$response = $PayPal->disputes_escalate($dispute_id,$parameters);  
+$response = $PayPal->ShowDisputeDetails($dispute_id);
 
 echo "<pre>";
 print_r($response);

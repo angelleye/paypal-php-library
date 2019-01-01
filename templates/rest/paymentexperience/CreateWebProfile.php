@@ -46,7 +46,7 @@ $requestData = array(
     'WebProfile'   => $WebProfile
 );
 
-$returnArray = $PayPal->create_web_profile($requestData);
+$returnArray = $PayPal->CreateWebProfile($requestData);
 echo "<pre>";
 print_r($returnArray);
 

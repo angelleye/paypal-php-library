@@ -179,6 +179,6 @@ $requestData = array(
     'TemplateDataCcInfo' => $templateDataCcInfo
 );
 
-$returnArray = $PayPal->update_invoice_template($template_id,$requestData);
+$returnArray = $PayPal->UpdateInvoiceTemplate($template_id,$requestData);
 echo "<pre>";
 print_r($returnArray);

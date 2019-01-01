@@ -98,6 +98,6 @@ $requestData = array(
     'transaction'    => $transaction
 );
 
-$returnArray = $PayPal->payment_create($requestData);
+$returnArray = $PayPal->CreatePayment($requestData);
 echo "<pre>";
 print_r($returnArray);

@@ -13,6 +13,6 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\paymentexperience\PaymentExperianceAPI($configArray);
 
-$returnArray = $PayPal->list_web_profiles();
+$returnArray = $PayPal->ListWebProfiles();
 echo "<pre>";
 print_r($returnArray);
