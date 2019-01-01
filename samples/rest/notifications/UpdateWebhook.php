@@ -28,6 +28,6 @@ $requestData = array(
     )
 );
 
-$returnArray = $PayPal->update_webhook($webhook_id,$requestData);
+$returnArray = $PayPal->UpdateWebhook($webhook_id,$requestData);
 echo "<pre>";
 print_r($returnArray);

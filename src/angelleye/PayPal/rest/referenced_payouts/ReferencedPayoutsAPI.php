@@ -68,7 +68,7 @@ class ReferencedPayoutsAPI extends RestClass {
      * @param array $parameters
      * @return array|object
      */
-    public function create_referenced_batch_payout($parameters) {
+    public function CreateReferencedBatchPayout($parameters) {
          $referancePayoutObject = new ReferencedPayoutsClass();
         try {
             $params = array_filter($parameters);

@@ -169,7 +169,7 @@ $requestData =array(
     'attachments'             => $attachments
 );
 
-$returnArray = $PayPal->update_invoice($requestData);
+$returnArray = $PayPal->UpdateInvoice($requestData);
 echo "<pre>";
 print_r($returnArray);
 

@@ -32,7 +32,7 @@ $array2 = array(
 array_push($patchArray,$array2);
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
-$PayPalResult = $PayPal->partially_update_webprofile($patchArray,$profileID);
+$PayPalResult = $PayPal->PartiallyUpdateWebProfile($patchArray,$profileID);
 
 // Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";

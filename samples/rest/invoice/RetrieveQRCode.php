@@ -22,7 +22,7 @@ $InvoiceID = 'INV2-GASZ-DB7C-NSRC-S9V6';            // Required. Specify the ID 
 
 $path = 'images/sample.png';                        // Path to save Image.
 
-$returnArray = $PayPal->retrieve_QR_code($parameters,$InvoiceID,$path);
+$returnArray = $PayPal->RetrieveQRCode($parameters,$InvoiceID,$path);
 echo "<pre>";
 print_r($returnArray);
 echo '<img src="data:image/png;base64,'. $returnArray['Image']. '" alt="Invoice QR Code" />';

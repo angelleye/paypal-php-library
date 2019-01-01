@@ -45,6 +45,6 @@ $requestData = array(
         "shippingAddress" => $shippingAddress        
 );
 
-$returnArray = $PayPal->create_billing_agreement_with_paypal($requestData);
+$returnArray = $PayPal->CreateBillingAgreementWithPayPal($requestData);
 echo "<pre>";
 print_r($returnArray);

@@ -69,7 +69,7 @@ class CustomerDisputesAPI extends RestClass {
      * @param Array $parameters
      * @return Array|Object
      */
-    public function list_all($parameters) {
+    public function ListDisputes($parameters) {
         try {            
             $params = array_filter($parameters);
             $requestArray = json_encode($params);
@@ -90,7 +90,7 @@ class CustomerDisputesAPI extends RestClass {
      * @param string $dispute_id
      * @return Array|Object
      */
-    public function showByID($dispute_id){
+    public function ShowDisputeDetails($dispute_id){
         $disputeObject = new CustomerDisputesClass();
         try {
             $dispute = $disputeObject->get($dispute_id,$this->_api_context);
@@ -111,7 +111,7 @@ class CustomerDisputesAPI extends RestClass {
      * @param Array $parameters
      * @return Array|Object
      */
-    public function accept_claim($dispute_id,$parameters){
+    public function AcceptClaim($dispute_id,$parameters){
         $disputeObject = new CustomerDisputesClass();
         try {
             $params = $this->checkEmptyObject($parameters);            
@@ -137,7 +137,7 @@ class CustomerDisputesAPI extends RestClass {
      * @param Array $parameters
      * @return Array|Object
      */
-    public function settle_dispute($dispute_id,$parameters){
+    public function SettleDispute($dispute_id,$parameters){
         $disputeObject = new CustomerDisputesClass();
         try {
             $params = $this->checkEmptyObject($parameters);
@@ -160,7 +160,7 @@ class CustomerDisputesAPI extends RestClass {
      * @param Array $parameters
      * @return Array|Object
      */
-    public function dispute_appeal($dispute_id,$parameters){
+    public function DisputesAppeal($dispute_id,$parameters){
         $disputeObject = new CustomerDisputesClass();
         try {
             $params = array_map('array_filter', $parameters);
@@ -184,7 +184,7 @@ class CustomerDisputesAPI extends RestClass {
      * @param Array $parameters
      * @return Array|Object
      */
-    public function disputes_escalate($dispute_id,$parameters){
+    public function DisputesEscalate($dispute_id,$parameters){
         $disputeObject = new CustomerDisputesClass();
         try {            
             $params = array_filter($parameters);
@@ -209,7 +209,7 @@ class CustomerDisputesAPI extends RestClass {
      * @param Array $parameters
      * @return Array|Object
      */
-    public function disputes_make_offer($dispute_id,$parameters){
+    public function DisputesMakeOffer($dispute_id,$parameters){
         $disputeObject = new CustomerDisputesClass();
         try {            
             $params = array_filter($parameters);
@@ -232,7 +232,7 @@ class CustomerDisputesAPI extends RestClass {
      * @param Array $parameters
      * @return Array|Object
      */
-    public function disputes_provide_evidence($dispute_id,$parameters){
+    public function ProvideEvidence($dispute_id,$parameters){
         $disputeObject = new CustomerDisputesClass();
         try {            
             $params = array_filter($parameters);
@@ -260,7 +260,7 @@ class CustomerDisputesAPI extends RestClass {
      * @param Array $parameters
      * @return Array|Object
      */
-    public function update_dispute_status($dispute_id,$parameters){
+    public function UpdateDisputeStatus($dispute_id,$parameters){
         $disputeObject = new CustomerDisputesClass();
         try {            
             $params = array_filter($parameters);
@@ -283,7 +283,7 @@ class CustomerDisputesAPI extends RestClass {
      * @param Array $parameters
      * @return Array|Object
      */
-    public function disputes_send_message($dispute_id,$parameters){
+    public function SendMessageToOtherParty($dispute_id,$parameters){
         $disputeObject = new CustomerDisputesClass();
         try {            
             $params = array_filter($parameters);

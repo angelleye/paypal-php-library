@@ -13,9 +13,12 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\customerdisputes\CustomerDisputesAPI($configArray);
 
-$dispute_id  = 'PP-D-5614';   // The ID of the dispute for which to accept a claim.
+$dispute_id  = 'PP-D-5617';   // The ID of the dispute for which to make an offer.
 
-
+$offer_amount = array(
+    'currency_code' => 'USD',
+    'value' => '23.00'
+);
 $address_details = array(
     'street_number' => '',     // The street number. Maximum length: 300.
     'street_name' => '',       // The street name. Just Drury in Drury Lane. Maximum length: 300.
@@ -24,9 +27,7 @@ $address_details = array(
     'building_name' => '',     // A named locations that represents the premise. Usually a building name or number or collection of buildings with a common name or number. For example, Craven House.
     'sub_building' => ''       // The first-order entity below a named building or location that represents the sub-premise. Usually a single building within a collection of buildings with a common name. Can be a flat, story, floor, room, or apartment.
 );
-
-
-$address_portable = array(
+$return_shipping_address = array(
     'address_line_1' => '',   // The first line of the address. For example, number or street. For example, 173 Drury Lane. Required for data entry and compliance and risk checks. Must contain the full address. Maximum length: 300.
     'address_line_2' => '',   // The second line of the address. For example, suite or apartment number. Maximum length: 300.
     'address_line_3' => '',   // The third line of the address, if needed. For example, a street complement for Brazil, direction text, such as next to Walmart, or a landmark in an Indian address. Maximum length: 300.
@@ -39,22 +40,15 @@ $address_portable = array(
     'address_details'=> array_filter($address_details)
 );
 
-$amount = array(
-    'currency_code' => '',
-    'value' => ''
-);
-        
-
 $parameters = array(
-    'note' => 'Refund to the customer.',     // The merchant's notes about the claim. PayPal can, but the customer cannot, view these notes. Minimum length: 1. Maximum length: 2000.
-    'accept_claim_reason' => '',             // DID_NOT_SHIP_ITEM | TOO_TIME_CONSUMING | LOST_IN_MAIL | NOT_ABLE_TO_WIN | COMPANY_POLICY | REASON_NOT_SET | The merchant's reason for acceptance of the customer's claim.
-    'invoice_id' => '',                      // The merchant-provided ID of the invoice for the refund. This optional value is used to map the refund to an invoice ID in the merchant's system.
-    'return_shipping_address' => array_filter($address_portable),     // Required when the customer must return an item to the merchant for the MERCHANDISE_OR_SERVICE_NOT_AS_DESCRIBED dispute reason, especially if the refund amount is less than the dispute amount.
-    'refund_amount' => array_filter($amount)               // To accept a customer's claim, the amount that the merchant agrees to refund the customer. The subsequent action depends on the amount: 1) If this amount is less than the customer-requested amount, the dispute updates to require customer acceptance. 2) If this amount is equal to or greater than the customer-requested amount, this amount is automatically refunded to the customer and the dispute closes.
-
+    'note' => 'Offer refund with replacement item.',                    // The merchant's notes about the claim. PayPal can, but the customer cannot, view these notes. Minimum length: 1. Maximum length: 2000.   
+    'offer_amount' => array_filter($offer_amount),                      // The amount proposed to resolve the dispute.
+    'offer_type' => 'REFUND_WITH_REPLACEMENT',                          // The type of offer that the merchant proposes for the dispute. The allowed values are: REFUND | REFUND_WITH_RETURN | REFUND_WITH_REPLACEMENT
+    'invoice_id' => '',                                                 // The merchant-provided ID of the invoice for the refund. This optional value maps the refund to an invoice ID in the merchant's system.
+    'return_shipping_address' => array_filter($return_shipping_address) // The return address for the item. Required when the customer must return an item to the merchant for the MERCHANDISE_OR_SERVICE_NOT_AS_DESCRIBED dispute reason, especially if the refund amount is less than the dispute amount.
 );
 
-$response = $PayPal->accept_claim($dispute_id,$parameters);  
+$response = $PayPal->DisputesMakeOffer($dispute_id,$parameters);
 
 echo "<pre>";
 print_r($response);

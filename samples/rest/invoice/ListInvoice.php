@@ -18,6 +18,6 @@ $parameters = array(
     'total_count_required ' => 'true',             // Indicates whether the total count appears in the response. Default is false.
 );
 
-$returnArray = $PayPal->list_invoice($parameters);
+$returnArray = $PayPal->ListInvoice($parameters);
 echo "<pre>";
 print_r($returnArray);

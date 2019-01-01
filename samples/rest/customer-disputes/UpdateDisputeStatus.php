@@ -36,7 +36,7 @@ $parameters = array(
     'action' => 'BUYER_EVIDENCE',   // The action. Indicates whether the state change enables the customer or merchant to submit evidence:
 );
 
-$response = $PayPal->update_dispute_status($dispute_id,$parameters);
+$response = $PayPal->UpdateDisputeStatus($dispute_id,$parameters);
 
 echo "<pre>";
 print_r($response);

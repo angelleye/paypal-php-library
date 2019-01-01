@@ -106,7 +106,7 @@ class CreditCardAPI extends RestClass {
      * @param array $requestData
      * @return array|object
      */
-    public function listAllCards($requestData) {   
+    public function ListCreditCards($requestData) {
         $creditCard = new \PayPal\Api\CreditCard();
         try {            
             $params = array_filter($requestData);
@@ -128,7 +128,7 @@ class CreditCardAPI extends RestClass {
      * @param array $requestData
      * @return array|object
      */
-    public function showByID($requestData){        
+    public function GetCardDetails($requestData){
         $creditCard = new CreditCard();
             try {
                 $requestArray = clone $creditCard->setId($requestData['credit_card_id']);;
@@ -149,7 +149,7 @@ class CreditCardAPI extends RestClass {
      * @param array $requestData
      * @return array|object
      */
-    public function deleteByID($requestData){        
+    public function DeleteCreditCard($requestData){
         $creditCard = new \PayPal\Api\CreditCard();        
         try {
             $creditCard->setId($requestData['credit_card_id']);            

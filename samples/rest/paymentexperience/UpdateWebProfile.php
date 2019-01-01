@@ -49,7 +49,7 @@ $requestData = array(
 );
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
-$PayPalResult = $PayPal->update_web_profile($requestData,$profileID);
+$PayPalResult = $PayPal->UpdateWebProfile($requestData,$profileID);
 
 // Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";

@@ -82,7 +82,7 @@ class BillingAPI extends RestClass {
      * @param Array $requestData
      * @return Array|Object
      */
-    public function create_plan($requestData){
+    public function CreatePlan($requestData){
         
         // ### Create Plan
         try {
@@ -146,7 +146,7 @@ class BillingAPI extends RestClass {
      * @param string $planId
      * @return Array|Object
      */
-    public function get_plan($planId){
+    public function GetPlan($planId){
         try {
             $plan = Plan::get($planId, $this->_api_context);
             $returnArray['RESULT'] = 'Success';
@@ -166,7 +166,7 @@ class BillingAPI extends RestClass {
      * @param Array $parameters
      * @return Array|Object
      */
-    public function list_plan($parameters){
+    public function ListPlans($parameters){
             try {
                 $planList = Plan::all(array_filter($parameters), $this->_api_context);                
                 $returnArray['RESULT'] = 'Success';
@@ -187,7 +187,7 @@ class BillingAPI extends RestClass {
      * @param string $state
      * @return Array|Object
      */
-    public function update_plan($planId,$items,$state){       
+    public function UpdatePlan($planId,$items,$state){
         try {
             
             $createdPlan = new Plan();
@@ -222,7 +222,7 @@ class BillingAPI extends RestClass {
      * @param string $planId
      * @return Array|Object
      */
-    public function delete_plan($planId){
+    public function DeletePlan($planId){
         try {
              $createdPlan = new Plan();
              $createdPlan->setId($planId);
@@ -243,7 +243,7 @@ class BillingAPI extends RestClass {
      * @param Array $requestData
      * @return Array|Object
      */
-    public function create_billing_agreement_with_creditcard($requestData){
+    public function CreateBillingAgreementWithCreditCard($requestData){
         
         $agreement = new Agreement();
         if($this->checkEmptyObject($requestData['agreement'])){
@@ -309,7 +309,7 @@ class BillingAPI extends RestClass {
      * @param Array $requestData
      * @return Array|Object
      */
-    public function create_billing_agreement_with_paypal($requestData){
+    public function CreateBillingAgreementWithPayPal($requestData){
         
         $agreement = new Agreement();
         if($this->checkEmptyObject($requestData['agreement'])){
@@ -362,7 +362,7 @@ class BillingAPI extends RestClass {
      * @param string $agreementId
      * @return Array|Object
      */
-    public function get_billing_agreement($agreementId){
+    public function GetBillingAgreement($agreementId){
         try {
             $agreement = Agreement::get($agreementId, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';        
@@ -382,7 +382,7 @@ class BillingAPI extends RestClass {
      * @param string $note
      * @return Array|Object
      */
-    public function bill_agreement_balance($agreementId,$note){
+    public function BillAgreementBalance($agreementId,$note){
         try {            
             $agreementStateDescriptor = new AgreementStateDescriptor();
             if(!empty(trim($note))){
@@ -408,7 +408,7 @@ class BillingAPI extends RestClass {
      * @param Array $amountArray
      * @return Array|Object
      */
-    public function set_agreement_balance($agreementId,$amountArray){
+    public function SetAgreementBalance($agreementId,$amountArray){
         try {            
             
             $Currency = new Currency();
@@ -437,7 +437,7 @@ class BillingAPI extends RestClass {
      * @param string $note
      * @return Array|Object
      */
-    public function suspend_billing_agreement($agreementId,$note){
+    public function SuspendBillingAgreement($agreementId,$note){
         try {
             //Create an Agreement State Descriptor, explaining the reason to suspend.
             $agreementStateDescriptor = new AgreementStateDescriptor();
@@ -465,7 +465,7 @@ class BillingAPI extends RestClass {
      * @param string $note
      * @return Array|Object
      */
-    public function reactivate_billing_agreement($agreementId,$note){
+    public function ReactivateBillingAgreement($agreementId,$note){
         try {
             
             $agreementStateDescriptor = new AgreementStateDescriptor();
@@ -493,7 +493,7 @@ class BillingAPI extends RestClass {
      * @param [type] $params  Parameters for search string.
      * @return Array|Object
      */
-    public function search_billing_transactions($agreementId,$params){                
+    public function SearchBillingTransactions($agreementId,$params){
         try {
             $result = Agreement::searchTransactions($agreementId, $params, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';            
@@ -513,7 +513,7 @@ class BillingAPI extends RestClass {
      * @param Array $agreement
      * @return void
      */
-    public function update_billing_agreement($agreementId,$agreement){
+    public function UpdateBillingAgreement($agreementId,$agreement){
 
         if(count(array_filter($agreement['shipping_address'])) == 0){
             unset($agreement['shipping_address']);
@@ -551,7 +551,7 @@ class BillingAPI extends RestClass {
      * @param string $note
      * @return boolean
      */
-    public function cancel_billing_agreement($agreementId,$note){
+    public function CancelBillingAgreement($agreementId,$note){
         try {
             
             $agreementStateDescriptor = new AgreementStateDescriptor();
@@ -578,7 +578,7 @@ class BillingAPI extends RestClass {
      * @param $token
      * @return Array
      */
-    public function execute_agreement($token){
+    public function ExecuteAgreement($token){
         $execute_agreement = new Agreement();
         try {
             // ## Execute Agreement

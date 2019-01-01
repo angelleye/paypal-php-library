@@ -70,7 +70,7 @@ class NotificationsAPI extends RestClass {
      * @param array $requestData
      * @return Array|Object
      */
-    public function create_webhook($requestData){
+    public function CreateWebhook($requestData){
         
         $webhook = new Webhook();
         $webhook->setUrl($requestData['Url']);
@@ -106,7 +106,7 @@ class NotificationsAPI extends RestClass {
      * @param array $requestData
      * @return Array|Object
      */
-    public function list_all($requestData){
+    public function ListWebhooks($requestData){
         try {
             $output = \PayPal\Api\Webhook::getAllWithParams($requestData,$this->_api_context);
             $returnArray['RESULT'] = 'Success';
@@ -125,7 +125,7 @@ class NotificationsAPI extends RestClass {
      * @param string $webhook_id
      * @return Array|Object
      */
-    public function showByID($webhook_id){
+    public function GetWebhook($webhook_id){
         try {
             $output = \PayPal\Api\Webhook::get($webhook_id,$this->_api_context);
             $returnArray['RESULT'] = 'Success';
@@ -144,7 +144,7 @@ class NotificationsAPI extends RestClass {
      * @param string $webhook_id
      * @return Array|Object
      */
-    public function delete_webhook($webhook_id){
+    public function DeleteWebhook($webhook_id){
         $webhook = new Webhook();
         $webhook->setId($webhook_id);
         try {
@@ -166,7 +166,7 @@ class NotificationsAPI extends RestClass {
      * @param Array $requestData
      * @return Array|Object
      */
-    public function update_webhook($webhook_id,$requestData){
+    public function UpdateWebhook($webhook_id,$requestData){
             $webhook = new Webhook();        
             $pathRequest = new \PayPal\Api\PatchRequest();
         try {
@@ -223,7 +223,7 @@ class NotificationsAPI extends RestClass {
      * @param Array $params
      * @return Array|Object
      */
-    public function search_webhook_events($params){
+    public function SearchWebhookEvents($params){
         $params = array_filter($params);
         try {
             $output = \PayPal\Api\WebhookEvent::all($params, $this->_api_context);
@@ -243,7 +243,7 @@ class NotificationsAPI extends RestClass {
      * @param string $event_id
      * @return Array|Object
      */
-    public function get_event_details($event_id){
+    public function EventNotificationDetails($event_id){
         try {
             $output = \PayPal\Api\WebhookEvent::get($event_id, $this->_api_context);
             $returnArray['RESULT'] = 'Success';
@@ -262,7 +262,7 @@ class NotificationsAPI extends RestClass {
      * @param string $event_id
      * @return Array|Object
      */
-    public function resend_event_notification($event_id){
+    public function ResendEventNotification($event_id){
         $WebhookEvent = new WebhookEvent();
         $WebhookEvent->setId($event_id);
         try {
@@ -282,7 +282,7 @@ class NotificationsAPI extends RestClass {
      *
      * @return Array|Object
      */
-    public function webhooks_event_types(){
+    public function WebhooksEventTypes(){
         $object = new \angelleye\PayPal\EventTypesClass();        
         try {
             $output = $object->get_all($this->_api_context);
@@ -302,7 +302,7 @@ class NotificationsAPI extends RestClass {
      * @param string $webhook_id
      * @return Array|Object
      */
-    public function webhooks_event_types_by_id($webhook_id){
+    public function WebhooksEventTypesById($webhook_id){
         $object = new \angelleye\PayPal\EventTypesClass();        
         try {
             $output = $object->get_by_id($webhook_id,$this->_api_context);
@@ -322,7 +322,7 @@ class NotificationsAPI extends RestClass {
      * @param array $params
      * @return Array|Object
      */
-    public function verify_webhook_signature($params){
+    public function VerifyWebhookSignature($params){
         $object = new \angelleye\PayPal\EventTypesClass();
         try {
             $output = $object->verify_webhook_signature_api($params,$this->_api_context);
@@ -342,7 +342,7 @@ class NotificationsAPI extends RestClass {
      * @param array $params
      * @return Array|Object
      */
-    public function simulate_webhook_event($params){
+    public function SimulateEvent($params){
         $object = new \angelleye\PayPal\EventTypesClass();
         try {
             $params = array_filter($params);

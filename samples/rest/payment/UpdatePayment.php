@@ -56,6 +56,6 @@ $array2 = array(
 
 array_push($patches, $array2);
 
-$returnArray = $PayPal->update_payment($paymentId,$patches);
+$returnArray = $PayPal->UpdatePayment($paymentId,$patches);
 echo "<pre>";
 print_r($returnArray);

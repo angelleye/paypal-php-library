@@ -68,7 +68,7 @@ class PayPalSyncAPI extends RestClass {
      * @param array $parameters
      * @return array|object
      */
-    public function list_transactions($parameters) {
+    public function PaypalSyncTransactions($parameters) {
         try {
             $params = array_filter($parameters);
             $requestArray = json_encode($params);

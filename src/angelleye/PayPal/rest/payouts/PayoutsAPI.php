@@ -71,7 +71,7 @@ class PayoutsAPI extends RestClass {
      * @param array $requestData
      * @return array|object
      */
-    public function create_single_payout($requestData) {        
+    public function CreateSinglePayout($requestData) {
         
         try {
             $payouts = new Payout();
@@ -109,7 +109,7 @@ class PayoutsAPI extends RestClass {
      * @param array $requestData
      * @return array|object
      */
-    public function create_batch_payout($requestData){
+    public function CreateBatchPayout($requestData){
         
         try {
             $payouts = new Payout();
@@ -144,7 +144,7 @@ class PayoutsAPI extends RestClass {
      * @param string $payoutBatchId
      * @return array|object
      */
-    public function get_payout_batch_status($payoutBatchId){
+    public function GetPayoutBatchStatus($payoutBatchId){
         try {
             $output = Payout::get($payoutBatchId, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';
@@ -163,7 +163,7 @@ class PayoutsAPI extends RestClass {
      * @param string $payoutItemId
      * @return array|object
      */
-    public function get_payout_item_status($payoutItemId){
+    public function GetPayoutItemStatus($payoutItemId){
         try {
             $output = PayoutItem::get($payoutItemId, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';
@@ -182,7 +182,7 @@ class PayoutsAPI extends RestClass {
      * @param string $payoutItemId
      * @return array|object
      */
-    public function cancel_payout_item($payoutItemId){
+    public function CancelPayoutItem($payoutItemId){
         try {
             $PayoutItem = PayoutItem::get($payoutItemId, $this->_api_context);
             if($PayoutItem->transaction_status == 'UNCLAIMED'){
