@@ -718,7 +718,7 @@ class PaymentAPI extends RestClass {
      * @param string $orderId
      * @return array|object
      */
-    public function get_order($orderId){        
+    public function OrderGet($orderId){
         // #Get Order Sample        
         try {
             $result = Order::get($orderId, $this->_api_context);            
@@ -1019,7 +1019,13 @@ class PaymentAPI extends RestClass {
         }
     }
 
-
+    /**
+     * Executes, or completes, a PayPal payment that the payer has approved. You can optionally update selective payment information when you execute a payment.
+     * @param string $paymentId
+     * @param string $payer_id
+     * @param array $amount
+     * @return Array
+     */
     public function ExecutePayment($paymentId,$payer_id,$amount=array()){
 
         $payment = Payment::get($paymentId, $this->_api_context);
