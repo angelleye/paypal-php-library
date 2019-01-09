@@ -2,8 +2,8 @@
 
 /* Include required library files. */
 
-require_once('../../vendor/autoload.php');
-require_once('../../includes/config.php');
+require_once('../../../vendor/autoload.php');
+require_once('../../../includes/config.php');
 
 /**
  *  #Execute Payment
@@ -45,7 +45,7 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
     Please run the example with $details object in  samples\rest\payment\ExecutePayment.php in our library
      */
 
-    $returnArray = $PayPal->show_payment_details($paymentId);
+    $returnArray = $PayPal->ShowPaymentDetails($paymentId);
 
     if($returnArray['RESULT'] == 'Success'){
 
@@ -125,6 +125,6 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
          */
         $_SESSION['rest_errors'] = true;
         $_SESSION['errors'] = $returnArray;
-        header('Location: ../error.php');
+        header('Location: ../../error.php');
     }
 }

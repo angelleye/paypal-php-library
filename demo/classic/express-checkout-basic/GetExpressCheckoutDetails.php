@@ -2,8 +2,8 @@
 /**
  * Include our config file and the PayPal library.
  */
-require_once('../../includes/config.php');
-require_once('../../autoload.php');
+require_once('../../../includes/config.php');
+require_once('../../../vendor/autoload.php');
 
 /**
  * Setup configuration for the PayPal library using vars from the config file.
@@ -102,5 +102,5 @@ if($PayPal->APICallSuccessful($PayPalResult['ACK']))
 else
 {
     $_SESSION['paypal_errors'] = $PayPalResult['ERRORS'];
-    header('Location: ../error.php');
+    header('Location: ../../error.php');
 }
