@@ -1,5 +1,5 @@
 <?php
-require_once('../../includes/config.php');
+require_once('../../../includes/config.php');
 
 /**
  * Here we are building a very simple, static shopping cart to use
@@ -13,21 +13,21 @@ $_SESSION['invoiceNumber'] = 'AE-INVC-'.rand(0,100);
 $_SESSION['NoteToPayer'] = 'Contact us for any questions on your order.';     //free-form field for the use of clients to pass in a message to the payer.
 
 $_SESSION['items'][0] = array(
-    'Sku'         => '123',                                 // Stock keeping unit corresponding (SKU) to item.
-    'Name'        => 'Hat',                                 // Item name. 127 characters max.
-    'Description' => 'Kansas City Chiefs Large Multi-Fit Hat',                          // Description of the item. Only supported when the `payment_method` is set to `paypal`.
-    'Quantity'    => '1',                                   // Number of a particular item. 10 characters max
-    'Price'       => '7.5',                                 // Item cost. 10 characters max.
-    'Currency'    => $currency,                             // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
-    'Tax'         => ''                                     // Tax of the item. Only supported when the `payment_method` is set to `paypal`.
+    'Sku'         => '123',                                     // Stock keeping unit corresponding (SKU) to item.
+    'Name'        => 'Hat',                                     // Item name. 127 characters max.
+    'Description' => 'Kansas City Chiefs Large Multi-Fit Hat',  // Description of the item. Only supported when the `payment_method` is set to `paypal`.
+    'Quantity'    => '1',                                       // Number of a particular item. 10 characters max
+    'Price'       => '7.50',                                    // Item cost. 10 characters max.
+    'Currency'    => $currency,                                 // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
+    'Tax'         => ''                                         // Tax of the item. Only supported when the `payment_method` is set to `paypal`.
 );
 
 $_SESSION['items'][1] = array(
-    'Sku'         => '678',                           // Stock keeping unit corresponding (SKU) to item.
+    'Sku'         => '678',                                 // Stock keeping unit corresponding (SKU) to item.
     'Name'        => 'Handbag',                             // Item name. 127 characters max.
-    'Description' => 'Small, leather handbag.',                      // Description of the item. Only supported when the `payment_method` is set to `paypal`.
+    'Description' => 'Small, leather handbag.',             // Description of the item. Only supported when the `payment_method` is set to `paypal`.
     'Quantity'    => '2',                                   // Number of a particular item. 10 characters max
-    'Price'       => '5',                                   // Item cost. 10 characters max.
+    'Price'       => '10.00',                               // Item cost. 10 characters max.
     'Currency'    => $currency,                             // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
     'Tax'         => ''                                     // Tax of the item. Only supported when the `payment_method` is set to `paypal`.
 );
@@ -35,9 +35,9 @@ $_SESSION['items'][1] = array(
 $_SESSION['orderItems'] = $_SESSION['items'];
 
 $_SESSION['paymentDetails'] = array(
-    'Subtotal' => '17.50',                                   // Amount of the subtotal of the items. **Required** if line items are specified. 10 characters max, with support for 2 decimal places.
-    'Shipping' => '0.00',                                     // Amount charged for shipping. 10 characters max with support for 2 decimal places.
-    'Tax'      => '0.00',                                     // Amount charged for tax. 10 characters max with support for 2 decimal places.
+    'Subtotal' => '27.50',                                   // Amount of the subtotal of the items. **Required** if line items are specified. 10 characters max, with support for 2 decimal places.
+    'Shipping' => '0.00',                                    // Amount charged for shipping. 10 characters max with support for 2 decimal places.
+    'Tax'      => '0.00',                                    // Amount charged for tax. 10 characters max with support for 2 decimal places.
     'GiftWrap' => '0.00'                                     // Amount being charged as gift wrap fee.
 );
 
@@ -50,7 +50,7 @@ $_SESSION['amount']['Currency'] = $currency;
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Create and Execute Payment using PayPal | PHP Class Library | Angell EYE</title>
+<title>Create and Execute Payment using PayPal w/ Line items | REST | PHP Class Library | Angell EYE</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -60,23 +60,23 @@ $_SESSION['amount']['Currency'] = $currency;
 <!--script src="../assets/js/less-1.3.3.min.js"></script-->
 <!--append ‘#!watch’ to the browser URL, then refresh the page. -->
 
-<link href="../../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="../assets/css/style.css" rel="stylesheet">
+<link href="../../../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="../../assets/css/style.css" rel="stylesheet">
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
-    <script src="../assets/js/html5shiv.js"></script>
+    <script src="../../assets/js/html5shiv.js"></script>
     <![endif]-->
 
 <!-- Fav and touch icons -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/images/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/images/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/images/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed" href="../assets/images/apple-touch-icon-57-precomposed.png">
-<link rel="shortcut icon" href="../assets/images/favicon.png">
-<script type="text/javascript" src="../assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../assets/js/scripts.js"></script>
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../assets/images/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../assets/images/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="../../assets/images/apple-touch-icon-57-precomposed.png">
+<link rel="shortcut icon" href="../../assets/images/favicon.png">
+<script type="text/javascript" src="../../assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../assets/js/scripts.js"></script>
 </head>
 
 <body>
@@ -85,10 +85,10 @@ $_SESSION['amount']['Currency'] = $currency;
     <div class="col-md-12 column">
       <div id="header" class="row clearfix">
         <div class="col-md-6 column">
-          <div id="angelleye_logo"> <a href="/"><img alt="Angell EYE PayPal PHP Class Library Demo" src="../assets/images/logo.png"></a> </div>
+          <div id="angelleye_logo"> <a href="/"><img alt="Angell EYE PayPal PHP Class Library Demo" src="../../assets/images/logo.png"></a> </div>
         </div>
         <div class="col-md-6 column">
-          <div id="paypal_partner_logo"> <img alt="PayPal Partner and Certified Developer" src="../assets/images/paypal-partner-logo.png"/> </div>
+          <div id="paypal_partner_logo"> <img alt="PayPal Partner and Certified Developer" src="../../assets/images/paypal-partner-logo.png"/> </div>
         </div>
       </div>
       <h2 align="center">Shopping Cart</h2>
