@@ -82,7 +82,7 @@
                             <p>Learn how to integrate Express Checkout w/ Line Items using PayPal REST API. It allows to create and execute payment using REST API. This includes the option for
                                 embedded payments.</p>
                             <?php
-                            $DIR = '\rest-checkout-line-items';
+                            $DIR = '\rest\rest-checkout-line-items';
                             $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                             ?>
                             <p align="center">
@@ -101,7 +101,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Client Side"
                                                 src="assets/images/paypal-express-checkout-jsv4-using-rest-client-side.jpg">
                         <?php
-                        $DIR = '\express-checkout-js-using-rest';
+                        $DIR = '\rest\express-checkout-js-using-rest';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -124,7 +124,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Server Side"
                                                 src="assets/images/paypal-express-checkout-jsv4-using-rest-server-side.jpg">
                         <?php
-                        $DIR = '\express-checkout-js-using-server-side';
+                        $DIR = '\rest\express-checkout-js-using-server-side';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -152,7 +152,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Server Side"
                                                 src="assets/images/paypal-express-checkout-billing-agreement.jpg">
                         <?php
-                        $DIR = '\express-checkout-js-using-server-side';
+                        $DIR = '\rest\express-checkout-js-using-server-side';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -175,7 +175,7 @@
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="PayPal Identity (Log In with PayPal)" src="assets/images/login-with-paypal.png">
                         <?php
-                        $DIR = '\login-with-paypal-basic';
+                        $DIR = '\rest\login-with-paypal-basic';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -199,7 +199,7 @@
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="PayPal Identity + Grant API Permissions" src="assets/images/login-with-paypal.png">
                         <?php
-                        $DIR = '\login-with-paypal-permissions';
+                        $DIR = '\rest\login-with-paypal-permissions';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -226,7 +226,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Server Side"
                                                 src="assets/images/paypal-dodirectpayment-credit-cart-checkout.jpg">
                         <?php
-                        $DIR = '\create-payment-using-credit-card-rest-api';
+                        $DIR = '\rest\create-payment-using-credit-card-rest-api';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -250,7 +250,7 @@
                     <div class="thumbnail"><img alt="Store CreditCard in PayPal Vault"
                                                 src="assets/images/paypal-store-creditcard-in-paypal-vault.jpg">
                         <?php
-                        $DIR = '\store-credit-card-in-paypal-vault';
+                        $DIR = '\rest\store-credit-card-in-paypal-vault';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -274,7 +274,7 @@
                     <div class="thumbnail"><img alt="Create Payment Using Saved Card - Vault"
                                                 src="assets/images/paypal-create-payment-using-savedcard-vault.jpg">
                         <?php
-                        $DIR = '\create-payment-using-saved-card';
+                        $DIR = '\rest\create-payment-using-saved-card';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -304,7 +304,7 @@
                             <h4>Invoicing API</h4>
                             <p>Learn how to create and send third party invoice in PayPal using  Invoicing API.</p>
                             <?php
-                            $DIR = '\create-and-send-third-party-invoice-paypal';
+                            $DIR = '\rest\create-and-send-third-party-invoice-paypal';
                             $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                             ?>
                             <p align="center">
@@ -345,7 +345,7 @@
                     <div class="thumbnail"><img alt="PayPal Express Checkout Line Items Integration"
                                                 src="assets/images/paypal-express-checkout-with-line-items.jpg">
                         <?php
-                        $DIR = '\express-checkout-line-items';
+                        $DIR = '\classic\express-checkout-line-items';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -370,7 +370,7 @@
                     <div class="thumbnail"><img alt="PayPal Express Checkout Digital Goods Integration"
                                                 src="assets/images/paypal-express-checkout-digital-goods.jpg">
                         <?php
-                        $DIR = '\express-checkout-digital-goods';
+                        $DIR = '\classic\express-checkout-digital-goods';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -396,7 +396,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Billing Agreement"
                                                 src="assets/images/paypal-express-checkout-billing-agreement.jpg">
                         <?php
-                        $DIR = '\express-checkout-billing-agreement';
+                        $DIR = '\classic\express-checkout-billing-agreement';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -420,7 +420,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Parallel Payments"
                                                 src="assets/images/paypal-express-parrallel-payments.jpg">
                         <?php
-                        $DIR = '\express-checkout-parallel-payments';
+                        $DIR = '\classic\express-checkout-parallel-payments';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -444,7 +444,7 @@
                     <div class="thumbnail"><img alt="Express checkout 3rd Party No Permissions"
                                                 src="assets/images/paypal-express-3rd-party-no-permissions-required.jpg">
                         <?php
-                        $DIR = '\express-checkout-3rd-party-no-permissions';
+                        $DIR = '\classic\express-checkout-3rd-party-no-permissions';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -470,7 +470,7 @@
                     <div class="thumbnail"><img alt="Express Checkout In-Context"
                                                 src="assets/images/paypal-express-checkout-in-context.jpg">
                         <?php
-                        $DIR = '\express-checkout-incontext';
+                        $DIR = '\classic\express-checkout-incontext';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -494,7 +494,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Recurring Payment"
                                                 src="assets/images/express-checkout-recurring-payments.jpg">
                         <?php
-                        $DIR = '\express-checkout-recurring-payments';
+                        $DIR = '\classic\express-checkout-recurring-payments';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -517,7 +517,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Shipped Items + Recurring Payment"
                                                 src="assets/images/express-checkout-shipped-items-recurring-payments.jpg">
                         <?php
-                        $DIR = '\express-checkout-shipped-items-recurring-payments';
+                        $DIR = '\classic\express-checkout-shipped-items-recurring-payments';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -545,7 +545,7 @@
                     <div class="thumbnail"><img alt="PayPal Payments Pro PayFlow Basic Integration"
                                                 src="assets/images/paypal-payments-pro-payflow.jpg">
                         <?php
-                        $DIR = '\payflow-credit-card-checkout-basic';
+                        $DIR = '\classic\payflow-credit-card-checkout-basic';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -570,7 +570,7 @@
                     <div class="thumbnail"><img alt="PayPal Payments Pro PayFlow Recurring Billing Integration"
                                                 src="assets/images/paypal-payments-pro-payflow-recurring-billing.jpg">
                         <?php
-                        $DIR = '\payflow-credit-card-checkout-recurring-billing';
+                        $DIR = '\classic\payflow-credit-card-checkout-recurring-billing';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -595,7 +595,7 @@
                         <img alt="Express Checkout Billing Agreement"
                              src="assets/images/paypal-dodirectpayment-credit-cart-checkout.jpg"/>
                         <?php
-                        $DIR = '\dodirectpayment-credit-cart-checkout';
+                        $DIR = '\classic\dodirectpayment-credit-cart-checkout';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -627,7 +627,7 @@
                             <p>Learn how to implement Website Payments Pro 30 Basic. This includes the option for
                                 embedded payments.</p>
                             <?php
-                            $DIR = '\website-payments-pro-30-basic';
+                            $DIR = '\classic\website-payments-pro-30-basic';
                             $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                             ?>
                             <p align="center">
