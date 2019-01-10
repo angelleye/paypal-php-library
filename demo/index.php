@@ -336,7 +336,7 @@
                             <p>Here we are integrating Express Checkout without any line item details or any extra
                                 features. We obtain the user's shipping information so that we can calculate shipping
                                 and tax, but otherwise no additional data is included with this checkout demo.</p>
-                            <p align="center"><a class="btn btn-primary" href="express-checkout-basic/" target="_blank">Launch Demo</a>
+                            <p align="center"><a class="btn btn-primary" href="classic/express-checkout-basic/" target="_blank">Launch Demo</a>
                             </p>
                         </div>
                     </div>
