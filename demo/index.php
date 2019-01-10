@@ -152,7 +152,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Server Side"
                                                 src="assets/images/paypal-express-checkout-billing-agreement.jpg">
                         <?php
-                        $DIR = '\rest\express-checkout-js-using-server-side';
+                        $DIR = '\rest\create-billing-agreement-using-paypal-rest-api';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -161,7 +161,7 @@
                             <p>Learn how to Use billing plans and billing agreements to create an agreement for a recurring PayPal payment for goods or services.  This includes the option for embedded payments.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="rest/express-checkout-js-using-server-side" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/create-billing-agreement-using-paypal-rest-api" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-billing-agreement-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
