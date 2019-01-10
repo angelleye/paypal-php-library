@@ -87,7 +87,7 @@
                             ?>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="rest-checkout-line-items" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/rest-checkout-line-items" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-rest-checkout-line-items-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -110,7 +110,7 @@
                                 always keeps you current with the latest button styles and payment features.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/express-checkout-js-using-rest/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/express-checkout-js-using-rest" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-smart-payment-buttons-client-side-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -134,7 +134,7 @@
                                 always keeps you current with the latest button styles and payment features.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/express-checkout-js-using-rest/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/express-checkout-js-using-server-side" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-smart-payment-buttons-server-side-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -161,7 +161,7 @@
                             <p>Learn how to Use billing plans and billing agreements to create an agreement for a recurring PayPal payment for goods or services.  This includes the option for embedded payments.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/create-billing-agreement-using-paypal-rest-api/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/express-checkout-js-using-server-side" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-billing-agreement-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -186,7 +186,7 @@
                                 login credentials.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/login-with-paypal-basic/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/login-with-paypal-basic" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-identity-paypal-login-php-basic-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -210,7 +210,7 @@
                                 login credentials.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/login-with-paypal-permissions/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/login-with-paypal-permissions" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-identity-paypal-login-php-grant-api-permissions-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -235,7 +235,7 @@
                             <p>Learn how to create payment using CreditCard payment method. Amount directly deducted from the CC and transfared to PayPal account of merchant.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/create-payment-using-credit-card-rest-api/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/create-payment-using-credit-card-rest-api/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-create-payment-using-credit-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -259,7 +259,7 @@
                             <p>Learn how to  use the Vault API to securely store customer credit cards in the PayPal vault rather than on your server. Demo includes pre filled form with the test card and integration with PayPal vault API. </p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/store-credit-card-in-paypal-vault/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/store-credit-card-in-paypal-vault/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-store-credit-card-in-vault-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -283,7 +283,7 @@
                             <p>Learn how to implement payment system using the saved card in PayPal. To pay with a vaulted card, include the id returned in the <a href="demo/store-credit-card-in-paypal-vault/">store credit card response</a> as the credit card ID in a create payment call.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/create-payment-using-saved-card/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/create-payment-using-saved-card/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-create-payment-using-credit-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -309,7 +309,7 @@
                             ?>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="create-and-send-third-party-invoice-paypal/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/create-and-send-third-party-invoice-paypal/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-create-and-send-third-party-invoice-paypal-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -356,7 +356,7 @@
                                 transaction details.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="express-checkout-line-items/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/express-checkout-line-items/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-line-items-demo/?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -380,7 +380,7 @@
                                 Checkout. This includes the option for embedded payments.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="express-checkout-digital-goods/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/express-checkout-digital-goods/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-digital-goods-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -406,7 +406,7 @@
                                 option for embedded payments.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="express-checkout-billing-agreement/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/express-checkout-billing-agreement/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-billing-agreement-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -430,7 +430,7 @@
                                 option for embedded payments.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="express-checkout-parallel-payments/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/express-checkout-parallel-payments/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-parallel-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -454,7 +454,7 @@
                                 includes the option for embedded payments.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="express-checkout-3rd-party-no-permissions/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/express-checkout-3rd-party-no-permissions/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-3rd-party-payments-no-permissions-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -480,7 +480,7 @@
                                 from your site for payment.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="express-checkout-incontext/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/express-checkout-incontext/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-in-context-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -503,7 +503,7 @@
                             <p>Learn how to implement Express Checkout - Recurring Payments.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="express-checkout-recurring-payments/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/express-checkout-recurring-payments/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -528,7 +528,7 @@
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
                                     <a class="btn btn-primary"
-                                       href="express-checkout-shipped-items-recurring-payments/" target="_blank">Launch Demo</a>
+                                       href="classic/express-checkout-shipped-items-recurring-payments/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-recurring-payments-shipped-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -556,7 +556,7 @@
                                 any redirect to PayPal at all.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="payflow-credit-card-checkout-basic/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/payflow-credit-card-checkout-basic/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-payments-pro-payflow-php-basic-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -580,7 +580,7 @@
                                 is done using a credit card directly just like the Payments Pro basic demos.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="payflow-credit-card-checkout-recurring-billing/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/payflow-credit-card-checkout-recurring-billing/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-payments-pro-payflow-php-recurring-billing-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -606,7 +606,7 @@
                                 background.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/dodirectpayment-credit-cart-checkout/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/dodirectpayment-credit-cart-checkout" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-website-payments-pro-php-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -632,7 +632,7 @@
                             ?>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="website-payments-pro-30-basic/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/website-payments-pro-30-basic/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-website-payments-pro-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
