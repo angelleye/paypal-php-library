@@ -82,12 +82,12 @@
                             <p>Learn how to integrate Express Checkout w/ Line Items using PayPal REST API. It allows to create and execute payment using REST API. This includes the option for
                                 embedded payments.</p>
                             <?php
-                            $DIR = '\rest-checkout-line-items';
+                            $DIR = '\rest\rest-checkout-line-items';
                             $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                             ?>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="rest-checkout-line-items" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/rest-checkout-line-items" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-rest-checkout-line-items-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -101,7 +101,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Client Side"
                                                 src="assets/images/paypal-express-checkout-jsv4-using-rest-client-side.jpg">
                         <?php
-                        $DIR = '\express-checkout-js-using-rest';
+                        $DIR = '\rest\express-checkout-js-using-rest';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -110,7 +110,7 @@
                                 always keeps you current with the latest button styles and payment features.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/express-checkout-js-using-rest/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/express-checkout-js-using-rest" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-smart-payment-buttons-client-side-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -124,7 +124,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Server Side"
                                                 src="assets/images/paypal-express-checkout-jsv4-using-rest-server-side.jpg">
                         <?php
-                        $DIR = '\express-checkout-js-using-server-side';
+                        $DIR = '\rest\express-checkout-js-using-server-side';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -134,7 +134,7 @@
                                 always keeps you current with the latest button styles and payment features.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/express-checkout-js-using-rest/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/express-checkout-js-using-server-side" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-smart-payment-buttons-server-side-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -152,7 +152,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Server Side"
                                                 src="assets/images/paypal-express-checkout-billing-agreement.jpg">
                         <?php
-                        $DIR = '\express-checkout-js-using-server-side';
+                        $DIR = '\rest\create-billing-agreement-using-paypal-rest-api';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -161,7 +161,7 @@
                             <p>Learn how to Use billing plans and billing agreements to create an agreement for a recurring PayPal payment for goods or services.  This includes the option for embedded payments.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/create-billing-agreement-using-paypal-rest-api/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/create-billing-agreement-using-paypal-rest-api" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-billing-agreement-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -175,7 +175,7 @@
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="PayPal Identity (Log In with PayPal)" src="assets/images/login-with-paypal.png">
                         <?php
-                        $DIR = '\login-with-paypal-basic';
+                        $DIR = '\rest\login-with-paypal-basic';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -186,7 +186,7 @@
                                 login credentials.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/login-with-paypal-basic/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/login-with-paypal-basic" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-identity-paypal-login-php-basic-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -199,7 +199,7 @@
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="PayPal Identity + Grant API Permissions" src="assets/images/login-with-paypal.png">
                         <?php
-                        $DIR = '\login-with-paypal-permissions';
+                        $DIR = '\rest\login-with-paypal-permissions';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -210,7 +210,7 @@
                                 login credentials.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/login-with-paypal-permissions/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/login-with-paypal-permissions" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-identity-paypal-login-php-grant-api-permissions-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -226,7 +226,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Server Side"
                                                 src="assets/images/paypal-dodirectpayment-credit-cart-checkout.jpg">
                         <?php
-                        $DIR = '\create-payment-using-credit-card-rest-api';
+                        $DIR = '\rest\create-payment-using-credit-card-rest-api';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -235,7 +235,7 @@
                             <p>Learn how to create payment using CreditCard payment method. Amount directly deducted from the CC and transfared to PayPal account of merchant.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/create-payment-using-credit-card-rest-api/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/create-payment-using-credit-card-rest-api/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-create-payment-using-credit-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -250,7 +250,7 @@
                     <div class="thumbnail"><img alt="Store CreditCard in PayPal Vault"
                                                 src="assets/images/paypal-store-creditcard-in-paypal-vault.jpg">
                         <?php
-                        $DIR = '\store-credit-card-in-paypal-vault';
+                        $DIR = '\rest\store-credit-card-in-paypal-vault';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -259,7 +259,7 @@
                             <p>Learn how to  use the Vault API to securely store customer credit cards in the PayPal vault rather than on your server. Demo includes pre filled form with the test card and integration with PayPal vault API. </p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/store-credit-card-in-paypal-vault/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/store-credit-card-in-paypal-vault/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-store-credit-card-in-vault-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -274,7 +274,7 @@
                     <div class="thumbnail"><img alt="Create Payment Using Saved Card - Vault"
                                                 src="assets/images/paypal-create-payment-using-savedcard-vault.jpg">
                         <?php
-                        $DIR = '\create-payment-using-saved-card';
+                        $DIR = '\rest\create-payment-using-saved-card';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -283,7 +283,7 @@
                             <p>Learn how to implement payment system using the saved card in PayPal. To pay with a vaulted card, include the id returned in the <a href="demo/store-credit-card-in-paypal-vault/">store credit card response</a> as the credit card ID in a create payment call.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/create-payment-using-saved-card/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/create-payment-using-saved-card/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-create-payment-using-credit-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -304,12 +304,12 @@
                             <h4>Invoicing API</h4>
                             <p>Learn how to create and send third party invoice in PayPal using  Invoicing API.</p>
                             <?php
-                            $DIR = '\create-and-send-third-party-invoice-paypal';
+                            $DIR = '\rest\create-and-send-third-party-invoice-paypal';
                             $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                             ?>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="create-and-send-third-party-invoice-paypal/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/create-and-send-third-party-invoice-paypal/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-create-and-send-third-party-invoice-paypal-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -336,7 +336,7 @@
                             <p>Here we are integrating Express Checkout without any line item details or any extra
                                 features. We obtain the user's shipping information so that we can calculate shipping
                                 and tax, but otherwise no additional data is included with this checkout demo.</p>
-                            <p align="center"><a class="btn btn-primary" href="express-checkout-basic/" target="_blank">Launch Demo</a>
+                            <p align="center"><a class="btn btn-primary" href="classic/express-checkout-basic/" target="_blank">Launch Demo</a>
                             </p>
                         </div>
                     </div>
@@ -345,7 +345,7 @@
                     <div class="thumbnail"><img alt="PayPal Express Checkout Line Items Integration"
                                                 src="assets/images/paypal-express-checkout-with-line-items.jpg">
                         <?php
-                        $DIR = '\express-checkout-line-items';
+                        $DIR = '\classic\express-checkout-line-items';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -356,7 +356,7 @@
                                 transaction details.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="express-checkout-line-items/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/express-checkout-line-items/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-line-items-demo/?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -370,7 +370,7 @@
                     <div class="thumbnail"><img alt="PayPal Express Checkout Digital Goods Integration"
                                                 src="assets/images/paypal-express-checkout-digital-goods.jpg">
                         <?php
-                        $DIR = '\express-checkout-digital-goods';
+                        $DIR = '\classic\express-checkout-digital-goods';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -380,7 +380,7 @@
                                 Checkout. This includes the option for embedded payments.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="express-checkout-digital-goods/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/express-checkout-digital-goods/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-digital-goods-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -396,7 +396,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Billing Agreement"
                                                 src="assets/images/paypal-express-checkout-billing-agreement.jpg">
                         <?php
-                        $DIR = '\express-checkout-billing-agreement';
+                        $DIR = '\classic\express-checkout-billing-agreement';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -406,7 +406,7 @@
                                 option for embedded payments.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="express-checkout-billing-agreement/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/express-checkout-billing-agreement/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-billing-agreement-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -420,7 +420,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Parallel Payments"
                                                 src="assets/images/paypal-express-parrallel-payments.jpg">
                         <?php
-                        $DIR = '\express-checkout-parallel-payments';
+                        $DIR = '\classic\express-checkout-parallel-payments';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -430,7 +430,7 @@
                                 option for embedded payments.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="express-checkout-parallel-payments/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/express-checkout-parallel-payments/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-parallel-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -444,7 +444,7 @@
                     <div class="thumbnail"><img alt="Express checkout 3rd Party No Permissions"
                                                 src="assets/images/paypal-express-3rd-party-no-permissions-required.jpg">
                         <?php
-                        $DIR = '\express-checkout-3rd-party-no-permissions';
+                        $DIR = '\classic\express-checkout-3rd-party-no-permissions';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -454,7 +454,7 @@
                                 includes the option for embedded payments.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="express-checkout-3rd-party-no-permissions/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/express-checkout-3rd-party-no-permissions/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-3rd-party-payments-no-permissions-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -470,7 +470,7 @@
                     <div class="thumbnail"><img alt="Express Checkout In-Context"
                                                 src="assets/images/paypal-express-checkout-in-context.jpg">
                         <?php
-                        $DIR = '\express-checkout-incontext';
+                        $DIR = '\classic\express-checkout-incontext';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -480,7 +480,7 @@
                                 from your site for payment.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="express-checkout-incontext/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/express-checkout-incontext/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-in-context-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -494,7 +494,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Recurring Payment"
                                                 src="assets/images/express-checkout-recurring-payments.jpg">
                         <?php
-                        $DIR = '\express-checkout-recurring-payments';
+                        $DIR = '\classic\express-checkout-recurring-payments';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -503,7 +503,7 @@
                             <p>Learn how to implement Express Checkout - Recurring Payments.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="express-checkout-recurring-payments/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/express-checkout-recurring-payments/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-recurring-payments-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -517,7 +517,7 @@
                     <div class="thumbnail"><img alt="Express Checkout Shipped Items + Recurring Payment"
                                                 src="assets/images/express-checkout-shipped-items-recurring-payments.jpg">
                         <?php
-                        $DIR = '\express-checkout-shipped-items-recurring-payments';
+                        $DIR = '\classic\express-checkout-shipped-items-recurring-payments';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -528,7 +528,7 @@
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
                                     <a class="btn btn-primary"
-                                       href="express-checkout-shipped-items-recurring-payments/" target="_blank">Launch Demo</a>
+                                       href="classic/express-checkout-shipped-items-recurring-payments/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-recurring-payments-shipped-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -545,7 +545,7 @@
                     <div class="thumbnail"><img alt="PayPal Payments Pro PayFlow Basic Integration"
                                                 src="assets/images/paypal-payments-pro-payflow.jpg">
                         <?php
-                        $DIR = '\payflow-credit-card-checkout-basic';
+                        $DIR = '\classic\payflow-credit-card-checkout-basic';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -556,7 +556,7 @@
                                 any redirect to PayPal at all.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="payflow-credit-card-checkout-basic/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/payflow-credit-card-checkout-basic/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-payments-pro-payflow-php-basic-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -570,7 +570,7 @@
                     <div class="thumbnail"><img alt="PayPal Payments Pro PayFlow Recurring Billing Integration"
                                                 src="assets/images/paypal-payments-pro-payflow-recurring-billing.jpg">
                         <?php
-                        $DIR = '\payflow-credit-card-checkout-recurring-billing';
+                        $DIR = '\classic\payflow-credit-card-checkout-recurring-billing';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -580,7 +580,7 @@
                                 is done using a credit card directly just like the Payments Pro basic demos.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="payflow-credit-card-checkout-recurring-billing/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/payflow-credit-card-checkout-recurring-billing/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-payments-pro-payflow-php-recurring-billing-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -595,7 +595,7 @@
                         <img alt="Express Checkout Billing Agreement"
                              src="assets/images/paypal-dodirectpayment-credit-cart-checkout.jpg"/>
                         <?php
-                        $DIR = '\dodirectpayment-credit-cart-checkout';
+                        $DIR = '\classic\dodirectpayment-credit-cart-checkout';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -606,7 +606,7 @@
                                 background.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="demo/dodirectpayment-credit-cart-checkout/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/dodirectpayment-credit-cart-checkout" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-website-payments-pro-php-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -627,12 +627,12 @@
                             <p>Learn how to implement Website Payments Pro 30 Basic. This includes the option for
                                 embedded payments.</p>
                             <?php
-                            $DIR = '\website-payments-pro-30-basic';
+                            $DIR = '\classic\website-payments-pro-30-basic';
                             $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                             ?>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="website-payments-pro-30-basic/" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="classic/website-payments-pro-30-basic/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-website-payments-pro-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"

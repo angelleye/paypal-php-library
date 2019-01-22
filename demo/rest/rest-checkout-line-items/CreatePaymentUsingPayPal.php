@@ -1,7 +1,7 @@
 <?php
 // Include required library files.
-require_once('../../vendor/autoload.php');
-require_once('../../includes/config.php');
+require_once('../../../vendor/autoload.php');
+require_once('../../../includes/config.php');
 
 
 /**
@@ -42,7 +42,7 @@ $intent= $_SESSION['intent'];
 $urls= array(
     'ReturnUrl'   => 'GetPaymentDetails.php?success=true',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=true
     'CancelUrl'   => 'GetPaymentDetails.php?success=false',                                   // Required when Pay using paypal. Example : ExecutePayment.php?success=false
-    'BaseUrl'     => $domain.'demo/rest-checkout-line-items/'          // Required. The base url that we pass for the return.
+    'BaseUrl'     => $domain.'demo/rest/rest-checkout-line-items/'          // Required. The base url that we pass for the return.
 );
 
 $invoiceNumber= $_SESSION['invoiceNumber'];
@@ -70,7 +70,7 @@ $requestData = array(
  * and we're passing in our $requestData that we just set above.
  */
 
-$returnArray = $PayPal->create_payment_with_paypal($requestData);
+$returnArray = $PayPal->CreatePaymentUsingPayPal($requestData);
 
 /**
  * Now we'll check for any errors returned by PayPal, and if we get an error,
@@ -91,5 +91,5 @@ else{
      */
     $_SESSION['rest_errors'] = true;
     $_SESSION['errors'] = $returnArray;
-    header('Location: ../error.php');
+    header('Location: ../../error.php');
 }

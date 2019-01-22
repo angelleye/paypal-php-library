@@ -2,8 +2,8 @@
 
 /* Include required library files. */
 
-require_once('../../vendor/autoload.php');
-require_once('../../includes/config.php');
+require_once('../../../vendor/autoload.php');
+require_once('../../../includes/config.php');
 
  /**
   *  #Execute Payment
@@ -33,7 +33,7 @@ $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 $paymentId = $_SESSION['payment_id'];
 $payer_id = $_SESSION['payer_info']['payer_id'];
 $amount = $_SESSION['amount'];
-$returnArray = $PayPal->execute_payment($paymentId,$payer_id,$amount);
+$returnArray = $PayPal->ExecutePayment($paymentId,$payer_id,$amount);
 
 if($returnArray['RESULT'] == 'Success'){
     $_SESSION['Payment_transaction_id'] = $returnArray['PAYMENT']['transactions'][0]['related_resources'][0]['sale']['id'];
@@ -46,5 +46,5 @@ else{
      */
     $_SESSION['rest_errors'] = true;
     $_SESSION['errors'] = $returnArray;
-    header('Location: ../error.php');
+    header('Location: ../../error.php');
 }
