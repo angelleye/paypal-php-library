@@ -110,5 +110,24 @@ class IdentityAPI {
             return $ex;   
         }
     }
+
+    /**
+     * Creates an Access Token from an Authorization Code.
+     * @param $code
+     * @return Array
+     */
+    public function GetUserConsentRedirect($code){
+        try {
+            // Obtain Authorization Code from Code, Client ID and Client Secret
+            $accessToken = OpenIdTokeninfo::createFromAuthorizationCode(array('code' => $code), null, null, $this->_api_context);
+            $returnArray['RESULT'] = 'SUCCESS';
+            $returnArray['AccessToken'] = $accessToken->toArray();
+            return $returnArray;
+        } catch (PayPalConnectionException $ex) {
+            echo "<pre>";
+            print_r($ex);
+            exit;
+        }
+    }
 }
 ?>
