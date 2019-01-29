@@ -102,6 +102,6 @@ $requestData = array(
     'NoteToPayer'    => $NoteToPayer
 );
 
-$returnArray = $PayPal->payment_create($requestData);
+$returnArray = $PayPal->CreatePayment($requestData);
 echo "<pre>";
 print_r($returnArray);

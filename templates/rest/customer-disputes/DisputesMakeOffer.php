@@ -48,7 +48,7 @@ $parameters = array(
     'return_shipping_address' => array_filter($return_shipping_address) // The return address for the item. Required when the customer must return an item to the merchant for the MERCHANDISE_OR_SERVICE_NOT_AS_DESCRIBED dispute reason, especially if the refund amount is less than the dispute amount.
 );
 
-$response = $PayPal->disputes_make_offer($dispute_id,$parameters);  
+$response = $PayPal->DisputesMakeOffer($dispute_id,$parameters);
 
 echo "<pre>";
 print_r($response);

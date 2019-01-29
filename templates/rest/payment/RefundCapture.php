@@ -36,6 +36,6 @@ $refundParameters = array(
     'RefundAdvice'  => ''                                      // Flag to indicate that the buyer was already given store credit for a given transaction.
 );
 
-$returnArray = $PayPal->refund_capture($captureId,$amount,$refundParameters);
+$returnArray = $PayPal->RefundCapture($captureId,$amount,$refundParameters);
 echo "<pre>";
 print_r($returnArray);

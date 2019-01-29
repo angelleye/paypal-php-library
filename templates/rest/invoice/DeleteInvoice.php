@@ -14,6 +14,6 @@ $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
 $InvoiceID = '';    // Required.  The ID of the invoice for which to show details.
 
-$returnArray = $PayPal->delete_invoice($InvoiceID);
+$returnArray = $PayPal->DeleteInvoice($InvoiceID);
 echo "<pre>";
 print_r($returnArray);

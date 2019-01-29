@@ -204,7 +204,7 @@ $requestData =array(
     'invoiceData'             => $invoiceData
 );
 
-$returnArray = $PayPal->create_invoice($requestData,true,$refreshToken);
+$returnArray = $PayPal->CreateInvoice($requestData,true,$refreshToken);
 echo "<pre>";
 print_r($returnArray);
 

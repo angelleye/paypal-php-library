@@ -13,9 +13,13 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\customerdisputes\CustomerDisputesAPI($configArray);
 
-$dispute_id  = 'PP-D-5615';   // The ID of the dispute for which to show details.
+$dispute_id  = 'PP-D-5615';   // The ID of the dispute for which to send a message.
 
-$response = $PayPal->showByID($dispute_id);  
+$parameters = array(
+    'message' => 'Shipment is in progress.',   // The message sent by the merchant to the other party.
+);
+
+$response = $PayPal->SendMessageToOtherParty($dispute_id,$parameters);
 
 echo "<pre>";
 print_r($response);

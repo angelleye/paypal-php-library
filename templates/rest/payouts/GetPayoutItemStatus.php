@@ -14,6 +14,6 @@ $PayPal = new angelleye\PayPal\rest\payouts\PayoutsAPI($configArray);
 
 $payoutItemId='';                  // Required. The ID of the Payout Item for which to show details.
 
-$returnArray = $PayPal->get_payout_item_status($payoutItemId);
+$returnArray = $PayPal->GetPayoutItemStatus($payoutItemId);
 echo "<pre>";
 print_r($returnArray);

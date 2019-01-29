@@ -20,6 +20,6 @@ $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
 $sale_id = ''; // The ID of the sale for which to show details.
 
-$returnArray = $PayPal->get_sale($sale_id);
+$returnArray = $PayPal->GetSale($sale_id);
 echo "<pre>";
 print_r($returnArray);

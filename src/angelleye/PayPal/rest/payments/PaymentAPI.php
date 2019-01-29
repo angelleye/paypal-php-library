@@ -89,7 +89,7 @@ class PaymentAPI extends RestClass {
      * @param array $requestData
      * @return array|object
      */
-    public function payment_create($requestData) {
+    public function CreatePayment($requestData) {
         try {
             // ### PaymentCard
             // A resource representing a payment card that can be used to fund a payment.
@@ -216,7 +216,7 @@ class PaymentAPI extends RestClass {
      * @param array $requestData
      * @return array|object
      */
-    public function create_payment_with_paypal($requestData) {
+    public function CreatePaymentUsingPayPal($requestData) {
 
         try {
             // ### Payer
@@ -342,7 +342,7 @@ class PaymentAPI extends RestClass {
      * @param array $requestData
      * @return array|object
      */
-    public function create_payment_with_paypal_third_party($requestData){
+    public function CreateThirdPartyPayment($requestData){
         
         try {
             // ### Payer
@@ -479,7 +479,7 @@ class PaymentAPI extends RestClass {
      * @param string $credit_card_id
      * @return array|object
      */
-    public function create_payment_using_saved_card($requestData, $credit_card_id) {
+    public function CreatePaymentUsingSavedCardVault($requestData, $credit_card_id) {
 
         try {
             ///$card = new CreditCard();
@@ -586,7 +586,7 @@ class PaymentAPI extends RestClass {
      * @param string $authorizationId
      * @return array|object
      */
-    public function get_authorization($authorizationId) {
+    public function GetAuthorization($authorizationId) {
         try {
             $result = Authorization::get($authorizationId, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';
@@ -605,7 +605,7 @@ class PaymentAPI extends RestClass {
      * @param string $PaymentID
      * @return array|object
      */
-    public function show_payment_details($PaymentID) {
+    public function ShowPaymentDetails($PaymentID) {
         try {
             $payment = Payment::get($PaymentID, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';
@@ -624,7 +624,7 @@ class PaymentAPI extends RestClass {
      * @param array $params
      * @return array|object
      */
-    public function list_payments($params) {
+    public function ListPayments($params) {
         try {
             $payments = Payment::all(array_filter($params), $this->_api_context);
             $returnArray['RESULT'] = 'Success';
@@ -642,7 +642,7 @@ class PaymentAPI extends RestClass {
      * @param array $amountArray
      * @return array|object
      */
-    public function authorization_capture($authorizationId, $amountArray) {
+    public function AuthorizationCapture($authorizationId, $amountArray) {
         // # AuthorizationCapture
 
         /** @var Authorization $authorization */
@@ -674,7 +674,7 @@ class PaymentAPI extends RestClass {
      * @param string $authorizationId
      * @return array|object
      */
-    public function authorization_void($authorizationId) {
+    public function VoidAuthorization($authorizationId) {
         // # VoidAuthorization
         try {
             // Lookup the authorization
@@ -698,7 +698,7 @@ class PaymentAPI extends RestClass {
      * @param string $authorizationCaptureId
      * @return array|object
      */
-    public function get_capture($authorizationCaptureId) {
+    public function GetCapture($authorizationCaptureId) {
         // # GetCapture       
         try {
             $capture = Capture::get($authorizationCaptureId, $this->_api_context);            
@@ -739,7 +739,7 @@ class PaymentAPI extends RestClass {
      * @param array $amountArray
      * @return array|object
      */
-    public function order_authorize($orderId,$amountArray){
+    public function OrderAuthorize($orderId,$amountArray){
         try {
             $order= new Order();
             $order->setId($orderId);
@@ -768,7 +768,7 @@ class PaymentAPI extends RestClass {
      * @param array $amountArray
      * @return array|object
      */
-    public function order_capture($orderId,$amountArray){
+    public function OrderCapture($orderId,$amountArray){
         try {
             $order= new Order();
             $order->setId($orderId);
@@ -797,7 +797,7 @@ class PaymentAPI extends RestClass {
      * @param string $orderId
      * @return array|object
      */
-    public function order_void($orderId){
+    public function OrderDoVoid($orderId){
         try {            
             
             $order= new Order();
@@ -823,7 +823,7 @@ class PaymentAPI extends RestClass {
      * @param array $refundParameters
      * @return array|object
      */
-    public function refund_capture($capture_id,$amountArray,$refundParameters){
+    public function RefundCapture($capture_id,$amountArray,$refundParameters){
         try {            
             
             $capture = new Capture();
@@ -855,7 +855,7 @@ class PaymentAPI extends RestClass {
      * @param string $refund_id
      * @return array|object
      */
-    public function show_refund_details($refund_id){
+    public function ShowRefundDetails($refund_id){
         try {
             $refund = Refund::get($refund_id, $this->_api_context);
             $returnArray['RESULT'] = 'Success';
@@ -874,7 +874,7 @@ class PaymentAPI extends RestClass {
      * @param array $amount
      * @return array|object
      */
-    public function reauthorization($authorizationId,$amount){
+    public function Reauthorization($authorizationId,$amount){
         try {
             $authorization = Authorization::get($authorizationId, $this->_api_context);
             
@@ -912,7 +912,7 @@ class PaymentAPI extends RestClass {
      * @param string $sale_id
      * @return array|object
      */
-    public function get_sale($sale_id){
+    public function GetSale($sale_id){
         // # GetSale       
         try {
             $sale = Sale::get($sale_id, $this->_api_context);
@@ -933,7 +933,7 @@ class PaymentAPI extends RestClass {
      * @param array $refundParameters
      * @return array|object
      */
-    public function refund_sale($sale_id,$amount,$refundParameters){
+    public function RefundSale($sale_id,$amount,$refundParameters){
         // Refund Sale       
         try {
             
@@ -985,7 +985,7 @@ class PaymentAPI extends RestClass {
      * @param array $patchArray
      * @return array|object
      */
-    public function update_payment($paymentId,$patchArray){
+    public function UpdatePayment($paymentId,$patchArray){
         try {            
             $patchRequest = new \PayPal\Api\PatchRequest();
             $payment = new Payment();
@@ -1020,7 +1020,7 @@ class PaymentAPI extends RestClass {
     }
 
 
-    public function execute_payment($paymentId,$payer_id,$amount=array()){
+    public function ExecutePayment($paymentId,$payer_id,$amount=array()){
 
         $payment = Payment::get($paymentId, $this->_api_context);
 

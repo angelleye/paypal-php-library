@@ -18,7 +18,7 @@ $PayPal = new angelleye\PayPal\rest\payouts\PayoutsAPI($configArray);
 $payoutItemId='CV28ACVYTVXGE';                  // Required. The ID of the Payout Item for which to show details.
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
-$PayPalResult = $PayPal->get_payout_item_status($payoutItemId);
+$PayPalResult = $PayPal->GetPayoutItemStatus($payoutItemId);
 
 // Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";

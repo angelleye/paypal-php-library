@@ -191,7 +191,7 @@ $requestData =array(
     'invoiceData'             => $invoiceData
 );
 
-$returnArray = $PayPal->create_invoice($requestData);
+$returnArray = $PayPal->CreateInvoice($requestData);
 echo "<pre>";
 print_r($returnArray);
 

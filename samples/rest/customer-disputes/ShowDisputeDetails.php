@@ -13,9 +13,9 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\customerdisputes\CustomerDisputesAPI($configArray);
 
-$dispute_id  = '';   // The ID of the dispute for which to show details.
+$dispute_id  = 'PP-D-5615';   // The ID of the dispute for which to show details.
 
-$response = $PayPal->showByID($dispute_id);  
+$response = $PayPal->ShowDisputeDetails($dispute_id);
 
 echo "<pre>";
 print_r($response);

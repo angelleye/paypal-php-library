@@ -54,7 +54,7 @@ $parameters = array(
 
 );
 
-$response = $PayPal->accept_claim($dispute_id,$parameters);  
+$response = $PayPal->AcceptClaim($dispute_id,$parameters);
 
 echo "<pre>";
 print_r($response);

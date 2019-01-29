@@ -16,6 +16,6 @@ $fields= array(
     "fields" => ""       // Default: all. The fields to return in the response. Value is all or none. Specify none to return only the template name, ID, and default attributes.
     );
 
-$returnArray = $PayPal->get_all_invoice_templates($fields);
+$returnArray = $PayPal->GetAllInvoiceTemplates($fields);
 echo "<pre>";
 print_r($returnArray);

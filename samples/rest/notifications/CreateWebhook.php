@@ -35,6 +35,6 @@ $requestData = array(
     'EventTypes' => $event_types
 );
 
-$returnArray = $PayPal->create_webhook($requestData);
+$returnArray = $PayPal->CreateWebhook($requestData);
 echo "<pre>";
 print_r($returnArray);

@@ -14,7 +14,7 @@ $configArray = array(
 $PayPal = new \angelleye\PayPal\rest\paymentexperience\PaymentExperianceAPI($configArray);
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
-$PayPalResult = $PayPal->list_web_profiles();
+$PayPalResult = $PayPal->ListWebProfiles();
 
 // Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";

@@ -20,6 +20,6 @@ $amount = array(
     'value' => ''
 );
 
-$returnArray = $PayPal->set_agreement_balance($agreementId,$amount);
+$returnArray = $PayPal->SetAgreementBalance($agreementId,$amount);
 echo "<pre>";
 print_r($returnArray);

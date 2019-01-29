@@ -17,6 +17,6 @@ $requestData=array(
                 'credit_card_id' => ''             // Required. The credit_card_id is the ID of the stored credit card. 
             );
 
-$returnArray = $PayPal->showByID($requestData);
+$returnArray = $PayPal->GetCardDetails($requestData);
 echo "<pre>";
 print_r($returnArray);

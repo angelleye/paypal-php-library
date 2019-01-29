@@ -14,6 +14,6 @@ $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
 $InvoiceID = '';    // Required. The ID of the invoice to send.
 
-$returnArray = $PayPal->send_invoice($InvoiceID);
+$returnArray = $PayPal->SendInvoice($InvoiceID);
 echo "<pre>";
 print_r($returnArray);

@@ -14,6 +14,6 @@ $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
 $InvoiceID = '';    // Required. The ID of the invoice for which to show details.
 
-$returnArray = $PayPal->get_invoice($InvoiceID);
+$returnArray = $PayPal->GetInvoice($InvoiceID);
 echo "<pre>";
 print_r($returnArray);

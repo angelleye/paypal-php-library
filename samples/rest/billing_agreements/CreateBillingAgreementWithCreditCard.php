@@ -67,7 +67,7 @@ $requestData = array(
         "shippingAddress" => $shippingAddress        
 );
 
-$returnArray = $PayPal->create_billing_agreement_with_creditcard($requestData);
+$returnArray = $PayPal->CreateBillingAgreementWithCreditCard($requestData);
 
 echo "<pre>";
 print_r($returnArray);

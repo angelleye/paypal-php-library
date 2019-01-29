@@ -19,6 +19,6 @@ $parameters = array(
     'total_required' => ''                 // Value is yes or no. Indicates whether to return the total_items and total_pages fields in the response.  
 );
 
-$returnArray = $PayPal->list_plan($parameters);
+$returnArray = $PayPal->ListPlans($parameters);
 echo "<pre>";
 print_r($returnArray);

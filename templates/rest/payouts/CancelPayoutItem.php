@@ -14,6 +14,6 @@ $PayPal = new angelleye\PayPal\rest\payouts\PayoutsAPI($configArray);
 
 $payoutItemId='';                  // Required. The ID of the Payout Item for which to show details.
 
-$returnArray = $PayPal->cancel_payout_item($payoutItemId);
+$returnArray = $PayPal->CancelPayoutItem($payoutItemId);
 echo "<pre>";
 print_r($returnArray);

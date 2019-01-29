@@ -17,7 +17,7 @@ $webhook_id = '6PN687461P1543922';  // The ID of the webhook to delete.
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
 
-$PayPalResult = $PayPal->delete_webhook($webhook_id);
+$PayPalResult = $PayPal->DeleteWebhook($webhook_id);
 
 
 // Write the contents of the response array to the screen for demo purposes.

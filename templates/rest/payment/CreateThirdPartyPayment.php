@@ -96,5 +96,5 @@ $requestData = array(
     'Payee'          => $third_party_merchant_email
 );
 
-$returnArray = $PayPal->create_payment_with_paypal_third_party($requestData);
+$returnArray = $PayPal->CreateThirdPartyPayment($requestData);
 print_r($returnArray);

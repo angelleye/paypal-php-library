@@ -14,6 +14,6 @@ $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
 $orderId = 'O-8BC98688LG524100U';               // OrderId From Return Object/Array When Created Payment With Paypal/ OrderGet.php
 
-$returnArray = $PayPal->order_void($orderId);
+$returnArray = $PayPal->OrderDoVoid($orderId);
 echo "<pre>";
 print_r($returnArray);

@@ -26,7 +26,7 @@ $requestData=array(
                 'total_required'=>''                    //Default true.Indicates whether the response returns the total_items and total_pages values.
             );
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
-$PayPalResult = $PayPal->listAllCards($requestData);
+$PayPalResult = $PayPal->ListCreditCards($requestData);
 
 // Write the contents of the response array to the screen for demo purposes.
 echo "<pre>";

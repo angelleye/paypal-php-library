@@ -22,6 +22,6 @@ $cancelNotification = array(
 
 $InvoiceID = '';                          // Required. Specify the ID of the invoice to cancel.
 
-$returnArray = $PayPal->cancel_invoice($cancelNotification,$InvoiceID);
+$returnArray = $PayPal->CancelInvoice($cancelNotification,$InvoiceID);
 echo "<pre>";
 print_r($returnArray);

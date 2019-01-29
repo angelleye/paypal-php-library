@@ -71,7 +71,7 @@ class PaymentExperianceAPI extends RestClass {
      * @param array $requestData
      * @return array|object
      */
-    public function create_web_profile($requestData){
+    public function CreateWebProfile($requestData){
 
         try {
             
@@ -116,7 +116,7 @@ class PaymentExperianceAPI extends RestClass {
      * @param string $profileId
      * @return array|object
      */
-    public function get_web_profile($profileId){
+    public function GetWebProfile($profileId){
         try {
             $webProfile = WebProfile::get($profileId,$this->_api_context);            
             $returnArray['RESULT'] = 'Success';
@@ -134,7 +134,7 @@ class PaymentExperianceAPI extends RestClass {
      *
      * @return array|object
      */
-    public function list_web_profiles(){ 
+    public function ListWebProfiles(){
         try {
             $returnArray['RESULT'] = 'Success';
             $returnArray['LIST'] = WebProfile::get_list($this->_api_context);
@@ -150,7 +150,7 @@ class PaymentExperianceAPI extends RestClass {
      * @param string $profileId
      * @return array|object
      */
-    public function delete_web_profile($profileId){
+    public function DeleteWebProfile($profileId){
         try {
             $webProfile = new WebProfile();
             $webProfile->setId($profileId);
@@ -169,7 +169,7 @@ class PaymentExperianceAPI extends RestClass {
      * @param string $profileID
      * @return array|object
      */
-    public function partially_update_webprofile($patchArray,$profileID){
+    public function PartiallyUpdateWebProfile($patchArray,$profileID){
 
         $webProfile = new WebProfile();
         $webProfile->setId($profileID);
@@ -206,7 +206,7 @@ class PaymentExperianceAPI extends RestClass {
      * @param string $profileID
      * @return array|object
      */
-    public function update_web_profile($requestData,$profileID){
+    public function UpdateWebProfile($requestData,$profileID){
         
         try {            
             // #### Payment Web experience profile resource

@@ -12,6 +12,6 @@ $configArray = array(
 );
 $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
-$returnArray = $PayPal->get_next_invoice_number();
+$returnArray = $PayPal->GetNextInvoiceNumber();
 echo "<pre>";
 print_r($returnArray);

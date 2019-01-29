@@ -25,7 +25,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\customerdisputes\CustomerDisputesAPI($configArray);
 
-$dispute_id  = 'PP-D-5615';   // The ID of the dispute that requires evidence.
+$dispute_id  = '';   // The ID of the dispute that requires evidence.
 
 /**
  *      If action is BUYER_EVIDENCE The status updates to WAITING_FOR_BUYER_RESPONSE      
@@ -33,10 +33,10 @@ $dispute_id  = 'PP-D-5615';   // The ID of the dispute that requires evidence.
  *  */
 
 $parameters = array(
-    'action' => 'BUYER_EVIDENCE',   // The action. Indicates whether the state change enables the customer or merchant to submit evidence:
+    'action' => '',   // The action. Indicates whether the state change enables the customer or merchant to submit evidence:
 );
 
-$response = $PayPal->update_dispute_status($dispute_id,$parameters);
+$response = $PayPal->UpdateDisputeStatus($dispute_id,$parameters);
 
 echo "<pre>";
 print_r($response);

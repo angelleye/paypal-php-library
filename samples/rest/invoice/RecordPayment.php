@@ -25,6 +25,6 @@ $amount = array(
 
 $invoiceId = 'INV2-GASZ-DB7C-NSRC-S9V6';                   // Required. The ID of the invoice to mark as paid. 
 
-$returnArray = $PayPal->record_payment($invoiceId,$record,$amount);
+$returnArray = $PayPal->RecordPayment($invoiceId,$record,$amount);
 echo "<pre>";
 print_r($returnArray);

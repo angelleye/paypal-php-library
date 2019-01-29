@@ -54,8 +54,9 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
         'Details' => $details
     );
 
-    $PayPal->execute_payment($paymentId,$payer_id,$amount);
-
+    $result = $PayPal->ExecutePayment($paymentId,$payer_id,$amount);
+    echo "<pre>";
+    print_r($result);
 } else {
     echo "User Cancelled the Approval";
     exit;

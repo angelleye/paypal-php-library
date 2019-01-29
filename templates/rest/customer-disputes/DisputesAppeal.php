@@ -20,7 +20,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\customerdisputes\CustomerDisputesAPI($configArray);
 
-$dispute_id  = 'PP-D-5617';   // The ID of the dispute for which to accept a claim.
+$dispute_id  = '';                      // The ID of the dispute for which to accept a claim.
 
 
 //  carrier_name enum The name of the carrier for the shipment of the transaction for this dispute. The possible values are:
@@ -40,10 +40,10 @@ $dispute_id  = 'PP-D-5617';   // The ID of the dispute for which to accept a cla
 
 
 $tracking_info = array(
-    'carrier_name' => 'FEDEX',          // The name of the carrier for the shipment of the transaction for this dispute.
+    'carrier_name' => '',               // The name of the carrier for the shipment of the transaction for this dispute.
     'carrier_name_other' => '',         // This field capture the name of carrier in free form text for unavailable carriers from existing list.
     'tracking_url' => '',               // The URL to track the dispute-related transaction shipment.
-    'tracking_number' => '122533485'    // The number to track the dispute-related transaction shipment.
+    'tracking_number' => ''             // The number to track the dispute-related transaction shipment.
 );
 
 $refund_ids =array(
@@ -62,7 +62,7 @@ $documents = array(
 
 
 $evidences = array(
-    'evidence_type' => 'PROOF_OF_FULFILLMENT',  // PROOF_OF_FULFILLMENT | PROOF_OF_REFUND | PROOF_OF_DELIVERY_SIGNATURE | PROOF_OF_RECEIPT_COPY | RETURN_POLICY | BILLING_AGREEMENT | PROOF_OF_RESHIPMENT | ITEM_DESCRIPTION | POLICE_REPORT | AFFIDAVIT | PAID_WITH_OTHER_METHOD | COPY_OF_CONTRACT | TERMINAL_ATM_RECEIPT | PRICE_DIFFERENCE_REASON | SOURCE_CONVERSION_RATE | BANK_STATEMENT | CREDIT_DUE_REASON | REQUEST_CREDIT_RECEIPT | PROOF_OF_RETURN | CREATE | CHANGE_REASON | OTHER
+    'evidence_type' => '',                      // PROOF_OF_FULFILLMENT | PROOF_OF_REFUND | PROOF_OF_DELIVERY_SIGNATURE | PROOF_OF_RECEIPT_COPY | RETURN_POLICY | BILLING_AGREEMENT | PROOF_OF_RESHIPMENT | ITEM_DESCRIPTION | POLICE_REPORT | AFFIDAVIT | PAID_WITH_OTHER_METHOD | COPY_OF_CONTRACT | TERMINAL_ATM_RECEIPT | PRICE_DIFFERENCE_REASON | SOURCE_CONVERSION_RATE | BANK_STATEMENT | CREDIT_DUE_REASON | REQUEST_CREDIT_RECEIPT | PROOF_OF_RETURN | CREATE | CHANGE_REASON | OTHER
     'evidence_info' => $evidence_info,          // The evidence-related information.
     'documents' => $documents,                  // An array of evidence documents.
     'notes' => '',                              // Any evidence-related notes. Maximum length: 2000.
@@ -73,7 +73,7 @@ $parameters = array(
     'evidences' => $evidences,                  // An array of evidences for the dispute.
 );
 
-$response = $PayPal->dispute_appeal($dispute_id,$parameters);  
+$response = $PayPal->DisputesAppeal($dispute_id,$parameters);
 
 echo "<pre>";
 print_r($response);

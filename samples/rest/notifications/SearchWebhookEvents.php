@@ -21,7 +21,7 @@ $params = array(
     'event_type' =>'VAULT.CREDIT-CARD.CREATED'      // Filters the response to a single event.
 );
 
-$returnArray = $PayPal->search_webhook_events($params);
+$returnArray = $PayPal->SearchWebhookEvents($params);
 
 echo "<pre>";
 print_r($returnArray);

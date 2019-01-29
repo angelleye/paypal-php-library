@@ -19,6 +19,6 @@ $amount = array(
     'Total'    => '2.00',                                       //Required. Total amount charged from the payer to the payee. In case of a refund, this is the refunded amount to the original payer from the payee. 10 characters max with support for 2 decimal places. 
 );
 
-$returnArray = $PayPal->order_authorize($orderId,$amount);
+$returnArray = $PayPal->OrderAuthorize($orderId,$amount);
 echo "<pre>";
 print_r($returnArray);

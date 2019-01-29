@@ -14,6 +14,6 @@ $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
 $authorizationCaptureId = '';                       // Authorization Capture id you get from the Authorization Capture process.
 
-$returnArray = $PayPal->get_capture($authorizationCaptureId);
+$returnArray = $PayPal->GetCapture($authorizationCaptureId);
 echo "<pre>";
 print_r($returnArray);

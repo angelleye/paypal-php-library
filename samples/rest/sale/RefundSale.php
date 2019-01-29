@@ -40,6 +40,6 @@ $refundParameters = array(
     'InvoiceNumber' => '',                                     // The invoice number that tracks this payment. Value is a string of single-byte alphanumeric characters. Maximum length: 127.
 );
 
-$returnArray = $PayPal->refund_sale($sale_id,$amount,$refundParameters);
+$returnArray = $PayPal->RefundSale($sale_id,$amount,$refundParameters);
 echo "<pre>";
 print_r($returnArray);

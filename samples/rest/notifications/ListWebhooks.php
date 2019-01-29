@@ -16,6 +16,6 @@ $PayPal = new \angelleye\PayPal\rest\notifications\NotificationsAPI($configArray
 $anchor_type = 'APPLICATION'; // Allowed values: APPLICATION, ACCOUNT. Default: APPLICATION. Filters the webhooks in the response by the anchor_id entity type.
 $requestData['anchor_type'] = $anchor_type;
 
-$returnArray = $PayPal->list_all($requestData);
+$returnArray = $PayPal->ListWebhooks($requestData);
 echo "<pre>";
 print_r($returnArray);

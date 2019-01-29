@@ -31,7 +31,7 @@ $array2 = array(
 );
 array_push($patchArray,$array2);
 
-$returnArray = $PayPal->partially_update_webprofile($patchArray,$profileID);
+$returnArray = $PayPal->PartiallyUpdateWebProfile($patchArray,$profileID);
 echo "<pre>";
 print_r($returnArray);
 

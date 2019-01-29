@@ -32,6 +32,6 @@ $parameters = array(
     'archived'                => '',             // A flag indicating whether search is on invoices archived by merchant. true - returns archived / false returns unarchived / null returns all.    
 );
 
-$returnArray = $PayPal->search_invoices($parameters);
+$returnArray = $PayPal->SearchInvoices($parameters);
 echo "<pre>";
 print_r($returnArray);

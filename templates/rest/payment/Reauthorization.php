@@ -41,6 +41,6 @@ $amount = array(
 );
 
 
-$returnArray = $PayPal->reauthorization($authorizationId,$amount);
+$returnArray = $PayPal->Reauthorization($authorizationId,$amount);
 echo "<pre>";
 print_r($returnArray);

@@ -69,6 +69,6 @@ $requestData = array(
         "ReturnUrl"            => $ReturnUrl
 );
 
-$returnArray = $PayPal->create_plan($requestData);
+$returnArray = $PayPal->CreatePlan($requestData);
 echo "<pre>";
 print_r($returnArray);

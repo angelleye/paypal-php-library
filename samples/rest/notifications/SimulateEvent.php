@@ -20,7 +20,7 @@ $params = array(
     'resource_version' => '1.0',                      // The identifier for event type ex: 1.0/2.0 etc.
 );
 
-$returnArray = $PayPal->simulate_webhook_event($params);
+$returnArray = $PayPal->SimulateEvent($params);
 
 echo "<pre>";
 print_r($returnArray);

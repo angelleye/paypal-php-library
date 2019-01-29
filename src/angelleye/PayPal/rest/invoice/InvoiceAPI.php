@@ -93,7 +93,7 @@ class InvoiceAPI extends RestClass {
      * @param Array $requestData
      * @return Array|Object
      */
-    public function create_invoice($requestData,$third_party=false,$refesh_token=''){
+    public function CreateInvoice($requestData,$third_party=false,$refesh_token=''){
             try {
                     $invoice = new Invoice();
                     
@@ -284,7 +284,7 @@ class InvoiceAPI extends RestClass {
      * @param Array $params
      * @return Array|Object
      */
-    public function list_invoice($params,$third_party=false,$refesh_token=''){
+    public function ListInvoice($params,$third_party=false,$refesh_token=''){
         try {
             $apiContext = $this->_api_context;
             if($third_party === true  && !empty($refesh_token)){
@@ -306,7 +306,7 @@ class InvoiceAPI extends RestClass {
      * @param string $invoiceId
      * @return Array|Object
      */
-    public function get_invoice($invoiceId){
+    public function GetInvoice($invoiceId){
         try {
             $invoice = Invoice::get($invoiceId, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';
@@ -327,7 +327,7 @@ class InvoiceAPI extends RestClass {
      * @param string $refreshToken
      * @return Array|Object
      */
-    public function get_third_party_invoice($invoiceId,$refreshToken){
+    public function GetThirdPartyInvoice($invoiceId,$refreshToken){
         try {          
             $apiContext = $this->_api_context;
             $apiContext->getCredential()->updateAccessToken($apiContext->getConfig(), $refreshToken);
@@ -349,7 +349,7 @@ class InvoiceAPI extends RestClass {
      * @param string $InvoiceID
      * @return boolean
      */
-    public function cancel_invoice($cancelNotification,$InvoiceID,$third_party=false,$refesh_token=''){
+    public function CancelInvoice($cancelNotification,$InvoiceID,$third_party=false,$refesh_token=''){
         try {
             $notify = new CancelNotification();
             $this->setArrayToMethods(array_filter($cancelNotification), $notify);
@@ -378,7 +378,7 @@ class InvoiceAPI extends RestClass {
      * @param Array $requestData
      * @return Array|Object
      */
-    public function record_refund($requestData,$third_party=false,$refesh_token=''){
+    public function RecordRefund($requestData,$third_party=false,$refesh_token=''){
         try {
             $invoice  = new Invoice();
             $invoice->setId($requestData['invoiceId']);
@@ -412,7 +412,7 @@ class InvoiceAPI extends RestClass {
      * @param string $InvoiceID
      * @return Array|Object
      */
-    public function remind_invoice($remindNotification,$InvoiceID,$third_party=false,$refesh_token=''){
+    public function RemindInvoice($remindNotification,$InvoiceID,$third_party=false,$refesh_token=''){
         try {
             $apiContext = $this->_api_context;
             if($third_party === true  && !empty($refesh_token)){
@@ -442,7 +442,7 @@ class InvoiceAPI extends RestClass {
      * @param string $path
      * @return Array|Object
      */
-    public function retrieve_QR_code($parameters,$InvoiceID,$path,$third_party=false,$refesh_token=''){
+    public function RetrieveQRCode($parameters,$InvoiceID,$path,$third_party=false,$refesh_token=''){
         
         try{
             $apiContext = $this->_api_context;
@@ -464,7 +464,7 @@ class InvoiceAPI extends RestClass {
      * @param Array $parameters
      * @return Array|Object
      */
-    public function search_invoices($parameters,$third_party=false,$refesh_token=''){
+    public function SearchInvoices($parameters,$third_party=false,$refesh_token=''){
         
         try{
             $apiContext = $this->_api_context;
@@ -490,7 +490,7 @@ class InvoiceAPI extends RestClass {
      * @param Array|Object $requestData
      * @return Array|Object
      */
-    public function update_invoice($requestData,$third_party=false,$refesh_token=''){
+    public function UpdateInvoice($requestData,$third_party=false,$refesh_token=''){
         
         try {       
             
@@ -625,15 +625,15 @@ class InvoiceAPI extends RestClass {
      *
      * @param string $invoiceId
      * @param boolean $third_party
-     * @param  string $refesh_token
+     * @param  string $refresh_token
      * @return Array|Object
      */
-    public function send_invoice($invoiceId,$third_party=false,$refesh_token=''){
+    public function SendInvoice($invoiceId,$third_party=false,$refresh_token=''){
         try {
             $invoice = new Invoice();
             $invoice->setId($invoiceId);
-            if($third_party === true  && !empty($refesh_token)){
-                $invoice->updateAccessToken($refesh_token, $this->_api_context);
+            if($third_party === true  && !empty($refresh_token)){
+                $invoice->updateAccessToken($refresh_token, $this->_api_context);
             }
             $sendStatus = $invoice->send($this->_api_context);
             $Getinvoice = Invoice::get($invoice->getId(), $this->_api_context);
@@ -655,7 +655,7 @@ class InvoiceAPI extends RestClass {
      * @param string $invoiceId
      * @return Array|Object
      */
-    public function delete_invoice($invoiceId,$third_party=false,$refesh_token=''){
+    public function DeleteInvoice($invoiceId,$third_party=false,$refesh_token=''){
         
         try{
             $invoice = new Invoice();
@@ -681,7 +681,7 @@ class InvoiceAPI extends RestClass {
      *
      * @return Array|Object
      */
-    public function get_next_invoice_number($third_party=false,$refesh_token=''){
+    public function GetNextInvoiceNumber($third_party=false,$refesh_token=''){
         try {
             $apiContext = $this->_api_context;
             if($third_party === true  && !empty($refesh_token)){
@@ -706,7 +706,7 @@ class InvoiceAPI extends RestClass {
      * @param Array $amount
      * @return Array|Object
      */
-    public function record_payment($invoiceId,$record,$amount,$third_party=false,$refesh_token=''){
+    public function RecordPayment($invoiceId,$record,$amount,$third_party=false,$refesh_token=''){
         try{
             $invoice = new Invoice();
             $invoice->setId($invoiceId);
@@ -742,7 +742,7 @@ class InvoiceAPI extends RestClass {
      * @param Array $requestData
      * @return Array|Object
      */
-    public function create_invoice_template($requestData){
+    public function CreateInvoiceTemplate($requestData){
         
         try {
             $invoiceTemplateData = new TemplateData();    
@@ -933,7 +933,7 @@ class InvoiceAPI extends RestClass {
      * @param string $template_id
      * @return Array|Object
      */
-    public function delete_invoice_template($template_id){
+    public function DeleteInvoiceTemplate($template_id){
         try {
             $template = new Template();
             $template->setTemplateId($template_id);
@@ -954,7 +954,7 @@ class InvoiceAPI extends RestClass {
      * @param Array $fields
      * @return Array|Object
      */
-    public function get_all_invoice_templates($fields){
+    public function GetAllInvoiceTemplates($fields){
         
         try {
             $templates = Templates::getAll($fields, $this->_api_context);
@@ -974,7 +974,7 @@ class InvoiceAPI extends RestClass {
      * @param string $templateId
      * @return Array|Object
      */
-    public function get_invoice_template($templateId){
+    public function GetInvoiceTemplate($templateId){
         try {
             $template = Template::get($templateId, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';
@@ -994,7 +994,7 @@ class InvoiceAPI extends RestClass {
      * @param Array $requestData
      * @return Array|Object
      */
-    public function update_invoice_template($templateId,$requestData){
+    public function UpdateInvoiceTemplate($templateId,$requestData){
         try {
             $invoiceTemplateData = new TemplateData();    
             $itemArray = array();

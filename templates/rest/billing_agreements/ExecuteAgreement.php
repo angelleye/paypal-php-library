@@ -17,7 +17,7 @@ $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
 if (isset($_GET['success']) && $_GET['success'] == 'true') {
     $token = isset($_GET['token']) ? $_GET['token'] : '';
-    $result = $PayPal->execute_agreement($token);
+    $result = $PayPal->ExecuteAgreement($token);
     echo "<pre>";
     print_r($result);
 }

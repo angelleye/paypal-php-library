@@ -23,7 +23,7 @@ $params =array(
     'webhook_event' => ''       // A webhook event notification.
 );
 
-$returnArray = $PayPal->verify_webhook_signature($params);
+$returnArray = $PayPal->VerifyWebhookSignature($params);
 
 echo "<pre>";
 print_r($returnArray);
