@@ -195,18 +195,18 @@ class RestClass extends PayPalModel
         if($errorCode == '401' && isset($errorArray['error']) && isset($errorArray['error_description'])){
             $returnArray['error_type'] = 'AUTHENTICATION_FAILURE';
             $returnArray['error_message'] = 'Authentication failed due to invalid authentication credentials.';
-            $returnArray['error_data'] = $errorArray['error'];
-            $returnArray['error_description'] = $errorArray['error_description'];
+            $returnArray['error_data'] = isset($errorArray['error']) ? $errorArray['error'] : '';
+            $returnArray['error_description'] = isset($errorArray['error_description']) ? $errorArray['error_description'] : '';
             $returnArray['error_array'] = $errorArray;
             return $returnArray;
         }
         elseif ($errorCode == '400'){
             $returnArray['error_type'] = 'INVALID_REQUEST';
             $returnArray['error_message'] = 'Request is not well-formed, syntactically incorrect, or violates schema.';
-            $returnArray['error_data'] = $errorArray['name'];
-            $returnArray['error_description'] = $errorArray['message'];
-            $returnArray['debug_id'] = $errorArray['debug_id'];
-            $returnArray['information_link'] = $errorArray['information_link'];
+            $returnArray['error_data'] = isset($errorArray['name']) ? $errorArray['name'] : '';
+            $returnArray['error_description'] = isset($errorArray['message']) ? $errorArray['message'] : '';
+            $returnArray['debug_id'] = isset($errorArray['debug_id']) ? $errorArray['debug_id'] : '';
+            $returnArray['information_link'] = isset($errorArray['information_link']) ? $errorArray['information_link'] : '';
             $details = '';
             if (is_array($errorArray['details'])) {
                 foreach ($errorArray['details'] as $e) {
