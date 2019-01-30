@@ -90,6 +90,14 @@ $shippingInfoAddress = array(
     'State'       => 'OR',                                      // 2 letter code for US states, and the equivalent for other countries.     
 );
 
+$shippingCost = array(
+    'type' => 'Amount',
+    'Amount' => array (
+        'Currency' => 'USD',
+        'Value' => '20'
+    )
+);
+
 $CCDetails['Email'] = 'test.firstname@gmail.com';             // The participant email address.  
 
 $itemArray = array();
@@ -187,6 +195,7 @@ $requestData =array(
     'shippingInfo'            => $shippingInfo,
     'shippingInfoPhone'       => $shippingInfoPhone,
     'shippingInfoAddress'     => $shippingInfoAddress,
+    'shippingCost'            => $shippingCost,
     'paymentTerm'             => $paymentTerm,
     'invoiceData'             => $invoiceData
 );
