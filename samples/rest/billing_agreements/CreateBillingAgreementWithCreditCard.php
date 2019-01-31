@@ -43,7 +43,7 @@ $payer =array(
 
 // Payerinfo is Required. 
 $payerInfo = array(
-    'email' => 'tejasm-facilitator@itpathsolutions.co.in',   // Email address representing the payer. 127 characters max.
+    'email' => 'payer@domain.com',                           // Email address representing the payer. 127 characters max.
     "first_name" => '',                                      // First name of the payer.
     "last_name" => '',                                       // Last name of the payer.
 );
