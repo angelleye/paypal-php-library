@@ -394,7 +394,8 @@ class BillingAPI extends RestClass {
         try {
             //Create an Agreement State Descriptor, explaining the reason to suspend.
             $agreementStateDescriptor = new AgreementStateDescriptor();
-            if(!empty(trim($note))){
+            $note = trim($note);
+            if(!empty($note)){
                 $agreementStateDescriptor->setNote($note);
             }
             $createdAgreement = new Agreement();
@@ -422,7 +423,8 @@ class BillingAPI extends RestClass {
         try {
             
             $agreementStateDescriptor = new AgreementStateDescriptor();
-            if(!empty(trim($note))){
+            $note = trim($note);
+            if(!empty($note)){
                 $agreementStateDescriptor->setNote($note);
             }
             $suspendedAgreement = new Agreement();
@@ -448,7 +450,7 @@ class BillingAPI extends RestClass {
      */
     public function SearchBillingTransactions($agreementId,$params){
         try {
-            $result = Agreement::searchTransactions($agreementId, $params, $this->_api_context);            
+            $result = Agreement::searchTransactions($agreementId, $params, $this->_api_context);
             $returnArray['RESULT'] = 'Success';            
             $returnArray['BILLING_TRANSACTIONS'] = $result->toArray();
             $returnArray['RAWREQUEST']='{id:'.$agreementId.'}';

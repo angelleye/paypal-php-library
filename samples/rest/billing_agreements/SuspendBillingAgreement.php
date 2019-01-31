@@ -12,7 +12,7 @@ $configArray = array(
 );
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
-$agreementId = 'I-C76T8XF96HBX';                       // Required. The ID of the Billing Agreement for which to Suspend Billing Agreement.
+$agreementId = 'I-4U6DTW95XNLS';                       // Required. The ID of the Billing Agreement for which to Suspend Billing Agreement.
 $note        = 'Suspending the agreement';             // Required. Reason for changing the state of the agreement. 
 
 $returnArray = $PayPal->SuspendBillingAgreement($agreementId,$note);

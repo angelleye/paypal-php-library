@@ -13,7 +13,7 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
-$agreementId = 'I-YXD6XE0K2R5N';  // The ID of the agreement for which to set a balance.
+$agreementId = 'I-4U6DTW95XNLS';  // The ID of the agreement for which to set a balance.
 
 $amount = array(
     'Currency' => 'USD',
