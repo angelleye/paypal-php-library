@@ -243,121 +243,68 @@ class BillingAPI extends RestClass {
     }
 
     /**
-     * Creates billing agreement with creditcard.
-     *
      * @param Array $requestData
-     * @return Array|Object
+     * @param string $type
+     * @return Array
      */
-    public function CreateBillingAgreementWithCreditCard($requestData){
-        
+    public function CreateBillingAgreement($requestData)
+    {
         $agreement = new Agreement();
-        if($this->checkEmptyObject($requestData['agreement'])){
-            $this->setArrayToMethods(array_filter($requestData['agreement']), $agreement);
+        if(isset($requestData['agreement'])){
+            $this->setArrayToMethods($this->checkEmptyObject($requestData['agreement']), $agreement);
         }
-                    
+
         // Add Plan ID
         // Please note that the plan Id should be only set in this case.
         $plan = new Plan();
         $plan->setId($requestData['planId']);
-        
-        $agreement->setPlan($plan);                              
-        
+        $agreement->setPlan($plan);
+
         // Add Payer
         $payer = new Payer();
-        if($this->checkEmptyObject($requestData['payer'])){
-            $this->setArrayToMethods(array_filter($requestData['payer']), $payer);
-        }
-        if($this->checkEmptyObject($requestData['payerInfo'])){
-            $payer->setPayerInfo(new PayerInfo(array_filter($requestData['payerInfo'])));
-        }
-   
-        // Add Credit Card to Funding Instruments
-        $card = new CreditCard();
-        if($this->checkEmptyObject($requestData['creditCard'])){
-            $this->setArrayToMethods(array_filter($requestData['creditCard']), $card);
-        }
-        $fundingInstrument = new FundingInstrument();
-        if($this->checkEmptyObject((array)$card)){
-            $fundingInstrument->setCreditCard($card);
-        }
-        if($this->checkEmptyObject((array)$fundingInstrument)){
-            $payer->setFundingInstruments(array($fundingInstrument));   
-        }
-        //Add Payer to Agreement
-        if($this->checkEmptyObject((array)$payer)){
+        if(isset($requestData['payer'])){
+            $this->setArrayToMethods($this->checkEmptyObject($requestData['payer']), $payer);
+            if(isset($requestData['payerInfo'])){
+                $payerInfo = new PayerInfo();
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['payerInfo']), $payerInfo);
+                $payer->setPayerInfo($payerInfo);
+            }
             $agreement->setPayer($payer);
-        }                
-        // Add Shipping Address
-        if($this->checkEmptyObject($requestData['shippingAddress'])){
-            $shippingAddress = new ShippingAddress();
-            $this->setArrayToMethods(array_filter($requestData['shippingAddress']), $shippingAddress);
-            $agreement->setShippingAddress($shippingAddress);        
-        }        
-        // ### Create Agreement
-        try {
-            // Please note that as the agreement has not yet activated, we wont be receiving the ID just yet.
-             $requestArray= clone $agreement;
-             $agreement = $agreement->create($this->_api_context);             
-             $returnArray['RESULT'] = 'Success';
-             $returnArray['AGREEMENT'] = $agreement->toArray();
-             $returnArray['RAWREQUEST']=$requestArray;
-             $returnArray['RAWRESPONSE']=$agreement->toJSON();
-             return $returnArray;            
-        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
-           return $this->createErrorResponse($ex);
         }
-    }
 
-    /**
-     * Creates billing agreement with PayPal.
-     *
-     * @param Array $requestData
-     * @return Array|Object
-     */
-    public function CreateBillingAgreementWithPayPal($requestData){
-        
-        $agreement = new Agreement();
-        if($this->checkEmptyObject($requestData['agreement'])){
-            $this->setArrayToMethods(array_filter($requestData['agreement']), $agreement);
-        }        
-        // Add Plan ID
-        // Please note that the plan Id should be only set in this case.
-        $plan = new Plan();
-        $plan->setId($requestData['planId']);
-        
-        if($this->checkEmptyObject((array)$plan)){
-            $agreement->setPlan($plan);
-        }        
-        // Add Payer        
-        $payer = new Payer();
-        if($this->checkEmptyObject($requestData['payer'])){
-            $this->setArrayToMethods(array_filter($requestData['payer']), $payer);
+        if($requestData['payer']['PaymentMethod'] == 'credit_card'){
+            // Add Credit Card to Funding Instruments
+            if(isset($requestData['creditCard'])){
+                $card = new CreditCard();
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['creditCard']), $card);
+                $fundingInstrument = new FundingInstrument();
+                $fundingInstrument->setCreditCard($card);
+                $payer->setFundingInstruments(array($fundingInstrument));
+            }
         }
-        if($this->checkEmptyObject((array)$payer)){
-            $agreement->setPayer($payer);
-        }
+
         // Add Shipping Address
-        $shippingAddress = new ShippingAddress();
-        if($this->checkEmptyObject($requestData['shippingAddress'])){
-            $this->setArrayToMethods(array_filter($requestData['shippingAddress']), $shippingAddress);
-        }
-        if($this->checkEmptyObject((array)$shippingAddress)){
+        if(isset($requestData['shippingAddress'])){
+            $shippingAddress = new ShippingAddress();
+            $this->setArrayToMethods($this->checkEmptyObject($requestData['shippingAddress']), $shippingAddress);
             $agreement->setShippingAddress($shippingAddress);
-        }        
+        }
+
         // ### Create Agreement
         try {
             // Please note that as the agreement has not yet activated, we wont be receiving the ID just yet.
-            $requestArray = clone $agreement;
-            $result = $agreement->create($this->_api_context);            
-            $approvalUrl = $agreement->getApprovalLink();            
+            $requestArray= clone $agreement;
+            $agreement = $agreement->create($this->_api_context);
             $returnArray['RESULT'] = 'Success';
-            $returnArray['ApprovalURL'] = $approvalUrl;                        
-            $returnArray['AGREEMENT'] =$result->toArray();            
-            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            if($requestData['payer']['PaymentMethod']=='paypal'){
+                $returnArray['ApprovalURL'] = $agreement->getApprovalLink();
+            }
+            $returnArray['AGREEMENT'] = $agreement->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$agreement->toJSON();
-            return $returnArray;                                
-        }  catch (\PayPal\Exception\PayPalConnectionException $ex) {
-           return $this->createErrorResponse($ex);
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
         }
     }
 
