@@ -8,6 +8,9 @@
 /.idea
 /composer.lock
 /vendor/*
-/logs
+# exclude everything
+logs/*
+# exception to the rule
+!logs/.gitkeep 
 /includes
 /nbproject/private/

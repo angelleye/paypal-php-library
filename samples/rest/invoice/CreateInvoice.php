@@ -167,7 +167,7 @@ $finalDiscountForInvoice = array(
         'Percent' => 10
     );
 
-$today_date = date('Y-m-d Z', time());  
+$today_date = date('Y-m-d T');
 $invoiceData = array(
     'InvoiceDate' => $today_date,                             // The date when the invoice was enabled. The date format is *yyyy*-*MM*-*dd* *z* as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
     'Note' => 'Thank you for your business',                  // Note to the payer. 4000 characters max.
