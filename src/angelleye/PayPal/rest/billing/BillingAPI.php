@@ -83,51 +83,56 @@ class BillingAPI extends RestClass {
      * @return Array|Object
      */
     public function CreatePlan($requestData){
-        
-        // ### Create Plan
         try {
-            // Create a new instance of Plan object
+
+            /* Create a new instance of Plan object */
             $plan = new Plan();
             if(isset($requestData['plan'])){
                $this->setArrayToMethods($this->checkEmptyObject($requestData['plan']), $plan);
-            }            
-            // # Payment definitions for this billing plan.
-            $paymentDefinition = new PaymentDefinition();           
-            $paymentDefinition
-                ->setAmount(new Currency($requestData['paymentDefinition']['Amount']));
-            array_pop($requestData['paymentDefinition']);
-            if(!empty($this->checkEmptyObject((array)$paymentDefinition))){
-                $this->setArrayToMethods(array_filter($requestData['paymentDefinition']), $paymentDefinition); 
             }
-            
-            // Charge Models
-            $chargeModel = new ChargeModel();
-            $chargeModel->setAmount(new Currency($requestData['chargeModel']['Amount']));
-            array_pop($requestData['chargeModel']);
-            if(!empty($this->checkEmptyObject((array)$chargeModel))){
-                $this->setArrayToMethods(array_filter($requestData['chargeModel']), $chargeModel); 
-                $paymentDefinition->setChargeModels(array($chargeModel));
-            }
-            
-            $merchantPreferences = new MerchantPreferences();
-            $baseUrl = $requestData['baseUrl'];
 
-            $merchantPreferences->setReturnUrl($baseUrl.$requestData['ReturnUrl'])
-                ->setCancelUrl($baseUrl.$requestData['CancelUrl']);
-            if(!empty($this->checkEmptyObject($requestData['merchant_preferences']['SetupFee']))){
-                $merchantPreferences->setSetupFee(new Currency($requestData['merchant_preferences']['SetupFee']));
-            }
-            array_pop($requestData['merchant_preferences']);
-            
-            if(isset($requestData['merchant_preferences'])){
-                $this->setArrayToMethods($this->checkEmptyObject($requestData['merchant_preferences']), $merchantPreferences);
-            }
-            if(!empty($this->checkEmptyObject((array)$paymentDefinition))){
+            /** Payment definitions for this billing plan. */
+            if(isset($requestData['paymentDefinition'])){
+                $paymentDefinition = new PaymentDefinition();
+                if(isset($requestData['paymentDefinition']['Amount'])) {
+                    $pdCurrency = new Currency();
+                    isset($requestData['paymentDefinition']['Amount']['value']) ? $pdCurrency->setValue($requestData['paymentDefinition']['Amount']['value']) : '';
+                    isset($requestData['paymentDefinition']['Amount']['currency']) ? $pdCurrency->setCurrency($requestData['paymentDefinition']['Amount']['currency']) : '';
+                    $paymentDefinition->setAmount($pdCurrency);
+                    unset($requestData['paymentDefinition']['Amount']);
+                }
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['paymentDefinition']), $paymentDefinition);
                 $plan->setPaymentDefinitions(array($paymentDefinition));
+
+                /** Charge Models */
+                if(isset($requestData['chargeModel'])){
+                    $chargeModel = new ChargeModel();
+                    isset($requestData['chargeModel']['Type']) ? $chargeModel->setType($requestData['chargeModel']['Type']) : '';
+                    $cmCurrency = new Currency();
+                    isset($requestData['chargeModel']['Amount']['value']) ? $cmCurrency->setValue($requestData['chargeModel']['Amount']['value']) : '';
+                    isset($requestData['chargeModel']['Amount']['currency']) ? $cmCurrency->setCurrency($requestData['chargeModel']['Amount']['currency']) : '';
+                    $chargeModel->setAmount($cmCurrency);
+                    $paymentDefinition->setChargeModels(array($chargeModel));
+                }
             }
-            if(!empty($this->checkEmptyObject((array)$merchantPreferences))){
+
+            /** Merchant Preferences */
+            if(isset($requestData['merchant_preferences'])){
+                $merchantPreferences = new MerchantPreferences();
+                $baseUrl = isset($requestData['baseUrl']) ? $requestData['baseUrl'] : '';
+                isset($requestData['ReturnUrl']) ? $merchantPreferences->setReturnUrl($baseUrl.$requestData['ReturnUrl']) : '';
+                isset($requestData['CancelUrl']) ? $merchantPreferences->setCancelUrl($baseUrl.$requestData['CancelUrl']) : '';
+                if(isset($requestData['merchant_preferences']['SetupFee'])) {
+                    $mpCurrency = new Currency();
+                    isset($requestData['merchant_preferences']['SetupFee']['value']) ? $mpCurrency->setValue($requestData['merchant_preferences']['SetupFee']['value']) : '';
+                    isset($requestData['merchant_preferences']['SetupFee']['currency']) ? $mpCurrency->setCurrency($requestData['merchant_preferences']['SetupFee']['currency']) : '';
+                    $merchantPreferences->setSetupFee($mpCurrency);
+                    unset($requestData['merchant_preferences']['SetupFee']);
+                }
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['merchant_preferences']), $merchantPreferences);
                 $plan->setMerchantPreferences($merchantPreferences);
-            }      
+            }
+
             $requestArray= clone $plan;
             $output = $plan->create($this->_api_context);            
             $returnArray['RESULT'] = 'Success';
@@ -385,7 +390,8 @@ class BillingAPI extends RestClass {
     public function BillAgreementBalance($agreementId,$note){
         try {            
             $agreementStateDescriptor = new AgreementStateDescriptor();
-            if(!empty(trim($note))){
+            $note = trim($note);
+            if(!empty($note)){
                 $agreementStateDescriptor->setNote($note);
             }
             $agreement = new Agreement();
@@ -555,13 +561,14 @@ class BillingAPI extends RestClass {
         try {
             
             $agreementStateDescriptor = new AgreementStateDescriptor();
-            if(!empty(trim($note))){
+            $note = trim($note);
+            if(!empty($note)){
                 $agreementStateDescriptor->setNote($note);
             }
-            $calcelAgreement = new Agreement();
-            $calcelAgreement->setId($agreementId);
-            $requestArray = clone $calcelAgreement;
-            $calcelAgreement->cancel($agreementStateDescriptor, $this->_api_context);            
+            $cancelAgreement = new Agreement();
+            $cancelAgreement->setId($agreementId);
+            $requestArray = clone $cancelAgreement;
+            $cancelAgreement->cancel($agreementStateDescriptor, $this->_api_context);
             $agreement = Agreement::get($agreementId, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';            
             $returnArray['AGREEMENT']=$agreement->toArray();

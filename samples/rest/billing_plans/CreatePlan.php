@@ -60,13 +60,13 @@ $merchant_preferences = array(
 );
 
 $requestData = array(
-        "plan"                 => $plan,
-        "paymentDefinition"    => $paymentDefinition,
-        "chargeModel"          => $chargeModel,
-        "merchant_preferences" => $merchant_preferences,
-        "baseUrl"              => $baseUrl ,
-        "CancelUrl"            => $CancelUrl,
-        "ReturnUrl"            => $ReturnUrl
+    "plan"                 => $plan,
+    "paymentDefinition"    => $paymentDefinition,
+    "chargeModel"          => $chargeModel,
+    "merchant_preferences" => $merchant_preferences,
+    "baseUrl"              => $baseUrl ,
+    "CancelUrl"            => $CancelUrl,
+    "ReturnUrl"            => $ReturnUrl
 );
 
 $returnArray = $PayPal->CreatePlan($requestData);
