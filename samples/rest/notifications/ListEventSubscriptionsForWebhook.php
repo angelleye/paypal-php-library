@@ -13,7 +13,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\notifications\NotificationsAPI($configArray);
 
-$webhook_id = '4PX92259TH926993P'; //  The ID of the webhook for which to list subscriptions.
+$webhook_id = '8EL46366UX208650W'; //  The ID of the webhook for which to list subscriptions.
 
 $returnArray = $PayPal->WebhooksEventTypesById($webhook_id);
 

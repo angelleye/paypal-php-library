@@ -13,7 +13,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\notifications\NotificationsAPI($configArray);
 
-$webhook_id = '4PX92259TH926993P';  // The ID of the webhook for which to show details.
+$webhook_id = '8EL46366UX208650W';  // The ID of the webhook for which to show details.
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult
 $PayPalResult = $PayPal->GetWebhook($webhook_id);
