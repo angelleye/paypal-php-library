@@ -407,12 +407,14 @@ class PaymentAPI extends RestClass {
 
             // ### Transaction
             // A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
+
             $transaction = new Transaction();
-            if (!empty($this->checkEmptyObject((array)$amount))) {
+            $amountArray = $this->checkEmptyObject((array)$amount);
+            if (!empty($amountArray)) {
                 $transaction->setAmount($amount);
             }
-            
-            if (!empty($this->checkEmptyObject((array)$itemList))) {
+            $itemListArr=$this->checkEmptyObject((array)$itemList);
+            if (!empty($itemListArr)) {
                 $transaction->setItemList($itemList);
             }
             if (isset($requestData['transaction'])){
@@ -449,22 +451,30 @@ class PaymentAPI extends RestClass {
             // A Payment Resource; create one using the above types and intent set to sale 'sale'
             $payment = new Payment();
             
-            if(isset($requestData['intent']) && !empty(trim($requestData['intent']))){
+            if(isset($requestData['intent']) && !empty($requestData['intent'])){
                 $payment->setIntent($requestData['intent']);
             }
-            if(!empty($this->checkEmptyObject((array)$payer))){
+
+            if(isset($requestData['intent']) && !empty($requestData['intent'])){
+                $payment->setIntent($requestData['intent']);
+            }
+
+            $payerArray = $this->checkEmptyObject((array)$payer);
+            if(!empty($payerArray)){
                 $payment->setPayer($payer);
             }
-            if(!empty($this->checkEmptyObject((array)$redirectUrls))){
+            $redirectUrlsArray = $this->checkEmptyObject((array)$redirectUrls);
+            if(!empty($redirectUrlsArray)){
                 $payment->setRedirectUrls($redirectUrls);
             }
-            if(!empty($this->checkEmptyObject((array)$transaction))){
+            $transactionArray = $this->checkEmptyObject((array)$transaction);
+            if(!empty($transactionArray)){
                 $payment->setTransactions(array($transaction));
             }
             if(isset($requestData['ExperienceProfileId']) && !empty(trim($requestData['ExperienceProfileId']))){
                 $payment->setExperienceProfileId(trim($requestData['ExperienceProfileId']));
             }
-            if(isset($requestData['NoteToPayer']) && !empty(trim($requestData['NoteToPayer']))){
+            if(isset($requestData['NoteToPayer']) && !empty($requestData['NoteToPayer'])){
                 $payment->setNoteToPayer(trim($requestData['NoteToPayer']));
             }
             
