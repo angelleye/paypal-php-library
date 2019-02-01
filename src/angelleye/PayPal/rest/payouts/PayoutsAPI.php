@@ -84,11 +84,14 @@ class PayoutsAPI extends RestClass {
                 $this->setArrayToMethods($this->checkEmptyObject($requestData['PayoutItem']), $senderItem);
             }
             $senderItem->setAmount(new Currency(json_encode($requestData['amount'])));
-            
-            if (!empty($this->checkEmptyObject((array)$senderBatchHeader))) {
+
+            $senderBatchHeaderArray = $this->checkEmptyObject((array)$senderBatchHeader);
+            if (!empty($senderBatchHeaderArray)) {
                 $payouts->setSenderBatchHeader($senderBatchHeader);    
             }
-            if (!empty($this->checkEmptyObject((array)$senderItem))) {
+
+            $senderItemArray = $this->checkEmptyObject((array)$senderItem);
+            if (!empty($senderItemArray)) {
                 $payouts->addItem($senderItem);
             }   
             $requestArray = clone $payouts;
@@ -113,26 +116,31 @@ class PayoutsAPI extends RestClass {
         
         try {
             $payouts = new Payout();
-            $senderBatchHeader = new PayoutSenderBatchHeader();
-            $this->setArrayToMethods(array_filter($requestData['batchHeader']), $senderBatchHeader);
-            
-            foreach ($requestData['PayoutItem'] as $value) {
-                $senderItem = new PayoutItem();
-                $this->setArrayToMethods(array_filter($value), $senderItem);
-                $senderItem->setAmount(new Currency(json_encode($requestData['amount'])));
-                $payouts->addItem($senderItem);
+
+            if(isset($requestData['batchHeader'])){
+                $senderBatchHeader = new PayoutSenderBatchHeader();
+                $this->setArrayToMethods(array_filter($requestData['batchHeader']), $senderBatchHeader);
+                if ($this->checkEmptyObject((array)$senderBatchHeader)) {
+                    $payouts->setSenderBatchHeader($senderBatchHeader);
+                }
             }
-            if ($this->checkEmptyObject((array)$senderBatchHeader)) {
-                $payouts->setSenderBatchHeader($senderBatchHeader);
+
+            if(isset($requestData['PayoutItem'])){
+                foreach ($requestData['PayoutItem'] as $value) {
+                    $senderItem = new PayoutItem();
+                    $this->setArrayToMethods(array_filter($value), $senderItem);
+                    $senderItem->setAmount(new Currency(json_encode($requestData['amount'])));
+                    $payouts->addItem($senderItem);
+                }
             }
-                                
-           $requestArray = clone $payouts; 
-           $output = $payouts->create(null,$this->_api_context);           
-           $returnArray['RESULT'] = 'Success';
-           $returnArray['BATCH_PAYOUT'] = $output->toArray();
-           $returnArray['RAWREQUEST']=$requestArray->toJSON();
-           $returnArray['RAWRESPONSE']=$output->toJSON();            
-           return $returnArray;                      
+
+            $requestArray = clone $payouts;
+            $output = $payouts->create(null,$this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['BATCH_PAYOUT'] = $output->toArray();
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$output->toJSON();
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);
         }
