@@ -13,7 +13,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\notifications\NotificationsAPI($configArray);
 
-$webhook_id = '2LM604139C742693G';                           // The ID of the webhook to update.
+$webhook_id = '8EL46366UX208650W';                           // The ID of the webhook to update.
 
 $requestData = array(
     array(

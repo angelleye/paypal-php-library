@@ -13,7 +13,7 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
-$planid = 'P-44X03574LN119673FQF6FIHA';          // Required. The ID of the billing plan to update. 
+$planid = 'P-4EM72741GL399293LUM5YCII';          // Required. The ID of the billing plan to update.
 
 $state = 'ACTIVE';                               // Allowed values: CREATED, ACTIVE, INACTIVE, and DELETED. Status of the billing plan.
 

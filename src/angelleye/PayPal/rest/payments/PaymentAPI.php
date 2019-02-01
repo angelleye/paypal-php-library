@@ -97,31 +97,30 @@ class PaymentAPI extends RestClass {
             if(isset($requestData['paymentCard'])){
                 $this->setArrayToMethods($this->checkEmptyObject($requestData['paymentCard']), $card);
             }
-            $ba = $this->checkEmptyObject($requestData['billingAddress']);
-            if(!empty($ba)){
-                $this->setArrayToMethods(array("BillingAddress" => $ba), $card);
-            }            
+
+            if(isset($requestData['billingAddress'])){
+                $ba = $this->checkEmptyObject($requestData['billingAddress']);
+                if(!empty($ba)){
+                    $this->setArrayToMethods(array("BillingAddress" => $ba), $card);
+                }
+            }
             
             // ### FundingInstrument
             // A resource representing a Payer's funding instrument.
             $fi = new FundingInstrument();
-            if(!empty($this->checkEmptyObject((array)$card))){
-                $fi->setPaymentCard($card);           
-            }
+            $fi->setPaymentCard($card);
                        
             // ### Payer
             // A resource representing a Payer that funds a payment
             $payer = new Payer();
             $payer->setPaymentMethod("credit_card");
-            if(!empty($this->checkEmptyObject((array)$fi))){
-                $payer->setFundingInstruments(array($fi));
-            }
+            $payer->setFundingInstruments(array($fi));
              
             // ### Itemized information
             // (Optional) Lets you specify item wise information
             $itemListArray = array();
-            if(!empty($this->checkEmptyObject($requestData['orderItems']))){
-                foreach ($requestData['orderItems'] as $value) {
+            if(isset($requestData['orderItems'])){
+                foreach ($this->checkEmptyObject($requestData['orderItems']) as $value) {
                    $item = new Item();
                    $array = array_filter($value);
                    if (count($array) > 0) {
@@ -132,7 +131,8 @@ class PaymentAPI extends RestClass {
             }
             
             $itemList = new ItemList();
-            if(!empty($this->checkEmptyObject($itemListArray))){
+            $itemListArray = $this->checkEmptyObject($itemListArray);
+            if(!empty($itemListArray)){
                 $itemList->setItems($itemListArray);
             }            
             
@@ -148,18 +148,22 @@ class PaymentAPI extends RestClass {
             if (isset($requestData['amount'])) {
                 $this->setArrayToMethods($this->checkEmptyObject($requestData['amount']), $amount);
             }
-            if (!empty($this->checkEmptyObject((array)$details))) {
+
+            $detailsArray = $this->checkEmptyObject((array)$details);
+            if (!empty($detailsArray)) {
                 $amount->setDetails($details);
             }
 
             // ### Transaction
             // A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
             $transaction = new Transaction();
-            if(!empty($this->checkEmptyObject((array)$amount))){
+            $amountArray = $this->checkEmptyObject((array)$amount);
+            if(!empty($amountArray)){
                 $transaction->setAmount($amount);
             }
-            
-            if (!empty($this->checkEmptyObject((array)$itemList))) {
+
+            $itemListArray = $this->checkEmptyObject((array)$itemList);
+            if (!empty($itemListArray)) {
                 $transaction->setItemList($itemList);
             }
             
@@ -170,18 +174,21 @@ class PaymentAPI extends RestClass {
             // ### Payment
             // A Payment Resource; create one using the above types and intent set to sale 'sale'
             $payment = new Payment();
-            if(isset($requestData['ExperienceProfileId']) && !empty(trim($requestData['ExperienceProfileId']))){
+            if(isset($requestData['ExperienceProfileId']) && !empty($requestData['ExperienceProfileId'])){
                 $payment->setExperienceProfileId($requestData['ExperienceProfileId']);
             }
-            if(isset($requestData['NoteToPayer']) && !empty(trim($requestData['NoteToPayer']))){
+            if(isset($requestData['NoteToPayer']) && !empty($requestData['NoteToPayer'])){
                 $payment->setNoteToPayer($requestData['NoteToPayer']);
             }
             
             $payment->setIntent(trim($requestData['intent']));
-            if(!empty($this->checkEmptyObject((array)$payer))){
+            $payerArray = $this->checkEmptyObject((array)$payer);
+            if(!empty($payerArray)){
                 $payment->setPayer($payer);
             }
-            if(!empty($this->checkEmptyObject((array)$transaction))){
+
+            $transactionArray = $this->checkEmptyObject((array)$transaction);
+            if(!empty($transactionArray)){
                 $payment->setTransactions(array($transaction));
             }            
             // ### Create Payment
@@ -266,17 +273,18 @@ class PaymentAPI extends RestClass {
             // ### Transaction
             // A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
             $transaction = new Transaction();
-            if (!empty($this->checkEmptyObject((array)$amount))) {
+            $amountArray = $this->checkEmptyObject((array)$amount);
+            if (!empty($amountArray)) {
                 $transaction->setAmount($amount);
             }
-            
-            if (!empty($this->checkEmptyObject((array)$itemList))) {
+            $itemListArr=$this->checkEmptyObject((array)$itemList);
+            if (!empty($itemListArr)) {
                 $transaction->setItemList($itemList);
             }
             if (isset($requestData['transaction'])){
                 $this->setArrayToMethods($this->checkEmptyObject($requestData['transaction']), $transaction);
             }
-            if(isset($requestData['invoiceNumber']) && !empty(trim($requestData['invoiceNumber']))){
+            if(isset($requestData['invoiceNumber']) && !empty($requestData['invoiceNumber'])){
                 $transaction->setInvoiceNumber($requestData['invoiceNumber']);
             }
 
@@ -297,22 +305,30 @@ class PaymentAPI extends RestClass {
             // A Payment Resource; create one using the above types and intent set to sale 'sale'
             $payment = new Payment();
             
-            if(isset($requestData['intent']) && !empty(trim($requestData['intent']))){
+            if(isset($requestData['intent']) && !empty($requestData['intent'])){
                 $payment->setIntent($requestData['intent']);
             }
-            if(!empty($this->checkEmptyObject((array)$payer))){
+
+            $payerArray = $this->checkEmptyObject((array)$payer);
+            if(!empty($payerArray)){
                 $payment->setPayer($payer);
             }
-            if(!empty($this->checkEmptyObject((array)$redirectUrls))){
+
+            $redirectUrlsArray = $this->checkEmptyObject((array)$redirectUrls);
+            if(!empty($redirectUrlsArray)){
                 $payment->setRedirectUrls($redirectUrls);
             }
-            if(!empty($this->checkEmptyObject((array)$transaction))){
+
+            $transactionArray = $this->checkEmptyObject((array)$transaction);
+            if(!empty($transactionArray)){
                 $payment->setTransactions(array($transaction));
             }
-            if(isset($requestData['ExperienceProfileId']) && !empty(trim($requestData['ExperienceProfileId']))){
+
+            if(isset($requestData['ExperienceProfileId']) && !empty($requestData['ExperienceProfileId'])){
                 $payment->setExperienceProfileId(trim($requestData['ExperienceProfileId']));
             }
-            if(isset($requestData['NoteToPayer']) && !empty(trim($requestData['NoteToPayer']))){
+
+            if(isset($requestData['NoteToPayer']) && !empty($requestData['NoteToPayer'])){
                 $payment->setNoteToPayer(trim($requestData['NoteToPayer']));
             }
             
@@ -391,12 +407,14 @@ class PaymentAPI extends RestClass {
 
             // ### Transaction
             // A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
+
             $transaction = new Transaction();
-            if (!empty($this->checkEmptyObject((array)$amount))) {
+            $amountArray = $this->checkEmptyObject((array)$amount);
+            if (!empty($amountArray)) {
                 $transaction->setAmount($amount);
             }
-            
-            if (!empty($this->checkEmptyObject((array)$itemList))) {
+            $itemListArr=$this->checkEmptyObject((array)$itemList);
+            if (!empty($itemListArr)) {
                 $transaction->setItemList($itemList);
             }
             if (isset($requestData['transaction'])){
@@ -433,22 +451,30 @@ class PaymentAPI extends RestClass {
             // A Payment Resource; create one using the above types and intent set to sale 'sale'
             $payment = new Payment();
             
-            if(isset($requestData['intent']) && !empty(trim($requestData['intent']))){
+            if(isset($requestData['intent']) && !empty($requestData['intent'])){
                 $payment->setIntent($requestData['intent']);
             }
-            if(!empty($this->checkEmptyObject((array)$payer))){
+
+            if(isset($requestData['intent']) && !empty($requestData['intent'])){
+                $payment->setIntent($requestData['intent']);
+            }
+
+            $payerArray = $this->checkEmptyObject((array)$payer);
+            if(!empty($payerArray)){
                 $payment->setPayer($payer);
             }
-            if(!empty($this->checkEmptyObject((array)$redirectUrls))){
+            $redirectUrlsArray = $this->checkEmptyObject((array)$redirectUrls);
+            if(!empty($redirectUrlsArray)){
                 $payment->setRedirectUrls($redirectUrls);
             }
-            if(!empty($this->checkEmptyObject((array)$transaction))){
+            $transactionArray = $this->checkEmptyObject((array)$transaction);
+            if(!empty($transactionArray)){
                 $payment->setTransactions(array($transaction));
             }
             if(isset($requestData['ExperienceProfileId']) && !empty(trim($requestData['ExperienceProfileId']))){
                 $payment->setExperienceProfileId(trim($requestData['ExperienceProfileId']));
             }
-            if(isset($requestData['NoteToPayer']) && !empty(trim($requestData['NoteToPayer']))){
+            if(isset($requestData['NoteToPayer']) && !empty($requestData['NoteToPayer'])){
                 $payment->setNoteToPayer(trim($requestData['NoteToPayer']));
             }
             
@@ -493,9 +519,7 @@ class PaymentAPI extends RestClass {
             // For stored credit card payments, set the CreditCardToken
             // field on this object.
             $fi = new FundingInstrument();
-            if(!empty($this->checkEmptyObject((array)$creditCardToken))){
-                $fi->setCreditCardToken($creditCardToken);
-            }
+            $fi->setCreditCardToken($creditCardToken);
 
             // ### Payer
             // A resource representing a Payer that funds a payment
@@ -503,9 +527,7 @@ class PaymentAPI extends RestClass {
             // to 'credit_card'.
             $payer = new Payer();
             $payer->setPaymentMethod("credit_card");
-            if(!empty($this->checkEmptyObject((array)$fi))){
-                $payer->setFundingInstruments(array($fi));
-            }                                        
+            $payer->setFundingInstruments(array($fi));
 
             // ### Itemized information
             // (Optional) Lets you specify item wise information
@@ -522,7 +544,7 @@ class PaymentAPI extends RestClass {
             }
             
             $itemList = new ItemList();
-            if(!empty($this->checkEmptyObject($itemListArray))){
+            if(!empty($itemListArray)){
                 $itemList->setItems($itemListArray);
             }
             // ### Additional payment details
@@ -539,21 +561,26 @@ class PaymentAPI extends RestClass {
             if (isset($requestData['amount'])) {
                 $this->setArrayToMethods($this->checkEmptyObject($requestData['amount']), $amount);
             }
-            if (!empty($this->checkEmptyObject((array)$details))) {
+
+            $detailsArray = $this->checkEmptyObject((array)$details);
+            if (!empty($detailsArray)) {
                 $amount->setDetails($details);
             }
 
             // ### Transaction
             // A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
             $transaction = new Transaction();
-            if(!empty($this->checkEmptyObject((array)$amount))){
+            $amountArray = $this->checkEmptyObject((array)$amount);
+            if(!empty($amountArray)){
                 $transaction->setAmount($amount);
             }
-            
-            if (!empty($this->checkEmptyObject((array)$itemList))) {
+
+            $itemListArray = $this->checkEmptyObject((array)$itemList);
+            if (!empty($itemListArray)) {
                 $transaction->setItemList($itemList);
             }
-            if ($requestData['transaction']) {
+
+            if (isset($requestData['transaction'])){
                 $this->setArrayToMethods($this->checkEmptyObject($requestData['transaction']), $transaction);
             }
 
@@ -561,20 +588,22 @@ class PaymentAPI extends RestClass {
             // A Payment Resource; create one using the above types and intent set to sale 'sale'
             $payment = new Payment();
             $payment->setIntent($requestData['intent']);
-            
-            if(!empty($this->checkEmptyObject((array)$payer))){
+
+            $payerArray = $this->checkEmptyObject((array)$payer);
+            if(!empty($payerArray)){
                 $payment->setPayer($payer);
             }
-            if(!empty($this->checkEmptyObject((array)$transaction))){
+            $transactionArray = $this->checkEmptyObject((array)$transaction);
+            if(!empty($transactionArray)){
                 $payment->setTransactions(array($transaction));
             }
             $requestArray = clone $payment;
-            $payment->create($this->_api_context);            
+            $payment->create($this->_api_context);
             $returnArray['RESULT'] = 'Success';
             $returnArray['PAYMENT'] = $payment->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
-            $returnArray['RAWRESPONSE']=$payment->toJSON();            
-            return $returnArray;              
+            $returnArray['RAWRESPONSE']=$payment->toJSON();
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {            
             return $this->createErrorResponse($ex);
         }

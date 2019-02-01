@@ -13,7 +13,7 @@ $configArray = array(
 // This is Create Payment with Creditcard.
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
-$intent='authorize';                                            // Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.
+$intent='sale';                                                 // Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.
 $ExperienceProfileId = '';                                      // Optional. PayPal generated identifier for the merchant's payment experience profile. Refer to [this](https://developer.paypal.com/docs/api/#payment-experience) link to create experience profile ID.
 $NoteToPayer = 'Contact us for any questions on your order.';   // free-form field for the use of clients to pass in a message to the payer.
 

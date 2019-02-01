@@ -20,7 +20,7 @@ $remindNotification = array(
     'CcEmails' => '',                               // Applicable for invoices created with Cc emails. If this field is not in the body, all the cc email addresses added as part of the invoice shall be notified else this field can be used to limit the list of email addresses. Note: additional email addresses are not supported.    
 );
 
-$InvoiceID = 'INV2-GASZ-DB7C-NSRC-S9V6';            // Required. Specify the ID of the invoice to remind.
+$InvoiceID = 'INV2-JZ52-L8SK-U4L2-RF8M';            // Required. Specify the ID of the invoice to remind.
 
 $returnArray = $PayPal->RemindInvoice($remindNotification,$InvoiceID);
 echo "<pre>";

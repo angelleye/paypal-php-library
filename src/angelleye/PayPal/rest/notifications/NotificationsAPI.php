@@ -73,22 +73,24 @@ class NotificationsAPI extends RestClass {
     public function CreateWebhook($requestData){
         
         $webhook = new Webhook();
-        $webhook->setUrl($requestData['Url']);
-        
-        $webhookEventTypes = array();
-        foreach ($requestData['EventTypes'] as $value) {            
-            $type = new WebhookEventType();
-            $type->setName($value['Name']);
-            $webhookEventTypes[] = $type;                        
+        if(isset($requestData['Url'])){
+            $webhook->setUrl($requestData['Url']);
         }
-        
-        $webhook->setEventTypes($webhookEventTypes);
+
+        if(isset($requestData['EventTypes'])){
+            $webhookEventTypes = array();
+            foreach ($requestData['EventTypes'] as $value) {
+                $type = new WebhookEventType();
+                $type->setName($value['Name']);
+                $webhookEventTypes[] = $type;
+            }
+            $webhook->setEventTypes($webhookEventTypes);
+        }
         
         $request = clone $webhook;
         
         try {
             $output = $webhook->create($this->_api_context);
-            
             $returnArray['RESULT'] = 'Success';
             $returnArray['WEBHOOK']=$output->toArray();
             $returnArray['RAWREQUEST']=$request->toJSON();

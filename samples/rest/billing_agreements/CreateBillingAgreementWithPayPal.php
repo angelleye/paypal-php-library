@@ -13,7 +13,7 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
-$planId = 'P-44X03574LN119673FQF6FIHA';                     // Required. Billing plan id that will be used to create a billing agreement.
+$planId = 'P-4EM72741GL399293LUM5YCII';                     // Required. Billing plan id that will be used to create a billing agreement.
 
 $agreement = array(
     "State" => '',                                          // State of the agreement.
@@ -24,7 +24,7 @@ $agreement = array(
 
 // Payerinfo is Required.
 $payer =array(
-    "PaymentMethod" => 'paypal',                         // Valid Values: ["credit_card", "bank", "paypal", "pay_upon_invoice", "carrier", "alternate_payment"]. Payment method being used - PayPal Wallet payment, Bank Direct Debit  or Direct Credit card.    
+    "PaymentMethod" => 'paypal',                         // Required. Valid Values: ["credit_card", "bank", "paypal", "pay_upon_invoice", "carrier", "alternate_payment"]. Payment method being used - PayPal Wallet payment, Bank Direct Debit  or Direct Credit card.
     "AccountType" => ''                                  // Valid Values: ["BUSINESS", "PERSONAL", "PREMIER"]. Type of account relationship payer has with PayPal. 
 );
 
@@ -39,12 +39,12 @@ $shippingAddress = array(
 );
 
 $requestData = array(
-        "planId"          => $planId,
-        "agreement"       => $agreement,       
-        "payer"           => $payer,       
-        "shippingAddress" => $shippingAddress        
+    "planId"          => $planId,
+    "agreement"       => $agreement,
+    "payer"           => $payer,
+    "shippingAddress" => $shippingAddress
 );
 
-$returnArray = $PayPal->CreateBillingAgreementWithPayPal($requestData);
+$returnArray = $PayPal->CreateBillingAgreement($requestData);
 echo "<pre>";
 print_r($returnArray);
