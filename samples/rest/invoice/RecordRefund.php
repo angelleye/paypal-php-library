@@ -12,12 +12,12 @@ $configArray = array(
 );
 $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
-$invoiceId = 'INV2-L2AC-WQSM-Q5PR-QVUY';                        // Required. Inovoice id for which to record refunds.
+$invoiceId = 'INV2-BDWB-GSEF-KKVN-UNHF';                        // Required. Inovoice id for which to record refunds.
 
 $refundDetail = array(
     'Type' => '',                                                // Valid Values: ["PAYPAL", "EXTERNAL"] The PayPal refund type. Indicates whether refund was paid in invoicing flow through PayPal or externally. In the case of mark-as-refunded API, the supported refund type is `EXTERNAL`. For backward compatability, the `PAYPAL` refund type is still supported.
     'TransactionId' => '',                                       // The PayPal refund transaction ID. Required with the `PAYPAL` refund type.
-    'Date'   => '2014-07-06 03:30:00 PST',                       // Date on which the invoice was refunded. Date format: yyyy-MM-dd z. For example, 2014-02-27 PST.
+    'Date'   => '2019-01-06 03:36:00 PST',                       // Date on which the invoice was refunded. Date format: yyyy-MM-dd z. For example, 2014-02-27 PST.
     'Note'   => 'Refund provided by cash.',                      // Optional note associated with the refund.    
 );
 

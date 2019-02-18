@@ -15,7 +15,7 @@ $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 $record = array(
     'Method' => 'CASH',                                    // Valid Values: ["BANK_TRANSFER", "CASH", "CHECK", "CREDIT_CARD", "DEBIT_CARD", "PAYPAL", "WIRE_TRANSFER", "OTHER"].  The payment mode or method. Required with the `EXTERNAL` payment type.
     'Note'   => 'Cash received.',                          // Optional. A note associated with the payment.
-    'Date'   => '2014-07-06 03:30:00 PST',                 // The date when the invoice was paid. The date format is *yyyy*-*MM*-*dd* *z* as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).    
+    'Date'   => '2019-01-06 03:30:00 PST',                 // The date when the invoice was paid. The date format is *yyyy*-*MM*-*dd* *z* as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
 );
 
 $amount = array(
@@ -23,7 +23,7 @@ $amount = array(
     'value'    => '19.51'                                  // The amount up to N digits after the decimal separator, as defined in ISO 4217 for the appropriate currency code. 
 );
 
-$invoiceId = 'INV2-GASZ-DB7C-NSRC-S9V6';                   // Required. The ID of the invoice to mark as paid. 
+$invoiceId = 'INV2-BDWB-GSEF-KKVN-UNHF';                   // Required. The ID of the invoice to mark as paid.
 
 $returnArray = $PayPal->RecordPayment($invoiceId,$record,$amount);
 echo "<pre>";

@@ -13,7 +13,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
-// Merchant informations is Required for creating new Invoice. 
+// Merchant information is Required for creating new Invoice.
 $merchantInfo = array(
     'Email' => 'paypal-facilitator@angelleye.com',             // The merchant email address. Maximum length is 260 characters.
     'FirstName' => 'paypal',                                            // The merchant first name. Maximum length is 30 characters.

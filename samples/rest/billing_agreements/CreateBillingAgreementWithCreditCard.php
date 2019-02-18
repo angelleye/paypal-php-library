@@ -13,7 +13,7 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
-$planId = 'P-3P439474RB082731BA3QJ56I';                     // Required. Billing plan id that will be used to create a billing agreement.
+$planId = 'P-4EM72741GL399293LUM5YCII';                     // Required. Billing plan id that will be used to create a billing agreement.
 
 $agreement = array(
     "State" => '',                                          // State of the agreement.
@@ -37,15 +37,15 @@ $creditCard = array(
 );
 
 $payer =array(
-    "PaymentMethod" => 'credit_card',                         // Valid Values: ["credit_card", "bank", "paypal", "pay_upon_invoice", "carrier", "alternate_payment"]. Payment method being used - PayPal Wallet payment, Bank Direct Debit  or Direct Credit card.    
+    "PaymentMethod" => 'credit_card',                         // Required. Valid Values: ["credit_card", "bank", "paypal", "pay_upon_invoice", "carrier", "alternate_payment"]. Payment method being used - PayPal Wallet payment, Bank Direct Debit  or Direct Credit card.
     "AccountType" => ''                                       // Valid Values: ["BUSINESS", "PERSONAL", "PREMIER"]. Type of account relationship payer has with PayPal. 
 );
 
 // Payerinfo is Required. 
 $payerInfo = array(
-    'email' => 'tejasm-facilitator@itpathsolutions.co.in',       // Email address representing the payer. 127 characters max.    
-    "first_name" => '',                                      // First name of the payer. 
-    "last_name" => '',                                      // Last name of the payer.
+    'email' => 'payer@domain.com',                           // Email address representing the payer. 127 characters max.
+    "first_name" => '',                                      // First name of the payer.
+    "last_name" => '',                                       // Last name of the payer.
 );
 
 $shippingAddress = array(
@@ -67,7 +67,7 @@ $requestData = array(
         "shippingAddress" => $shippingAddress        
 );
 
-$returnArray = $PayPal->CreateBillingAgreementWithCreditCard($requestData);
+$returnArray = $PayPal->CreateBillingAgreement($requestData);
 
 echo "<pre>";
 print_r($returnArray);

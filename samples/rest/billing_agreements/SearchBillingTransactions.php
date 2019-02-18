@@ -13,11 +13,11 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\billing\BillingAPI($configArray);
 
-$agreementId = 'I-C76T8XF96HBX';                                // Identifier of the agreement resource for which to list transactions.
-
+$agreementId = 'I-4U6DTW95XNLS';                                // Identifier of the agreement resource for which to list transactions.
+/*Required*/
 $params = array(
-                'start_date' => '2018-12-19',                    // Format : yyyy-mm-dd . The start date of the range of transactions to list.
-                'end_date'   => '2018-12-20'                     // Format : yyyy-mm-dd . The end date of the range of transactions to list.
+                'start_date' => '2019-01-01',                    // Format : yyyy-mm-dd . The start date of the range of transactions to list.
+                'end_date'   => '2019-12-31'                     // Format : yyyy-mm-dd . The end date of the range of transactions to list.
           );
 
 $returnArray = $PayPal->SearchBillingTransactions($agreementId,$params);

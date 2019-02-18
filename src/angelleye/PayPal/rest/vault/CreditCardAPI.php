@@ -131,11 +131,10 @@ class CreditCardAPI extends RestClass {
     public function GetCardDetails($requestData){
         $creditCard = new CreditCard();
             try {
-                $requestArray = clone $creditCard->setId($requestData['credit_card_id']);;
                 $card = $creditCard->get($requestData['credit_card_id'], $this->_api_context);                
                 $returnArray['RESULT'] = 'Success';
                 $returnArray['CREDITCARD']=$card->toArray();                
-                $returnArray['RAWREQUEST']=$requestArray->toJSON();
+                $returnArray['RAWREQUEST']='{id:'.$requestData['credit_card_id'].'}';
                 $returnArray['RAWRESPONSE']=$card->toJSON();
                 return $returnArray;
             } catch (\PayPal\Exception\PayPalConnectionException  $ex) {

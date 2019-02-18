@@ -13,10 +13,10 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 
-$InvoiceID = 'INV2-X62M-AZPE-MCSA-N3W6';                       // Required. The ID of the invoice to update.
+$InvoiceID = 'INV2-JZ52-L8SK-U4L2-RF8M';                       // Required. The ID of the invoice to update.
 
 $merchantInfo = array(
-    'Email' => 'paypal-facilitator@angelleye.com',              // The merchant email address. Maximum length is 260 characters.
+    'Email' => 'sandbox@givewhen.com',              // The merchant email address. Maximum length is 260 characters.
     'FirstName' => 'Test',                                      // The merchant first name. Maximum length is 30 characters.
     'LastName'  => 'Testerson',                                 // The merchant last name. Maximum length is 30 characters.
     'BusinessName' => 'Testerson\'s store',                     // The merchant company business name. Maximum length is 100 characters.
@@ -108,6 +108,7 @@ $item2 = array(
 array_push($itemArray,$item2);
 
 $finalDiscountForInvoice = array(
+    'type' => 'Percent',
     'Percent' => '2'                                                // The rate of the specified Discount. Valid range is from 0.001 to 99.999.                         
 );
 
@@ -147,8 +148,10 @@ $invoiceData = array(
 );
 
 $attachments = array(
-    'Name' => 'AttachmentImage',                                    // Name of the file attached. 
-    'Url'  => 'https://cdn.pixabay.com/photo/2016/09/16/19/15/gear-1674891_960_720.png' // URL of the attached file that can be downloaded.                                             // URL of the attached file that can be downloaded. 
+    0 => array(
+        'Name' => 'AttachmentImage',                                    // Name of the file attached.
+        'Url'  => 'https://cdn.pixabay.com/photo/2016/09/16/19/15/gear-1674891_960_720.png' // URL of the attached file that can be downloaded.                                             // URL of the attached file that can be downloaded.
+    )
 );
 
 $requestData =array(
