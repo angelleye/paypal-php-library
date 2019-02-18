@@ -796,19 +796,23 @@ class PaymentAPI extends RestClass {
      *
      * @param string $orderId
      * @param array $amountArray
-     * @return array|object
+     * @param boolen $is_final_capture
+     * @return array
      */
-    public function OrderCapture($orderId,$amountArray){
+    public function OrderCapture($orderId,$amountArray=array(),$is_final_capture = false){
         try {
             $order= new Order();
             $order->setId($orderId);
-            
-            $amount = new Amount();
-            $this->setArrayToMethods($amountArray, $amount);
-            
+
             $capture = new Capture();
-            $capture->setIsFinalCapture(true);
-            $capture->setAmount($amount);            
+            $capture->setIsFinalCapture($is_final_capture);
+
+            if(!empty($amountArray)){
+                $amount = new Amount();
+                $this->setArrayToMethods($amountArray, $amount);
+                $capture->setAmount($amount);
+            }
+
             $requestArray = clone $order;
             $result = $order->capture($capture, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';
@@ -1233,6 +1237,12 @@ class PaymentAPI extends RestClass {
         }
     }
 
+    /**
+     * Fetch Order array from the related resources  by passing the Payment id
+     * @param $payment_id  id of the Payment
+     * @return Array
+     *
+     */
     public function GetOrderDetailsFromPaymentID($payment_id){
 
         try{
@@ -1242,9 +1252,9 @@ class PaymentAPI extends RestClass {
             $relatedResources = $transaction->getRelatedResources();
             $relatedResource = $relatedResources[0];
             $order = $relatedResource->getOrder();
-            echo "<pre>";
-            print_r($order->getId());
-            exit;
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['ORDER'] = $order->toArray();
+            return $returnArray;
         }catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);
         }

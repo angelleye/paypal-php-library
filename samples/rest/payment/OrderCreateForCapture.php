@@ -16,8 +16,8 @@ $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 $intent='order';                                                                //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.
 
 $urls= array(
-    'ReturnUrl'   => 'OrderAuthorize.php?success=true',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=true
-    'CancelUrl'   => 'OrderAuthorize.php?success=false',                                   // Required when Pay using paypal. Example : ExecutePayment.php?success=false
+    'ReturnUrl'   => 'OrderCapture.php?success=true',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=true
+    'CancelUrl'   => 'OrderCapture.php?success=false',                                   // Required when Pay using paypal. Example : ExecutePayment.php?success=false
     'BaseUrl'     => $domain.'samples/rest/payment/'                                     // Required.
 );
 

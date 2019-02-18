@@ -15,24 +15,13 @@ $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
 $intent='authorize';        //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.
 
-// ### Notice
-// If your intent is "order" set this as URL array.
-// ReturnUrl=OrderGet.php?success=true 
-// CancelUrl=OrderGet.php?success=false
-//
-// ### For execute payment
-// If your intent is "sale" or "authorize" set this as URL array.
-//ReturnUrl=ExecutePayment.php?success=true
-//CancelUrl=ExecutePayment.php?success=false
-
-
 $urls= array(
     'ReturnUrl'   => 'ExecutePayment.php?success=true',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=true
     'CancelUrl'   => 'ExecutePayment.php?success=false',                                   // Required when Pay using paypal. Example : ExecutePayment.php?success=false
     'BaseUrl'     => $domain.'samples/rest/payment/'                                     // Required.
 );
 
-$invoiceNumber='INVC23985684658';
+$invoiceNumber='INVC-'.rand(0,1000);
 $ExperienceProfileId = '';                                                                  // Optional. PayPal generated identifier for the merchant's payment experience profile. Refer to [this](https://developer.paypal.com/docs/api/#payment-experience) link to create experience profile ID.
 $NoteToPayer = 'Contact us for any questions on your order.';                               // Optional. free-form field for the use of clients to pass in a message to the payer.
 
