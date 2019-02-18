@@ -1101,6 +1101,14 @@ class PaymentAPI extends RestClass {
                 $authorization = $relatedResources[0]->getAuthorization();
                 $returnArray['AUTHORIZATION'] = $authorization->toArray();
             }
+            if($intent == 'order'){
+                $transactions = $payment->getTransactions();
+                $transaction = $transactions[0];
+                $relatedResources = $transaction->getRelatedResources();
+                $relatedResource = $relatedResources[0];
+                $order = $relatedResource->getOrder();
+                $returnArray['ORDER'] = $order->toArray();
+            }
             $returnArray['PAYMENT'] = $result->toArray();
             $returnArray['RAWREQUEST']=$execution->toJSON();
             $returnArray['RAWRESPONSE']=$result->toJSON();
@@ -1221,6 +1229,23 @@ class PaymentAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$payment->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+
+    public function GetOrderDetailsFromPaymentID($payment_id){
+
+        try{
+            $payment = Payment::get($payment_id, $this->_api_context);
+            $transactions = $payment->getTransactions();
+            $transaction = $transactions[0];
+            $relatedResources = $transaction->getRelatedResources();
+            $relatedResource = $relatedResources[0];
+            $order = $relatedResource->getOrder();
+            echo "<pre>";
+            print_r($order->getId());
+            exit;
+        }catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);
         }
     }
