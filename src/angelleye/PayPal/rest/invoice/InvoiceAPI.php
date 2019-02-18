@@ -250,11 +250,13 @@ class InvoiceAPI extends RestClass {
                     
                     if(isset($requestData['shippingCost']['type']) && $requestData['shippingCost']['type'] == 'Amount'){
                         $shippingCurrency = new Currency();
-                        $this->setArrayToMethods(array_filter($requestData['shippingCost']['Currency']), $shippingCurrency);
+                        $shippingCurrency->setCurrency($requestData['shippingCost']['Amount']['Currency']);
+                        $shippingCurrency->setValue($requestData['shippingCost']['Amount']['Value']);
                         $ShippingCost = new ShippingCost();
                         $ShippingCost->setAmount($shippingCurrency);
                         $invoice->setShippingCost($ShippingCost);       
                     }
+
                     
                     if(isset($requestData['attachments']) && count(array_filter($requestData['attachments'])) > 0){
                         foreach ($requestData['attachments'] as $value) {
@@ -664,7 +666,6 @@ class InvoiceAPI extends RestClass {
                 $ShippingCost->setAmount($shippingCurrency);
                 $invoice->setShippingCost($ShippingCost);
             }
-
             if(isset($requestData['attachments']) && count(array_filter($requestData['attachments'])) > 0){
                 foreach ($requestData['attachments'] as $key => $value) {
                     $attachment = new FileAttachment();
@@ -673,6 +674,16 @@ class InvoiceAPI extends RestClass {
                     $invoice->setAttachments(array($attachment));
                 }
             }
+            if(isset($requestData['shippingCost']['type']) && $requestData['shippingCost']['type'] == 'Amount'){
+                $shippingCurrency = new Currency();
+                $shippingCurrency->setCurrency($requestData['shippingCost']['Amount']['Currency']);
+                $shippingCurrency->setValue($requestData['shippingCost']['Amount']['Value']);
+                $ShippingCost = new ShippingCost();
+                $ShippingCost->setAmount($shippingCurrency);
+                $invoice->setShippingCost($ShippingCost);
+            }
+
+            $this->setArrayToMethods(array_filter($requestData['invoiceData']), $invoice);            
 
             if($third_party === true  && !empty($refesh_token)){
                 $invoice->updateAccessToken($refesh_token, $this->_api_context);

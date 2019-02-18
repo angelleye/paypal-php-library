@@ -90,6 +90,14 @@ $shippingInfoAddress = array(
     'State'       => 'OR',                                      // 2 letter code for US states, and the equivalent for other countries.     
 );
 
+$shippingCost = array(
+    'type' => 'Amount',
+    'Amount' => array (
+        'Currency' => 'USD',
+        'Value' => '20'
+    )
+);
+
 $CCDetails['Email'] = 'test.firstname@gmail.com';             // The participant email address.  
 
 $itemArray = array();
@@ -159,7 +167,7 @@ $finalDiscountForInvoice = array(
         'Percent' => 10
     );
 
-$today_date = date('Y-m-d Z', time());  
+$today_date = date('Y-m-d T');
 $invoiceData = array(
     'InvoiceDate' => $today_date,                             // The date when the invoice was enabled. The date format is *yyyy*-*MM*-*dd* *z* as defined in [Internet Date/Time Format](http://tools.ietf.org/html/rfc3339#section-5.6).
     'Note' => 'Thank you for your business',                  // Note to the payer. 4000 characters max.
@@ -187,6 +195,7 @@ $requestData =array(
     'shippingInfo'            => $shippingInfo,
     'shippingInfoPhone'       => $shippingInfoPhone,
     'shippingInfoAddress'     => $shippingInfoAddress,
+    'shippingCost'            => $shippingCost,
     'paymentTerm'             => $paymentTerm,
     'invoiceData'             => $invoiceData
 );
