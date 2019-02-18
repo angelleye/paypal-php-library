@@ -102,16 +102,16 @@ class InvoiceAPI extends RestClass {
                     $MerchantInfo = new MerchantInfo();
                     if( isset($requestData['merchantInfo'])){
                         $this->setArrayToMethods($this->checkEmptyObject($requestData['merchantInfo']), $MerchantInfo);
-                    if( isset($requestData['merchantPhone'])){
-                        $merchantPhone = new Phone();
-                        $this->setArrayToMethods($this->checkEmptyObject($requestData['merchantPhone']), $merchantPhone);
-                        $MerchantInfo->setPhone($merchantPhone);
-                    }
-                    if(isset($requestData['merchantAddress'])){
-                        $merchantAddress = new Address();
-                        $this->setArrayToMethods($this->checkEmptyObject($requestData['merchantAddress']), $merchantAddress);
-                        $MerchantInfo->setAddress($merchantAddress);                        
-                    }
+                        if( isset($requestData['merchantPhone'])){
+                            $merchantPhone = new Phone();
+                            $this->setArrayToMethods($this->checkEmptyObject($requestData['merchantPhone']), $merchantPhone);
+                            $MerchantInfo->setPhone($merchantPhone);
+                        }
+                        if(isset($requestData['merchantAddress'])){
+                            $merchantAddress = new Address();
+                            $this->setArrayToMethods($this->checkEmptyObject($requestData['merchantAddress']), $merchantAddress);
+                            $MerchantInfo->setAddress($merchantAddress);
+                        }
                         $invoice->setMerchantInfo($MerchantInfo);
                     }
                     // ### End
@@ -123,21 +123,21 @@ class InvoiceAPI extends RestClass {
                        $this->setArrayToMethods($this->checkEmptyObject($requestData['ccInfo']), $Participant);
                         $participantArray = $this->checkEmptyObject((array)$Participant);
                         if (!empty($participantArray)) {
-                        $invoice->setCcInfo(array($Participant));
-                    }
+                            $invoice->setCcInfo(array($Participant));
+                        }
                     }
                     // ### End
                     
                     // ### Setting Minimum Amount Due
                     // ### Start                            
-                        $MinAmountCurrency = new Currency();
-                        if(isset($requestData['MinimumAmountDue'])){
-                            $this->setArrayToMethods($this->checkEmptyObject($requestData['MinimumAmountDue']), $MinAmountCurrency);
-                        }
+                    $MinAmountCurrency = new Currency();
+                    if(isset($requestData['MinimumAmountDue'])){
+                        $this->setArrayToMethods($this->checkEmptyObject($requestData['MinimumAmountDue']), $MinAmountCurrency);
+                    }
                     $MinAmountCurrencyArray = $this->checkEmptyObject((array)$MinAmountCurrency);
                     if (!empty($MinAmountCurrencyArray)) {
-                            $invoice->setMinimumAmountDue($MinAmountCurrency);
-                        }
+                        $invoice->setMinimumAmountDue($MinAmountCurrency);
+                    }
                     // ### End
                     
                     // ### Setting Billing Info to invoice object. 
@@ -160,43 +160,42 @@ class InvoiceAPI extends RestClass {
                     $BillingInfoArray = $this->checkEmptyObject((array)$BillingInfo);
                     if (!empty($BillingInfoArray)) {
                         $invoice->setBillingInfo(array($BillingInfo));                        
-                    }   
+                    }
                     //End
                     
                     // ### Add items in Invoice object.
                     // ### Start.    
                    if(isset($requestData['itemArray'])) {
-                   
-                    $itemArray = array();
-                    foreach ($requestData['itemArray'] as $item) {
-                        $InvoiceItem = new InvoiceItem();
-                        
-                        if(isset($item['UnitPrice']) && count(array_filter($item['UnitPrice'])) > 0){
-                            $ItemCurrency = new Currency();
-                            $this->setArrayToMethods(array_filter($item['UnitPrice']), $ItemCurrency);
-                            $InvoiceItem->setUnitPrice($ItemCurrency);
-                        }
-                        unset($item['UnitPrice']);
-                        if(isset($item['Tax']) && count(array_filter($item['Tax'])) > 0){
-                            $ItemTax = new Tax();
-                            $this->setArrayToMethods(array_filter($item['Tax']), $ItemTax);
-                            $InvoiceItem->setTax($ItemTax);
-                        }
-                        unset($item['Tax']);
-                        if( isset($item['Discount']) && count(array_filter($item['Discount'])) > 0){
-                            $ItemCost = new Cost();
-                            $this->setArrayToMethods(array_filter($item['Discount']), $ItemCost);
-                            $InvoiceItem->setDiscount($ItemCost);
-                        }
-                        unset($item['Discount']);
-                        
-                        $this->setArrayToMethods(array_filter($item), $InvoiceItem);
-                        array_push($itemArray, $InvoiceItem);
-                    }
+                       $itemArray = array();
+                       foreach ($requestData['itemArray'] as $item) {
+                           $InvoiceItem = new InvoiceItem();
+
+                           if (isset($item['UnitPrice']) && count(array_filter($item['UnitPrice'])) > 0) {
+                               $ItemCurrency = new Currency();
+                               $this->setArrayToMethods(array_filter($item['UnitPrice']), $ItemCurrency);
+                               $InvoiceItem->setUnitPrice($ItemCurrency);
+                           }
+                           unset($item['UnitPrice']);
+                           if (isset($item['Tax']) && count(array_filter($item['Tax'])) > 0) {
+                               $ItemTax = new Tax();
+                               $this->setArrayToMethods(array_filter($item['Tax']), $ItemTax);
+                               $InvoiceItem->setTax($ItemTax);
+                           }
+                           unset($item['Tax']);
+                           if (isset($item['Discount']) && count(array_filter($item['Discount'])) > 0) {
+                               $ItemCost = new Cost();
+                               $this->setArrayToMethods(array_filter($item['Discount']), $ItemCost);
+                               $InvoiceItem->setDiscount($ItemCost);
+                           }
+                           unset($item['Discount']);
+
+                           $this->setArrayToMethods(array_filter($item), $InvoiceItem);
+                           array_push($itemArray, $InvoiceItem);
+                       }
                        $itemArrayData = $this->checkEmptyObject($itemArray);
                        if (!empty($itemArrayData)) {
-                        $invoice->setItems($itemArray);    
-                    }                    
+                           $invoice->setItems($itemArray);
+                       }
                    }
                     // ### END
                     
@@ -393,7 +392,7 @@ class InvoiceAPI extends RestClass {
             }
             $refund = new RefundDetail();
             if(isset($requestData['refundDetail'])){
-            $this->setArrayToMethods($requestData['refundDetail'], $refund);
+                $this->setArrayToMethods($requestData['refundDetail'], $refund);
             }
             
             if(isset($requestData['amount']) && count(array_filter($requestData['amount'])) > 0){
@@ -504,26 +503,24 @@ class InvoiceAPI extends RestClass {
     public function UpdateInvoice($requestData,$third_party=false,$refesh_token=''){
         
         try {       
-            
             $invoice = new Invoice();
             $invoice->setId($requestData['InvoiceID']);
-            
             // ### Setting Merchant info to invoice object.
             // ### Start
             $MerchantInfo = new MerchantInfo();
             if( isset($requestData['merchantInfo'])){
                 $this->setArrayToMethods($this->checkEmptyObject($requestData['merchantInfo']), $MerchantInfo);
                 if( isset($requestData['merchantPhone'])){
-            $merchantPhone = new Phone();
+                    $merchantPhone = new Phone();
                     $this->setArrayToMethods($this->checkEmptyObject($requestData['merchantPhone']), $merchantPhone);
-            $MerchantInfo->setPhone($merchantPhone);
+                    $MerchantInfo->setPhone($merchantPhone);
                 }
                 if(isset($requestData['merchantAddress'])){
-            $merchantAddress = new Address();
+                    $merchantAddress = new Address();
                     $this->setArrayToMethods($this->checkEmptyObject($requestData['merchantAddress']), $merchantAddress);
-            $MerchantInfo->setAddress($merchantAddress);
+                    $MerchantInfo->setAddress($merchantAddress);
                 }
-            $invoice->setMerchantInfo($MerchantInfo);
+                $invoice->setMerchantInfo($MerchantInfo);
             }
             // ### End
 
@@ -551,62 +548,63 @@ class InvoiceAPI extends RestClass {
             }
             // ### End
 
-            // ### Setting Billing Info to invoice object. 
+            // ### Setting Billing Info to invoice object.
             // ### Start
             $BillingInfo = new BillingInfo();
             if(isset($requestData['billingInfo'])){
                 $this->setArrayToMethods($this->checkEmptyObject($requestData['billingInfo']), $BillingInfo);
             }
             if (isset($requestData['billingInfoAddress'])) {
-            $InvoiceAddress = new InvoiceAddress();
+                $InvoiceAddress = new InvoiceAddress();
                 $this->setArrayToMethods($this->checkEmptyObject($requestData['billingInfoAddress']), $InvoiceAddress);
-            $BillingInfo->setAddress($InvoiceAddress);
+                $BillingInfo->setAddress($InvoiceAddress);
             }
             if (isset($requestData['billingInfoPhone'])) {
-            $billingPhone = new Phone();
+                $billingPhone = new Phone();
                 $this->setArrayToMethods($this->checkEmptyObject($requestData['billingInfoPhone']), $billingPhone);
-            $BillingInfo->setPhone($billingPhone);
+                $BillingInfo->setPhone($billingPhone);
             }
 
             $BillingInfoArray = $this->checkEmptyObject((array)$BillingInfo);
             if (!empty($BillingInfoArray)) {
-            $invoice->setBillingInfo(array($BillingInfo));
+                $invoice->setBillingInfo(array($BillingInfo));
             }
             //End
 
             // ### Add items in Invoice object.
-            // ### Start.    
+            // ### Start.
             if(isset($requestData['itemArray'])) {
 
-            $itemArray = array();
-            foreach ($requestData['itemArray'] as $item) {
-                $InvoiceItem = new InvoiceItem();
+                $itemArray = array();
+                foreach ($requestData['itemArray'] as $item) {
+                    $InvoiceItem = new InvoiceItem();
 
                     if (isset($item['UnitPrice']) && count(array_filter($item['UnitPrice'])) > 0) {
-                    $ItemCurrency = new Currency();
-                    $this->setArrayToMethods(array_filter($item['UnitPrice']), $ItemCurrency);
-                    $InvoiceItem->setUnitPrice($ItemCurrency);
-                }
-                unset($item['UnitPrice']);
+                        $ItemCurrency = new Currency();
+                        $this->setArrayToMethods(array_filter($item['UnitPrice']), $ItemCurrency);
+                        $InvoiceItem->setUnitPrice($ItemCurrency);
+                    }
+                    unset($item['UnitPrice']);
                     if (isset($item['Tax']) && count(array_filter($item['Tax'])) > 0) {
-                    $ItemTax = new Tax();
-                    $this->setArrayToMethods(array_filter($item['Tax']), $ItemTax);
-                    $InvoiceItem->setTax($ItemTax);
-                }
-                unset($item['Tax']);
+                        $ItemTax = new Tax();
+                        $this->setArrayToMethods(array_filter($item['Tax']), $ItemTax);
+                        $InvoiceItem->setTax($ItemTax);
+                    }
+                    unset($item['Tax']);
                     if (isset($item['Discount']) && count(array_filter($item['Discount'])) > 0) {
-                    $ItemCost = new Cost();
-                    $this->setArrayToMethods(array_filter($item['Discount']), $ItemCost);
-                    $InvoiceItem->setDiscount($ItemCost);
-                }
-                unset($item['Discount']);
+                        $ItemCost = new Cost();
+                        $this->setArrayToMethods(array_filter($item['Discount']), $ItemCost);
+                        $InvoiceItem->setDiscount($ItemCost);
+                    }
+                    unset($item['Discount']);
 
-                $this->setArrayToMethods(array_filter($item), $InvoiceItem);
-                array_push($itemArray, $InvoiceItem);
-            }
+                    $this->setArrayToMethods(array_filter($item), $InvoiceItem);
+                    array_push($itemArray, $InvoiceItem);
+                }
                 $itemArrayData = $this->checkEmptyObject($itemArray);
                 if (!empty($itemArrayData)) {
-            $invoice->setItems($itemArray);
+                    $invoice->setItems($itemArray);
+                }
             }
             }
             // ### END
@@ -617,7 +615,15 @@ class InvoiceAPI extends RestClass {
             if(isset($requestData['finalDiscountForInvoice']) && $requestData['finalDiscountForInvoice']['type']  == 'Percent'){
                 $FinalDiscountCost = new Cost();
                 $FinalDiscountCost->setPercent($requestData['finalDiscountForInvoice']['Percent']);
-                $invoice->setDiscount($FinalDiscountCost);   
+                $invoice->setDiscount($FinalDiscountCost);
+            }
+            if(isset($requestData['finalDiscountForInvoice']) && $requestData['finalDiscountForInvoice']['type']  == 'Amount'){
+                $FinalDiscountCost = new Cost();
+                $discountCurrency = new Currency();
+                $discountCurrency->setCurrency($requestData['finalDiscountForInvoice']['Amount']['Currency']);
+                $discountCurrency->setValue($requestData['finalDiscountForInvoice']['Amount']['Value']);
+                $FinalDiscountCost->setAmount($discountCurrency);
+                $invoice->setDiscount($FinalDiscountCost);
             }
             if(isset($requestData['finalDiscountForInvoice']) && $requestData['finalDiscountForInvoice']['type']  == 'Amount'){
                 $FinalDiscountCost = new Cost();
@@ -641,24 +647,39 @@ class InvoiceAPI extends RestClass {
                 $this->setArrayToMethods($this->checkEmptyObject($requestData['shippingInfo']), $ShippingInfo);
             }
             if (isset($requestData['shippingInfoPhone'])) {
-            $ShippingInfoPhone = new Phone();
+                $ShippingInfoPhone = new Phone();
                 $this->setArrayToMethods($this->checkEmptyObject($requestData['shippingInfoPhone']), $ShippingInfoPhone);
-            $ShippingInfo->setPhone($ShippingInfoPhone);
+                $ShippingInfo->setPhone($ShippingInfoPhone);
             }
             if (isset($requestData['shippingInfoAddress'])) {
-            $ShippingInfoInvoiceAddress = new InvoiceAddress();
+                $ShippingInfoInvoiceAddress = new InvoiceAddress();
                 $this->setArrayToMethods($this->checkEmptyObject($requestData['shippingInfoAddress']), $ShippingInfoInvoiceAddress);
-            $ShippingInfo->setAddress($ShippingInfoInvoiceAddress);
+                $ShippingInfo->setAddress($ShippingInfoInvoiceAddress);
             }
 
             $shippingInfoArray = $this->checkEmptyObject((array)$ShippingInfo);
             if (!empty($shippingInfoArray)) {
-            $invoice->setShippingInfo($ShippingInfo);
+                $invoice->setShippingInfo($ShippingInfo);
             }
             if (isset($requestData['invoiceData'])) {
                 $this->setArrayToMethods($this->checkEmptyObject($requestData['invoiceData']), $invoice);
             }
 
+            if(isset($requestData['shippingCost']['type']) && $requestData['shippingCost']['type'] == 'Amount'){
+                $shippingCurrency = new Currency();
+                $this->setArrayToMethods(array_filter($requestData['shippingCost']['Currency']), $shippingCurrency);
+                $ShippingCost = new ShippingCost();
+                $ShippingCost->setAmount($shippingCurrency);
+                $invoice->setShippingCost($ShippingCost);
+            }
+            if(isset($requestData['attachments']) && count(array_filter($requestData['attachments'])) > 0){
+                foreach ($requestData['attachments'] as $key => $value) {
+                    $attachment = new FileAttachment();
+                    $attachment->setName($value['Name']);
+                    $attachment->setUrl($value['Url']);
+                    $invoice->setAttachments(array($attachment));
+                }
+            }
             if(isset($requestData['shippingCost']['type']) && $requestData['shippingCost']['type'] == 'Amount'){
                 $shippingCurrency = new Currency();
                 $shippingCurrency->setCurrency($requestData['shippingCost']['Amount']['Currency']);
@@ -667,17 +688,7 @@ class InvoiceAPI extends RestClass {
                 $ShippingCost->setAmount($shippingCurrency);
                 $invoice->setShippingCost($ShippingCost);
             }
-
-            $this->setArrayToMethods(array_filter($requestData['invoiceData']), $invoice);
-            
-            if(isset($requestData['attachments']) && count(array_filter($requestData['attachments'])) > 0){
-                foreach ($requestData['attachments'] as $key => $value) {
-                $attachment = new FileAttachment();
-                    $attachment->setName($value['Name']);
-                    $attachment->setUrl($value['Url']);
-                $invoice->setAttachments(array($attachment));
-            }
-            }
+            $this->setArrayToMethods(array_filter($requestData['invoiceData']), $invoice);            
 
             if($third_party === true  && !empty($refesh_token)){
                 $invoice->updateAccessToken($refesh_token, $this->_api_context);
@@ -820,43 +831,44 @@ class InvoiceAPI extends RestClass {
     public function CreateInvoiceTemplate($requestData){
         
         try {
-            $invoiceTemplateData = new TemplateData();    
+            $invoiceTemplateData = new TemplateData();
 
             /**
              * Setting Items in Invoice Template
              */
             if(isset($requestData['InvoiceItemArray'])){
-            $itemArray = array();
-            
-            foreach ($requestData['InvoiceItemArray'] as $item) {
-                $InvoiceItem = new InvoiceItem();
+                $itemArray = array();
+
+                foreach ($requestData['InvoiceItemArray'] as $item) {
+                    $InvoiceItem = new InvoiceItem();
 
                     if(isset($item['UnitPrice']) && count(array_filter($item['UnitPrice'])) > 0){
-                    $ItemCurrency = new Currency();
-                    $this->setArrayToMethods(array_filter($item['UnitPrice']), $ItemCurrency);
-                    $InvoiceItem->setUnitPrice($ItemCurrency);
-                }
-                unset($item['UnitPrice']);
+                        $ItemCurrency = new Currency();
+                        $this->setArrayToMethods(array_filter($item['UnitPrice']), $ItemCurrency);
+                        $InvoiceItem->setUnitPrice($ItemCurrency);
+                    }
+                    unset($item['UnitPrice']);
 
                     if(isset($item['Tax']) && count(array_filter($item['Tax'])) > 0){
-                    $ItemTax = new Tax();
-                    $this->setArrayToMethods(array_filter($item['Tax']), $ItemTax);
-                    $InvoiceItem->setTax($ItemTax);
-                }
-                unset($item['Tax']);
+                        $ItemTax = new Tax();
+                        $this->setArrayToMethods(array_filter($item['Tax']), $ItemTax);
+                        $InvoiceItem->setTax($ItemTax);
+                    }
+                    unset($item['Tax']);
 
                     if(isset($item['Discount']) && count(array_filter($item['Discount'])) > 0){
-                    $ItemCost = new Cost();
-                    $this->setArrayToMethods(array_filter($item['Discount']), $ItemCost);
-                    $InvoiceItem->setDiscount($ItemCost);
-                }
-                unset($item['Discount']);
+                        $ItemCost = new Cost();
+                        $this->setArrayToMethods(array_filter($item['Discount']), $ItemCost);
+                        $InvoiceItem->setDiscount($ItemCost);
+                    }
+                    unset($item['Discount']);
 
-                if(count(array_filter($item))>0){
-                    $this->setArrayToMethods(array_filter($item), $InvoiceItem);
-                    array_push($itemArray, $InvoiceItem);
-                    $invoiceTemplateData->addItem($InvoiceItem);   
-                }                              
+                    if(count(array_filter($item))>0){
+                        $this->setArrayToMethods(array_filter($item), $InvoiceItem);
+                        array_push($itemArray, $InvoiceItem);
+                        $invoiceTemplateData->addItem($InvoiceItem);
+                    }
+                }
             }
             }
 
@@ -864,22 +876,23 @@ class InvoiceAPI extends RestClass {
             // ### Setting Merchant info to invoice template object.
             // ### Start
             if(isset($requestData['merchantInfo'])){
-            $MerchantInfo = new MerchantInfo();
+                $MerchantInfo = new MerchantInfo();
                 if( isset($requestData['merchantInfo']) && count(array_filter($requestData['merchantInfo'])) > 0){
-                $this->setArrayToMethods(array_filter($requestData['merchantInfo']), $MerchantInfo);
-            }
-            $merchantPhone = new Phone();
+                    $this->setArrayToMethods(array_filter($requestData['merchantInfo']), $MerchantInfo);
+                }
+                $merchantPhone = new Phone();
                 if( isset($requestData['merchantPhone']) && count(array_filter($requestData['merchantPhone'])) > 0 ){
-                $this->setArrayToMethods(array_filter($requestData['merchantPhone']), $merchantPhone);
-                $MerchantInfo->setPhone($merchantPhone);
-            }
-            $merchantAddress = new Address();
+                    $this->setArrayToMethods(array_filter($requestData['merchantPhone']), $merchantPhone);
+                    $MerchantInfo->setPhone($merchantPhone);
+                }
+                $merchantAddress = new Address();
                 if(isset($requestData['merchantAddress']) && count(array_filter($requestData['merchantAddress'])) > 0){
-                $this->setArrayToMethods(array_filter($requestData['merchantAddress']), $merchantAddress);
-                $MerchantInfo->setAddress($merchantAddress);            
-            }  
-                $invoiceTemplateData->setMerchantInfo($MerchantInfo);                        
+                    $this->setArrayToMethods(array_filter($requestData['merchantAddress']), $merchantAddress);
+                    $MerchantInfo->setAddress($merchantAddress);
+                }
+                $invoiceTemplateData->setMerchantInfo($MerchantInfo);
             }
+
             
             
             // ### End
@@ -888,24 +901,24 @@ class InvoiceAPI extends RestClass {
             // ### Start
 
             if(isset($requestData['billingInfo'])){
-            $BillingInfo = new BillingInfo();
+                $BillingInfo = new BillingInfo();
                 if( isset($requestData['billingInfo']) && count(array_filter($requestData['billingInfo'])) > 0){
-                $this->setArrayToMethods(array_filter($requestData['billingInfo']), $BillingInfo);
-            }
-            
-            $InvoiceAddress = new InvoiceAddress();
-                if(isset($requestData['billingInfoAddress']) && count(array_filter($requestData['billingInfoAddress'])) > 0){
-                $this->setArrayToMethods(array_filter($requestData['billingInfoAddress']), $InvoiceAddress);
-                $BillingInfo->setAddress($InvoiceAddress);
-            }
+                    $this->setArrayToMethods(array_filter($requestData['billingInfo']), $BillingInfo);
+                }
 
-            $billingPhone = new Phone();
-            if(count(array_filter($requestData['billingInfoPhone'])) > 0){
-                $this->setArrayToMethods(array_filter($requestData['billingInfoPhone']), $billingPhone);
-                $BillingInfo->setPhone($billingPhone);
-            }
+                $InvoiceAddress = new InvoiceAddress();
+                if(isset($requestData['billingInfoAddress']) && count(array_filter($requestData['billingInfoAddress'])) > 0){
+                    $this->setArrayToMethods(array_filter($requestData['billingInfoAddress']), $InvoiceAddress);
+                    $BillingInfo->setAddress($InvoiceAddress);
+                }
+
+                $billingPhone = new Phone();
+                if(count(array_filter($requestData['billingInfoPhone'])) > 0){
+                    $this->setArrayToMethods(array_filter($requestData['billingInfoPhone']), $billingPhone);
+                    $BillingInfo->setPhone($billingPhone);
+                }
                 $invoiceTemplateData->setBillingInfo(array($BillingInfo));
-            }            
+            }
             //End
 
 
@@ -913,38 +926,36 @@ class InvoiceAPI extends RestClass {
             // ### Start
 
             if(isset($requestData['shippingInfo'])){
-            $ShippingInfo = new ShippingInfo();
+                $ShippingInfo = new ShippingInfo();
                 $this->setArrayToMethods(array_filter($requestData['shippingInfo']), $ShippingInfo);
-            
-            $ShippingInfoPhone = new Phone();
+
+                $ShippingInfoPhone = new Phone();
                 if(isset($requestData['shippingInfoPhone']) && count(array_filter($requestData['shippingInfoPhone'])) > 0){
-                $this->setArrayToMethods(array_filter($requestData['shippingInfoPhone']), $ShippingInfoPhone);
-                $ShippingInfo->setPhone($ShippingInfoPhone);                
-            }
-                       
-            $ShippingInfoInvoiceAddress = new InvoiceAddress();
+                    $this->setArrayToMethods(array_filter($requestData['shippingInfoPhone']), $ShippingInfoPhone);
+                    $ShippingInfo->setPhone($ShippingInfoPhone);
+                }
+
+                $ShippingInfoInvoiceAddress = new InvoiceAddress();
                 if(isset($requestData['shippingInfoAddress']) && count(array_filter($requestData['shippingInfoAddress'])) > 0){
-                $this->setArrayToMethods(array_filter($requestData['shippingInfoAddress']), $ShippingInfoInvoiceAddress);
-                $ShippingInfo->setAddress($ShippingInfoInvoiceAddress);
-            }
+                    $this->setArrayToMethods(array_filter($requestData['shippingInfoAddress']), $ShippingInfoInvoiceAddress);
+                    $ShippingInfo->setAddress($ShippingInfoInvoiceAddress);
+                }
                 $invoiceTemplateData->setShippingInfo($ShippingInfo);
-            }                        
-
-
+            }
             if(isset($requestData['templateData'])){
                 if(isset($requestData['templateData']['MinimumAmountDue']) && count(array_filter($requestData['templateData']['MinimumAmountDue'])) > 0){
                     $TemplateMinimumAmountDueCurrency = new Currency();
                     $this->setArrayToMethods(array_filter($requestData['templateData']['MinimumAmountDue']), $TemplateMinimumAmountDueCurrency);
                     $invoiceTemplateData->setMinimumAmountDue($TemplateMinimumAmountDueCurrency);
-            }
-            unset($requestData['templateData']['MinimumAmountDue']);
+                }
+                unset($requestData['templateData']['MinimumAmountDue']);
 
                 if(isset($requestData['templateData']['TotalAmount']) && count(array_filter($requestData['templateData']['TotalAmount'])) > 0){
                     $TemplateTotalAmountCurrency = new Currency();
                     $this->setArrayToMethods(array_filter($requestData['templateData']['TotalAmount']), $TemplateTotalAmountCurrency);
                     $invoiceTemplateData->setTotalAmount($TemplateTotalAmountCurrency);
-            }
-            unset($requestData['templateData']['TotalAmount']);
+                }
+                unset($requestData['templateData']['TotalAmount']);
                 $this->setArrayToMethods(array_filter($requestData['templateData']), $invoiceTemplateData);
             }
 
@@ -981,7 +992,7 @@ class InvoiceAPI extends RestClass {
             if(isset($requestData['TemplateSettings']) && count(array_filter($requestData['TemplateSettings']))>0){
                 $this->setArrayToMethods(array_filter($requestData['TemplateSettings']), $settingDate);
             }
-            
+
             if(count(array_filter((array)$displayPreferences)) > 0){
                 $settingDate->setDisplayPreference($displayPreferences);
             }
@@ -998,7 +1009,7 @@ class InvoiceAPI extends RestClass {
             
             if(count(array_filter((array)$settingDate)) > 0){
                 $invoiceTemplate->addSetting($settingDate);
-            }                           
+            }
             $requestArray = clone $invoiceTemplate;
             $invoiceTemplate->create($this->_api_context);            
             $returnArray['RESULT'] = 'Success';
@@ -1080,42 +1091,43 @@ class InvoiceAPI extends RestClass {
      */
     public function UpdateInvoiceTemplate($templateId,$requestData){
         try {
-            $invoiceTemplateData = new TemplateData();    
+            $invoiceTemplateData = new TemplateData();
             /**
              * Setting Items in Invoice Template
              */
             if(isset($requestData['InvoiceItemArray'])){
-            $itemArray = array();
-            
-            foreach ($requestData['InvoiceItemArray'] as $item) {
-                $InvoiceItem = new InvoiceItem();
+                $itemArray = array();
+
+                foreach ($requestData['InvoiceItemArray'] as $item) {
+                    $InvoiceItem = new InvoiceItem();
 
                     if(isset($item['UnitPrice']) && count(array_filter($item['UnitPrice'])) > 0){
-                    $ItemCurrency = new Currency();
-                    $this->setArrayToMethods(array_filter($item['UnitPrice']), $ItemCurrency);
-                    $InvoiceItem->setUnitPrice($ItemCurrency);
-                }
-                unset($item['UnitPrice']);
+                        $ItemCurrency = new Currency();
+                        $this->setArrayToMethods(array_filter($item['UnitPrice']), $ItemCurrency);
+                        $InvoiceItem->setUnitPrice($ItemCurrency);
+                    }
+                    unset($item['UnitPrice']);
 
                     if(isset($item['Tax']) && count(array_filter($item['Tax'])) > 0){
-                    $ItemTax = new Tax();
-                    $this->setArrayToMethods(array_filter($item['Tax']), $ItemTax);
-                    $InvoiceItem->setTax($ItemTax);
-                }
-                unset($item['Tax']);
+                        $ItemTax = new Tax();
+                        $this->setArrayToMethods(array_filter($item['Tax']), $ItemTax);
+                        $InvoiceItem->setTax($ItemTax);
+                    }
+                    unset($item['Tax']);
 
                     if(isset($item['Discount']) && count(array_filter($item['Discount'])) > 0){
-                    $ItemCost = new Cost();
-                    $this->setArrayToMethods(array_filter($item['Discount']), $ItemCost);
-                    $InvoiceItem->setDiscount($ItemCost);
-                }
-                unset($item['Discount']);
+                        $ItemCost = new Cost();
+                        $this->setArrayToMethods(array_filter($item['Discount']), $ItemCost);
+                        $InvoiceItem->setDiscount($ItemCost);
+                    }
+                    unset($item['Discount']);
 
-                if(count(array_filter($item))>0){
-                    $this->setArrayToMethods(array_filter($item), $InvoiceItem);
-                    array_push($itemArray, $InvoiceItem);
-                    $invoiceTemplateData->addItem($InvoiceItem);   
-                }                              
+                    if(count(array_filter($item))>0){
+                        $this->setArrayToMethods(array_filter($item), $InvoiceItem);
+                        array_push($itemArray, $InvoiceItem);
+                        $invoiceTemplateData->addItem($InvoiceItem);
+                    }
+                }
             }
             }
 
@@ -1123,48 +1135,47 @@ class InvoiceAPI extends RestClass {
             // ### Setting Merchant info to invoice template object.
             // ### Start
             if(isset($requestData['merchantInfo'])){
-            $MerchantInfo = new MerchantInfo();
+                $MerchantInfo = new MerchantInfo();
                 if( isset($requestData['merchantInfo']) && count(array_filter($requestData['merchantInfo'])) > 0){
-                $this->setArrayToMethods(array_filter($requestData['merchantInfo']), $MerchantInfo);
-            }
-            $merchantPhone = new Phone();
+                    $this->setArrayToMethods(array_filter($requestData['merchantInfo']), $MerchantInfo);
+                }
+                $merchantPhone = new Phone();
                 if( isset($requestData['merchantPhone']) && count(array_filter($requestData['merchantPhone'])) > 0 ){
-                $this->setArrayToMethods(array_filter($requestData['merchantPhone']), $merchantPhone);
-                $MerchantInfo->setPhone($merchantPhone);
-            }
-            $merchantAddress = new Address();
+                    $this->setArrayToMethods(array_filter($requestData['merchantPhone']), $merchantPhone);
+                    $MerchantInfo->setPhone($merchantPhone);
+                }
+                $merchantAddress = new Address();
                 if(isset($requestData['merchantAddress']) && count(array_filter($requestData['merchantAddress'])) > 0){
-                $this->setArrayToMethods(array_filter($requestData['merchantAddress']), $merchantAddress);
-                $MerchantInfo->setAddress($merchantAddress);            
-            }  
-                $invoiceTemplateData->setMerchantInfo($MerchantInfo);                        
+                    $this->setArrayToMethods(array_filter($requestData['merchantAddress']), $merchantAddress);
+                    $MerchantInfo->setAddress($merchantAddress);
+                }
+                $invoiceTemplateData->setMerchantInfo($MerchantInfo);
             }
-            
 
             // ### End
 
-            // ### Setting Billing Info to invoice object. 
+            // ### Setting Billing Info to invoice object.
             // ### Start
 
             if(isset($requestData['billingInfo'])){
-            $BillingInfo = new BillingInfo();
+                $BillingInfo = new BillingInfo();
                 if( isset($requestData['billingInfo']) && count(array_filter($requestData['billingInfo'])) > 0){
-                $this->setArrayToMethods(array_filter($requestData['billingInfo']), $BillingInfo);
-            }
-            
-            $InvoiceAddress = new InvoiceAddress();
-                if(isset($requestData['billingInfoAddress']) && count(array_filter($requestData['billingInfoAddress'])) > 0){
-                $this->setArrayToMethods(array_filter($requestData['billingInfoAddress']), $InvoiceAddress);
-                $BillingInfo->setAddress($InvoiceAddress);
-            }
+                    $this->setArrayToMethods(array_filter($requestData['billingInfo']), $BillingInfo);
+                }
 
-            $billingPhone = new Phone();
-            if(count(array_filter($requestData['billingInfoPhone'])) > 0){
-                $this->setArrayToMethods(array_filter($requestData['billingInfoPhone']), $billingPhone);
-                $BillingInfo->setPhone($billingPhone);
-            }
+                $InvoiceAddress = new InvoiceAddress();
+                if(isset($requestData['billingInfoAddress']) && count(array_filter($requestData['billingInfoAddress'])) > 0){
+                    $this->setArrayToMethods(array_filter($requestData['billingInfoAddress']), $InvoiceAddress);
+                    $BillingInfo->setAddress($InvoiceAddress);
+                }
+
+                $billingPhone = new Phone();
+                if(count(array_filter($requestData['billingInfoPhone'])) > 0){
+                    $this->setArrayToMethods(array_filter($requestData['billingInfoPhone']), $billingPhone);
+                    $BillingInfo->setPhone($billingPhone);
+                }
                 $invoiceTemplateData->setBillingInfo(array($BillingInfo));
-            }            
+            }
             //End
 
 
@@ -1172,38 +1183,36 @@ class InvoiceAPI extends RestClass {
             // ### Start
 
             if(isset($requestData['shippingInfo'])){
-            $ShippingInfo = new ShippingInfo();
+                $ShippingInfo = new ShippingInfo();
                 $this->setArrayToMethods(array_filter($requestData['shippingInfo']), $ShippingInfo);
-            
-            $ShippingInfoPhone = new Phone();
+
+                $ShippingInfoPhone = new Phone();
                 if(isset($requestData['shippingInfoPhone']) && count(array_filter($requestData['shippingInfoPhone'])) > 0){
-                $this->setArrayToMethods(array_filter($requestData['shippingInfoPhone']), $ShippingInfoPhone);
-                $ShippingInfo->setPhone($ShippingInfoPhone);                
-            }
-                       
-            $ShippingInfoInvoiceAddress = new InvoiceAddress();
+                    $this->setArrayToMethods(array_filter($requestData['shippingInfoPhone']), $ShippingInfoPhone);
+                    $ShippingInfo->setPhone($ShippingInfoPhone);
+                }
+
+                $ShippingInfoInvoiceAddress = new InvoiceAddress();
                 if(isset($requestData['shippingInfoAddress']) && count(array_filter($requestData['shippingInfoAddress'])) > 0){
-                $this->setArrayToMethods(array_filter($requestData['shippingInfoAddress']), $ShippingInfoInvoiceAddress);
-                $ShippingInfo->setAddress($ShippingInfoInvoiceAddress);
-            }
+                    $this->setArrayToMethods(array_filter($requestData['shippingInfoAddress']), $ShippingInfoInvoiceAddress);
+                    $ShippingInfo->setAddress($ShippingInfoInvoiceAddress);
+                }
                 $invoiceTemplateData->setShippingInfo($ShippingInfo);
-            }                        
-
-
+            }
             if(isset($requestData['templateData'])){
                 if(isset($requestData['templateData']['MinimumAmountDue']) && count(array_filter($requestData['templateData']['MinimumAmountDue'])) > 0){
                     $TemplateMinimumAmountDueCurrency = new Currency();
                     $this->setArrayToMethods(array_filter($requestData['templateData']['MinimumAmountDue']), $TemplateMinimumAmountDueCurrency);
                     $invoiceTemplateData->setMinimumAmountDue($TemplateMinimumAmountDueCurrency);
-            }
-            unset($requestData['templateData']['MinimumAmountDue']);
+                }
+                unset($requestData['templateData']['MinimumAmountDue']);
 
                 if(isset($requestData['templateData']['TotalAmount']) && count(array_filter($requestData['templateData']['TotalAmount'])) > 0){
                     $TemplateTotalAmountCurrency = new Currency();
                     $this->setArrayToMethods(array_filter($requestData['templateData']['TotalAmount']), $TemplateTotalAmountCurrency);
                     $invoiceTemplateData->setTotalAmount($TemplateTotalAmountCurrency);
-            }
-            unset($requestData['templateData']['TotalAmount']);
+                }
+                unset($requestData['templateData']['TotalAmount']);
                 $this->setArrayToMethods(array_filter($requestData['templateData']), $invoiceTemplateData);
             }
 
@@ -1230,32 +1239,31 @@ class InvoiceAPI extends RestClass {
                 $invoiceTemplateData->setAttachments(array($attachment));
             }
 
-             // ### Template Settings    
+            // ### Template Settings
             $displayPreferences = new TemplateSettingsMetadata();
             if(isset($requestData['TemplateSettingsMetadata']) && count(array_filter($requestData['TemplateSettingsMetadata']))>0){
                 $this->setArrayToMethods(array_filter($requestData['TemplateSettingsMetadata']), $displayPreferences);
             }
-            
+
             $settingDate = new TemplateSettings();
             if(isset($requestData['TemplateSettings']) && count(array_filter($requestData['TemplateSettings']))>0){
                 $this->setArrayToMethods(array_filter($requestData['TemplateSettings']), $settingDate);
             }
-            
+
             if(count(array_filter((array)$displayPreferences)) > 0){
                 $settingDate->setDisplayPreference($displayPreferences);
             }
-            
             // ### Template
             $invoiceTemplate = new Template();
             $invoiceTemplate->setTemplateId($templateId);
             if(isset($requestData['Template']) && count(array_filter($requestData['Template'])) > 0){
                 $this->setArrayToMethods(array_filter($requestData['Template']), $invoiceTemplate);
             }
-            
+
             if(count(array_filter((array)$invoiceTemplateData)) > 0){
                 $invoiceTemplate->setTemplateData($invoiceTemplateData);
             }
-            
+
             if(count(array_filter((array)$settingDate)) > 0){
                 $invoiceTemplate->addSetting($settingDate);
             }
