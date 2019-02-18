@@ -1060,6 +1060,8 @@ class PaymentAPI extends RestClass {
 
         $payment = Payment::get($paymentId, $this->_api_context);
 
+        $intent = $payment->getIntent();
+
         // ### Payment Execute
         // PaymentExecution object includes information necessary
         // to execute a PayPal account payment.
@@ -1091,7 +1093,14 @@ class PaymentAPI extends RestClass {
         try {
             // Execute the payment
             $result = $payment->execute($execution, $this->_api_context);
+
             $returnArray['RESULT'] = 'Success';
+            if ($intent == 'authorize') {
+                $transactions = $result->getTransactions();
+                $relatedResources = $transactions[0]->getRelatedResources();
+                $authorization = $relatedResources[0]->getAuthorization();
+                $returnArray['AUTHORIZATION'] = $authorization->toArray();
+            }
             $returnArray['PAYMENT'] = $result->toArray();
             $returnArray['RAWREQUEST']=$execution->toJSON();
             $returnArray['RAWRESPONSE']=$result->toJSON();

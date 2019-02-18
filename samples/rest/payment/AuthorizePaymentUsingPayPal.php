@@ -32,7 +32,7 @@ $urls= array(
     'BaseUrl'     => $domain.'samples/rest/payment/'                                     // Required.
 );
 
-$invoiceNumber='INVC23985684658';
+$invoiceNumber='INVC-'.rand(0,1000);
 $ExperienceProfileId = '';                                                                  // Optional. PayPal generated identifier for the merchant's payment experience profile. Refer to [this](https://developer.paypal.com/docs/api/#payment-experience) link to create experience profile ID.
 $NoteToPayer = 'Contact us for any questions on your order.';                               // Optional. free-form field for the use of clients to pass in a message to the payer.
 
