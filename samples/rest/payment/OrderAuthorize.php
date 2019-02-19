@@ -12,13 +12,37 @@ $configArray = array(
 );
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
-$orderId = 'O-3E566053FX793851D';                               // Replace $authorizationid with any static Id you might already have. It will do a void on it
 
-$amount = array(
-    'Currency' => 'USD',                                        //Required. 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/). PayPal does not support all currencies. 
-    'Total'    => '2.00',                                       //Required. Total amount charged from the payer to the payee. In case of a refund, this is the refunded amount to the original payer from the payee. 10 characters max with support for 2 decimal places. 
-);
+if (isset($_GET['success']) && $_GET['success'] == 'true') {
 
-$returnArray = $PayPal->OrderAuthorize($orderId,$amount);
-echo "<pre>";
-print_r($returnArray);
+    /**
+     * execute the payment if you don't know OrderID and only knows payment id and payment state is just created
+     * but if you know Order id then you can directly use $orderId function to authorize the order.
+     */
+
+    $paymentId = $_GET['paymentId'];
+    $payer_id = $_GET['PayerID'];
+
+    $result = $PayPal->ExecutePayment($paymentId,$payer_id);
+    if($result['RESULT'] == 'Success'){
+        $orderId = $result['ORDER']['id'];                               // Replace $orderId with any static Id you might already have.
+
+        $amount = array(
+            'Currency' => 'USD',                                        //Required. 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/). PayPal does not support all currencies.
+            'Total'    => '2.00',                                       //Required. Total amount charged from the payer to the payee. In case of a refund, this is the refunded amount to the original payer from the payee. 10 characters max with support for 2 decimal places.
+        );
+
+        $returnArray = $PayPal->OrderAuthorize($orderId,$amount);
+        echo "<pre>";
+        print_r($returnArray);
+    }
+    else{
+        echo "<pre>";
+        print_r($result);
+    }
+}
+else{
+    echo "User Cancelled the Approval";
+    exit;
+}
+

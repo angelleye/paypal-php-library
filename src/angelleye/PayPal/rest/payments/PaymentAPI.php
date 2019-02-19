@@ -40,6 +40,7 @@ use PayPal\Api\CreditCardToken;
 use PayPal\Api\Details;
 use PayPal\Api\ExecutePayment;
 use PayPal\Api\FundingInstrument;
+use PayPal\Api\FuturePayment;
 use PayPal\Api\Item;
 use PayPal\Api\ItemList;
 use PayPal\Api\Order;
@@ -795,19 +796,23 @@ class PaymentAPI extends RestClass {
      *
      * @param string $orderId
      * @param array $amountArray
-     * @return array|object
+     * @param boolen $is_final_capture
+     * @return array
      */
-    public function OrderCapture($orderId,$amountArray){
+    public function OrderCapture($orderId,$amountArray=array(),$is_final_capture = false){
         try {
             $order= new Order();
             $order->setId($orderId);
-            
-            $amount = new Amount();
-            $this->setArrayToMethods($amountArray, $amount);
-            
+
             $capture = new Capture();
-            $capture->setIsFinalCapture(true);
-            $capture->setAmount($amount);            
+            $capture->setIsFinalCapture($is_final_capture);
+
+            if(!empty($amountArray)){
+                $amount = new Amount();
+                $this->setArrayToMethods($amountArray, $amount);
+                $capture->setAmount($amount);
+            }
+
             $requestArray = clone $order;
             $result = $order->capture($capture, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';
@@ -1059,6 +1064,8 @@ class PaymentAPI extends RestClass {
 
         $payment = Payment::get($paymentId, $this->_api_context);
 
+        $intent = $payment->getIntent();
+
         // ### Payment Execute
         // PaymentExecution object includes information necessary
         // to execute a PayPal account payment.
@@ -1090,7 +1097,22 @@ class PaymentAPI extends RestClass {
         try {
             // Execute the payment
             $result = $payment->execute($execution, $this->_api_context);
+
             $returnArray['RESULT'] = 'Success';
+            if ($intent == 'authorize') {
+                $transactions = $result->getTransactions();
+                $relatedResources = $transactions[0]->getRelatedResources();
+                $authorization = $relatedResources[0]->getAuthorization();
+                $returnArray['AUTHORIZATION'] = $authorization->toArray();
+            }
+            if($intent == 'order'){
+                $transactions = $payment->getTransactions();
+                $transaction = $transactions[0];
+                $relatedResources = $transaction->getRelatedResources();
+                $relatedResource = $relatedResources[0];
+                $order = $relatedResource->getOrder();
+                $returnArray['ORDER'] = $order->toArray();
+            }
             $returnArray['PAYMENT'] = $result->toArray();
             $returnArray['RAWREQUEST']=$execution->toJSON();
             $returnArray['RAWRESPONSE']=$result->toJSON();
@@ -1099,5 +1121,142 @@ class PaymentAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }
 
+    }
+
+
+    public function CreateFuturePayment($method,$requestData){
+        try {
+            // ### Payer
+            // A resource representing a Payer that funds a payment
+            // For paypal account payments, set payment method
+            // to 'paypal'.
+            $payer = new Payer();
+            $payer->setPaymentMethod($method);
+
+            // ### Itemized information
+            // (Optional) Lets you specify item wise information
+            $itemListArray = array();
+            if (isset($requestData['orderItems'])) {
+                foreach ($this->checkEmptyObject($requestData['orderItems']) as $value) {
+                    $item = new Item();
+                    $array = array_filter($value);
+                    if (count($array) > 0) {
+                        $this->setArrayToMethods($array, $item);
+                        array_push($itemListArray, $item);
+                    }
+                }
+            }
+            $itemList = new ItemList();
+            if(!empty($itemListArray)){
+                $itemList->setItems($itemListArray);
+            }
+
+            // ### Additional payment details
+            // Use this optional field to set additional payment information such as tax, shipping charges etc.
+            $details = new Details();
+            if (isset($requestData['paymentDetails'])) {
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['paymentDetails']), $details);
+            }
+
+            // ### Amount
+            // Lets you specify a payment amount. You can also specify additional details such as shipping, tax.
+            $amount = new Amount();
+            if (isset($requestData['amount'])) {
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['amount']), $amount);
+            }
+
+            $detailArray = $this->checkEmptyObject((array)$details);
+            if ( !empty($detailArray) ) {
+                $amount->setDetails($details);
+            }
+
+            // ### Transaction
+            // A transaction defines the contract of a payment - what is the payment for and who is fulfilling it.
+            $transaction = new Transaction();
+            $amountArray = $this->checkEmptyObject((array)$amount);
+            if (!empty($amountArray)) {
+                $transaction->setAmount($amount);
+            }
+            $itemListArr = $this->checkEmptyObject((array)$itemList);
+            if (!empty($itemListArr)) {
+                $transaction->setItemList($itemList);
+            }
+
+            if (isset($requestData['transaction'])){
+                $this->setArrayToMethods($this->checkEmptyObject($requestData['transaction']), $transaction);
+            }
+
+            if(isset($requestData['invoiceNumber'])){
+                $transaction->setInvoiceNumber($requestData['invoiceNumber']);
+            }
+
+            // ### Redirect urls
+            // Set the urls that the buyer must be redirected to after
+            // payment approval/ cancellation.
+            $baseUrl = isset($requestData['urls']['BaseUrl']) ? $requestData['urls']['BaseUrl'] : '';
+
+            $redirectUrls = new RedirectUrls();
+            if(isset($requestData['urls']['ReturnUrl'])){
+                $redirectUrls->setReturnUrl($baseUrl . $requestData['urls']['ReturnUrl']);
+            }
+            if(isset($requestData['urls']['CancelUrl'])){
+                $redirectUrls->setCancelUrl($baseUrl . $requestData['urls']['CancelUrl']);
+            }
+
+            // ### Future Payment
+
+            $payment = new FuturePayment();
+            $payment->setIntent($requestData['intent']);
+            $payment->setPayer($payer);
+            $payment->setRedirectUrls($redirectUrls);
+            $payment->setTransactions(array($transaction));
+
+            $authorizationCode  = $requestData['authorizationCode'];
+            $clientMetadataId = $requestData['clientMetadataId'];
+
+            $refreshToken = FuturePayment::getRefreshToken($authorizationCode, $apiContext);
+            $payment->updateAccessToken($refreshToken, $apiContext);
+
+            // ### Create Payment
+            // Create a payment by calling the payment->create() method with a valid ApiContext. The return object contains the state.
+            $requestArray = clone $payment;
+            $payment->create($this->_api_context,$clientMetadataId);
+
+            // ### Get redirect url
+            // The API response provides the url that you must redirect
+            // the buyer to. Retrieve the url from the $payment->getApprovalLink()
+            // method
+            $approvalUrl = $payment->getApprovalLink();
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['PAYMENT'] = array('approvalUrl' => $approvalUrl, 'payment' => $payment->toArray());
+            $returnArray['RAWREQUEST']=$requestArray->toJSON();
+            $returnArray['RAWRESPONSE']=$payment->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+
+    /**
+     * Fetch Order array from the related resources  by passing the Payment id
+     * @param $payment_id  id of the Payment
+     * @return Array
+     *
+     */
+    public function GetOrderDetailsFromPaymentID($payment_id){
+
+        try{
+            $payment = Payment::get($payment_id, $this->_api_context);
+            $transactions = $payment->getTransactions();
+            $transaction = $transactions[0];
+            $relatedResources = $transaction->getRelatedResources();
+            $relatedResource = $relatedResources[0];
+            $order = $relatedResource->getOrder();
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['ORDER'] = $order->toArray();
+            return $returnArray;
+        }catch (\PayPal\Exception\PayPalConnectionException $ex) {
+            return $this->createErrorResponse($ex);
+        }
     }
 }

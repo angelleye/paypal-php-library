@@ -166,7 +166,6 @@ class InvoiceAPI extends RestClass {
                     // ### Add items in Invoice object.
                     // ### Start.    
                    if(isset($requestData['itemArray'])) {
-
                        $itemArray = array();
                        foreach ($requestData['itemArray'] as $item) {
                            $InvoiceItem = new InvoiceItem();
@@ -504,10 +503,8 @@ class InvoiceAPI extends RestClass {
     public function UpdateInvoice($requestData,$third_party=false,$refesh_token=''){
         
         try {       
-
             $invoice = new Invoice();
             $invoice->setId($requestData['InvoiceID']);
-
             // ### Setting Merchant info to invoice object.
             // ### Start
             $MerchantInfo = new MerchantInfo();
@@ -609,6 +606,7 @@ class InvoiceAPI extends RestClass {
                     $invoice->setItems($itemArray);
                 }
             }
+            }
             // ### END
 
             // #### Final Discount
@@ -617,6 +615,14 @@ class InvoiceAPI extends RestClass {
             if(isset($requestData['finalDiscountForInvoice']) && $requestData['finalDiscountForInvoice']['type']  == 'Percent'){
                 $FinalDiscountCost = new Cost();
                 $FinalDiscountCost->setPercent($requestData['finalDiscountForInvoice']['Percent']);
+                $invoice->setDiscount($FinalDiscountCost);
+            }
+            if(isset($requestData['finalDiscountForInvoice']) && $requestData['finalDiscountForInvoice']['type']  == 'Amount'){
+                $FinalDiscountCost = new Cost();
+                $discountCurrency = new Currency();
+                $discountCurrency->setCurrency($requestData['finalDiscountForInvoice']['Amount']['Currency']);
+                $discountCurrency->setValue($requestData['finalDiscountForInvoice']['Amount']['Value']);
+                $FinalDiscountCost->setAmount($discountCurrency);
                 $invoice->setDiscount($FinalDiscountCost);
             }
             if(isset($requestData['finalDiscountForInvoice']) && $requestData['finalDiscountForInvoice']['type']  == 'Amount'){
@@ -682,7 +688,6 @@ class InvoiceAPI extends RestClass {
                 $ShippingCost->setAmount($shippingCurrency);
                 $invoice->setShippingCost($ShippingCost);
             }
-
             $this->setArrayToMethods(array_filter($requestData['invoiceData']), $invoice);            
 
             if($third_party === true  && !empty($refesh_token)){
@@ -865,6 +870,7 @@ class InvoiceAPI extends RestClass {
                     }
                 }
             }
+            }
 
 
             // ### Setting Merchant info to invoice template object.
@@ -887,6 +893,7 @@ class InvoiceAPI extends RestClass {
                 $invoiceTemplateData->setMerchantInfo($MerchantInfo);
             }
 
+            
             
             // ### End
 
@@ -935,8 +942,6 @@ class InvoiceAPI extends RestClass {
                 }
                 $invoiceTemplateData->setShippingInfo($ShippingInfo);
             }
-
-
             if(isset($requestData['templateData'])){
                 if(isset($requestData['templateData']['MinimumAmountDue']) && count(array_filter($requestData['templateData']['MinimumAmountDue'])) > 0){
                     $TemplateMinimumAmountDueCurrency = new Currency();
@@ -1124,6 +1129,7 @@ class InvoiceAPI extends RestClass {
                     }
                 }
             }
+            }
 
 
             // ### Setting Merchant info to invoice template object.
@@ -1145,7 +1151,6 @@ class InvoiceAPI extends RestClass {
                 }
                 $invoiceTemplateData->setMerchantInfo($MerchantInfo);
             }
-
 
             // ### End
 
@@ -1194,8 +1199,6 @@ class InvoiceAPI extends RestClass {
                 }
                 $invoiceTemplateData->setShippingInfo($ShippingInfo);
             }
-
-
             if(isset($requestData['templateData'])){
                 if(isset($requestData['templateData']['MinimumAmountDue']) && count(array_filter($requestData['templateData']['MinimumAmountDue'])) > 0){
                     $TemplateMinimumAmountDueCurrency = new Currency();
@@ -1250,7 +1253,6 @@ class InvoiceAPI extends RestClass {
             if(count(array_filter((array)$displayPreferences)) > 0){
                 $settingDate->setDisplayPreference($displayPreferences);
             }
-
             // ### Template
             $invoiceTemplate = new Template();
             $invoiceTemplate->setTemplateId($templateId);

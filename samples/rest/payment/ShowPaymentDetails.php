@@ -15,7 +15,7 @@ $configArray = array(
 
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
-$PaymentID='PAY-51939243WX127101ALPG4QZQ';                  //The ID of the payment for which to show details.
+$PaymentID='PAY-7UY278710A4871533LRVJI6Q';                  //The ID of the payment for which to show details.
 
 $returnArray = $PayPal->ShowPaymentDetails($PaymentID);
 echo "<pre>";

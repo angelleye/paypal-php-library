@@ -6,18 +6,18 @@ require_once('../../../includes/config.php');
 $configArray = array(
     'ClientID' => $rest_client_id,
     'ClientSecret' => $rest_client_secret,
-    'LogResults' => $log_results, 
+    'LogResults' => $log_results,
     'LogPath' => $log_path,
-    'LogLevel' => $log_level  
+    'LogLevel' => $log_level
 );
 
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
-$intent='authorize';        //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.
+$intent='order';                                                                //Allowed values: sale, authorize, order.Payment intent. Must be set to sale for immediate payment, authorize to authorize a payment for capture later, or order to create an order.
 
 $urls= array(
-    'ReturnUrl'   => 'ExecutePayment.php?success=true',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=true
-    'CancelUrl'   => 'ExecutePayment.php?success=false',                                   // Required when Pay using paypal. Example : ExecutePayment.php?success=false
+    'ReturnUrl'   => 'OrderDoVoid.php?success=true',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=true
+    'CancelUrl'   => 'OrderDoVoid.php?success=false',                                   // Required when Pay using paypal. Example : ExecutePayment.php?success=false
     'BaseUrl'     => $domain.'samples/rest/payment/'                                     // Required.
 );
 
@@ -33,7 +33,7 @@ $Item = array(
     'Quantity'    => '1',                                                       // Number of a particular item. 10 characters max
     'Price'       => '7.50',                                                    // Item cost. 10 characters max.
     'Currency'    => 'USD',                                                     // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
-    'Tax'         => ''                                                         // Tax of the item. Only supported when the `payment_method` is set to `paypal`.    
+    'Tax'         => ''                                                         // Tax of the item. Only supported when the `payment_method` is set to `paypal`.
 );
 array_push($orderItems, $Item);
 
@@ -44,7 +44,7 @@ $Item = array(
     'Quantity'    => '2',                                    // Number of a particular item. 10 characters max
     'Price'       => '5.00',                                 // Item cost. 10 characters max.
     'Currency'    => 'USD',                                  // 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/).
-    'Tax'         => ''                                      // Tax of the item. Only supported when the `payment_method` is set to `paypal`.    
+    'Tax'         => ''                                      // Tax of the item. Only supported when the `payment_method` is set to `paypal`.
 );
 array_push($orderItems, $Item);
 
@@ -53,16 +53,16 @@ $paymentDetails = array(
     'Subtotal' => '17.50',                                    // Amount of the subtotal of the items. **Required** if line items are specified. 10 characters max, with support for 2 decimal places.
     'Shipping' => '1.20',                                     // Amount charged for shipping. 10 characters max with support for 2 decimal places.
     'Tax'      => '1.30',                                     // Amount charged for tax. 10 characters max with support for 2 decimal places.
-    'GiftWrap' => ''                                          // Amount being charged as gift wrap fee. 
+    'GiftWrap' => ''                                          // Amount being charged as gift wrap fee.
 );
 
 $amount = array(
-    'Currency' => 'USD',                                      //Required. 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/). PayPal does not support all currencies. 
+    'Currency' => 'USD',                                      //Required. 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/). PayPal does not support all currencies.
     'Total'    => '20.00',                                    //Required. Total amount charged from the payer to the payee. In case of a refund, this is the refunded amount to the original payer from the payee. 10 characters max with support for 2 decimal places.
 );
 
 $transaction = array(
-    'ReferenceId'    => '',                                 // Optional parameter. Merchant identifier to the purchase unit. Maximum length: 256. 
+    'ReferenceId'    => '',                                 // Optional parameter. Merchant identifier to the purchase unit. Maximum length: 256.
     'Description'    => '',                                 // Payment description for particular transaction. Maximum length: 127.
     'InvoiceNumber'  => '',                                 // Unique id of the Invoice. Maximum length: 127.
     'Custom'         => '',                                 // free-form field for the use of clients. Maximum length: 127.
@@ -72,7 +72,7 @@ $transaction = array(
 );
 
 $requestData = array(
-    'intent'         => $intent,    
+    'intent'         => $intent,
     'invoiceNumber' => $invoiceNumber,
     'orderItems'     => $orderItems,
     'paymentDetails' => $paymentDetails,

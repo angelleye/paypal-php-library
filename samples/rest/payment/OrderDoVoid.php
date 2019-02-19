@@ -12,8 +12,32 @@ $configArray = array(
 );
 $PayPal = new angelleye\PayPal\rest\payments\PaymentAPI($configArray);
 
-$orderId = 'O-8BC98688LG524100U';               // OrderId From Return Object/Array When Created Payment With Paypal/ OrderGet.php
 
-$returnArray = $PayPal->OrderDoVoid($orderId);
-echo "<pre>";
-print_r($returnArray);
+if (isset($_GET['success']) && $_GET['success'] == 'true') {
+
+    /**
+     * execute the payment if you don't know OrderID and only knows payment id and payment state is just created
+     * but if you know Order id then you can directly use $orderId function to void the order.
+     */
+
+    $paymentId = $_GET['paymentId'];
+    $payer_id = $_GET['PayerID'];
+    $result = $PayPal->ExecutePayment($paymentId,$payer_id);
+
+    if($result['RESULT'] == 'Success'){
+        $orderId = $result['ORDER']['id'];               // OrderId From Return Object/Array When Created Payment With Paypal/ OrderGet.php
+
+        $returnArray = $PayPal->OrderDoVoid($orderId);
+        echo "<pre>";
+        print_r($returnArray);
+    }
+    else{
+        echo "<pre>";
+        print_r($result);
+    }
+
+}
+else{
+    echo "User Cancelled the Approval";
+    exit;
+}
