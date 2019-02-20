@@ -31,9 +31,9 @@ $items[0] = array(
     'sku'         => '123',                                    // Stock keeping unit corresponding (SKU) to item.Maximum length: 127.
     'name'        => 'Hat',                                    // Required if you are adding item array. The item name or title. 127 characters max.
     'description' => 'Kansas City Chiefs Large Multi-Fit Hat', // The detailed item description. Maximum length: 127.
-    'quantity'    => '1',                                      // The item quantity. Must be a whole number. Maximum length: 10.
-    'unit_amount' => '7.50',                                   // Required if you are adding item array. The item price or rate per unit. 32 characters max.
-    'tax'         => '0.00',                                   // The item tax for each unit.
+    'quantity'    => 1,                                        // The item quantity. Must be a whole number. Maximum length: 10.
+    'unit_amount' => 7.50,                                     // Required if you are adding item array. The item price or rate per unit. 32 characters max.
+    'tax'         => 0.00,                                     // The item tax for each unit.
     'category'    => 'PHYSICAL_GOODS'                          // The item category type. DIGITAL_GOODS | PHYSICAL_GOODS
 );
 
@@ -41,24 +41,42 @@ $items[1] = array(
     'sku'         => '678',                                 // Stock keeping unit corresponding (SKU) to item.Maximum length: 127.
     'name'        => 'Handbag',                             // Required if you are adding item array. The item name or title. 127 characters max.
     'description' => 'Small, leather handbag.',             // The detailed item description. Maximum length: 127.
-    'quantity'    => '2',                                   // The item quantity. Must be a whole number. Maximum length: 10.
-    'unit_amount' => '5.00',                                // Required if you are adding item array. The item price or rate per unit. 32 characters max.
-    'tax'         => '0.00',                                // The item tax for each unit.
+    'quantity'    => 2,                                     // The item quantity. Must be a whole number. Maximum length: 10.
+    'unit_amount' => 5.00,                                  // Required if you are adding item array. The item price or rate per unit. 32 characters max.
+    'tax'         => 0.00,                                  // The item tax for each unit.
     'category'    => 'PHYSICAL_GOODS'                       // The item category type. DIGITAL_GOODS | PHYSICAL_GOODS
 );
 
 $orderItems = $items;
 
 $amount = array(
-    'currency_code' => $currency,
-    'value' => '17.50',
+    'currency' => $currency,
+    'value' => 17.50,
     'breakdown' => array(
-        'item_total' => '17.50',        // The subtotal for all items.
-        'shipping' =>'0.00',            // The shipping fee for all items.
-        'handling' =>'0.00',            // The handling fee for all items.
-        'tax_total' =>'0.00',           // The total tax for all items.
-        'insurance' =>'0.00',           // The insurance fee for all items.
-        'shipping_discount' =>'0.00'    // The shipping discount for all items.
+        'item_total' => array(          // The subtotal for all items.
+            'value' => 17.50,
+            'currency_code' => $currency
+        ),
+        'shipping' => array(            // The shipping fee for all items.
+            'value' => 0.00,
+            'currency_code' => $currency
+        ),
+        'handling' => array(            // The handling fee for all items.
+            'value' => 0.00,
+            'currency_code' => $currency
+        ),
+        'tax_total' => array(            // The total tax for all items.
+            'value' => 0.00,
+            'currency_code' => $currency
+        ),
+        'insurance' => array(            // The insurance fee for all items.
+            'value' => 0.00,
+            'currency_code' => $currency
+        ),
+        'shipping_discount' => array(    // The shipping discount for all items.
+            'value' => 0.00,
+            'currency_code' => $currency
+        )
     )
 );
 
@@ -162,7 +180,7 @@ $purchase_units  = array(
     'soft_descriptor' => 'PayPalFashions',        // The payment descriptor on the payer's credit card statement. Maximum length: 22.
     'invoice_id' => 'AEINV-'.rand(0,1000),        // The API caller-provided external invoice number for this order. Appears in both the payer's transaction history and the emails that the payer receives. Maximum length: 127.
     'amount' => $amount,
-    'shipping' => array(),                        // Add $shipping if you have shipping_preferences as SET_PROVIDED_ADDRESS in application context.
+    //'shipping' => $shipping,                        // Add $shipping if you have shipping_preferences as SET_PROVIDED_ADDRESS in application context.
     'items' => $orderItems
 );
 
@@ -170,10 +188,10 @@ $requestArray = array(
     'intent'=>$intent,
     'application_context' => $application_context,
     'purchase_units' => $purchase_units,
-    'payer' => array()
+    //'payer' => $payer
 );
 
-$response = $PayPal->CreateOrder($parameters);
+$response = $PayPal->CreateOrder($requestArray);
 
 echo "<pre>";
 print_r($response);

@@ -69,16 +69,25 @@ class CheckoutOrdersAPI extends RestClass {
      * @return Array|Object
      */
     public function CreateOrder($parameters) {
+
+        $requestBody = array(
+            'intent' => isset($parameters['intent']) ? $parameters['intent'] : '',
+            'application_context' => isset($parameters['application_context']) ? $parameters['application_context'] : '',
+            'purchase_units' => array(
+              isset($parameters['purchase_units']) ? $parameters['purchase_units'] : '',
+            ),
+            'payer' => (isset($parameters['payer']) && !empty($parameters['payer'])) ? $parameters['payer'] : ''
+        );
         try {
 
             $orderObject = new CheckoutOrdersClass();
-            $params = array_filter($parameters);
+            $params = array_filter($requestBody);
             $requestArray = json_encode($params);
-            $disputes = $orderObject->create_order($params,$this->_api_context);
+            $order = $orderObject->create_order($params,$this->_api_context);
             $returnArray['RESULT'] = 'Success';
-            $returnArray['ORDER'] = $disputes->toArray();
+            $returnArray['ORDER'] = $order->toArray();
             $returnArray['RAWREQUEST']=$requestArray;
-            $returnArray['RAWRESPONSE']=$disputes->toJSON();
+            $returnArray['RAWRESPONSE']=$order->toJSON();
             return $returnArray;            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
            return $this->createErrorResponse($ex);
