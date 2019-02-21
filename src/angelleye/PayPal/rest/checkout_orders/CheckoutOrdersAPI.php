@@ -102,6 +102,9 @@ class CheckoutOrdersAPI extends RestClass {
         try {
             $order = $orderObject->capture($order_id,$this->_api_context);
             $returnArray['RESULT'] = 'Success';
+            if(isset($order->intent) && $order->intent=='CAPTURE'){
+                $returnArray['TRANSACTION_ID'] = $order->getCaptureId();
+            }
             $returnArray['ORDER']=$order->toArray();
             $returnArray['RAWREQUEST']='{order_id:'.$order_id.'}';
             $returnArray['RAWRESPONSE']=$order->toJSON();
@@ -111,4 +114,20 @@ class CheckoutOrdersAPI extends RestClass {
         }
     }
 
+    public function GetOrderDetails($order_id){
+        $orderObject = new CheckoutOrdersClass();
+        try {
+            $order = $orderObject->get($order_id,$this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            if(isset($order->intent) && $order->intent=='CAPTURE'){
+                $returnArray['TRANSACTION_ID'] = $order->getCaptureId();
+            }
+            $returnArray['ORDER']=$order->toArray();
+            $returnArray['RAWREQUEST']='{order_id:'.$order_id.'}';
+            $returnArray['RAWRESPONSE']=$order->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
 }

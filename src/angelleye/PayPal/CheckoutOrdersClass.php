@@ -55,18 +55,21 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $this->getLink('approve');
     }
 
-
     public function getCaptureId(){
-        echo "<pre>";
-        print_r($this);
-        exit;
-        foreach($this->purchase_units as $purchase_unit)
-        {
-            foreach($purchase_unit->payments->captures as $capture)
+
+        if (isset($this->purchase_units)){
+            foreach($this->purchase_units as $purchase_unit)
             {
-                print "\t{$capture->id}";
+                if(isset($purchase_unit['payments']['captures'])){
+                    foreach($purchase_unit['payments']['captures'] as $capture)
+                    {
+                        // if you want full capture object then return $capture from here
+                        return isset($capture['id']) ? $capture['id'] : null;
+                    }
+                }
             }
         }
+        return null;
     }
 
     /**
@@ -112,7 +115,7 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         ArgumentValidator::validate($order_id, 'order_id');
         $payLoad = "";
         $json = self::executeCall(
-            "/v2/checkout/orders/".$order_id."/capture",
+            "/v2/checkout/orders/$order_id/capture",
             "POST",
             $payLoad,
             null,
@@ -121,5 +124,23 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         );
         $ret = new CheckoutOrdersClass();
         return $ret->fromJson($json);
+    }
+
+
+    public function get($order_id, $apiContext = null, $restCall = null)
+    {
+        ArgumentValidator::validate($order_id, 'order_id');
+        $payLoad = "";
+        $json = self::executeCall(
+            "/v2/checkout/orders/$order_id",
+            "GET",
+            $payLoad,
+            null,
+            $apiContext,
+            $restCall
+        );
+        $ret = new CheckoutOrdersClass();
+        $ret->fromJson($json);
+        return $ret;
     }
 }
