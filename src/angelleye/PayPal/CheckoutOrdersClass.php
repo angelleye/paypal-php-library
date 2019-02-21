@@ -43,7 +43,32 @@ use PayPal\Validation\ArgumentValidator;
  */
 
 class CheckoutOrdersClass extends PayPalResourceModel {
-        
+
+
+    /**
+     * Get Approval Link
+     *
+     * @return null|string
+     */
+    public function getApprovalLink()
+    {
+        return $this->getLink('approve');
+    }
+
+
+    public function getCaptureId(){
+        echo "<pre>";
+        print_r($this);
+        exit;
+        foreach($this->purchase_units as $purchase_unit)
+        {
+            foreach($purchase_unit->payments->captures as $capture)
+            {
+                print "\t{$capture->id}";
+            }
+        }
+    }
+
     /**
      * Creates an order.
      *
@@ -52,7 +77,7 @@ class CheckoutOrdersClass extends PayPalResourceModel {
      * @param PayPal\Transport\PayPalRestCall $restCall
      * @return $this
      */
-    public static function create_order($params,$apiContext = null, $restCall = null) {
+    public function create_order($params,$apiContext = null, $restCall = null) {
         
         if (is_null($params)) {
             $params = array();
@@ -73,13 +98,28 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $object->fromJson($json);
     }
 
+
     /**
-     * Get Approval Link
+     * Shows details for a dispute, by ID.
      *
-     * @return null|string
+     * @param string $dispute_id
+     * @param PayPal\Rest\ApiContext $apiContext
+     * @param PayPal\Transport\PayPalRestCall $restCall
+     * @return $this
      */
-    public function getApprovalLink()
-    {
-        return $this->getLink('approve');
+    public function capture($order_id, $apiContext = null, $restCall = null){
+
+        ArgumentValidator::validate($order_id, 'order_id');
+        $payLoad = "";
+        $json = self::executeCall(
+            "/v2/checkout/orders/".$order_id."/capture",
+            "POST",
+            $payLoad,
+            null,
+            $apiContext,
+            $restCall
+        );
+        $ret = new CheckoutOrdersClass();
+        return $ret->fromJson($json);
     }
 }
