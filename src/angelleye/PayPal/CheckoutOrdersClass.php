@@ -72,6 +72,26 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return null;
     }
 
+    public function getAuthId(){
+        if (isset($this->purchase_units)){
+            foreach($this->purchase_units as $purchase_unit)
+            {
+                if(isset($purchase_unit['payments']['authorizations'])){
+                    foreach($purchase_unit['payments']['authorizations'] as $authorization)
+                    {
+                        // if you want full capture object then return $capture from here
+                        $data = array(
+                            'id' => isset($authorization['id']) ? $authorization['id'] : null,
+                            'status' => isset($authorization['status']) ? $authorization['status'] : null
+                        );
+                        return $data;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      * Creates an order.
      *
@@ -116,6 +136,21 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         $payLoad = "";
         $json = self::executeCall(
             "/v2/checkout/orders/$order_id/capture",
+            "POST",
+            $payLoad,
+            null,
+            $apiContext,
+            $restCall
+        );
+        $ret = new CheckoutOrdersClass();
+        return $ret->fromJson($json);
+    }
+
+    public function authorize($order_id, $apiContext = null, $restCall = null){
+        ArgumentValidator::validate($order_id, 'order_id');
+        $payLoad = "";
+        $json = self::executeCall(
+            "/v2/checkout/orders/$order_id/authorize",
             "POST",
             $payLoad,
             null,

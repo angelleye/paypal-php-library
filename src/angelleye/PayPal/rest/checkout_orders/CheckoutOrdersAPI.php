@@ -102,9 +102,22 @@ class CheckoutOrdersAPI extends RestClass {
         try {
             $order = $orderObject->capture($order_id,$this->_api_context);
             $returnArray['RESULT'] = 'Success';
-            if(isset($order->intent) && $order->intent=='CAPTURE'){
-                $returnArray['TRANSACTION_ID'] = $order->getCaptureId();
-            }
+            $returnArray['TRANSACTION_ID'] = $order->getCaptureId();
+            $returnArray['ORDER']=$order->toArray();
+            $returnArray['RAWREQUEST']='{order_id:'.$order_id.'}';
+            $returnArray['RAWRESPONSE']=$order->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+
+    public function AuthorizeOrder($order_id){
+        $orderObject = new CheckoutOrdersClass();
+        try {
+            $order = $orderObject->authorize($order_id,$this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            //$returnArray['TRANSACTION_ID'] = $order->getCaptureId();
             $returnArray['ORDER']=$order->toArray();
             $returnArray['RAWREQUEST']='{order_id:'.$order_id.'}';
             $returnArray['RAWRESPONSE']=$order->toJSON();
@@ -121,6 +134,11 @@ class CheckoutOrdersAPI extends RestClass {
             $returnArray['RESULT'] = 'Success';
             if(isset($order->intent) && $order->intent=='CAPTURE'){
                 $returnArray['TRANSACTION_ID'] = $order->getCaptureId();
+            }
+            if(isset($order->intent) && $order->intent=='AUTHORIZE'){
+                $authData = $order->getAuthId();
+                $returnArray['TRANSACTION_ID'] = $authData['id'];
+                $returnArray['AUTH_STATUS'] = $authData['status'];
             }
             $returnArray['ORDER']=$order->toArray();
             $returnArray['RAWREQUEST']='{order_id:'.$order_id.'}';
