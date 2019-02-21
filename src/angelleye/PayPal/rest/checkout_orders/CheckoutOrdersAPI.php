@@ -84,7 +84,9 @@ class CheckoutOrdersAPI extends RestClass {
             $params = array_filter($requestBody);
             $requestArray = json_encode($params);
             $order = $orderObject->create_order($params,$this->_api_context);
+            $approval_link = $order->getApprovalLink();
             $returnArray['RESULT'] = 'Success';
+            $returnArray['APPROVAL_LINK'] = $approval_link;
             $returnArray['ORDER'] = $order->toArray();
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$order->toJSON();

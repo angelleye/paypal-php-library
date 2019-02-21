@@ -72,4 +72,14 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         $object = new CheckoutOrdersClass();
         return $object->fromJson($json);
     }
+
+    /**
+     * Get Approval Link
+     *
+     * @return null|string
+     */
+    public function getApprovalLink()
+    {
+        return $this->getLink('approve');
+    }
 }
