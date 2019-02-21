@@ -179,13 +179,31 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $ret;
     }
 
-    public function getAuthorization($authorization_id, $apiContext = null, $restCall = null)
+    public function get_authorization($authorization_id, $apiContext = null, $restCall = null)
     {
         ArgumentValidator::validate($authorization_id, 'authorization_id ');
         $payLoad = "";
         $json = self::executeCall(
             "/v2/payments/authorizations/$authorization_id",
             "GET",
+            $payLoad,
+            null,
+            $apiContext,
+            $restCall
+        );
+        $ret = new CheckoutOrdersClass();
+        $ret->fromJson($json);
+        return $ret;
+    }
+
+
+    public function capture_authorization($authorization_id,$params,$apiContext = null, $restCall = null){
+        ArgumentValidator::validate($authorization_id, 'authorization_id ');
+        ArgumentValidator::validate($params, 'params');
+        $payLoad = json_encode($params);
+        $json = self::executeCall(
+            "/v2/payments/authorizations/$authorization_id/capture",
+            "POST",
             $payLoad,
             null,
             $apiContext,

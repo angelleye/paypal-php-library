@@ -152,10 +152,26 @@ class CheckoutOrdersAPI extends RestClass {
     public function GetAuthorizePaymentDetails($authorization_id){
         $orderObject = new CheckoutOrdersClass();
         try {
-            $order = $orderObject->getAuthorization($authorization_id,$this->_api_context);
+            $order = $orderObject->get_authorization($authorization_id,$this->_api_context);
             $returnArray['RESULT'] = 'Success';
             $returnArray['AUTHORIZATION']=$order->toArray();
             $returnArray['RAWREQUEST']='{authorization_id:'.$authorization_id.'}';
+            $returnArray['RAWRESPONSE']=$order->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+
+    public function CaptureAuthorizedPayment($authorization_id,$requestBody){
+        $orderObject = new CheckoutOrdersClass();
+        $params = array_filter($requestBody);
+        $requestArray = json_encode($params);
+        try {
+            $order = $orderObject->capture_authorization($authorization_id,$params,$this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['AUTHORIZATION']=$order->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$order->toJSON();
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
