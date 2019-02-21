@@ -32,8 +32,14 @@ $items[0] = array(
     'name'        => 'Hat',                                    // Required if you are adding item array. The item name or title. 127 characters max.
     'description' => 'Kansas City Chiefs Large Multi-Fit Hat', // The detailed item description. Maximum length: 127.
     'quantity'    => 1,                                        // The item quantity. Must be a whole number. Maximum length: 10.
-    'unit_amount' => 7.50,                                     // Required if you are adding item array. The item price or rate per unit. 32 characters max.
-    'tax'         => 0.00,                                     // The item tax for each unit.
+    'unit_amount' => array(
+        'value' => 7.50,
+        'currency_code' => $currency
+    ),                                     // Required if you are adding item array. The item price or rate per unit. 32 characters max.
+    'tax'         => array(
+        'value' => 0.00,
+        'currency_code' => $currency
+    ),                                     // The item tax for each unit.
     'category'    => 'PHYSICAL_GOODS'                          // The item category type. DIGITAL_GOODS | PHYSICAL_GOODS
 );
 
@@ -42,15 +48,21 @@ $items[1] = array(
     'name'        => 'Handbag',                             // Required if you are adding item array. The item name or title. 127 characters max.
     'description' => 'Small, leather handbag.',             // The detailed item description. Maximum length: 127.
     'quantity'    => 2,                                     // The item quantity. Must be a whole number. Maximum length: 10.
-    'unit_amount' => 5.00,                                  // Required if you are adding item array. The item price or rate per unit. 32 characters max.
-    'tax'         => 0.00,                                  // The item tax for each unit.
+    'unit_amount' => array(
+        'value' => 5.00,
+        'currency_code' => $currency
+    ),                                  // Required if you are adding item array. The item price or rate per unit. 32 characters max.
+    'tax'         => array(
+        'value' => 0.00,
+        'currency_code' => $currency
+    ),                                  // The item tax for each unit.
     'category'    => 'PHYSICAL_GOODS'                       // The item category type. DIGITAL_GOODS | PHYSICAL_GOODS
 );
 
 $orderItems = $items;
 
 $amount = array(
-    'currency' => $currency,
+    'currency_code' => $currency,
     'value' => 17.50,
     'breakdown' => array(
         'item_total' => array(          // The subtotal for all items.
