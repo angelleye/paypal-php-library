@@ -16,7 +16,7 @@ $configArray = array(
 
 $PayPal = new CheckoutOrdersAPI($configArray);
 
-$authorization_id = '3HT90723074597802';
+$authorization_id = '3HT90723074597802';        // The ID of the authorized payment for which to show details.
 
 $response = $PayPal->GetAuthorizePaymentDetails($authorization_id);
 

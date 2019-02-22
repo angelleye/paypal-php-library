@@ -14,19 +14,21 @@ $configArray = array(
     'LogLevel' => $log_level
 );
 
+
+/**
+ * Authorizes payment for an order.
+ */
 $PayPal = new CheckoutOrdersAPI($configArray);
 
 if (isset($_GET['success']) && $_GET['success'] == 'true') {
 
     /**
+     * You can make this call only if you specified intent=AUTHORIZE in the create order call.
      * get order id after the payment approval from PayPal,
-     * but if you know Order id then you can directly use $order_id function to capture the order.
+     * but if you know Order id then you can directly use $order_id function to AUTHORIZE the order.
      */
 
-    /**
-     * Order state must be APPROVED for capturing an order.
-     */
-    $order_id = isset($_GET['token']) ? $_GET['token'] : '';            // Required
+    $order_id = isset($_GET['token']) ? $_GET['token'] : '';            // Required. The ID of the order for which to authorize.
 
     $response = $PayPal->AuthorizeOrder($order_id);
 

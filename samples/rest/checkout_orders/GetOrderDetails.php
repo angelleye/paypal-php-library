@@ -16,7 +16,7 @@ $configArray = array(
 
 $PayPal = new CheckoutOrdersAPI($configArray);
 
-$order_id = '66X74590BW6852259';
+$order_id = '66X74590BW6852259';        // The ID of the order for which to show details.
 
 $response = $PayPal->GetOrderDetails($order_id);
 

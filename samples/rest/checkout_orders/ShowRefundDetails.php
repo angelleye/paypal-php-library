@@ -16,7 +16,7 @@ $configArray = array(
 
 $PayPal = new CheckoutOrdersAPI($configArray);
 
-$refund_id = '38729521SY562392X';
+$refund_id = '38729521SY562392X';       // The PayPal-generated ID for the refund for which to show details.
 
 $response = $PayPal->ShowRefundDetails($refund_id);
 

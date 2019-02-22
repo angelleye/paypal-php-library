@@ -16,7 +16,7 @@ $configArray = array(
 
 $PayPal = new CheckoutOrdersAPI($configArray);
 
-$capture_id = '6X1812201H9506636';
+$capture_id = '6X1812201H9506636';      // The PayPal-generated ID for the captured payment for which to show details.
 
 $response = $PayPal->GetCapturedPaymentDetails($capture_id);
 

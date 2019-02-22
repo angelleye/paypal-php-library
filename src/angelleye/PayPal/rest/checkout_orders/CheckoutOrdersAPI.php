@@ -63,10 +63,9 @@ class CheckoutOrdersAPI extends RestClass {
     }
 
     /**
-     * Lists disputes with a full or summary set of details. Default is a summary set of details, which shows the dispute_id, reason, status, dispute_amount, create_time, and update_time fields.
-     *
-     * @param Array $parameters
-     * @return Array|Object
+     * Creates an order.
+     * @param array $parameters
+     * @return array
      */
     public function CreateOrder($parameters) {
 
@@ -96,7 +95,11 @@ class CheckoutOrdersAPI extends RestClass {
         }
     }
 
-
+    /**
+     * Captures a payment for an order.
+     * @param string $order_id
+     * @return array
+     */
     public function CaptureOrder($order_id){
         $orderObject = new CheckoutOrdersClass();
         try {
@@ -112,6 +115,11 @@ class CheckoutOrdersAPI extends RestClass {
         }
     }
 
+    /**
+     * Authorizes an order, by ID.
+     * @param string $order_id
+     * @return array
+     */
     public function AuthorizeOrder($order_id){
         $orderObject = new CheckoutOrdersClass();
         try {
@@ -127,6 +135,11 @@ class CheckoutOrdersAPI extends RestClass {
         }
     }
 
+    /**
+     * Shows details for an order, by ID.
+     * @param string $order_id
+     * @return array
+     */
     public function GetOrderDetails($order_id){
         $orderObject = new CheckoutOrdersClass();
         try {
@@ -149,6 +162,11 @@ class CheckoutOrdersAPI extends RestClass {
         }
     }
 
+    /**
+     * Shows details for an authorization, by ID.
+     * @param string $authorization_id
+     * @return array
+     */
     public function GetAuthorizePaymentDetails($authorization_id){
         $orderObject = new CheckoutOrdersClass();
         try {
@@ -163,6 +181,11 @@ class CheckoutOrdersAPI extends RestClass {
         }
     }
 
+    /**
+     * Shows details for a captured payment, by ID.
+     * @param string $capture_id
+     * @return array
+     */
     public function GetCapturedPaymentDetails($capture_id){
         $orderObject = new CheckoutOrdersClass();
         try {
@@ -177,6 +200,12 @@ class CheckoutOrdersAPI extends RestClass {
         }
     }
 
+    /**
+     * Captures and processes an authorization, by ID.
+     * @param string $authorization_id
+     * @param array $requestBody
+     * @return array
+     */
     public function CaptureAuthorizedPayment($authorization_id,$requestBody){
         $orderObject = new CheckoutOrdersClass();
         $params = array_filter($requestBody);
@@ -193,6 +222,12 @@ class CheckoutOrdersAPI extends RestClass {
         }
     }
 
+    /**
+     * Reauthorizes an authorized PayPal account payment, by ID.
+     * @param string $authorization_id
+     * @param array $requestBody
+     * @return array
+     */
     public function Reauthorize($authorization_id,$requestBody){
         $orderObject = new CheckoutOrdersClass();
         $params = array_filter($requestBody);
@@ -209,6 +244,11 @@ class CheckoutOrdersAPI extends RestClass {
         }
     }
 
+    /**
+     * Voids, or cancels, an authorization, by ID. You cannot void a fully captured authorization.
+     * @param string $authorization_id
+     * @return \angelleye\PayPal\Array|\angelleye\PayPal\Ojbect
+     */
     public function VoidAuthorizedPayment($authorization_id){
         $orderObject = new CheckoutOrdersClass();
         try {
@@ -223,6 +263,12 @@ class CheckoutOrdersAPI extends RestClass {
         }
     }
 
+    /**
+     * Refunds a captured payment, by ID.
+     * @param $capture_id
+     * @param $requestBody
+     * @return \angelleye\PayPal\Array|\angelleye\PayPal\Ojbect
+     */
     public function RefundCapturedPayment($capture_id,$requestBody){
         $orderObject = new CheckoutOrdersClass();
         $params = array_filter($requestBody);
@@ -239,6 +285,11 @@ class CheckoutOrdersAPI extends RestClass {
         }
     }
 
+    /**
+     * Shows details for a refund, by ID.
+     * @param string $refund_id
+     * @return \angelleye\PayPal\Array|\angelleye\PayPal\Ojbect
+     */
     public function ShowRefundDetails($refund_id){
         $orderObject = new CheckoutOrdersClass();
         try {

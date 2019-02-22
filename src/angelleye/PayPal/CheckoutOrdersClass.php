@@ -32,6 +32,8 @@ namespace angelleye\PayPal;
 */
 
 use PayPal\Common\PayPalResourceModel;
+use PayPal\Rest\ApiContext;
+use PayPal\Transport\PayPalRestCall;
 use PayPal\Validation\ArgumentValidator;
 
 /**
@@ -55,6 +57,10 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $this->getLink('approve');
     }
 
+    /**
+     * Get Capture ID from the Order Details
+     * @return string|null
+     */
     public function getCaptureId(){
 
         if (isset($this->purchase_units)){
@@ -72,6 +78,10 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return null;
     }
 
+    /**
+     * Get auth details from Order details.
+     * @return array|null
+     */
     public function getAuthId(){
         if (isset($this->purchase_units)){
             foreach($this->purchase_units as $purchase_unit)
@@ -96,8 +106,8 @@ class CheckoutOrdersClass extends PayPalResourceModel {
      * Creates an order.
      *
      * @param Array $params
-     * @param PayPal\Rest\ApiContext $apiContext
-     * @param PayPal\Transport\PayPalRestCall $restCall
+     * @param PayPal\Rest\ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param PayPal\Transport\PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls.
      * @return $this
      */
     public function create_order($params,$apiContext = null, $restCall = null) {
@@ -123,11 +133,11 @@ class CheckoutOrdersClass extends PayPalResourceModel {
 
 
     /**
-     * Shows details for a dispute, by ID.
+     * Captures a payment for an order, by ID. To use this call, the original payment call must specify an intent of `order`. In the JSON request body, include the payment amount and indicate whether this capture is the final capture for the authorization.
      *
-     * @param string $dispute_id
-     * @param PayPal\Rest\ApiContext $apiContext
-     * @param PayPal\Transport\PayPalRestCall $restCall
+     * @param string $order_id
+     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
      * @return $this
      */
     public function capture($order_id, $apiContext = null, $restCall = null){
@@ -146,6 +156,13 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $ret->fromJson($json);
     }
 
+    /**
+     * Authorizes an order, by ID.
+     * @param string $order_id
+     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @return CheckoutOrdersClass
+     */
     public function authorize($order_id, $apiContext = null, $restCall = null){
         ArgumentValidator::validate($order_id, 'order_id');
         $payLoad = "";
@@ -161,7 +178,14 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $ret->fromJson($json);
     }
 
-
+    /**
+     * Shows details for an order, by ID.
+     *
+     * @param string $orderId
+     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @return CheckoutOrdersClass
+     */
     public function get($order_id, $apiContext = null, $restCall = null)
     {
         ArgumentValidator::validate($order_id, 'order_id');
@@ -179,6 +203,14 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $ret;
     }
 
+    /**
+     * Shows details for an authorization, by ID.
+     *
+     * @param string $authorization_id
+     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @return $this
+     */
     public function get_authorization($authorization_id, $apiContext = null, $restCall = null)
     {
         ArgumentValidator::validate($authorization_id, 'authorization_id');
@@ -196,6 +228,14 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $ret;
     }
 
+    /**
+     * Shows details for a capture, by ID.
+     *
+     * @param string $capture_id
+     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @return CheckoutOrdersClass
+     */
     public function get_capture($capture_id, $apiContext = null, $restCall = null)
     {
         ArgumentValidator::validate($capture_id, 'capture_id');
@@ -213,7 +253,14 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $ret;
     }
 
-
+    /**
+     * Captures and processes an authorization, by ID. To use this call, the original payment call must specify an intent of `authorize`.
+     * @param string $authorization_id
+     * @param array $params
+     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @return CheckoutOrdersClass
+     */
     public function capture_authorization($authorization_id,$params,$apiContext = null, $restCall = null){
         ArgumentValidator::validate($authorization_id, 'authorization_id');
         ArgumentValidator::validate($params, 'params');
@@ -231,6 +278,14 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $ret;
     }
 
+    /**
+     * Reauthorizes a PayPal account payment, by authorization ID. To ensure that funds are still available, reauthorize a payment after the initial three-day honor period. Supports only the `amount` request parameter.
+     *
+     * @param string $authorization_id
+     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @return CheckoutOrdersClass
+     */
     public function reauthorize($authorization_id,$params,$apiContext = null, $restCall = null){
         ArgumentValidator::validate($authorization_id, 'authorization_id');
         ArgumentValidator::validate($params, 'params');
@@ -248,6 +303,14 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $ret;
     }
 
+    /**
+     * Voids, or cancels, an authorization, by ID. You cannot void a fully captured authorization.
+     *
+     * @param string $authorization_id
+     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @return CheckoutOrdersClass
+     */
     public function void($authorization_id,$apiContext = null, $restCall = null){
         ArgumentValidator::validate($authorization_id, 'authorization_id');
         $payLoad = '';
@@ -264,6 +327,14 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $ret;
     }
 
+    /**
+     * Refunds a captured payment, by ID. Include an `amount` object in the JSON request body.
+     * @param string $capture_id
+     * @param array $params
+     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @return CheckoutOrdersClass
+     */
     public function refund($capture_id,$params,$apiContext = null, $restCall = null){
         ArgumentValidator::validate($capture_id, 'capture_id');
         ArgumentValidator::validate($params, 'params');
@@ -281,6 +352,14 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $ret;
     }
 
+    /**
+     * Shows details for a refund, by ID.
+     *
+     * @param string $refund_id
+     * @param ApiContext $apiContext is the APIContext for this call. It can be used to pass dynamic configuration and credentials.
+     * @param PayPalRestCall $restCall is the Rest Call Service that is used to make rest calls
+     * @return CheckoutOrdersClass
+     */
     public function get_refund_details($refund_id,$apiContext = null, $restCall = null){
         ArgumentValidator::validate($refund_id, 'refund_id');
         $payLoad = '';

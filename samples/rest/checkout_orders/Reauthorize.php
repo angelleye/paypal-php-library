@@ -16,9 +16,9 @@ $configArray = array(
 
 $PayPal = new CheckoutOrdersAPI($configArray);
 
-$authorization_id  = '3HT90723074597802';       // The PayPal-generated ID for the authorized payment to capture.
+$authorization_id  = '3HT90723074597802';       // The PayPal-generated ID for the authorized payment to reauthorize.
 
-$amount = array(
+$amount = array(                // The amount to reauthorize for an authorized payment.
     'currency_code' => 'USD',
     'value' => '5.50'
 );
