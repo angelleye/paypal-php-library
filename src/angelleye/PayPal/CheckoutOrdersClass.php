@@ -214,4 +214,21 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $ret;
     }
 
+    public function reauthorize($authorization_id,$params,$apiContext = null, $restCall = null){
+        ArgumentValidator::validate($authorization_id, 'authorization_id ');
+        ArgumentValidator::validate($params, 'params');
+        $payLoad = json_encode($params);
+        $json = self::executeCall(
+            "/v2/payments/authorizations/$authorization_id/reauthorize",
+            "POST",
+            $payLoad,
+            null,
+            $apiContext,
+            $restCall
+        );
+        $ret = new CheckoutOrdersClass();
+        $ret->fromJson($json);
+        return $ret;
+    }
+
 }
