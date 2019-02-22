@@ -163,6 +163,20 @@ class CheckoutOrdersAPI extends RestClass {
         }
     }
 
+    public function GetCapturedPaymentDetails($capture_id){
+        $orderObject = new CheckoutOrdersClass();
+        try {
+            $order = $orderObject->get_capture($capture_id,$this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['CAPTURE']=$order->toArray();
+            $returnArray['RAWREQUEST']='{capture_id:'.$capture_id.'}';
+            $returnArray['RAWRESPONSE']=$order->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
+
     public function CaptureAuthorizedPayment($authorization_id,$requestBody){
         $orderObject = new CheckoutOrdersClass();
         $params = array_filter($requestBody);
