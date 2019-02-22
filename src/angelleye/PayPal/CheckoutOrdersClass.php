@@ -281,4 +281,19 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $ret;
     }
 
+    public function get_refund_details($refund_id,$apiContext = null, $restCall = null){
+        ArgumentValidator::validate($refund_id, 'refund_id');
+        $payLoad = '';
+        $json = self::executeCall(
+            "/v2/payments/refunds/$refund_id",
+            "GET",
+            $payLoad,
+            null,
+            $apiContext,
+            $restCall
+        );
+        $ret = new CheckoutOrdersClass();
+        $ret->fromJson($json);
+        return $ret;
+    }
 }

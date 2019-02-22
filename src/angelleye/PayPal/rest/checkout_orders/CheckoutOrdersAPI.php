@@ -238,4 +238,18 @@ class CheckoutOrdersAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }
     }
+
+    public function ShowRefundDetails($refund_id){
+        $orderObject = new CheckoutOrdersClass();
+        try {
+            $order = $orderObject->get_refund_details($refund_id,$this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['REFUND']= $order->toArray();
+            $returnArray['RAWREQUEST']='{refund_id:'.$refund_id.'}';
+            $returnArray['RAWRESPONSE']=$order->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
 }
