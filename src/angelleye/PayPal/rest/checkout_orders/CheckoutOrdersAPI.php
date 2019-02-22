@@ -222,4 +222,20 @@ class CheckoutOrdersAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }
     }
+
+    public function RefundCapturedPayment($capture_id,$requestBody){
+        $orderObject = new CheckoutOrdersClass();
+        $params = array_filter($requestBody);
+        $requestArray = json_encode($params);
+        try {
+            $order = $orderObject->refund($capture_id,$params,$this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['CAPTURE']=$order->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$order->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
 }
