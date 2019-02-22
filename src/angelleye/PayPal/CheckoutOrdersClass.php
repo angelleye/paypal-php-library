@@ -181,7 +181,7 @@ class CheckoutOrdersClass extends PayPalResourceModel {
 
     public function get_authorization($authorization_id, $apiContext = null, $restCall = null)
     {
-        ArgumentValidator::validate($authorization_id, 'authorization_id ');
+        ArgumentValidator::validate($authorization_id, 'authorization_id');
         $payLoad = "";
         $json = self::executeCall(
             "/v2/payments/authorizations/$authorization_id",
@@ -198,7 +198,7 @@ class CheckoutOrdersClass extends PayPalResourceModel {
 
 
     public function capture_authorization($authorization_id,$params,$apiContext = null, $restCall = null){
-        ArgumentValidator::validate($authorization_id, 'authorization_id ');
+        ArgumentValidator::validate($authorization_id, 'authorization_id');
         ArgumentValidator::validate($params, 'params');
         $payLoad = json_encode($params);
         $json = self::executeCall(
@@ -215,11 +215,27 @@ class CheckoutOrdersClass extends PayPalResourceModel {
     }
 
     public function reauthorize($authorization_id,$params,$apiContext = null, $restCall = null){
-        ArgumentValidator::validate($authorization_id, 'authorization_id ');
+        ArgumentValidator::validate($authorization_id, 'authorization_id');
         ArgumentValidator::validate($params, 'params');
         $payLoad = json_encode($params);
         $json = self::executeCall(
             "/v2/payments/authorizations/$authorization_id/reauthorize",
+            "POST",
+            $payLoad,
+            null,
+            $apiContext,
+            $restCall
+        );
+        $ret = new CheckoutOrdersClass();
+        $ret->fromJson($json);
+        return $ret;
+    }
+
+    public function void($authorization_id,$apiContext = null, $restCall = null){
+        ArgumentValidator::validate($authorization_id, 'authorization_id');
+        $payLoad = '';
+        $json = self::executeCall(
+            "/v2/payments/authorizations/$authorization_id/void",
             "POST",
             $payLoad,
             null,
