@@ -76,6 +76,8 @@ If you need additional help you may [place an order for premium support](http://
 The library comes with basic usage samples, but if you feel more comfortable seeing the integration inside a fully functional 
 demo that is built into a basic shopping cart system, take a look at our 
 [demo kits available on our website](https://www.angelleye.com/product-category/php-class-libraries/demo-kits/).
+You can find our built-in demo inside demo directory. If you have purchased any demo then you just need to add those inside 
+demo directory and its ready to go.
 
 ## Tutorials
 
