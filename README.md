@@ -1,7 +1,6 @@
 # Angell EYE PayPal PHP Library
 
-This PHP class library for PayPal makes it easy to integrate PayPal APIs, including the [Payments Standard Button Manager](https://developer.paypal.com/webapps/developer/docs/classic/api/#bm), [Adaptive Accounts](https://developer.paypal.com/webapps/developer/docs/classic/api/#aa),
-[Adaptive Payments](https://developer.paypal.com/webapps/developer/docs/classic/api/#ap), [Invoicing](https://developer.paypal.com/webapps/developer/docs/classic/api/#invoicing), 
+This PHP class library for PayPal makes it easy to integrate PayPal APIs, including the [PayPal REST API](https://developer.paypal.com/docs/api/overview/), [Payments Standard Button Manager](https://developer.paypal.com/webapps/developer/docs/classic/api/#bm),  [Invoicing](https://developer.paypal.com/webapps/developer/docs/classic/api/#invoicing), 
 [General Merchant APIs](https://developer.paypal.com/webapps/developer/docs/classic/api/#merchant), and [Permissions](https://developer.paypal.com/webapps/developer/docs/classic/api/#permissions).
 
 -----------------------
@@ -77,12 +76,28 @@ If you need additional help you may [place an order for premium support](http://
 The library comes with basic usage samples, but if you feel more comfortable seeing the integration inside a fully functional 
 demo that is built into a basic shopping cart system, take a look at our 
 [demo kits available on our website](https://www.angelleye.com/product-category/php-class-libraries/demo-kits/).
+You can find our built-in demo inside demo directory. If you have purchased any demo then you just need to add those inside 
+demo directory and its ready to go.
 
 ## Tutorials
 
 - [How to install the Angell EYE PHP Class Library for PayPal](http://www.angelleye.com/install-angell-eye-php-class-library-paypal/)
 
 ## Supported APIs
+
+### REST APIs
+
+- [Orders API](https://developer.paypal.com/docs/api/orders/v2/)
+- [Payments API](https://developer.paypal.com/docs/api/payments/v2/)
+- [Invoicing API](https://developer.paypal.com/docs/api/invoicing/v1/)
+- [Identity API](https://developer.paypal.com/docs/api/identity/v1/)
+- [Billing Plans API](https://developer.paypal.com/docs/api/payments.billing-plans/v1/)
+- [Billing Agreements API](https://developer.paypal.com/docs/api/payments.billing-agreements/v1/)
+- [PayPal Sync API](https://developer.paypal.com/docs/api/sync/v1/)
+- [Customer Disputes API](https://developer.paypal.com/docs/api/customer-disputes/v1/)
+- [Payouts API](https://developer.paypal.com/docs/api/payments.payouts-batch/v1/)
+- [Vault API](https://developer.paypal.com/docs/api/vault/v1/)
+- [Webhooks Management API](https://developer.paypal.com/docs/api/webhooks/v1/)
 
 ### Payments Standard Button Manager
 
@@ -93,30 +108,6 @@ demo that is built into a basic shopping cart system, take a look at our
 - [BMManageButtonStatus](https://developer.paypal.com/webapps/developer/docs/classic/api/button-manager/BMManageButtonStatus_API_Operation_NVP/)
 - [BMSetInventory](https://developer.paypal.com/webapps/developer/docs/classic/api/button-manager/BMSetInventory_API_Operation_NVP/)
 - [BMUpdateButton](https://developer.paypal.com/webapps/developer/docs/classic/api/button-manager/BMUpdateButton_API_Operation_NVP/)
-
-### Adaptive Accounts
-
--  [AddBankAccount](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/AddBankAccount_API_Operation/)
--  [AddPaymentCard](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/AddPaymentCard_API_Operation/)
--  [CreateAccount](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/CreateAccount_API_Operation/)
--  [GetVerifiedStatus](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/GetVerifiedStatus_API_Operation/)
--  [SetFundingSourceConfirmed](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-accounts/SetFundingSourceConfirmed_API_Operation/)
-
-### Adaptive Payments
-
--  [CancelPreapproval](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/CancelPreapproval_API_Operation/)
--  [ConvertCurrency](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/ConvertCurrency_API_Operation/)
--  [ExecutePayment](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/ExecutePayment_API_Operation/)
--  [GetFundingPlans](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/GetFundingPlans_API_Operation/)
--  [GetPaymentOptions](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/GetPaymentOptions_API_Operation/)
--  [GetShippingAddresses](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/GetShippingAddresses_API_Operation/)
--  [Pay](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/Pay_API_Operation/)
--  PayWithOptions
--  [PaymentDetails](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/PaymentDetails_API_Operation/)
--  [Preapproval](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/Preapproval_API_Operation/)
--  [PreapprovalDetails](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/PreapprovalDetails_API_Operation/)
--  [Refund](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/Refund_API_Operation/)
--  [SetPaymentOptions](https://developer.paypal.com/webapps/developer/docs/classic/api/adaptive-payments/SetPaymentOptions_API_Operation/)
 
 ### Button Manager
 
@@ -198,16 +189,18 @@ demo that is built into a basic shopping cart system, take a look at our
 -  SetAuthFlowParam
 -  SetMobileCheckout
 -  UpdateAccessPermissions
+-  Adaptive Accounts
+-  Adaptive Payments 
 
 
 ## Resources
 
+-  [PayPal Checkout](https://developer.paypal.com/docs/checkout/)
+-  [REST APIs](https://developer.paypal.com/docs/api/overview/)
+-  [Invoicing Service API](https://developer.paypal.com/docs/invoicing/)
+-  [Payouts](https://developer.paypal.com/docs/payouts/)
+-  [Subscriptions](https://developer.paypal.com/docs/subscriptions/)     
 -  [Payments Standard Button Manager Guide](https://developer.paypal.com/webapps/developer/docs/classic/button-manager/integration-guide/NVP/ButtonMgrOverview/)
--  [Adaptive Accounts Developer Guide](https://developer.paypal.com/webapps/developer/docs/classic/adaptive-accounts/integration-guide/ACIntroduction/)
--  [Adaptive Payments Developer Guide](https://developer.paypal.com/webapps/developer/docs/classic/adaptive-payments/integration-guide/APIntro/)
--  [Express Checkout Integration Guide](https://developer.paypal.com/webapps/developer/docs/classic/express-checkout/integration-guide/ECGettingStarted/)
--  [Invoice Service API Guide](https://developer.paypal.com/webapps/developer/docs/classic/invoicing/IntroInvoiceAPI/)
 -  [Mass Payments User Guide](https://developer.paypal.com/webapps/developer/docs/classic/mass-pay/integration-guide/MassPayOverview/)
 -  [PayPal Merchant Setup and Administration Guide](https://developer.paypal.com/webapps/developer/docs/classic/admin/)
 -  [PayPal Payments Pro Documentation](https://developer.paypal.com/webapps/developer/docs/classic/products/#wpp)
--  [PayPal Recurring Billing / Recurring Payments Guide](https://developer.paypal.com/webapps/developer/docs/classic/products/#recurring)
