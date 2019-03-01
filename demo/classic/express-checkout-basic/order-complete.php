@@ -14,7 +14,7 @@ require_once('../../../includes/config.php');
 <!--script src="../assets/js/less-1.3.3.min.js"></script-->
 <!--append ‘#!watch’ to the browser URL, then refresh the page. -->
 
-<link href="../../../vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <link href="../../assets/css/style.css" rel="stylesheet">
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -28,8 +28,8 @@ require_once('../../../includes/config.php');
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../assets/images/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed" href="../../assets/images/apple-touch-icon-57-precomposed.png">
 <link rel="shortcut icon" href="../../assets/images/favicon.png">
-<script type="text/javascript" src="../../assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="../../assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../../assets/js/scripts.js"></script>
 </head>
 
