@@ -18,11 +18,6 @@ $batchHeader = array(
     'EmailSubject'  => 'AngellEye : You have a Payout!',           // The subject line text for the email that PayPal sends when a payout item completes. The subject line is the same for all recipients. Value is an alphanumeric string with a maximum length of 255 single-byte characters.
 );
 
-$amount = array(
-    'currency' => 'USD',                                            // Required. 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/). PayPal does not support all currencies. 
-    'value'    => '4.00',                                           // Required. Total amount charged from the payer to the payee. In case of a refund, this is the refunded amount to the original payer from the payee. 10 characters max with support for 2 decimal places.
-);
-
 $PayoutItem = array();
 
 $PayoutItem1 = array(
@@ -37,7 +32,11 @@ $PayoutItem1 = array(
     'RecipientType' => 'EMAIL',                                    // Valid values: EMAIL | PHONE | PAYPAL_ID.      
     'Note'          => 'Thanks for your patronage!',               // Optional. A sender-specified note for notifications. Value is any string value. Maximum length: 4000.
     'Receiver'      => 'paypal-buyer@angelleye.com',               // The receiver of the payment. Corresponds to the recipient_type value in the request. Maximum length: 127.
-    'SenderItemId'  => uniqid(),                                   // A sender-specified ID number. Tracks the batch payout in an accounting system. Maximum length: 30.    
+    'SenderItemId'  => uniqid(),                                   // A sender-specified ID number. Tracks the batch payout in an accounting system. Maximum length: 30.
+    'Amount' => array(
+        'currency' => 'USD',                                            // Required. 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/). PayPal does not support all currencies.
+        'value'    => '4.00',                                           // Required. Total amount charged from the payer to the payee. In case of a refund, this is the refunded amount to the original payer from the payee. 10 characters max with support for 2 decimal places.
+    )
 );
 
 array_push($PayoutItem, $PayoutItem1);
@@ -54,14 +53,17 @@ $PayoutItem2 = array(
     'RecipientType' => 'EMAIL',                                 // Valid values: EMAIL | PHONE | PAYPAL_ID.      
     'Note'          => 'Thanks for your patronage!',         // Optional. A sender-specified note for notifications. Value is any string value. Maximum length: 4000.
     'Receiver'      => 'kiritpatel571989-buyer@ymail.com',      // The receiver of the payment. Corresponds to the recipient_type value in the request. Maximum length: 127.
-    'SenderItemId'  => uniqid(),                                // A sender-specified ID number. Tracks the batch payout in an accounting system. Maximum length: 30.    
+    'SenderItemId'  => uniqid(),                                // A sender-specified ID number. Tracks the batch payout in an accounting system. Maximum length: 30.
+    'Amount' => array(
+        'currency' => 'USD',                                            // Required. 3-letter [currency code](https://developer.paypal.com/docs/integration/direct/rest_api_payment_country_currency_support/). PayPal does not support all currencies.
+        'value'    => '14.00',                                           // Required. Total amount charged from the payer to the payee. In case of a refund, this is the refunded amount to the original payer from the payee. 10 characters max with support for 2 decimal places.
+    )
 );
 
 array_push($PayoutItem, $PayoutItem2);
 
 $requestData=array(    
     "batchHeader" => $batchHeader,
-    "amount"      => $amount,
     "PayoutItem"  => $PayoutItem
 );
 
