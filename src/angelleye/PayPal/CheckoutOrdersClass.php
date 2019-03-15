@@ -375,4 +375,21 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         $ret->fromJson($json);
         return $ret;
     }
+
+    public function update_order($order_id,$params,$apiContext = null, $restCall = null){
+        ArgumentValidator::validate($order_id, 'order_id');
+        ArgumentValidator::validate($params, 'params');
+        $payLoad = json_encode($params);
+        $json = self::executeCall(
+            "/v2/checkout/orders/$order_id",
+            "PATCH",
+            $payLoad,
+            null,
+            $apiContext,
+            $restCall
+        );
+        $ret = new CheckoutOrdersClass();
+        $ret->fromJson($json);
+        return $ret;
+    }
 }
