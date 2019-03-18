@@ -303,4 +303,26 @@ class CheckoutOrdersAPI extends RestClass {
             return $this->createErrorResponse($ex);
         }
     }
+
+    /**
+     * Updates an order by ID.
+     * @param string $order_id
+     * @param array $requestBody
+     * @return \angelleye\PayPal\Array|\angelleye\PayPal\Ojbect
+     */
+    public function UpdateOrder($order_id,$requestBody){
+        $orderObject = new CheckoutOrdersClass();
+        $params = array_filter($requestBody);
+        $requestArray = json_encode($params);
+        try {
+            $order = $orderObject->update_order($order_id,$params,$this->_api_context);
+            $returnArray['RESULT'] = 'Success';
+            $returnArray['REFUND']= $order->toArray();
+            $returnArray['RAWREQUEST']=$requestArray;
+            $returnArray['RAWRESPONSE']=$order->toJSON();
+            return $returnArray;
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $this->createErrorResponse($ex);
+        }
+    }
 }
