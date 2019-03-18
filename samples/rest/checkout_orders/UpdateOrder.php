@@ -16,22 +16,25 @@ $configArray = array(
 
 $PayPal = new CheckoutOrdersAPI($configArray);
 
-$order_id = '1LM425079H915583E';
+$order_id = '1S392574DC197382E';
 
 $array = array(
-    "op" => "replace",
-    "path" => "/purchase_units/@reference_id=='default'/amount",
-    "value" => array(
-        'currency_code' => 'USD',
-        'value' => '10.00',
-        'breakdown' => array(
-            'item_total' => array(
-                'value' => '8.00',
-                'currency_code' => 'USD',
-            ),
-            'shipping' => array(
-                'value' => '2.00',
-                'currency_code' => 'USD',
+    0 =>
+    array(
+        "op" => "replace",
+        "path" => "/purchase_units/@reference_id=='default'/amount",
+        "value" => array(
+            'currency_code' => 'USD',
+            'value' => 21.00,
+            'breakdown' => array(
+                'item_total' => array(
+                    'value' => 17.50,
+                    'currency_code' => 'USD',
+                ),
+                'shipping' => array(
+                    'value' => 3.50,
+                    'currency_code' => 'USD',
+                )
             )
         )
     )
