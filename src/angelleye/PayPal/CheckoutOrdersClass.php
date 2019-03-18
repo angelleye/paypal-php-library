@@ -376,6 +376,14 @@ class CheckoutOrdersClass extends PayPalResourceModel {
         return $ret;
     }
 
+    /**
+     * Updates an order by ID. Updates an order with the CREATED or APPROVED status.
+     * @param string $order_id
+     * @param array $params
+     * @param ApiContext $apiContext
+     * @param PayPalRestCall $restCall
+     * @return CheckoutOrdersClass
+     */
     public function update_order($order_id,$params,$apiContext = null, $restCall = null){
         ArgumentValidator::validate($order_id, 'order_id');
         ArgumentValidator::validate($params, 'params');

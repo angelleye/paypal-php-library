@@ -304,6 +304,12 @@ class CheckoutOrdersAPI extends RestClass {
         }
     }
 
+    /**
+     * Updates an order by ID.
+     * @param string $order_id
+     * @param array $requestBody
+     * @return \angelleye\PayPal\Array|\angelleye\PayPal\Ojbect
+     */
     public function UpdateOrder($order_id,$requestBody){
         $orderObject = new CheckoutOrdersClass();
         $params = array_filter($requestBody);

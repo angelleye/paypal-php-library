@@ -16,9 +16,14 @@ $configArray = array(
 
 $PayPal = new CheckoutOrdersAPI($configArray);
 
-$order_id = '1S392574DC197382E';
+/**
+ * Updates an order with the CREATED or APPROVED status. You cannot update an order with the COMPLETED status.
+ * Read more @ https://developer.paypal.com/docs/api/orders/v2/#orders_patch
+ *
+ */
+$order_id = '1S392574DC197382E';    // The ID of the order to update.
 
-$array = array(
+$patch_array = array(               // Patch Request array. Read all Patch @ https://developer.paypal.com/docs/api/orders/v2/#orders_patch
     0 =>
     array(
         "op" => "replace",
@@ -40,7 +45,7 @@ $array = array(
     )
 );
 
-$returnArray = $PayPal->UpdateOrder($order_id,$array);
+$returnArray = $PayPal->UpdateOrder($order_id,$patch_array);
 echo "<pre>";
 print_r($returnArray);
 exit;
