@@ -128,12 +128,14 @@ class PayoutsAPI extends RestClass {
             if(isset($requestData['PayoutItem'])){
                 foreach ($requestData['PayoutItem'] as $value) {
                     $senderItem = new PayoutItem();
+                    if (isset($value['amount'])){
+                        $senderItem->setAmount(new Currency(json_encode($value['amount'])));
+                        unset($value['amount']);
+                    }
                     $this->setArrayToMethods(array_filter($value), $senderItem);
-                    $senderItem->setAmount(new Currency(json_encode($requestData['amount'])));
                     $payouts->addItem($senderItem);
                 }
             }
-
             $requestArray = clone $payouts;
             $output = $payouts->create(null,$this->_api_context);
             $returnArray['RESULT'] = 'Success';
