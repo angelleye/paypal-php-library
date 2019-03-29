@@ -69,9 +69,16 @@
                 <div class="col-lg-12">
                     <hr>
                     <h1>REST API</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>API v2</h3>
                     <hr>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-4">
                     <div class="thumbnail"><img alt="Express Checkout Basic"
@@ -79,15 +86,15 @@
                         <div class="caption">
                             <h3>Express Checkout</h3>
                             <h4>w/ Line Items</h4>
-                            <p>Learn how to integrate Express Checkout w/ Line Items using PayPal REST API. It allows to create and execute payment using REST API. This includes the option for
-                                embedded payments.</p>
+                            <p>Learn how to integrate Express Checkout w/ Line Items using PayPal REST API v2.
+                                It allows to create and capture order using Orders API.</p>
                             <?php
-                            $DIR = '\rest\rest-checkout-line-items';
+                            $DIR = '\rest\rest-checkout-line-items-v2';
                             $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                             ?>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="rest/rest-checkout-line-items" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/rest-checkout-line-items-v2" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-rest-checkout-line-items-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -101,16 +108,16 @@
                     <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Client Side"
                                                 src="assets/images/paypal-express-checkout-jsv4-using-rest-client-side.jpg">
                         <?php
-                        $DIR = '\rest\express-checkout-js-using-rest';
+                        $DIR = '\rest\checkout-paypal-javascript-sdk-v2-client-side';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
                             <h3> Express Checkout Smart Payment Buttons Client Side </h3>
-                            <p>Learn how to integrate PayPal Checkout use the checkout.js JavaScript code. This code
+                            <p>Learn how to integrate PayPal Checkout using PayPal javascript SDK. This code run client side and
                                 always keeps you current with the latest button styles and payment features.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="rest/express-checkout-js-using-rest" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/checkout-paypal-javascript-sdk-v2-client-side" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-smart-payment-buttons-client-side-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
@@ -124,7 +131,87 @@
                     <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Server Side"
                                                 src="assets/images/paypal-express-checkout-jsv4-using-rest-server-side.jpg">
                         <?php
-                        $DIR = '\rest\express-checkout-js-using-server-side';
+                        $DIR = '\rest\checkout-paypal-javascript-sdk-v2-server-side-rest';
+                        $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
+                        ?>
+                        <div class="caption">
+                            <h3> Express Checkout Smart Payment Buttons Server Side </h3>
+                            <p>Learn how to integrate PayPal Checkout using PayPal javascript SDK. This code run server side by mkaing ajax call and
+                                always keeps you current with the latest button styles and payment features.</p>
+                            <p align="center">
+                                <?php if ($DIR_exists) : ?>
+                                    <a class="btn btn-primary" href="rest/checkout-paypal-javascript-sdk-v2-server-side-rest    " target="_blank">Launch Demo</a>
+                                <?php else: ?>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-php-smart-payment-buttons-server-side-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>API v1</h3>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="thumbnail"><img alt="Express Checkout Basic"
+                                                src="assets/images/paypal-express-checkout-with-line-items.jpg">
+                        <div class="caption">
+                            <h3>Express Checkout</h3>
+                            <h4>w/ Line Items</h4>
+                            <p>Learn how to integrate Express Checkout w/ Line Items using PayPal REST API. It allows to create and execute payment using REST API. This includes the option for
+                                embedded payments.</p>
+                            <?php
+                            $DIR = '\rest\rest-checkout-line-items-v1';
+                            $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
+                            ?>
+                            <p align="center">
+                                <?php if ($DIR_exists) : ?>
+                                    <a class="btn btn-primary" href="rest/rest-checkout-line-items-v1" target="_blank">Launch Demo</a>
+                                <?php else: ?>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-rest-checkout-line-items-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Client Side"
+                                                src="assets/images/paypal-express-checkout-jsv4-using-rest-client-side.jpg">
+                        <?php
+                        $DIR = '\rest\express-checkout-js-using-rest-v1-client-side';
+                        $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
+                        ?>
+                        <div class="caption">
+                            <h3> Express Checkout Smart Payment Buttons Client Side </h3>
+                            <p>Learn how to integrate PayPal Checkout use the checkout.js JavaScript code. This code
+                                always keeps you current with the latest button styles and payment features.</p>
+                            <p align="center">
+                                <?php if ($DIR_exists) : ?>
+                                    <a class="btn btn-primary" href="rest/express-checkout-js-using-rest-v1-client-side" target="_blank">Launch Demo</a>
+                                <?php else: ?>
+                                    <a class="btn btn-success"
+                                       href="https://www.angelleye.com/product/paypal-express-checkout-php-smart-payment-buttons-client-side-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       target="_blank">Buy Now</a>
+                                <?php endif; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="thumbnail"><img alt="Express Checkout Smart Payment Buttons Server Side"
+                                                src="assets/images/paypal-express-checkout-jsv4-using-rest-server-side.jpg">
+                        <?php
+                        $DIR = '\rest\express-checkout-js-using-rest-v1-server-side';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
@@ -134,7 +221,7 @@
                                 always keeps you current with the latest button styles and payment features.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="rest/express-checkout-js-using-server-side" target="_blank">Launch Demo</a>
+                                    <a class="btn btn-primary" href="rest/express-checkout-js-using-rest-v1-server-side" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-express-checkout-php-smart-payment-buttons-server-side-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
