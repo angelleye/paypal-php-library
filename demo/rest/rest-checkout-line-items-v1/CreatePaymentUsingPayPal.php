@@ -41,8 +41,8 @@ $intent= $_SESSION['intent'];
 
 $urls= array(
     'ReturnUrl'   => 'GetPaymentDetails.php?success=true',                                    // Required when Pay using paypal. Example : ExecutePayment.php?success=true
-    'CancelUrl'   => 'GetPaymentDetails.php?success=false',                                   // Required when Pay using paypal. Example : ExecutePayment.php?success=false
-    'BaseUrl'     => $domain.'demo/rest/rest-checkout-line-items/'          // Required. The base url that we pass for the return.
+    'CancelUrl'   => 'index.php?success=false',                                   // Required when Pay using paypal. Example : ExecutePayment.php?success=false
+    'BaseUrl'     => $domain.'demo/rest/rest-checkout-line-items-v1/'          // Required. The base url that we pass for the return.
 );
 
 $invoiceNumber= $_SESSION['invoiceNumber'];
