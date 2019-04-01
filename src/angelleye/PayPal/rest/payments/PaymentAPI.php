@@ -431,7 +431,7 @@ class PaymentAPI extends RestClass {
             }
             
             
-            if(isset($requestData['invoiceNumber']) && !empty(trim($requestData['invoiceNumber']))){
+            if(isset($requestData['invoiceNumber']) && !empty($requestData['invoiceNumber'])){
                 $transaction->setInvoiceNumber($requestData['invoiceNumber']);
             }
 
@@ -472,7 +472,7 @@ class PaymentAPI extends RestClass {
             if(!empty($transactionArray)){
                 $payment->setTransactions(array($transaction));
             }
-            if(isset($requestData['ExperienceProfileId']) && !empty(trim($requestData['ExperienceProfileId']))){
+            if(isset($requestData['ExperienceProfileId']) && !empty($requestData['ExperienceProfileId'])){
                 $payment->setExperienceProfileId(trim($requestData['ExperienceProfileId']));
             }
             if(isset($requestData['NoteToPayer']) && !empty($requestData['NoteToPayer'])){
@@ -1214,8 +1214,8 @@ class PaymentAPI extends RestClass {
             $authorizationCode  = $requestData['authorizationCode'];
             $clientMetadataId = $requestData['clientMetadataId'];
 
-            $refreshToken = FuturePayment::getRefreshToken($authorizationCode, $apiContext);
-            $payment->updateAccessToken($refreshToken, $apiContext);
+            $refreshToken = FuturePayment::getRefreshToken($authorizationCode, $this->_api_context);
+            $payment->updateAccessToken($refreshToken, $this->_api_context);
 
             // ### Create Payment
             // Create a payment by calling the payment->create() method with a valid ApiContext. The return object contains the state.
