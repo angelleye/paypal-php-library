@@ -13,33 +13,20 @@ if(!session_id()) session_start();
 
 /** 
  * Sandbox Mode - TRUE/FALSE
- * Check the domain of the current page and set $sandbox accordingly.
- * This allows you to automatically use Sandbox or Live credentials throughout 
- * your application based on what server the app is running from.
- * 
- * I like to do this so I don't forget to update Sandbox credentials to Live
- * prior to uploading files to a production server.
- * 
- * In this case, it's checking to see if the current URL is http://sandbox.domain.*
- * If so, $sandbox is true and the PayPal sandbox will be used throughout.  If not, 
- * we'll assume it must be a live transaction and will use live credentials throughout.
+ * If you are running tests in the PayPal Sandbox, $sandbox should be TRUE.
+ * If you are running live / production calls, $sandbox should be FALSE.
  *
- * Following this pattern will allow you to create your own http://sandbox.domain.com test server, 
- * and then any time your code runs from that server, PayPal's sandbox will be used automatically.
- * 
- * If you would rather just set $sandbox to true/false on your own that's fine, 
- * but you have to make sure your live server always uses false and your test server
- * always uses true.  It's easy to forget this and up with real customers processing 
- * payments from your live site on the PayPal sandbox.
+ * Debug Mode - TRUE/FALSE
+ * If you would like to output PHP errors, set this to TRUE.
  */
-$host_split = explode('.',$_SERVER['HTTP_HOST']);
-$sandbox = $host_split[0] == 'sandbox' && $host_split[1] == 'domain' ? TRUE : FALSE;
+$sandbox = TRUE;
+$debug = TRUE;
 $domain = $sandbox ? 'http://sandbox.domain.com/' : 'http://www.domain.com/';
 
 /**
  * Enable error reporting if running in sandbox mode.
  */
-if($sandbox)
+if($debug)
 {
 	error_reporting(E_ALL|E_STRICT);
 	ini_set('display_errors', '1');	
@@ -51,7 +38,7 @@ if($sandbox)
  * The library is currently using PayPal API version 109.0.  
  * You may adjust this value here and then pass it into the PayPal object when you create it within your scripts to override if necessary.
  */
-$api_version = '119.0'; // Released 11.05.2014
+$api_version = '204.0';
 
 /**
  * PayPal Application ID
