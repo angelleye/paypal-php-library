@@ -606,7 +606,6 @@ class InvoiceAPI extends RestClass {
                     $invoice->setItems($itemArray);
                 }
             }
-            }
             // ### END
 
             // #### Final Discount
@@ -870,7 +869,6 @@ class InvoiceAPI extends RestClass {
                     }
                 }
             }
-            }
 
 
             // ### Setting Merchant info to invoice template object.
@@ -1128,7 +1126,6 @@ class InvoiceAPI extends RestClass {
                         $invoiceTemplateData->addItem($InvoiceItem);
                     }
                 }
-            }
             }
 
 
