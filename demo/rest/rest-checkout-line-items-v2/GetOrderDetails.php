@@ -81,6 +81,9 @@ if (isset($_GET['success']) && $_GET['success'] == 'true') {
             'item_total' => $subtotal,
             'shipping' => $Shipping,
             'tax_total' =>$Tax,
+            'handling' => 0.00,
+            'insurance' => 0.00,
+            'shipping_discount' => 0.00
         );
 
         /**
