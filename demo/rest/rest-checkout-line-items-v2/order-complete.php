@@ -49,8 +49,8 @@ require_once('../../../includes/config.php');
             <h2 align="center">Order Review</h2>
             <p class="bg-info">
                 We have now reached the final thank you / receipt page and the payment has been captured!
-                We have added the PayPal Order ID, Transaction ID
-                to the Billing Information, which was provided in the <strong>CaptureOrder.php</strong> response.
+                <br /><br />We have added the PayPal Order ID and Transaction ID
+                to the Billing Information, which was provided in the <strong>CaptureOrder</strong> response.
             </p>
             <table class="table table-bordered">
                 <thead>
