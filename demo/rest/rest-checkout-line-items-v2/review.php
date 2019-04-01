@@ -48,12 +48,9 @@ require_once('../../../includes/config.php');
       <h2 align="center">Order Review</h2>
         <p class="bg-info">
             Here we display a final confirmation to the buyer now that we've calculated shipping, handling, and tax. The
-            billing and shipping information provided here is what we obtained in the response of <b>GetOrderDetails</b> method.
-            <br>
-            After obtaining Order details , we can calculate shipping and other tax for that order and update that order imediately using
-            <b>UpdateOrder</b> API.
-            <br>
-            The payment has not been processed at this point because we have not yet capture the Payment. That is what will
+            billing and shipping information provided here is what we obtained in the <b>GetOrderDetails</b> response.
+            <br /><br />
+            The payment has not been processed at this point because we have not yet captured the Payment. That is what will
             happen when we click the "Complete Order" button below.
         </p>
       <table class="table table-bordered">
