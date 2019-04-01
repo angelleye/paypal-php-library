@@ -109,7 +109,7 @@ $_SESSION['amount']['Total'] = $amount['Total'];
             <h2 align="center">Shopping Cart</h2>
             <p class="bg-info">
                 Here we are using a basic shopping cart for display purposes,
-                and we are implementing <a href="https://developer.paypal.com/docs/api/orders/v2/">Orders API v2.</a>
+                and we are implementing <a target="_blank" href="https://developer.paypal.com/docs/api/orders/v2/">Orders API v2.</a>
                 In this example we have Order intent is <b>Capture</b> as it capture payment immediately. Other intent for Orders API is
                 AUTHORIZE that used for authorize payments.
             </p>
