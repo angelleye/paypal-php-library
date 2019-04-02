@@ -84,10 +84,10 @@
                     <div class="thumbnail"><img alt="Express Checkout Basic"
                                                 src="assets/images/paypal-express-checkout-with-line-items.jpg">
                         <div class="caption">
-                            <h3>Express Checkout</h3>
+                            <h3>PayPal Checkout</h3>
                             <h4>w/ Line Items</h4>
-                            <p>Learn how to integrate Express Checkout w/ Line Items using PayPal REST API v2.
-                                It allows to create and capture order using Orders API.</p>
+                            <p>Learn how to integrate PayPal Checkout w/ Line Items using PayPal's REST API v2.
+                                It allows you to create and capture an order using the Orders API.</p>
                             <?php
                             $DIR = '\rest\rest-checkout-line-items-v2';
                             $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
@@ -112,8 +112,8 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Express Checkout Smart Payment Buttons Client Side </h3>
-                            <p>Learn how to integrate PayPal Checkout using PayPal javascript SDK. This code run client side and
+                            <h3>PayPal Checkout Smart Payment Buttons Client Side </h3>
+                            <p>Learn how to integrate PayPal Checkout using PayPal's javascript SDK. This code runs client side and
                                 always keeps you current with the latest button styles and payment features.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
@@ -135,8 +135,8 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Express Checkout Smart Payment Buttons Server Side </h3>
-                            <p>Learn how to integrate PayPal Checkout using PayPal javascript SDK. This code run server side by mkaing ajax call and
+                            <h3>PayPal Checkout Smart Payment Buttons Server Side </h3>
+                            <p>Learn how to integrate PayPal Checkout using PayPal's javascript SDK. This code runs server side by making an ajax call and
                                 always keeps you current with the latest button styles and payment features.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
@@ -164,10 +164,9 @@
                     <div class="thumbnail"><img alt="Express Checkout Basic"
                                                 src="assets/images/paypal-express-checkout-with-line-items.jpg">
                         <div class="caption">
-                            <h3>Express Checkout</h3>
+                            <h3>PayPal Checkout</h3>
                             <h4>w/ Line Items</h4>
-                            <p>Learn how to integrate Express Checkout w/ Line Items using PayPal REST API. It allows to create and execute payment using REST API. This includes the option for
-                                embedded payments.</p>
+                            <p>Learn how to integrate PayPal Checkout w/ Line Items using PayPal's REST API. It allows you to create and execute payments using the REST API.</p>
                             <?php
                             $DIR = '\rest\rest-checkout-line-items-v1';
                             $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
@@ -192,8 +191,8 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Express Checkout Smart Payment Buttons Client Side </h3>
-                            <p>Learn how to integrate PayPal Checkout use the checkout.js JavaScript code. This code
+                            <h3>Checkout Smart Payment Buttons Client Side</h3>
+                            <p>Learn how to integrate PayPal Checkout using the checkout.js JavaScript code. This code
                                 always keeps you current with the latest button styles and payment features.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
@@ -215,9 +214,8 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Express Checkout Smart Payment Buttons Server Side </h3>
-                            <h4> Express Checkout Smart Payment Buttons Server Side </h4>
-                            <p>Learn how to integrate PayPal Checkout use the checkout.js JavaScript code. This code
+                            <h3>PayPal Checkout Smart Payment Buttons Server Side</h3>
+                            <p>Learn how to integrate PayPal Checkout using the checkout.js JavaScript code. This code
                                 always keeps you current with the latest button styles and payment features.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
@@ -243,9 +241,9 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Express Checkout Billing Agreement</h3>
-                            <h4> Using PayPal payment</h4>
-                            <p>Learn how to Use billing plans and billing agreements to create an agreement for a recurring PayPal payment for goods or services.  This includes the option for embedded payments.</p>
+                            <h3>PayPal Checkout Billing Agreement</h3>
+                            <h4>Payments API</h4>
+                            <p>Learn how to Use billing plans and billing agreements to create an agreement for a recurring PayPal payments for goods or services.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
                                     <a class="btn btn-primary" href="rest/create-billing-agreement-using-paypal-rest-api" target="_blank">Launch Demo</a>
@@ -266,8 +264,8 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> PayPal Identity (Log In with PayPal) </h3>
-                            <h4> Log In with PayPal with basic scope </h4>
+                            <h3> PayPal Identity </h3>
+                            <h4> Log In with PayPal - Basic Scope </h4>
                             <p> Log In with PayPal (formerly PayPal Access) is a commerce identity solution that enables
                                 your customers to sign in to your web site quickly and securely by using their PayPal
                                 login credentials.</p>
@@ -290,8 +288,8 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> PayPal Identity + Grant API Permissions </h3>
-                            <h4> PayPal Identity + Grant API Permissions</h4>
+                            <h3> PayPal Identity </h3>
+                            <h4> Grant API Permissions</h4>
                             <p> Log In with PayPal (formerly PayPal Access) is a commerce identity solution that enables
                                 your customers to sign in to your web site quickly and securely by using their PayPal
                                 login credentials.</p>
@@ -317,9 +315,9 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Create Payment using CreditCard</h3>
-                            <h4> CreditCard Payment using REST API </h4>
-                            <p>Learn how to create payment using CreditCard payment method. Amount directly deducted from the CC and transfared to PayPal account of merchant.</p>
+                            <h3> Create Payment </h3>
+                            <h4> Direct Credit Card </h4>
+                            <p>Learn how to create a payment using direct credit card processing.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
                                     <a class="btn btn-primary" href="rest/create-payment-using-credit-card-rest-api/" target="_blank">Launch Demo</a>
@@ -341,9 +339,9 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Store CreditCard in PayPal Vault</h3>
-                            <h4>  </h4>
-                            <p>Learn how to  use the Vault API to securely store customer credit cards in the PayPal vault rather than on your server. Demo includes pre filled form with the test card and integration with PayPal vault API. </p>
+                            <h3> PayPal Vault </h3>
+                            <h4> Save Credit Card on File </h4>
+                            <p>Learn how to use the PayPal Vault API to securely store customer credit cards rather than on your server. </p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
                                     <a class="btn btn-primary" href="rest/store-credit-card-in-paypal-vault/" target="_blank">Launch Demo</a>
@@ -365,9 +363,9 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Create Payment Using Saved Card - Vault</h3>
-                            <h4> Pay with vaulted card</h4>
-                            <p>Learn how to implement payment system using the saved card in PayPal. To pay with a vaulted card, include the id returned in the <a href="demo/store-credit-card-in-paypal-vault/">store credit card response</a> as the credit card ID in a create payment call.</p>
+                            <h3> Token Payment (Reference Transaction) </h3>
+                            <h4> Pay with Vaulted Card </h4>
+                            <p>Learn how to process a payment using a saved (vaulted) card in PayPal.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
                                     <a class="btn btn-primary" href="rest/create-payment-using-saved-card/" target="_blank">Launch Demo</a>
@@ -387,9 +385,9 @@
                     <div class="thumbnail"><img alt="Create & Send Third Party Invoice PayPal"
                                                 src="assets/images/paypal-create-send-third-party-invoice.jpg">
                         <div class="caption">
-                            <h3>Create & Send Third Party Invoice PayPal </h3>
-                            <h4>Invoicing API</h4>
-                            <p>Learn how to create and send third party invoice in PayPal using  Invoicing API.</p>
+                            <h3>Create & Send Invoice</h3>
+                            <h4>3rd Party User</h4>
+                            <p>Learn how to create and send a PayPal Invoice on behalf of a third party user.</p>
                             <?php
                             $DIR = '\rest\create-and-send-third-party-invoice-paypal';
                             $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
@@ -464,7 +462,7 @@
                             <h3>Express Checkout</h3>
                             <h4>Digital Goods</h4>
                             <p>Learn how to implement digital goods (micro-processing rates) into PayPal Express
-                                Checkout. This includes the option for embedded payments.</p>
+                                Checkout.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
                                     <a class="btn btn-primary" href="classic/express-checkout-digital-goods/" target="_blank">Launch Demo</a>
@@ -489,8 +487,7 @@
                         <div class="caption">
                             <h3>Express Checkout Billing Agreement</h3>
                             <h4>Billing Agreement</h4>
-                            <p>Learn how to implement Billing Agreement into PayPal Express Checkout. This includes the
-                                option for embedded payments.</p>
+                            <p>Learn how to implement Billing Agreement into PayPal Express Checkout.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
                                     <a class="btn btn-primary" href="classic/express-checkout-billing-agreement/" target="_blank">Launch Demo</a>
@@ -513,8 +510,7 @@
                         <div class="caption">
                             <h3>Express Checkout Parallel Payments</h3>
                             <h4>Parallel Payments</h4>
-                            <p>Learn how to implement Parallel Payments into PayPal Express Checkout. This includes the
-                                option for embedded payments.</p>
+                            <p>Learn how to implement Parallel Payments into PayPal Express Checkout.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
                                     <a class="btn btn-primary" href="classic/express-checkout-parallel-payments/" target="_blank">Launch Demo</a>
@@ -535,10 +531,9 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3>Express checkout 3rd Party No Permissions</h3>
+                            <h3>Express Checkout</h3>
                             <h4>3rd Party No Permissions</h4>
-                            <p>Learn how to implement 3rd Party No Permissions into PayPal Express Checkout. This
-                                includes the option for embedded payments.</p>
+                            <p>Learn how to integrate Express Checkout on behalf of a 3rd party with no API permissions required.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
                                     <a class="btn btn-primary" href="classic/express-checkout-3rd-party-no-permissions/" target="_blank">Launch Demo</a>
@@ -561,8 +556,8 @@
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3>Express Checkout In-Context</h3>
-                            <h4>Express Checkout In-Context</h4>
+                            <h3>Express Checkout</h3>
+                            <h4>In-Context</h4>
                             <p>Learn how to implement Express Checkout In-Context so that users are not redirected away
                                 from your site for payment.</p>
                             <p align="center">
@@ -587,7 +582,7 @@
                         <div class="caption">
                             <h3>Express Checkout</h3>
                             <h4>Recurring Payments</h4>
-                            <p>Learn how to implement Express Checkout - Recurring Payments.</p>
+                            <p>Learn how to create subscription profiles using the Recurring Payments API.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
                                     <a class="btn btn-primary" href="classic/express-checkout-recurring-payments/" target="_blank">Launch Demo</a>
@@ -611,7 +606,7 @@
                             <h3>Express Checkout</h3>
                             <h4>Shipped Items + Subscription</h4>
                             <p>Learn how to implement Express Checkout with shipped items and Subscription / Recurring
-                                Pay ments together on a single order.</p>
+                                Payments together on a single order.</p>
                             <p align="center">
                                 <?php if ($DIR_exists) : ?>
                                     <a class="btn btn-primary"
@@ -637,7 +632,7 @@
                         ?>
                         <div class="caption">
                             <h3> Payments Pro 2.0</h3>
-                            <h4> PayFlow Basic </h4>
+                            <h4> PayFlow </h4>
                             <p>See how to integrate credit card processing directly on your site using PayPal's PayFlow
                                 gateway. This allows users to enter credit card details directly on your site without
                                 any redirect to PayPal at all.</p>
@@ -679,16 +674,16 @@
                 </div>
                 <div class="col-md-4">
                     <div class="thumbnail">
-                        <img alt="Express Checkout Billing Agreement"
+                        <img alt="Website Payments Pro 3.0 - DoDirectPayment"
                              src="assets/images/paypal-dodirectpayment-credit-cart-checkout.jpg"/>
                         <?php
                         $DIR = '\classic\dodirectpayment-credit-cart-checkout';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
-                            <h3> Direct Payment Cart Checkout </h3>
+                            <h3> Website Payments Pro 3.0 </h3>
                             <h4> DoDirectPayment </h4>
-                            <p>Use the Direct Payment API to accept direct credit card payments on your website from
+                            <p>Use the DoDirectPayment API to accept direct credit card payments on your website from
                                 buyers who do not have a PayPal account. PayPal processes the payment in the
                                 background.</p>
                             <p align="center">
@@ -697,32 +692,6 @@
                                 <?php else: ?>
                                     <a class="btn btn-success"
                                        href="https://www.angelleye.com/product/paypal-website-payments-pro-php-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
-                                       target="_blank">Buy Now</a>
-                                <?php endif; ?>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="thumbnail"><img alt="Website Payments Pro 3.0 Basic"
-                                                src="assets/images/paypal-express-website-payments-pro-3-0.jpg">
-                        <div class="caption">
-                            <h3>Website Payments Pro 3.0 Basic</h3>
-                            <h4>Website Payments Pro 3.0 Basic</h4>
-                            <p>Learn how to implement Website Payments Pro 30 Basic. This includes the option for
-                                embedded payments.</p>
-                            <?php
-                            $DIR = '\classic\website-payments-pro-30-basic';
-                            $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
-                            ?>
-                            <p align="center">
-                                <?php if ($DIR_exists) : ?>
-                                    <a class="btn btn-primary" href="classic/website-payments-pro-30-basic/" target="_blank">Launch Demo</a>
-                                <?php else: ?>
-                                    <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-express-checkout-website-payments-pro-dodirectpayment-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
