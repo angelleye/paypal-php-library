@@ -47,10 +47,10 @@ require_once('../../../includes/config.php');
       </div>
       <h2 align="center">Order Review</h2>
       <p class="bg-info">Here we display a final review to the buyer now that we've calculated shipping, handling, tax and other charges. The
-      billing and shipping information provided here is what we obtained by calling payment details API and
+      billing and shipping information provided here is what we obtained by calling the GetPaymentDetails API.
       </p>
       <p class="bg-info">
-      The payment has not been processed at this point because we have not yet called the final Execute Payment API. That is what will
+      The payment has not been processed at this point because we have not yet called the final ExecutePayment API. This will
       happen when we click the "Complete Order" button below.
       </p>
       <table class="table table-bordered">

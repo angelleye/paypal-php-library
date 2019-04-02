@@ -48,8 +48,9 @@ require_once('../../../includes/config.php');
       </div>
       <h2 align="center">Payment Complete!</h2>
       <p class="bg-info">
-      	We have now reached the final thank you / receipt page and the payment has been processed!  We have added the PayPal payment ID
-        , payment state and  Sale transaction id to the Billing Information section.
+      	We have now reached the final thank you / receipt page and the payment has been processed!
+          <br /><br />
+          We have added the PayPal payment ID and transaction ID to the Billing Information section.
       </p>
         <div class="row clearfix">
             <div class="col-md-4 column">

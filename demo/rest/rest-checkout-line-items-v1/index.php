@@ -92,10 +92,12 @@ $_SESSION['amount']['Currency'] = $currency;
         </div>
       </div>
       <h2 align="center">Shopping Cart</h2>
-      <p class="bg-info">Here we are using a basic shopping cart for display purposes, however, for this basic demo, all we are sending to PayPal is the payment details,order items and order total. We are assuming that we have not collected any
+      <p class="bg-info">Here we are using a basic shopping cart for display purposes.
+          <br /><br />
+          For this basic demo, all we are sending to PayPal is the payment details, order items, and order total. We are assuming that we have not collected any
       billing or shipping information from the buyer yet because we'll be obtaining those details from PayPal 
       after the user logs in and is returned back to the site.</p>
-      <p class="bg-info">To complete the demo, click the Pay with PayPal button and use the following credentials to login to PayPal.<br /><br />
+      <p class="bg-info">To complete the demo, click the PayPal button and use the following credentials to login for payment.<br /><br />
       Email Address: paypal-buyer@angelleye.com<br />
       Password:  paypalphp
       </p>
