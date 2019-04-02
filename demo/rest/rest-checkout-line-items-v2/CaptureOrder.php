@@ -21,7 +21,7 @@ $configArray = array(
 
 $PayPal = new CheckoutOrdersAPI($configArray);
 
-$order_id = $_SESSION['checkout_order_id'];
+$order_id = $_SESSION['checkout_order_id']; // The ID of the order for which to capture a payment.
 $response = $PayPal->CaptureOrder($order_id);
 /**
  * Check if the response is successful then pass the order object and transaction id otherwise send appropriate error message.

@@ -80,14 +80,18 @@ $application_context = array(
 );
 
 $purchase_units  = array(
-    'reference_id' => 'default',
-    'description' => 'Leather Goods',
-    'custom_id' => 'CUST-PayPalFashions',
-    'soft_descriptor' => 'PayPalFashions',
-    'invoice_id' => 'AEINV-'.rand(0,1000),
+    'reference_id' => 'default',            // The ID for the purchase unit. Required for multiple purchase_units or if an order must be updated by using PATCH. If you omit the reference_id for an order with one purchase unit, PayPal sets the reference_id to default.
+    'description' => 'Leather Goods',       // The purchase description. Maximum length: 127.
+    'custom_id' => 'CUST-PayPalFashions',   // The API caller-provided external ID. Used to reconcile client transactions with PayPal transactions. Appears in transaction and settlement reports but is not visible to the payer.
+    'soft_descriptor' => 'PayPalFashions',  // The payment descriptor on the payer's credit card statement. Maximum length: 22.
+    'invoice_id' => 'AEINV-'.rand(0,1000),  // The API caller-provided external invoice number for this order. Appears in both the payer's transaction history and the emails that the payer receives. Maximum length: 127.
     'amount' => $amount,
     'items' => $orderItems
 );
+
+/**
+ * Now we gather all of the data above into a single array.
+ */
 
 $requestArray = array(
     'intent'=>$intent,
@@ -95,7 +99,13 @@ $requestArray = array(
     'purchase_units' => $purchase_units,
 );
 
+/**
+ * Here we are making the call to the CreateOrder function in the library,
+ * and we're passing in our $requestArray that we just set above.
+ */
+
 $response = $PayPal->CreateOrder($requestArray);
+
 if($response['RESULT'] == 'Success'){
     $_SESSION['checkout_order_id'] = isset($response['ORDER']['id']) ? $response['ORDER']['id'] : '';
     header('Location: ' . $response['APPROVAL_LINK']);
