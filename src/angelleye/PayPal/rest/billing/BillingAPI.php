@@ -90,31 +90,41 @@ class BillingAPI extends RestClass {
             if(isset($requestData['plan'])){
                $this->setArrayToMethods($this->checkEmptyObject($requestData['plan']), $plan);
             }
-
+            $paymentDefinitions = array();
             /** Payment definitions for this billing plan. */
-            if(isset($requestData['paymentDefinition'])){
-                $paymentDefinition = new PaymentDefinition();
-                if(isset($requestData['paymentDefinition']['Amount'])) {
-                    $pdCurrency = new Currency();
-                    isset($requestData['paymentDefinition']['Amount']['value']) ? $pdCurrency->setValue($requestData['paymentDefinition']['Amount']['value']) : '';
-                    isset($requestData['paymentDefinition']['Amount']['currency']) ? $pdCurrency->setCurrency($requestData['paymentDefinition']['Amount']['currency']) : '';
-                    $paymentDefinition->setAmount($pdCurrency);
-                    unset($requestData['paymentDefinition']['Amount']);
-                }
-                $this->setArrayToMethods($this->checkEmptyObject($requestData['paymentDefinition']), $paymentDefinition);
-                $plan->setPaymentDefinitions(array($paymentDefinition));
-
-                /** Charge Models */
-                if(isset($requestData['chargeModel'])){
-                    $chargeModel = new ChargeModel();
-                    isset($requestData['chargeModel']['Type']) ? $chargeModel->setType($requestData['chargeModel']['Type']) : '';
-                    $cmCurrency = new Currency();
-                    isset($requestData['chargeModel']['Amount']['value']) ? $cmCurrency->setValue($requestData['chargeModel']['Amount']['value']) : '';
-                    isset($requestData['chargeModel']['Amount']['currency']) ? $cmCurrency->setCurrency($requestData['chargeModel']['Amount']['currency']) : '';
-                    $chargeModel->setAmount($cmCurrency);
-                    $paymentDefinition->setChargeModels(array($chargeModel));
+            if(isset($requestData['paymentDefinitions'])) {
+                $i = 0;
+                foreach ($requestData['paymentDefinitions'] as $pd) {
+                    $paymentDefinition = new PaymentDefinition();
+                    if(isset($pd['Amount'])) {
+                        $pdCurrency = new Currency();
+                        isset($pd['Amount']['value']) ? $pdCurrency->setValue($pd['Amount']['value']) : '';
+                        isset($pd['Amount']['currency']) ? $pdCurrency->setCurrency($pd['Amount']['currency']) : '';
+                        $paymentDefinition->setAmount($pdCurrency);
+                        unset($pd['Amount']);
+                    }
+                    $this->setArrayToMethods($this->checkEmptyObject($pd), $paymentDefinition);
+                    /** Charge Models */
+                    $chargeModels = array();
+                    $j =0;
+                    if(isset($pd['ChargeModels'])){
+                        foreach ($pd['ChargeModels'] as $cm) {
+                            $chargeModel = new ChargeModel();
+                            isset($cm['Type']) ? $chargeModel->setType($cm['Type']) : '';
+                            $cmCurrency = new Currency();
+                            isset($cm['Amount']['value']) ? $cmCurrency->setValue($cm['Amount']['value']) : '';
+                            isset($cm['Amount']['currency']) ? $cmCurrency->setCurrency($cm['Amount']['currency']) : '';
+                            $chargeModel->setAmount($cmCurrency);
+                            $chargeModels[$j] = $chargeModel;
+                            $j++;
+                        }
+                        $paymentDefinition->setChargeModels($chargeModels);
+                    }
+                    $paymentDefinitions[$i] = $paymentDefinition;
+                    $i++;
                 }
             }
+            $plan->setPaymentDefinitions($paymentDefinitions);
 
             /** Merchant Preferences */
             if(isset($requestData['merchant_preferences'])){
