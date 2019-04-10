@@ -408,6 +408,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Classic API</h1>
+                    <h3>Important Note</h3>
+                    The classic API is still available, but is being labeled as deprecated.  You can still use them, and they work very well, but if you are starting fresh you may want to look at REST instead.
                     <hr>
                 </div>
             </div>
