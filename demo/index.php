@@ -49,15 +49,15 @@
                 The class library comes with FREE, fully functional /samples and empty /templates ready for you to work
                 with. The demo kits
                 available here are more complete and tie together a number of APIs within a basic shopping cart
-                interface so that you can see how to tie everything together.</p>
+                interface so that you can see how everything flows together.</p>
             <p class="bg-info"><strong>How Does This Work?</strong><br>
-                Any installed demo kits (some are included free) will display a Launch button. Simply click this to
-                launch the demo
-                and go through the experience to see how it works. The HTML and code has lots of comments explaining
+                Checkout one of the FREE demo kits included by clucking the Launch button.  This will allow you
+                see an example of how the demo kits work.
+                <br /><br />The HTML and code has lots of comments explaining
                 what is going
-                on so that you can see it for yourself, and learn from it.<br/><br/>Additional demo kits are available
-                for purchase
-                and can be installed here to complete your collection.
+                on so that you can see it for yourself, and learn from it.
+                <br/><br/><a href="https://www.angelleye.com/product-category/php-class-libraries/demo-kits/" target="_blank">Additional demo kits</a> are available
+                for purchase and can be installed here to complete your collection.
             </p>
             <div class="row">
                 <div class="col-lg-12">
