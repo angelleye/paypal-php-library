@@ -44,13 +44,7 @@
                                                        src="assets/images/paypal-partner-logo.png"/></div>
                 </div>
             </div>
-            <div class="jumbotron well">
-                <h2> PayPal PHP Class Library Demo Kits</h2>
-                <p>Fully functional API calls built into an HTML experience for demonstration / training purposes.</p>
-                <p><a class="btn btn-primary btn-large"
-                      href="https://www.angelleye.com/product-category/php-class-libraries/demo-kits/"
-                      target="_blank">Browse Our Demo Kits</a></p>
-            </div>
+            <h1></h1>
             <p class="bg-info"><strong>What is This?</strong><br>
                 The class library comes with FREE, fully functional /samples and empty /templates ready for you to work
                 with. The demo kits
