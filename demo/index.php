@@ -679,7 +679,7 @@
                         <img alt="Website Payments Pro 3.0 - DoDirectPayment"
                              src="assets/images/paypal-dodirectpayment-credit-cart-checkout.jpg"/>
                         <?php
-                        $DIR = '\classic\dodirectpayment-credit-cart-checkout';
+                        $DIR = '\classic\website-payments-pro-30-basic';
                         $DIR_exists = (is_dir(__DIR__ . $DIR)) ? true : false;
                         ?>
                         <div class="caption">
