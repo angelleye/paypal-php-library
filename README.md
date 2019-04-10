@@ -1,6 +1,6 @@
 # Angell EYE PayPal PHP Library
 
-This PHP class library for PayPal makes it easy to integrate PayPal APIs, including the [PayPal REST API](https://developer.paypal.com/docs/api/overview/), [Payments Standard Button Manager](https://developer.paypal.com/webapps/developer/docs/classic/api/#bm),  [Invoicing](https://developer.paypal.com/webapps/developer/docs/classic/api/#invoicing), 
+This PHP class library for PayPal makes it easy to integrate PayPal APIs, including the [PayPal REST APIs](https://developer.paypal.com/docs/api/overview/) and Classic APIs like the [Payments Standard Button Manager](https://developer.paypal.com/webapps/developer/docs/classic/api/#bm),  [Invoicing](https://developer.paypal.com/webapps/developer/docs/classic/api/#invoicing), 
 [General Merchant APIs](https://developer.paypal.com/webapps/developer/docs/classic/api/#merchant), and [Permissions](https://developer.paypal.com/webapps/developer/docs/classic/api/#permissions).
 
 -----------------------
@@ -26,7 +26,7 @@ Create a composer.json file with the following section and run composer update.
     "require": {
 		"php": ">=5.3.0",
 		"ext-curl": "*",
-		"angelleye/paypal-php-library": "2.0.*"
+		"angelleye/paypal-php-library": "3.0.*"
 	}
 ```
 
@@ -41,7 +41,7 @@ Open /samples/config/config-sample.php, fill out your details accordingly, and s
 
 To use the library in your project, include the following into your file(s).
 
-- /path/to/config.php (It is recommended that you move this to a directory outside your site root on the web server and use an absolute path to include it.)
+- /path/to/config.php
 - autoload.php
 
 ## Usage
@@ -61,7 +61,7 @@ To use the library in your project, include the following into your file(s).
 	* Etc.
 	
 - When you run the file you will get a $PayPalResult array that consists of all the response parameters from PayPal, original request parameters sent to PayPal, and raw request/response info for troubleshooting.
-    * You may refer to the [PayPal API Reference Guide](https://developer.paypal.com/webapps/developer/docs/classic/api/) for details about what response parameters you can expect to get back from any successful API request.
+    * You may refer to the [PayPal Developer Documentation](https://developer.paypal.com/docs/) for details about what response parameters you can expect to get back from any successful API request.
         + Example: When working with RefundTransaction, I can see that PayPal will return a REFUNDTRANSACTIONID, FEEREFUNDAMT, etc. As such, I know that those values will be included in $PayPalResult['REFUNDTRANSACTIONID'] and $PayPalResult['FEEREFUNDAMT'] respectively.
 
 - If errors occur they will be available in $PayPalResult['ERRORS']
@@ -69,14 +69,15 @@ To use the library in your project, include the following into your file(s).
 You may refer to this [overview video](http://www.angelleye.com/overview-of-php-class-library-for-paypal/) of how to use the library, 
 and there are also samples provided in the /samples directory as well as blank templates ready to use under /templates.
 
-If you need additional help you may [place an order for premium support](http://www.angelleye.com/product/premium-support/).
+If you need additional help you may [place an order for premium support](http://www.angelleye.com/product/paypal-help/).
 
 ## Fully Functional Demos
 
 The library comes with basic usage samples, but if you feel more comfortable seeing the integration inside a fully functional 
 demo that is built into a basic shopping cart system, take a look at our 
 [demo kits available on our website](https://www.angelleye.com/product-category/php-class-libraries/demo-kits/).
-You can find our built-in demo inside demo directory. If you have purchased any demo then you just need to add those inside 
+
+You can find our FREE demos inside /demo directory. If you have purchased any demo then you just need to add those inside 
 demo directory and its ready to go.
 
 ## Tutorials
