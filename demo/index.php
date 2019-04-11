@@ -365,7 +365,7 @@
                                     <a class="btn btn-primary" href="rest/create-payment-using-saved-card/" target="_blank">Launch Demo</a>
                                 <?php else: ?>
                                     <a class="btn btn-success"
-                                       href="https://www.angelleye.com/product/paypal-create-payment-using-credit-rest-php-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
+                                       href="https://www.angelleye.com/product/paypal-credit-card-vault-token-payment-reference-transaction-demo-kit?utm_source=ae_paypal_php_sdk&utm_medium=demo_homepage&utm_campaign=demo_kits"
                                        target="_blank">Buy Now</a>
                                 <?php endif; ?>
                             </p>
