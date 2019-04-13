@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file beginning wi
 ## [3.0.1](https://github.com/angelleye/paypal-php-library/releases/tag/v3.0.1) - 04.13.2019
 
 ### Features
-- CHANGELOG.md
+- Adds CHANGELOG.md
 
 ### Tweaks
 - Removes `phone` and `expresscheckout` scopes from PayPal Identity samples in response to PayPal removing them from the API. ([PPL-158](https://github.com/angelleye/paypal-php-library/pull/194))
