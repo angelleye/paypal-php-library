@@ -24,7 +24,7 @@
  * @link			https://github.com/angelleye/paypal-php-library/
  * @website			http://www.angelleye.com
  * @support         http://www.angelleye.com/product/premium-support/
- * @version			v2.0.4
+ * @version			v3.0.1
  * @filesource
 */
 
