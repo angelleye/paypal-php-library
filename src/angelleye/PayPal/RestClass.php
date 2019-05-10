@@ -72,8 +72,16 @@ class RestClass extends PayPalModel
             }
         }
 
+        $mode ='live';
+        if(isset($configArray['Sandbox'])){
+            if(($configArray['Sandbox'] == true || $configArray['Sandbox'] == 'true')){
+                $mode ='sandbox';
+            }
+        } 
+
         $this->_api_context->setConfig(
                 array(
+                  'mode' => $mode,
                   'log.LogEnabled' => isset($configArray['LogResults']) ? $configArray['LogResults'] : false,
                   'log.FileName' => $path,
                   'log.LogLevel' => isset($configArray['LogLevel']) ? $configArray['LogPath'] : 'INFO'

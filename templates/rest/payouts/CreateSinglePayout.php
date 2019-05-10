@@ -3,10 +3,11 @@
 require_once('../../../autoload.php');
 require_once('../../../includes/config.php');
 
-$configArray = array(
-                'ClientID' => $rest_client_id,
-                'ClientSecret' => $rest_client_secret
-                );
+$configArray = array(                
+    'Sandbox' => $sandbox,
+    'ClientID' => $rest_client_id,
+    'ClientSecret' => $rest_client_secret
+);
 
 $PayPal = new \angelleye\PayPal\rest\payouts\PayoutsAPI($configArray);
 
