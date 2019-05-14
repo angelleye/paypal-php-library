@@ -18,8 +18,7 @@ $event_types = array(
     'VAULT.CREDIT-CARD.DELETED'  // The unique event name. You can fine list of webhooks name in PayPal_Webhooks.txt
 );
 
-$url = "https://requestb.in/10ujt3c1?uniqid=" . uniqid();          // The URL that is configured to listen on localhost for incoming POST notification messages that contain event information.
-
+$url = "https://dev.aetesting.xyz/?angelleye_paypal_webhooks&action=webhook_handler";          // The URL that is configured to listen on localhost for incoming POST notification messages that contain event information.
 
 $requestData = array(
     'Url' => $url,

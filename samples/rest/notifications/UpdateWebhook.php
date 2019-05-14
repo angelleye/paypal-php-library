@@ -13,7 +13,7 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\notifications\NotificationsAPI($configArray);
 
-$webhook_id = '8EL46366UX208650W';                           // The ID of the webhook to update.
+$webhook_id = '9F037003R3934961K';                           // The ID of the webhook to update.
 
 $requestData = array(
     array(
@@ -24,7 +24,11 @@ $requestData = array(
     array(
         'Op' => 'replace',                                   // The operation to complete. Valid Values: ["add", "remove", "replace", test"]
         'Path'      => '/event_types',                       // The JSON pointer to the target document location at which to complete the operation.
-        'Value'     => 'PAYMENT.SALE.REFUNDED'               // The value to apply. The remove operation does not require a value.
+        'Value'     => array(
+            'PAYMENT.SALE.REFUNDED',
+            'PAYMENT.SALE.REVERSED',
+            'RISK.DISPUTE.CREATED'
+        )               // The value to apply. The remove operation does not require a value.
     )
 );
 

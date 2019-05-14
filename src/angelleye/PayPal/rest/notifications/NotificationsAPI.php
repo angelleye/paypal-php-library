@@ -172,35 +172,28 @@ class NotificationsAPI extends RestClass {
             $webhook = new Webhook();        
             $pathRequest = new \PayPal\Api\PatchRequest();
         try {
-            $webhook->setId($webhook_id);            
+            $webhook->setId($webhook_id);
             $i=0;
-            foreach ($requestData as $value) {  
-                if(is_array($value['Value'])){
-                    if(!empty($value['Op']) && !empty($value['Path']) && count($value['Value'])>3){
-                        $ob=(object)  array_filter($value['Value']);
-                        $pathOperation = new \PayPal\Api\Patch();
-                        $pathOperation->setOp($value['Op'])
-                                         ->setPath($value['Path'])
-                                         ->setValue($ob);
-                        $pathRequest->addPatch($pathOperation);
-                        $i++;
+            foreach ($requestData as $value) {                                  
+                if(!empty($value['Op']) && !empty($value['Path']) && !empty($value['Value'])){
+                    $pathOperation = new \PayPal\Api\Patch();
+                    $pathOperation->setOp($value['Op'])
+                                        ->setPath($value['Path']);
+                    if($value['Path'] == '/event_types'){
+                        $webhookEventTypes = array();
+                        foreach($value['Value'] as $event){                                                        
+                                $type = new WebhookEventType();
+                                $type->setName($event);
+                                $webhookEventTypes[] = $type->toArray();                            
+                        }                        
+                        $pathOperation->setValue($webhookEventTypes);
                     }
-                }
-                else{
-                    if(!empty($value['Op']) && !empty($value['Path']) && !empty($value['Value'])){
-                        $pathOperation = new \PayPal\Api\Patch();
-                        $pathOperation->setOp($value['Op'])
-                                         ->setPath($value['Path']);
-                        if($value['Path'] == '/event_types'){
-                            $pathOperation->setValue(json_decode('[{"name":"'.$value['Value'].'"}]'));
-                        }
-                        else{
-                            $pathOperation->setValue($value['Value']);
-                        }
-                        $pathRequest->addPatch($pathOperation);
-                        $i++;
+                    else{                                                
+                            $pathOperation->setValue($value['Value']);                        
                     }
-                }               
+                    $pathRequest->addPatch($pathOperation);
+                    $i++;
+                }                   
             } 
            
             if($i>0) {               
