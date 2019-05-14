@@ -81,7 +81,7 @@ class NotificationsAPI extends RestClass {
             $webhookEventTypes = array();
             foreach ($requestData['EventTypes'] as $value) {
                 $type = new WebhookEventType();
-                $type->setName($value['Name']);
+                $type->setName($value);
                 $webhookEventTypes[] = $type;
             }
             $webhook->setEventTypes($webhookEventTypes);
