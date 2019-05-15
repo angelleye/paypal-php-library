@@ -112,7 +112,7 @@ class EventTypesClass extends PayPalResourceModel {
         $payLoad = json_encode($params);      
         $json = self::executeCall(
             "/v1/notifications/verify-webhook-signature", 
-            "GET", 
+            "POST", 
             $payLoad,
             null,
             $apiContext,
