@@ -35,6 +35,9 @@ use \angelleye\PayPal\RestClass;
 use PayPal\Api\Webhook;
 use PayPal\Api\WebhookEventType;
 use PayPal\Api\WebhookEvent;
+use PayPal\Api\Notification;
+use PayPal\Api\CancelNotification;
+use PayPal\Api\VerifyWebhookSignature;
 
 /**
  * NotificationsAPI.
@@ -317,16 +320,27 @@ class NotificationsAPI extends RestClass {
      * @param array $params
      * @return Array|Object
      */
-    public function VerifyWebhookSignature($params){
-        $object = new \angelleye\PayPal\EventTypesClass();
+    public function VerifyWebhookSignature($headers,$webhook_id,$request_body){
+
         try {
-            $output = $object->verify_webhook_signature_api($params,$this->_api_context);
+            $signatureVerification = new VerifyWebhookSignature();
+            $signatureVerification->setAuthAlgo($headers['PAYPAL-AUTH-ALGO']);
+            $signatureVerification->setTransmissionId($headers['PAYPAL-TRANSMISSION-ID']);
+            $signatureVerification->setCertUrl($headers['PAYPAL-CERT-URL']);            
+            $signatureVerification->setWebhookId($webhook_id);
+            $signatureVerification->setTransmissionSig($headers['PAYPAL-TRANSMISSION-SIG']);
+            $signatureVerification->setTransmissionTime($headers['PAYPAL-TRANSMISSION-TIME']);
+            $signatureVerification->setRequestBody($request_body);
+            $output = $signatureVerification->post($this->_api_context);
+            $status = $output->getVerificationStatus();
+
             $returnArray['RESULT'] = 'Success';
-            $returnArray['EVENT']=$output->toArray();
+            $returnArray['STATUS']= $status;
             $returnArray['RAWREQUEST']= '';
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex){
             return $this->createErrorResponse($ex);
         }
     }
