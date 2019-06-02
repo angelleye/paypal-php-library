@@ -11,6 +11,7 @@ require_once '../../../includes/config.php';
  * Then load the PayPal object into $PayPal
  */
 $configArray = array(
+    'Sandbox' => $sandbox,
     'ClientID' => $rest_client_id,
     'ClientSecret' => $rest_client_secret,
     'LogResults' => $log_results,
