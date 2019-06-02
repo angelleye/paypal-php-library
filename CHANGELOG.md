@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file beginning with our 3.0.0 release.
 
+## [3.0.2](https://github.com/angelleye/paypal-php-library/releases/tag/v3.0.2) - xx.xx.2019
+
+### Tweaks
+- Adds $sandbox flag to all samples/demos. ([PPL-160](https://github.com/angelleye/paypal-php-library/pull/197))
+
 ## [3.0.1](https://github.com/angelleye/paypal-php-library/releases/tag/v3.0.1) - 04.13.2019
 
 ### Features
