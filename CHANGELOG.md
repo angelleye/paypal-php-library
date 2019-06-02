@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file beginning wi
 
 ### Tweaks
 - Adds $sandbox flag to all samples/demos. ([PPL-160](https://github.com/angelleye/paypal-php-library/pull/197))
-- Adjusts the Webhooks methods/samples/templates. ([PPL-161](https://github.com/angelleye/paypal-php-library/pull/198)) ([PPL-162](https://github.com/angelleye/paypal-php-library/pull/199))
+- Adjusts the Webhooks methods/samples/templates. ([PPL-161](https://github.com/angelleye/paypal-php-library/pull/198)) ([PPL-162](https://github.com/angelleye/paypal-php-library/pull/199)) ([PPL-164](https://github.com/angelleye/paypal-php-library/pull/200))
 
 ## [3.0.1](https://github.com/angelleye/paypal-php-library/releases/tag/v3.0.1) - 04.13.2019
 
