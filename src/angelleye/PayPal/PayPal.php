@@ -75,7 +75,7 @@ class PayPal
 			
 		$this->APIVersion = isset($DataArray['APIVersion']) ? $DataArray['APIVersion'] : '204.0';
 		$this->APIMode = isset($DataArray['APIMode']) ? $DataArray['APIMode'] : 'Signature';
-		$this->APIButtonSource = 'AngellEYE_PHPClass';
+		$this->APIButtonSource = '';
 		$this->PathToCertKeyPEM = '/path/to/cert/pem.txt';
 		$this->SSL = isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443' ? true : false;
 		$this->APISubject = isset($DataArray['APISubject']) ? $DataArray['APISubject'] : '';
