@@ -939,9 +939,8 @@ class InvoicingClass extends Invoice {
      * @return bool
      */
     public function cancel($cancelNotification, $apiContext = null, $restCall = null) {
-        ArgumentValidator::validate($this->getId(), "Id");
-        ArgumentValidator::validate($cancelNotification, 'cancelNotification');
-        $payLoad = $cancelNotification->toJSON();
+
+        $payLoad = (!empty($cancelNotification)) ? json_encode($cancelNotification) : '';        
         self::executeCall(
                 "/v2/invoicing/invoices/{$this->getId()}/cancel", "POST", $payLoad, null, $apiContext, $restCall
         );

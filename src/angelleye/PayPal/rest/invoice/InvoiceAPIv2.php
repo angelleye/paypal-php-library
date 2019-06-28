@@ -365,9 +365,8 @@ class InvoiceAPIv2 extends RestClass
     public function CancelInvoice($cancelNotification, $InvoiceID, $third_party = false, $refesh_token = '')
     {
         try {
-            $notify = new CancelNotification();
-            $this->setArrayToMethods(array_filter($cancelNotification), $notify);
 
+            $notify = array_filter($cancelNotification);
             $invoice = new InvoicingClass();
             $invoice->setId($InvoiceID);
             if ($third_party === true  && !empty($refesh_token)) {
@@ -378,7 +377,7 @@ class InvoiceAPIv2 extends RestClass
 
             $returnArray['RESULT'] = 'Success';
             $returnArray['CANCEL_STATUS'] = $cancelStatus;
-            $returnArray['RAWREQUEST'] = $requestArray;
+            $returnArray['RAWREQUEST'] = $requestArray->toJSON();
             $returnArray['RAWRESPONSE'] = $cancelStatus;
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
