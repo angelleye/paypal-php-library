@@ -16,6 +16,8 @@ $configArray = array(
 );
 $PayPal = new InvoiceAPIv2($configArray);
 
-$returnArray = $PayPal->GetNextInvoiceNumber();
+$InvoiceID = 'INV2-YZZF-D7VN-P2YM-9ZH2';    // Required. The ID of the invoice to send.
+
+$returnArray = $PayPal->SendInvoice($InvoiceID);
 echo "<pre>";
 print_r($returnArray);
