@@ -63,7 +63,7 @@ class RestClass extends PayPalModel
         $this->_api_context = new \PayPal\Rest\ApiContext(
             new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'], $configArray['ClientSecret'])
         );
-        $this->set_partner_attribution_id('AngellEYE_PHPClass');
+        //$this->set_partner_attribution_id('');
         $path = '';
         if (isset($configArray['LogPath'])){
             $path = $configArray['LogPath'].'/PayPal.log';
@@ -100,8 +100,7 @@ class RestClass extends PayPalModel
     }
     
     /**
-     * By default the BN code/value is AngellEYE_PHPClass but you can change it 
-     * with the set_partner_attribution_id function by passing the source value to it.
+     * PayPal Partner Code
      * 
      * @access	public
      * @param	string $source 
