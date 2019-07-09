@@ -64,6 +64,7 @@ class RestClass extends PayPalModel
             new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'], $configArray['ClientSecret'])
         );
         //$this->set_partner_attribution_id('');
+
         $path = '';
         if (isset($configArray['LogPath'])){
             $path = $configArray['LogPath'].'/PayPal.log';
