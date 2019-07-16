@@ -14,9 +14,6 @@ $configArray = array(
 
 $PayPal = new \angelleye\PayPal\rest\referenced_payouts\ReferencedPayoutsAPI($configArray);
 
-// Header parameters
-$PayPal_Partner_Attribution_Id = 'AngellEYE_PHPClass'; // For more information about PayPal-Partner-Attribution-Id, see https://developer.paypal.com/docs/api/overview/#paypal-partner-attribution-id
-
 /*  Indicates how the client expects the server to process this request.
  *  To process the request asynchronously, set this header to respond-async.
  *  If you omit this header, the API processes the request synchronously.
@@ -26,9 +23,6 @@ $PayPal_Partner_Attribution_Id = 'AngellEYE_PHPClass'; // For more information a
 $Prefer = '';
 $PayPal_Request_Id = '';          // The server stores keys for three days. For more information about PayPal-Request-Id, see https://developer.paypal.com/docs/api/overview/#paypal-request-id
 
-if(!empty($PayPal_Partner_Attribution_Id)) {
-    $PayPal->set_partner_attribution_id($PayPal_Partner_Attribution_Id);
-}
 if(!empty($Prefer)) {
     $PayPal->set_prefer($Prefer);
 }
