@@ -84,7 +84,7 @@ class RestClass extends PayPalModel
                   'mode' => $mode,
                   'log.LogEnabled' => isset($configArray['LogResults']) ? $configArray['LogResults'] : false,
                   'log.FileName' => $path,
-                  'log.LogLevel' => isset($configArray['LogLevel']) ? $configArray['LogPath'] : 'INFO'
+                  'log.LogLevel' => isset($configArray['LogLevel']) ? $configArray['LogLevel'] : 'INFO'
                 )
         );
     }
