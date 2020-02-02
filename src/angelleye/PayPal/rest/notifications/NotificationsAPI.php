@@ -100,6 +100,9 @@ class NotificationsAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;
         }
+        catch (Exception $ex) {
+            return $this->createErrorResponse($ex);
+        }
         catch (\PayPal\Exception\PayPalConnectionException $ex) {
            return $this->createErrorResponse($ex);
         }        
@@ -121,6 +124,8 @@ class NotificationsAPI extends RestClass {
             return $returnArray;
         } catch (Exception $ex) {
             return $this->createErrorResponse($ex);
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+           return $this->createErrorResponse($ex);
         }                
     }    
     
@@ -140,6 +145,8 @@ class NotificationsAPI extends RestClass {
             return $returnArray;
         } catch (Exception $ex) {
             return $this->createErrorResponse($ex);
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+           return $this->createErrorResponse($ex);
         }
     }
     
@@ -161,6 +168,8 @@ class NotificationsAPI extends RestClass {
             return $returnArray;
         } catch (Exception $ex) {
             return $this->createErrorResponse($ex);
+        } catch (\PayPal\Exception\PayPalConnectionException $ex) {
+           return $this->createErrorResponse($ex);
         }
     }
     
@@ -212,6 +221,8 @@ class NotificationsAPI extends RestClass {
             }
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
             return $this->createErrorResponse($ex);
+        } catch (Exception $ex) {
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -232,6 +243,8 @@ class NotificationsAPI extends RestClass {
             return $returnArray;
         } catch (Exception $ex) {
             return $this->createErrorResponse($ex);
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -250,6 +263,8 @@ class NotificationsAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;
         } catch (Exception $ex) {
+            return $this->createErrorResponse($ex);
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
             return $this->createErrorResponse($ex);
         }
     }
@@ -272,6 +287,8 @@ class NotificationsAPI extends RestClass {
             return $returnArray;
         } catch (Exception $ex) {
             return $this->createErrorResponse($ex);
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -290,6 +307,8 @@ class NotificationsAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;
         } catch (Exception $ex) {
+            return $this->createErrorResponse($ex);
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
             return $this->createErrorResponse($ex);
         }
     }
@@ -310,6 +329,8 @@ class NotificationsAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;
         } catch (Exception $ex) {
+            return $this->createErrorResponse($ex);
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
             return $this->createErrorResponse($ex);
         }
     }
@@ -342,6 +363,8 @@ class NotificationsAPI extends RestClass {
         }
         catch (Exception $ex){
             return $this->createErrorResponse($ex);
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
+            return $this->createErrorResponse($ex);
         }
     }
     
@@ -362,6 +385,8 @@ class NotificationsAPI extends RestClass {
             $returnArray['RAWRESPONSE']=$output->toJSON();
             return $returnArray;
         } catch (Exception $ex) {
+            return $this->createErrorResponse($ex);
+        } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
             return $this->createErrorResponse($ex);
         }
     }

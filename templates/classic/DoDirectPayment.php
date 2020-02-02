@@ -96,12 +96,15 @@ $Item	 = array(
 
 array_push($OrderItems, $Item);
 
+/**
+ * Important note : 3-D Secure Request Fields (UK Merchants Only)
+ */
 $Secure3D = array(
-				  'authstatus3d' => '', 
-				  'mpivendor3ds' => '', 
-				  'cavv' => '', 
-				  'eci3ds' => '', 
-				  'xid' => ''
+				  'authstatus3ds' => '', 					     // (Optional) A value returned by CardinalCommerce. If the cmpi_lookup request returns Y for Enrolled, set this field to the PAResStatus value returned by cmpi_authenticate. Otherwise, set this field to blank.
+				  'mpivendor3ds' => '', 						 // (Optional) A value returned by CardinalCommerce. Set this field to the Enrolled value returned by cmpi_lookup.
+				  'cavv' => '', 								 // (Optional) A value returned by CardinalCommerce. If the cmpi_lookup request returns Y for Enrolled, set this field to the Cavv value returned by cmpi_authenticate. Otherwise, set this field to blank.	
+				  'eci3ds' => '',								 // (Optional) A value returned by CardinalCommerce. If the cmpi_lookup request returns Y for Enrolled, set this field to the EciFlag value returned by cmpi_authenticate. Otherwise, set this field to the EciFlag value returned by cmpi_lookup.
+				  'xid' => ''									 // (Optional) A value returned by CardinalCommerce. If the cmpi_lookup request returns Y for Enrolled, set this field to the Xid value returned by cmpi_authenticate. Otherwise, set this field to blank.	
 				  );
 				  
 $PayPalRequestData = array(
@@ -111,7 +114,8 @@ $PayPalRequestData = array(
 						   'BillingAddress' => $BillingAddress, 
 						   'ShippingAddress' => $ShippingAddress, 
 						   'PaymentDetails' => $PaymentDetails, 
-						   'OrderItems' => $OrderItems
+						   'OrderItems' => $OrderItems,
+						   'Secure3D' => $Secure3D,
 						   );
 
 // Pass data into class for processing with PayPal and load the response array into $PayPalResult

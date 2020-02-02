@@ -295,7 +295,7 @@ class InvoiceAPI extends RestClass {
             if($third_party === true  && !empty($refesh_token)){
                 $apiContext->getCredential()->updateAccessToken($apiContext->getConfig(), $refesh_token);
             }
-            $invoices = Invoice::getAll(array_filter($params), $this->_api_context);
+            $invoices = Invoice::getAll($params, $this->_api_context);            
             $returnArray['RESULT'] = 'Success';
             $returnArray['INVOICES'] = $invoices->toArray();
             return $returnArray;

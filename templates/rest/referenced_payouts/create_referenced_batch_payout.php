@@ -26,9 +26,6 @@ $PayPal_Partner_Attribution_Id = ''; // For more information about PayPal-Partne
 $Prefer = '';
 $PayPal_Request_Id = '';          // The server stores keys for three days. For more information about PayPal-Request-Id, see https://developer.paypal.com/docs/api/overview/#paypal-request-id
 
-if(!empty($PayPal_Partner_Attribution_Id)) {
-    $PayPal->set_partner_attribution_id($PayPal_Partner_Attribution_Id);
-}
 if(!empty($Prefer)) {
     $PayPal->set_prefer($Prefer);
 }

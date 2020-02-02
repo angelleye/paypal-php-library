@@ -16,7 +16,7 @@ $PayPal = new \angelleye\PayPal\rest\invoice\InvoiceAPI($configArray);
 $parameters = array(
     'page'                  => '0',                // A zero-relative index of the list of merchant invoices.
     'page_size'             => '4',                // The number of invoices to list beginning with the specified page.
-    'total_count_required ' => 'true',             // Indicates whether the total count appears in the response. Default is false.
+    'total_count_required' => 'true'             // Indicates whether the total count appears in the response. Default is false.
 );
 
 $returnArray = $PayPal->ListInvoice($parameters);

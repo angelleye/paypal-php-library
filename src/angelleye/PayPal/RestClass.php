@@ -63,7 +63,9 @@ class RestClass extends PayPalModel
         $this->_api_context = new \PayPal\Rest\ApiContext(
             new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'], $configArray['ClientSecret'])
         );
-        
+
+        //$this->set_partner_attribution_id('');
+
         $path = '';
         if (isset($configArray['LogPath'])){
             $path = $configArray['LogPath'].'/PayPal.log';
@@ -84,7 +86,7 @@ class RestClass extends PayPalModel
                   'mode' => $mode,
                   'log.LogEnabled' => isset($configArray['LogResults']) ? $configArray['LogResults'] : false,
                   'log.FileName' => $path,
-                  'log.LogLevel' => isset($configArray['LogLevel']) ? $configArray['LogPath'] : 'INFO'
+                  'log.LogLevel' => isset($configArray['LogLevel']) ? $configArray['LogLevel'] : 'INFO'
                 )
         );
     }
@@ -100,7 +102,7 @@ class RestClass extends PayPalModel
     }
     
     /**
-     * Set BN code/value with the 
+     * Set PayPal Partner BN code/value with the 
      * set_partner_attribution_id function 
      * by passing the source value to it.
      * 
