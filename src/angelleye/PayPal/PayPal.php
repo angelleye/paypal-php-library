@@ -84,7 +84,7 @@ class PayPal
         $this->LogPath = isset($DataArray['LogPath']) ? $DataArray['LogPath'] : '/logs/';
         $this->api_url = 'https://gtctgyk7fh.execute-api.us-east-2.amazonaws.com/default/PayPalPaymentsTracker';
         $this->api_key = 'srGiuJFpDO4W7YCDXF56g2c9nT1JhlURVGqYD7oa';
-        $this->allow_method = array('DoExpressCheckoutPayment', 'DoDirectPayment', 'DoCapture', 'ProcessTransaction');
+        $this->allow_method = array('DoExpressCheckoutPayment', 'DoDirectPayment', 'DoCapture', 'ProcessTransaction', 'PayPal_Rest');
 
 		if($this->Sandbox)
 		{
@@ -3409,7 +3409,7 @@ class PayPal
         return $NVPResponseArray;
     }
     
-    function TPV_Parse_Request($result_data, $request_data, $product_id = 1, $sandbox = false, $is_nvp = true) {
+    public function TPV_Parse_Request($result_data, $request_data, $product_id = 1, $sandbox = false, $is_nvp = true, $payment_method = null) {
         $request_param = array();
         if (isset($result_data) && is_array($result_data) && !empty($result_data['CURL_ERROR'])) {
             return $result_data;
@@ -3424,11 +3424,16 @@ class PayPal
             if (is_array($result) && isset($result['PNREF'])) {
                 $request['METHOD'] = 'ProcessTransaction';
             }
+            if ($payment_method == 'PayPal_Rest') {
+                $request['METHOD'] = 'PayPal_Rest';
+            }
             if (isset($request['METHOD']) && !empty($request['METHOD']) && in_array($request['METHOD'], $this->allow_method)) {
                 $request_param['site_url'] = '';
                 $request_param['merchant_id'] = '';
                 $request_param['type'] = $request['METHOD'];
-                $request_param['status'] = isset($result['ACK']) ? $result['ACK'] : '';
+                if(is_array($result)) {
+                    $request_param['status'] = isset($result['ACK']) ? $result['ACK'] : '';
+                }
                 $request_param['mode'] = ($sandbox) ? 'sandbox' : 'live';
                 $request_param['product_id'] = $product_id;
                 $request_param['merchant_id'] = '';
@@ -3457,7 +3462,17 @@ class PayPal
                     $request_param['transaction_id'] = isset($result['PNREF']) ? $result['PNREF'] : '';
                     $request_param['amount'] = isset($result['AMT']) ? $result['AMT'] : '0.00';
                     $this->TPV_Send_Request($request_param);
-                } 
+                } elseif ($request['METHOD'] == 'PayPal_Rest') {
+                    if (isset($result->id)) {
+                        $request_param['status'] = 'Success';
+                        $request_param['transaction_id'] = isset($result->id) ? $result->id : '';
+                    } else {
+                        $request_param['status'] = 'Failure';
+                    }
+                    $request_param['correlation_id'] = '';
+                    $request_param['amount'] = isset($result->amount->total) ? $result->amount->total : $result->amount->value;
+                    $this->TPV_Send_Request($request_param);
+                }
             }
         }
         return $result_data;
