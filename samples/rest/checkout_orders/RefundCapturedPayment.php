@@ -17,11 +17,11 @@ $configArray = array(
 
 $PayPal = new CheckoutOrdersAPI($configArray);
 
-$capture_id = '6X1812201H9506636';       // The PayPal-generated ID for the captured payment to refund.
+$capture_id = '0HR988556J0930621';       // The PayPal-generated ID for the captured payment to refund.
 
 $amount = array(
     'currency_code' => 'USD',
-    'value' => 7.50,                    // The amount to refund.
+    'value' => 17.50,                    // The amount to refund.
 );
 
 $invoice_id = 'AEINV-323';              // Maximum length: 127. The API caller-provided external invoice number for this order. Appears in both the payer's transaction history and the emails that the payer receives.
@@ -31,7 +31,7 @@ $requestArray = array(
 
     'amount' => $amount,
     'note_to_payer' => $note_to_payer,
-    'invoice_id' => $invoice_id,
+   
 );
 
 $response = $PayPal->RefundCapturedPayment($capture_id,$requestArray);

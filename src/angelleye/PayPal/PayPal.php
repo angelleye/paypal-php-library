@@ -3463,14 +3463,18 @@ class PayPal
                     $request_param['amount'] = isset($result['AMT']) ? $result['AMT'] : '0.00';
                     $this->TPV_Send_Request($request_param);
                 } elseif ($request['METHOD'] == 'PayPal_Rest') {
-                    if (isset($result->id)) {
+                    $request_param['correlation_id'] = '';
+                    if( !empty($result->purchase_units[0]['payments']['captures'][0]['amount']['value']) ) {
+                        $request_param['amount'] = $result->purchase_units[0]['payments']['captures'][0]['amount']['value'];
                         $request_param['status'] = 'Success';
-                        $request_param['transaction_id'] = isset($result->id) ? $result->id : '';
+                        $request_param['transaction_id'] = $result->purchase_units[0]['payments']['captures'][0]['id'];
+                    } elseif( !empty ($result->purchase_units[0]['payments']['authorizations'][0]['amount']['value'])) {
+                        $request_param['amount'] = $result->purchase_units[0]['payments']['authorizations'][0]['amount']['value'];
+                        $request_param['status'] = 'Success';
+                        $request_param['transaction_id'] = $result->purchase_units[0]['payments']['authorizations'][0]['id'];
                     } else {
                         $request_param['status'] = 'Failure';
                     }
-                    $request_param['correlation_id'] = '';
-                    $request_param['amount'] = isset($result->amount->total) ? $result->amount->total : $result->amount->value;
                     $this->TPV_Send_Request($request_param);
                 }
             }
