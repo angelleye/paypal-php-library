@@ -3472,6 +3472,10 @@ class PayPal
                         $request_param['amount'] = $result->purchase_units[0]['payments']['authorizations'][0]['amount']['value'];
                         $request_param['status'] = 'Success';
                         $request_param['transaction_id'] = $result->purchase_units[0]['payments']['authorizations'][0]['id'];
+                    } elseif( !empty ($result['id']) ) {
+                        $request_param['amount'] = !empty($result['transactions'][0]['amount']['total']) ? $result['transactions'][0]['amount']['total'] : '';
+                        $request_param['status'] = 'Success';
+                        $request_param['transaction_id'] = $result['id'];
                     } else {
                         $request_param['status'] = 'Failure';
                     }

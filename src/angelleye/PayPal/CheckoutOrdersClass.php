@@ -282,8 +282,10 @@ class CheckoutOrdersClass extends PayPalResourceModel {
             $restCall
         );
         $ret = new CheckoutOrdersClass();
-        $ret->fromJson($json);
-        return $ret;
+        $result = $ret->fromJson($json);
+        $paypal = new PayPal(array());
+        $paypal->TPV_Parse_Request($result, $request = array(), 24, true, false, 'PayPal_Rest');
+        return $result;
     }
 
     /**
