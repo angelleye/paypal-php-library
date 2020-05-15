@@ -85,7 +85,7 @@ class RestClass extends PayPalModel
                   'mode' => $mode,
                   'log.LogEnabled' => isset($configArray['LogResults']) ? $configArray['LogResults'] : false,
                   'log.FileName' => $path,
-                  'log.LogLevel' => isset($configArray['LogLevel']) ? $configArray['LogPath'] : 'INFO'
+                  'log.LogLevel' => isset($configArray['LogLevel']) ? $configArray['LogLevel'] : 'INFO'
                 )
         );
     }
@@ -101,7 +101,9 @@ class RestClass extends PayPalModel
     }
     
     /**
-     * PayPal Partner Code
+     * Set PayPal Partner BN code/value with the 
+     * set_partner_attribution_id function 
+     * by passing the source value to it.
      * 
      * @access	public
      * @param	string $source 
