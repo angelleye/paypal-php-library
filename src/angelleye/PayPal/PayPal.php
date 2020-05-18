@@ -3475,7 +3475,7 @@ class PayPal
                     } elseif( !empty ($result['id']) ) {
                         $request_param['amount'] = !empty($result['transactions'][0]['amount']['total']) ? $result['transactions'][0]['amount']['total'] : '';
                         $request_param['status'] = 'Success';
-                        $request_param['transaction_id'] = $result['id'];
+                        $request_param['transaction_id'] = isset($result['transactions'][0]['related_resources'][0]['sale']['id']) ? $result['transactions'][0]['related_resources'][0]['sale']['id'] : '';
                     } else {
                         $request_param['status'] = 'Failure';
                     }
