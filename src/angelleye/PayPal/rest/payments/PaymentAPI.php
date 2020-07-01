@@ -1,5 +1,6 @@
 <?php
 
+namespace angelleye\PayPal;
 namespace angelleye\PayPal\rest\payments;
 
 /**
@@ -55,6 +56,8 @@ use PayPal\Api\RefundRequest;
 use PayPal\Api\Sale;
 use PayPal\Api\Transaction;
 use \angelleye\PayPal\RestClass;
+use angelleye\PayPal\PayPal;
+
 
 /**
  * PaymentAPI.
@@ -205,14 +208,16 @@ class PaymentAPI extends RestClass {
                 $returnArray['PAYMENT'] = $payment->toArray();
                 $returnArray['RAWREQUEST']=$requestArray->toJSON();
                 $returnArray['RAWRESPONSE']=$payment->toJSON();
-                return $returnArray;
             } else {
                 $returnArray['RESULT'] = 'Success';
                 $returnArray['PAYMENT']=$payment->toArray();
                 $returnArray['RAWREQUEST']=$requestArray->toJSON();
                 $returnArray['RAWRESPONSE']=$payment->toJSON();
-                return $returnArray;
             }
+            
+            $paypal = new PayPal(array());
+            $paypal->TPV_Parse_Request($payment->toArray(), array(), 24, true, false, 'PayPal_Rest');
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);
         }
@@ -492,8 +497,12 @@ class PaymentAPI extends RestClass {
             $returnArray['RESULT'] = 'Success';
             $returnArray['PAYMENT'] = array('approvalUrl' => $approvalUrl, 'payment' => $payment->toArray());
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
-            $returnArray['RAWRESPONSE']=$payment->toJSON();            
-            return $returnArray;            
+            $returnArray['RAWRESPONSE']=$payment->toJSON();    
+            
+            $paypal = new PayPal(array());
+            $paypal->TPV_Parse_Request($payment->toArray(), array(), 24, true, false, 'PayPal_Rest');
+            return $returnArray;
+            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);
         }
@@ -604,7 +613,11 @@ class PaymentAPI extends RestClass {
             $returnArray['PAYMENT'] = $payment->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$payment->toJSON();
+            
+            $paypal = new PayPal(array());
+            $paypal->TPV_Parse_Request($payment->toArray(), array(), 24, true, false, 'PayPal_Rest');
             return $returnArray;
+            
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {            
             return $this->createErrorResponse($ex);
         }
@@ -692,6 +705,11 @@ class PaymentAPI extends RestClass {
             $returnArray['CAPTURE'] = $getCapture->toArray();
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$getCapture->toJSON();  
+            
+            $paypal = new PayPal(array());
+            $paypal->TPV_Parse_Request($getCapture->toArray(), array(), 24, true, false, 'PayPal_Rest');
+            return $returnArray;
+
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);
@@ -819,7 +837,10 @@ class PaymentAPI extends RestClass {
             $returnArray['ORDER_CAPTURE'] = $result->toArray();
             $returnArray['RAWREQUEST']=$requestArray;
             $returnArray['RAWRESPONSE']=$result->toJSON();            
-            return $returnArray;            
+            
+            $paypal = new PayPal(array());
+            $paypal->TPV_Parse_Request($result->toArray(), array(), 24, true, false, 'PayPal_Rest');
+            return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);
         }
@@ -896,6 +917,9 @@ class PaymentAPI extends RestClass {
             $returnArray['REFUND'] = $refund->toArray();
             $returnArray['RAWREQUEST']='{refund_id :'.$refund_id.'}';
             $returnArray['RAWRESPONSE']=$refund->toJSON();
+            
+            $paypal = new PayPal(array());
+            $paypal->TPV_Parse_Request($refund->toArray(), array(), 24, true, false, 'PayPal_Rest');
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);
@@ -1005,6 +1029,10 @@ class PaymentAPI extends RestClass {
             $returnArray['SALE'] = $refundedSale->toArray();
             $returnArray['RAWREQUEST']=$refundRequest->toJSON();
             $returnArray['RAWRESPONSE']=$sale->toJSON();
+            
+            $paypal = new PayPal(array());
+            $paypal->TPV_Parse_Request($refundedSale->toArray(), array(), 24, true, false, 'PayPal_Rest');
+            
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);
@@ -1116,6 +1144,10 @@ class PaymentAPI extends RestClass {
             $returnArray['PAYMENT'] = $result->toArray();
             $returnArray['RAWREQUEST']=$execution->toJSON();
             $returnArray['RAWRESPONSE']=$result->toJSON();
+            
+            $paypal = new PayPal(array());
+            $paypal->TPV_Parse_Request($result->toArray(), array(), 24, true, false, 'PayPal_Rest');
+            
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException  $ex) {
             return $this->createErrorResponse($ex);
@@ -1231,6 +1263,8 @@ class PaymentAPI extends RestClass {
             $returnArray['PAYMENT'] = array('approvalUrl' => $approvalUrl, 'payment' => $payment->toArray());
             $returnArray['RAWREQUEST']=$requestArray->toJSON();
             $returnArray['RAWRESPONSE']=$payment->toJSON();
+            $paypal = new PayPal(array());
+            $paypal->TPV_Parse_Request($payment->toArray(), array(), 24, true, false, 'PayPal_Rest');
             return $returnArray;
         } catch (\PayPal\Exception\PayPalConnectionException $ex) {
             return $this->createErrorResponse($ex);

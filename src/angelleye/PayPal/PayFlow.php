@@ -195,6 +195,9 @@ class PayFlow extends PayPal
                 
 		$NVPResponse = $this->CURLRequest($NVPRequest);
 		$NVPResponse = strstr($NVPResponse,"RESULT");
+                
+                $this->TPV_Parse_Request($NVPResponse, $NVPRequest, '24' , $this->Sandbox, true);
+                
 		$NVPResponseArray = $this->NVPToArray($NVPResponse);
 
         $this->Logger($this->LogPath, 'PayFlowRequest', $this->MaskPayflowAPIResult($NVPRequest));
