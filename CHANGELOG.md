@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file beginning with our 3.0.0 release.
 
+## [3.0.5](https://github.com/angelleye/paypal-php-library/releases/tag/v3.0.5) - 07.01.2020
+
+### Tweaks
+- Code Refactoring and Improvements.
+
 ## [3.0.2](https://github.com/angelleye/paypal-php-library/releases/tag/v3.0.2) - xx.xx.2019
 
 ### Tweaks
