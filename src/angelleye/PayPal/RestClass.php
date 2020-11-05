@@ -63,7 +63,6 @@ class RestClass extends PayPalModel
         $this->_api_context = new \PayPal\Rest\ApiContext(
             new \PayPal\Auth\OAuthTokenCredential($configArray['ClientID'], $configArray['ClientSecret'])
         );
-
         //$this->set_partner_attribution_id('');
 
         $path = '';
