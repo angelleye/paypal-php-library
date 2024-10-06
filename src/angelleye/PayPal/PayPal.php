@@ -1,4 +1,4 @@
-<?php namespace angelleye\PayPal;
+<?php
 /**
  *	An open source PHP library written to easily work with PayPal's API's
  *	
@@ -36,6 +36,8 @@
  * @package 		paypal-php-library
  * @author			Andrew Angell <service@angelleye.com>
  */
+namespace angelleye\PayPal;
+
 class PayPal
 {
 
