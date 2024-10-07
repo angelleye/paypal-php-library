@@ -49,14 +49,30 @@ class Rest extends PayPal {
     }
 
     /**
-     * Helper function to filter request data (this will ensure we only include provided params)
-     * @param $data
+     * Helper function to filter request data recursively. This ensures we only include provided params,
+     * and if an array is empty or has only empty values, it will be excluded entirely.
+     * @param array $data
      * @return array
      */
     private function filter_request_data($data) {
-        $filteredData = array_filter($data, function ($value) {
-            return $value !== null && $value !== '';  // Filter out null or empty values
-        });
+        $filteredData = array();
+
+        foreach ($data as $key => $value) {
+            // Recursively filter nested arrays
+            if (is_array($value)) {
+                $nestedFiltered = $this->filter_request_data($value);
+
+                // Only include the array if it has non-empty values
+                if (!empty($nestedFiltered)) {
+                    $filteredData[$key] = $nestedFiltered;
+                }
+            } else {
+                // Include non-null, non-empty scalar values
+                if ($value !== null && $value !== '') {
+                    $filteredData[$key] = $value;
+                }
+            }
+        }
 
         return $filteredData;
     }
