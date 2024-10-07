@@ -81,7 +81,7 @@ class Rest extends PayPal {
         return $response['response_data']['access_token'];
     }
 
-    public function getAccessToken() {
+    public function get_access_token() {
         return $this->access_token;
     }
 
