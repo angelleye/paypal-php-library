@@ -8,7 +8,6 @@ $paypal_config = array(
     'sandbox' => $sandbox,
     'rest_client_id' => $rest_client_id,
     'rest_client_secret' => $rest_client_secret,
-    'PrintHeaders' => $print_headers
 );
 
 // Instantiate the PayPal Rest object
