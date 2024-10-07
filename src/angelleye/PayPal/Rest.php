@@ -147,4 +147,34 @@ class Rest extends PayPal {
         return $paypal_result;
     }
 
+    /**
+     * Get Order Details by ID
+     * @param string $order_id
+     * @param string $fields (optional)
+     * @return array
+     */
+    public function get_order_details($order_id, $fields = '') {
+        $url = $this->api_endpoint . '/v2/checkout/orders/' . $order_id;
+
+        // Append query parameters if "fields" is provided
+        if (!empty($fields)) {
+            $url .= '?fields=' . $fields;
+        }
+
+        // Make the cURL request using the reusable function
+        $response = $this->make_curl_request($url, 'GET', '', [
+            "Authorization: Bearer " . $this->access_token,
+            "Content-Type: application/json"
+        ]);
+
+        // Prepare the result array
+        $paypal_result = [
+            'http_status' => $response['http_status'],
+            'response_data' => $response['response_data'],
+            'raw_response' => $response['raw_response']
+        ];
+
+        return $paypal_result;
+    }
+
 }
