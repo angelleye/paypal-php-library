@@ -21,31 +21,68 @@ class Rest extends PayPal {
         $this->access_token = $this->retrieve_access_token();
     }
 
-    private function retrieve_access_token() {
+    /**
+     * Generic cURL request handler.
+     * @param string $url The API endpoint URL.
+     * @param string $method HTTP method (GET, POST, PATCH, etc.).
+     * @param string $body Request body (could be JSON or URL encoded string).
+     * @param array $headers HTTP headers to include in the request.
+     * @return array Returns the HTTP status, response data, and raw response.
+     */
+    private function make_curl_request($url, $method = 'GET', $body = '', $headers = []) {
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->api_endpoint . "/v1/oauth2/token");
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_USERPWD, "$this->rest_client_id:$this->rest_client_secret");
-        curl_setopt($curl, CURLOPT_POSTFIELDS, "grant_type=client_credentials");
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, [
-            "Accept: application/json",
-            "Accept-Language: en_US",
-        ]);
 
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method); // Set the method dynamically
+
+        if ($method !== 'GET') {
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
+        }
+
+        // Set headers
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+
+        // Execute the request
         $response = curl_exec($curl);
+        $http_status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+        // Close the curl session
         curl_close($curl);
 
-        if (!$response) {
+        // Parse the response as JSON
+        $response_data = json_decode($response, true);
+
+        return [
+            'http_status' => $http_status_code,
+            'response_data' => $response_data,
+            'raw_response' => $response
+        ];
+    }
+
+    /**
+     * Private function to retrieve the PayPal access token from PayPal's API.
+     * @return mixed
+     * @throws \Exception
+     */
+    private function retrieve_access_token() {
+        $url = $this->api_endpoint . "/v1/oauth2/token";
+        $auth_header = base64_encode("$this->rest_client_id:$this->rest_client_secret");
+
+        $response = $this->make_curl_request($url, 'POST', "grant_type=client_credentials", [
+            "Authorization: Basic $auth_header",
+            "Content-Type: application/x-www-form-urlencoded",
+        ]);
+
+        if (!$response['response_data']) {
             throw new \Exception("Failed to obtain access token.");
         }
 
-        $json_response = json_decode($response, true);
-        return $json_response['access_token'];
+        return $response['response_data']['access_token'];
     }
 
     public function getAccessToken() {
-        return $this->access_token;  // Simply return the stored token from the constructor
+        return $this->access_token;
     }
 
     /**
@@ -91,35 +128,23 @@ class Rest extends PayPal {
         // Convert request body to JSON
         $json_request = json_encode($request_body);
 
-        // Initialize cURL for the API call
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $json_request);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+        // Make the cURL request using the reusable function
+        $response = $this->make_curl_request($url, 'POST', $json_request, [
             "Content-Type: application/json",
             "Authorization: Bearer " . $this->access_token,
             "PayPal-Request-Id: " . uniqid()  // Optional: A unique request ID for idempotency
         ]);
 
-        // Execute the request
-        $response = curl_exec($curl);
-        $http_status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);  // Get the status code
-        curl_close($curl);
-
-        // Parse the response
-        $json_response = json_decode($response, true);
-
         // Prepare the result array
         $paypal_result = [
-            'http_status' => $http_status_code,
-            'response_data' => $json_response,
+            'http_status' => $response['http_status'],
+            'response_data' => $response['response_data'],
             'request_data' => json_decode($json_request, true),
             'raw_request' => $json_request,
-            'raw_response' => $response
+            'raw_response' => $response['raw_response']
         ];
 
         return $paypal_result;
     }
+
 }
