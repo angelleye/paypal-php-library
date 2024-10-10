@@ -14,7 +14,7 @@ class Rest extends PayPal
         $this->access_token = $this->generate_access_token();
     }
 
-    private function execute_curl($url, $headers, $post_fields = null, $custom_request = null)
+    private function execute_curl($url, $headers, $post_fields = null, $custom_request = null): array
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -60,7 +60,7 @@ class Rest extends PayPal
         return $response['response_data']['access_token'];
     }
 
-    public function send_request($method, $endpoint, $body = null)
+    public function send_request($method, $endpoint, $body = null): array
     {
         $url = $this->api_url . $endpoint;
         $headers = [
@@ -78,7 +78,7 @@ class Rest extends PayPal
         return $this->execute_curl($url, $headers, $post_fields, $method);
     }
 
-    public function create_order(array $order_data)
+    public function create_order(array $order_data): array
     {
         // Prepare the request
         $url = '/v2/checkout/orders';
@@ -103,6 +103,32 @@ class Rest extends PayPal
 
         return $paypal_result;
     }
+
+    /**
+     * @param $order_id
+     * @return array
+     * @throws \Exception
+     */
+    public function get_order($order_id): array
+    {
+        $url = '/v2/checkout/orders/' . $order_id;
+
+        $order_data = array('order_id' => $order_id);
+
+        // Make the API call
+        $response = $this->send_request('GET', $url, $order_data);
+
+        // Prepare the result array
+        $paypal_result = [
+            'http_status' => $response['http_status'],
+            'response_data' => $response['response_data'],
+            'raw_request' => $this->api_url . $url,
+            'raw_response' => $response['raw_response']
+        ];
+
+        return $paypal_result;
+    }
+
 
     // Recursive function to remove empty values
     private function remove_empty_values($data)
