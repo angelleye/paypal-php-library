@@ -1,0 +1,25 @@
+{
+    "name": "angelleye/paypal-php-library",
+    "type": "library", 
+    "description": "PHP wrapper for PayPal APIs", 
+    "keywords": ["api", "paypal", "rest", "adaptive payments", "angelleye", "payflow", "payments pro", "express checkout", "invoicing"],
+    "homepage": "https://github.com/angelleye/paypal-php-library", 
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "Angell EYE", 
+            "email": "service@angelleye.com", 
+            "homepage": "https://github.com/angelleye/paypal-php-library/graphs/contributors" 
+        }
+    ],
+	"require": {
+		"php": ">=5.3.0",
+		"ext-curl": "*",
+		"paypal/rest-api-sdk-php":"*"
+	},
+    "autoload": {
+        "psr-0": {
+            "angelleye\\PayPal": "src"
+        }
+    }
+}
