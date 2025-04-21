@@ -53,8 +53,20 @@ class PayPal
     var $PrintHeaders = '';
     var $LogResults = '';
     var $LogPath = '';
-	
-	/**
+    private string $api_url;
+    private string $api_key;
+    /**
+     * @var array|string[]
+     */
+    private array $allow_method;
+    protected string $NVPCredentials;
+    protected array $Countries;
+    protected array $States;
+    protected array $AVSCodes;
+    protected array $CVV2Codes;
+    protected array $CurrencyCodes;
+
+    /**
 	 * Constructor
 	 *
 	 * @access	public
